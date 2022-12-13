@@ -1,0 +1,89 @@
+01_updi4avr.name=UPDI4AVR over UART (Standard)
+01_updi4avr.communication=serial
+01_updi4avr.protocol=updi4avr
+01_updi4avr.program.tool=avrdude
+01_updi4avr.program.extra_params=-P {serial.port} -b 1500000
+
+02_updi4avr_HV.name=UPDI4AVR over UART (HV Recomended)
+02_updi4avr_HV.communication=serial
+02_updi4avr_HV.protocol=updi4avr
+02_updi4avr_HV.program.tool=avrdude
+02_updi4avr_HV.program.extra_params=-P {serial.port} -b 1500000 -F
+
+# 11_serialupdi_57600.name=SerialUPDI over USB (57.6k baud)
+# 11_serialupdi_57600.communication=serial
+# 11_serialupdi_57600.protocol=serialupdi
+# 11_serialupdi_57600.program.tool=avrdude
+# 11_serialupdi_57600.program.extra_params=-P {serial.port} -b 57600 -x rtsdtr=high
+
+# 12_serialupdi_115200.name=SerialUPDI over USB (115.2k baud)
+# 12_serialupdi_115200.communication=serial
+# 12_serialupdi_115200.protocol=serialupdi
+# 12_serialupdi_115200.program.tool=avrdude
+# 12_serialupdi_115200.program.extra_params=-P {serial.port} -b 115200 -x rtsdtr=high
+
+13_serialupdi_230400.name=SerialUPDI over USB (230.4k baud)
+13_serialupdi_230400.communication=serial
+13_serialupdi_230400.protocol=serialupdi
+13_serialupdi_230400.program.tool=avrdude
+13_serialupdi_230400.program.extra_params=-P {serial.port} -b 230400 -x rtsdtr=high
+
+14_serialupdi_460800.name=SerialUPDI over USB (460.8k baud)
+14_serialupdi_460800.communication=serial
+14_serialupdi_460800.protocol=serialupdi
+14_serialupdi_460800.program.tool=avrdude
+14_serialupdi_460800.program.extra_params=-P {serial.port} -b 460800 -x rtsdtr=high
+
+21_pickit4_updi.name=PICkit4 over USB (UPDI)
+21_pickit4_updi.communication=usb
+21_pickit4_updi.protocol=pickit4_updi
+21_pickit4_updi.program.protocol=jtagice3_updi
+21_pickit4_updi.program.tool=avrdude
+21_pickit4_updi.program.extra_params=-P usb
+
+# 22_snap_updi.name=MPLAB SNAP over USB (UPDI Remodeling)
+# 22_snap_updi.communication=usb
+# 22_snap_updi.protocol=snap_updi
+# 22_snap_updi.program.protocol=jtagice3_updi
+# 22_snap_updi.program.tool=avrdude
+# 22_snap_updi.program.extra_params=-P usb
+
+23_nedbg.name=Curiosity Nano (nEDBG: ATSAMD21E18)
+23_nedbg.communication=usb
+23_nedbg.protocol=curiosity_updi
+23_nedbg.program.protocol=curiosity_updi
+23_nedbg.program.tool=avrdude
+23_nedbg.program.extra_params=-Pusb
+
+# 24_edbg.name=Xplained Pro (eDBG: AT32UC3A4256)
+# 24_edbg.communication=usb
+# 24_edbg.protocol=xplainedpro_updi
+# 24_edbg.program.protocol=xplainedpro_updi
+# 24_edbg.program.tool=avrdude
+# 24_edbg.program.extra_params=-Pusb
+
+# 25_medbg.name=Xplained Mini/Nano (mEDBG: ATmega32u4)
+# 25_medbg.communication=usb
+# 25_medbg.protocol=xplainedmini_updi
+# 25_medbg.program.protocol=xplainedmini_updi
+# 25_medbg.program.tool=avrdude
+# 25_medbg.program.extra_params=-Pusb
+
+# 26_atmelice_updi.name=Atmel-ICE over USB (UPDI)
+# 26_atmelice_updi.communication=usb
+# 26_atmelice_updi.protocol=atmelice_updi
+# 26_atmelice_updi.program.protocol=jtagice3_updi
+# 26_atmelice_updi.program.tool=avrdude
+# 26_atmelice_updi.program.extra_params=-P usb
+
+# 31_jtag2updi.name=JTAG2UPDI over UART (NVM v2 Remodeling)
+# 31_jtag2updi.communication=serial
+# 31_jtag2updi.protocol=jtag2updi
+# 31_jtag2updi.program.tool=avrdude
+# 31_jtag2updi.program.extra_params=-P {serial.port} -b 115200
+
+# 32_jtag2updi.name=JTAG2UPDI over UART (slow) (NVM v2 Remodeling)
+# 32_jtag2updi.communication=serial
+# 32_jtag2updi.protocol=jtag2updi
+# 32_jtag2updi.program.tool=avrdude
+# 32_jtag2updi.program.extra_params=-P {serial.port} -b 19200

@@ -1,3 +1,9 @@
 [submodule "cores/modernAVR"]
 	path = cores/modernAVR
 	url = https://github.com/askn37/MacroMicroAPI_core.git
+[submodule "libraries/M5_Modules"]
+	path = libraries/M5_Modules
+	url = https://github.com/askn37/M5_Modules_lib.git
+[submodule "libraries/modernAVR"]
+	path = libraries/modernAVR
+	url = https://github.com/askn37/MacroMicroAPI_lib.git

@@ -5,7 +5,7 @@
 /*                                                        */
 /*   OPTIBOOT_CUSTOMVER = 0x20 (+ base version 9 == 41)   */
 /*                                                        */
-/* Copyright 2019-2022 by Kazuhiko Sato.                  */
+/* Copyright 2019-2022 askn (K.Sato) multix.jp            */
 /*                                                        */
 /* Check Device:                                          */
 /*   AVR32DA32 AVR128DB32                                 */

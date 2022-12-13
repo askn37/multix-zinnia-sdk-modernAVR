@@ -88,7 +88,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 ## 導入方法
 
 - 「環境設定」「追加のボードマネージャーのURL」に以下のリンクを追加
-  - [--](http://localhost/)
+  - [`https://askn37.github.io/package_multix_zinnia_index.json`](https://askn37.github.io/package_multix_zinnia_index.json)
 - 「ボードマネージャー」ダイアログパネルを開き、検索欄に "multix" と入力
   - 表示候補から希望の SDK 種別（modernAVR / megaAVR / reduceAVR）を選択して「インストール」
 - 「ボードマネージャー」メニュー候補から上記を選択、選択肢からビルド対象を選ぶ

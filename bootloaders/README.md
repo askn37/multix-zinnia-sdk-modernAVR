@@ -7,24 +7,27 @@
 （Arduino IDE サブメニューから選択される）
 
 このフォルダ以下に含まれる
-```optiboot_x2```または
-```optiboot_dx2```は
-```optiboot```ver.8 を原型とするが、実体は異なる。
+`optiboot_x2`または
+`optiboot_dx2`は
+`optiboot`ver.8 を原型とするが、実体は大きく異なる。
 
 ## optiboot_x2
 
 これは megaAVR/tinyAVR系統用の NVM v1仕様ブートローダーだ。
-ほぼ```MCUdude```版と同じだが以下の点で異なる。
+ほぼ`MCUdude`版に似るが以下の点で異なる。
 
-- マクロ```APP_NOSPM```が有効でビルドされた場合、
-PGMEMアドレス```0x01F6```以降にSPM命令群スニペットが配置される。
+- マクロ`APP_NOSPM`が有効でビルドされた場合、
+PGMEMアドレス`MAPPED_PROGMEM_START+2`以降にSPM命令群スニペットが配置される。
 既定で有効。
-- マクロ```RS485```が有効でビルドされる場合、
-```RS485_XDIR```は任意に変更できない。
-ハードウェアUSARTサポートによるRS485機能のXDIRペリフェラルピンが有効になる。
+- マクロ`RS485`が有効でビルドされる場合、
+周辺機能USARTによるRS485機能の`XDIR`ペリフェラルピン出力が有効になる。
+（原型はGPIO操作で`RS485_XDIR`を制御していた。）
+- マクロ`USART`が有効でビルドされる場合、
+同期従装置USARTが有効になり`XCK`ペリフェラルピンで外部同期クロックを受給できるようになる。
+`XCK`ピンは該当USART周辺機能固定となるので任意には変更できない。
 - EEPROM領域リード/ライトに対応。
 
-megaAVR/tinyAVR系統の全品種でバイナリは原則共通だ。
+`megaAVR` `tinyAVR`各系統の全品種でバイナリは原則共通だ。
 HEXフォルダには主だったUART/LED違いのバリエーションが置かれている。
 
 > 28pin以上の品種は
@@ -38,18 +41,21 @@ HEXフォルダには主だったUART/LED違いのバリエーションが置か
 ## optiboot_dx2
 
 これは AVR DA/DB/DD/EA系統用の NVM v2仕様ブートローダーだ。
-```DxCore```版と似ているが以下の点で異なる。
+`DxCore`版と似ているが以下の点で異なる。
 
-- マクロ```APP_NOSPM```が有効でビルドされた場合、
-PGMEMアドレス```0x01F6```以降にSPM命令群スニペットが配置される。
+- マクロ`APP_NOSPM`が有効でビルドされた場合、
+PGMEMアドレス`PROGMEM_START+2`以降にSPM命令群スニペットが配置される。
 既定で有効。
-- マクロ```RS485```が有効でビルドされる場合、
-```RS485_XDIR```は任意に変更できない。
-ハードウェアUSARTサポートによるRS485機能のXDIRペリフェラルピンが有効になる。
-- 領域リード/ライトに対応。
-- ```STK_GET_PARAMETER```コマンドに対して
-非BIGBOOTビルドでは常にダミー値（0x03固定）を返す。
-BIGBOOTビルドでは正しくoptibootバージョンを返す。
+- マクロ`RS485`が有効でビルドされる場合、
+周辺機能USARTによるRS485機能の`XDIR`ペリフェラルピン出力が有効になる。
+（原型はGPIO操作で`RS485_XDIR`を制御していた。）
+- マクロ`USART`が有効でビルドされる場合、
+同期従装置USARTが有効になり`XCK`ペリフェラルピンで外部同期クロックを受給できるようになる。
+`XCK`ピンは該当USART周辺機能固定となるので任意には変更できない。
+- EEPROM領域リード/ライトに対応。
+- `STK_GET_PARAMETER`コマンドに対して
+`not BIGBOOT`ビルドでは常にダミー値（0x03固定）を返す。
+`BIGBOOT`ビルドでは正しく`optiboot`バージョンを返す。
 
 AVR DA/DB/DD系統の全品種でバイナリは原則共通だ。
 HEXフォルダには主だったUART/LED違いのバリエーションが置かれている。
@@ -66,7 +72,7 @@ HEXフォルダには主だったUART/LED違いのバリエーションが置か
 ## EEPROM書込＋検証
 
 Arduino IDE サブメニューの
-```EEPROM "Erase" and "Replace"```
+`FUSE EEPROM`\>`"Erase" and "Replace"`
 を選択すると、
 EEPROM領域をスケッチと同時に書くことが出来る。
 
@@ -75,34 +81,43 @@ EEPROM領域をスケッチと同時に書くことが出来る。
 char estring[] EEMEM = "0123456789ABVDEF";  // <-- HERE
 ```
 
-その後```EEPROM Save guard "Retained"```とした場合、
+その後`Save guard "Retained"`とした場合、
 新たなスケッチを書き込んでも
 EEPROMは以前に書き込んだ状態を維持する。
 
 この状態は
-```EEPROM Save guard "Erase"```
+`Save guard "Erase"`
 として消去するか、
-```EEPROM "Erase" and "Replace"```
+`"Erase" and "Replace"`
 として改めて書き込み直すまで変わらない。
 
 > EEPROM領域量は MCU品種によって異なる。
-その大きさはマクロ```EEPROM_SIZE```で知ることが出来る。
+その大きさはマクロ`EEPROM_SIZE`で知ることが出来る。
+
+- この機能は`MCUdude`版と運用互換性がある。
+- この機能は`DxCore`版には実装されていない。
 
 ## SPMスニペット
 
 以下の PGMEMアドレスに、この機能が有効なら以下の固定値が書かれている。
 
-|ADDR|NAME|有効時|無効時|
-|----|----|---|---|
-|$01A6|SPM|0xE8 0x95 0x08 0x95|0x00 0x00 0x00 0x00|
-|$01AA|SPM Z+|0xF8 0x95 0x08 0x95|0x00 0x00 0x08 0x95|
+|Series|Address|マジックナンバー : uint32_t (LE)|
+|-|-|-|
+|megaAVR-0 , tinyAVR-0/1/2|MAPPED_PROGMEM_START + 2 Byte|0xE99DC009|
+|AVR DA/DB/DD|PROGMEM_START + 2 Byte|0x950895F8|
 
 これらは
 BOOT領域保護特権で
-CODE領域／APPEND領域の
-FLASH消去／書換を行う場合に使うことが出来る。
-無効時は何もしない。
-（無効時はCALLしても何もせずにRETする）
+CODE領域 / APPEND領域の
+FLASH消去/書換を行うのに使うことが出来る。
+
+- `MCUdude`版や`DxCore`版の同種の機能とは仕様が異なり、相互に互換性はない。
+
+> 実際の使用例は
+[FlashNVM_sample](https://github.com/askn37/MacroMicroAPI_lib/tree/b5d0d734ce43017d904106a845f7fc4c8ccb3f91/examples/EEPROM%20and%20NVM/FlashNVM_sample)
+を参照のこと。
+
+
 
 ## optibootバージョン
 
@@ -125,13 +140,17 @@ optiboot_x2> sh makeall.megaAVR.sh
 optiboot_dx2> sh makeall.modernAVR.sh
 ```
 
-> Windows環境での動作確認はされていない。
+> Windows環境での動作確認はされていない。（要makeコマンド）
 
 ## 著作表示
 
 optibootは GPL v2 で提供されているため、これもまたそれに準じる。
 
-Copyright (c) 2020 Kazuhiko Sato (askn)
+Twitter: [@askn37](https://twitter.com/askn37) \
+GitHub: [https://github.com/askn37/](https://github.com/askn37/) \
+Product: [https://askn37.github.io/](https://askn37.github.io/)
+
+Copyright (c) askn (K.Sato) multix.jp
 
 ----
 

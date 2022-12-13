@@ -8,6 +8,7 @@
  * @copyright Copyright (c) 2022
  *
  */
+#pragma once
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #include <avr/pgmspace.h>
@@ -510,7 +511,7 @@
 extern "C" {
 #endif
 
-extern inline void initVariant (void) {
+inline void initVariant (void) {
   PORTA.PINCONFIG  = PORT_ISC_INPUT_DISABLE_gc;
   PORTA.PINCTRLUPD = ~0;
   PORTB.PINCTRLUPD = ~0;

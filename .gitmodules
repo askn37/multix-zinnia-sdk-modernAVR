@@ -1,0 +1,3 @@
+[submodule "cores/modernAVR"]
+	path = cores/modernAVR
+	url = https://github.com/askn37/MacroMicroAPI_core.git

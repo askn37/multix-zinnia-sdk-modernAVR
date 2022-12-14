@@ -894,7 +894,7 @@ AVRDD14.menu.90_console_baud.15=CONSOLE_BAUD=1000000 bps
 AVRDD14.menu.90_console_baud.20=-
 AVRDD14.menu.90_console_baud.21.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDD14.menu.90_console_baud.21=CONSOLE_BAUD=2400 bps (for ULP)
-AVRDD14.menu.95_bootloader.01.bootloader.file=hex/boot_avrdx_UART0_A0_{upload.speed}_LD7.hex
+AVRDD14.menu.95_bootloader.01.bootloader.file=hex/boot_avrdd_UART0_A0_{upload.speed}_LD7.hex
 AVRDD14.menu.95_bootloader.01.build.console_select=-DSerial=Serial0A
 AVRDD14.menu.95_bootloader.01=UART0 TX:PA0 RX:PA1 LED=PD7 (default)
 

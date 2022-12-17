@@ -72,7 +72,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 工場出荷状態ではブートローダーが書き込まれていないため
 何らかの書込器準備は必要。
 
-- __UPDI4AVR__ -- このソフトウェア開発キットでもメンテナンスされている。JTAG2UPDI上位互換。
+- [__UPDI4AVR__](https://github.com/askn37/UPDI4AVR) -- このSDKでもメンテナンスされている。JTAG2UPDI上位互換。
   - __HV書込__ とUSB-USARTパススルーに対応可。（要外部回路）
   - ゼロからこれを自作する場合は __卵と鶏__ の関係になるため注意。
 - __SerialUPDI__ -- 一般のUSB-UARTと簡易な回路による高速書込環境。
@@ -87,11 +87,17 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 
 ## 導入方法
 
-- 「環境設定」「追加のボードマネージャーのURL」に以下のリンクを追加
+- Arduino IDE の「環境設定」「追加のボードマネージャーのURL」に以下のリンクを追加
   - [`https://askn37.github.io/package_multix_zinnia_index.json`](https://askn37.github.io/package_multix_zinnia_index.json)
 - 「ボードマネージャー」ダイアログパネルを開き、検索欄に "multix" と入力
-  - 表示候補から希望の SDK 種別（modernAVR / megaAVR / reduceAVR）を選択して「インストール」
-- 「ボードマネージャー」メニュー候補から上記を選択、選択肢からビルド対象を選ぶ
+- 目的のアーキテクチャを選択して「インストール」\
+  `megaAVR` `modernAVR` `reduceAVR`
+
+### Developer Preview
+
+- 上記リンクは更新がある程度まとまってから差し替えられるため、公開リポジトリより古い場合がある。
+なる早で Arduino IDE に更新を取り込みたい場合は、下記リンクを使用されたい。
+  - [`https://askn37.github.io/package_multix_zinnia_index_preview.json`](https://askn37.github.io/package_multix_zinnia_index_preview.json)
 
 ## ボード選択メニュー
 

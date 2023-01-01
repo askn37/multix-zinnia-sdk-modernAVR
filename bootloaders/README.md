@@ -136,12 +136,14 @@ optiboot_dx2> sh makeall.modernAVR.sh
 
 `BIGBOOT`ビルドが無効の場合、以下のコードを削る。
 
+- `CLKCTRL_MCLKCTRLA`を設定しない。`BIGBOOT`ビルドでは再設定される。
 - 書込と検証完了後の`STK_LEAVE_PROGMODE`動作で`WDT_CTRLA`を再設定しない。
 `BIGBOOT`ビルドでは設定される。
 - `AVR_OP_LOAD_EXT_ADDR`の確認を省略する。`BIGBOOT`ビルドでは正しく確認される。（後述）
 
 ### FUSE_OSCCFG
 
+`BIGBOOT`ビルドでない場合、
 `CLKCTRL_MCLKCTRLA`を設定しない。
 従って`FUSE_OSCFG`による`OSC32K`設定を覆さない。
 故にこのフューズが`OSCHF`でない場合は、正しく動作しない。

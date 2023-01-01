@@ -126,8 +126,8 @@ optiboot_%.hex: optiboot_%.elf
 
 optiboot_%.elf:	optiboot_dx2.c FORCE
 	$(CC) $(CFLAGS) $(CPU_OPTIONS) $(LED_OPTIONS) $(UART_OPTIONS) $(COMMON_OPTIONS) $(LDFLAGS) $(PACK_OPT) -mmcu=$* -o $@ $<
-	@echo Bootloader size with skeleton App
-	@$(SIZE) $@
+#	@echo Bootloader size with skeleton App
+#	@$(SIZE) $@
 	$(LISTING) $@ > optiboot_$*.lst
 
 

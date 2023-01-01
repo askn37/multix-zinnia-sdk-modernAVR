@@ -146,12 +146,6 @@ typedef union {
  *  0-series, but even simpler, since there's no fuse to account for.
  */
 
-/* Clock control (Power On Reset) default settings;
- *   CLKCTRL.MCLKCTRLA  = 0    ; CLKCTRL_CLKSEL_OSCHF_gc
- *   CLKCTRL.MCLKCTRLB  = 0    ; Prescaler Disable = Division 1x
- *   CLKCTRL.OSCHFCTRLA = 0xC0 ; CLKCTRL_FREQSEL_4M_gc (4MHz)
- */
-
 #if !defined(USART)
 
 /*
@@ -207,28 +201,28 @@ typedef union {
  */
 
 int main (void)
-    __attribute__((OS_main))
-    __attribute__((section (".init9")))
-    __attribute__((used));
+  __attribute__((OS_main))
+  __attribute__((section (".init9")))
+  __attribute__((used));
 void putch (uint8_t ch)
-    __attribute__((noinline))
-    __attribute__((leaf));
+  __attribute__((noinline))
+  __attribute__((leaf));
 uint8_t getch (void)
-    __attribute__((noinline))
-    __attribute__((leaf));
+  __attribute__((noinline))
+  __attribute__((leaf));
 void verifySpace (void)
-    __attribute__((noinline));
+  __attribute__((noinline));
 void watchdogConfig (uint8_t x)
-    __attribute__((noinline));
+  __attribute__((noinline));
 void nvm_cmd (uint8_t cmd)
-    __attribute__((noinline))
-    __attribute__((used));
+  __attribute__((noinline))
+  __attribute__((used));
 void getNch (uint8_t count);
 
 #ifndef APP_NOSPM
 void vector_table (void)
-    __attribute__((naked))
-    __attribute__((section (".init0")));
+  __attribute__((naked))
+  __attribute__((section (".init0")));
 #endif
 
 #define watchdogReset() __builtin_avr_wdr()
@@ -296,6 +290,13 @@ int main (void) {
   } // end of jumping to app
 
   watchdogConfig(WDTPERIOD);
+
+#if defined(BIGBOOT)
+  /* Clock control (Power On Reset) default settings; */
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLA, 0);     // CLKCTRL_CLKSEL_OSCHF_gc
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0);     // Prescaler Disable = Division 1x
+  _PROTECTED_WRITE(CLKCTRL_OSCHFCTRLA, 0x0C); // CLKCTRL_FREQSEL_4M_gc (4MHz)
+#endif
 
   // PORTMUX setting
 #if defined (MYUART_PMUX_VAL)
@@ -412,7 +413,7 @@ int main (void) {
     else if (ch == STK_UNIVERSAL) {
       /* This command will not be sent if there is
        * no 'load_ext_addr' in the avrdude.conf settings. */
-#ifdef BIGBOOT
+#if defined(BIGBOOT)
       ch = getch();
       if (ch == AVR_OP_LOAD_EXT_ADDR) {
         // get address (24bit-wide, 3bytes)
@@ -458,7 +459,7 @@ int main (void) {
         __asm__ __volatile__ ( R"#ASM#( ;
                   LDI     R24, %[flp]   ; R24 <- NVMCTRL_CMD_FLPER
                   RCALL   nvm_cmd       ; Change NVMCTRL command
-                  SPM                   ; DS(RMPZ:Z) <- 0xFFFF dummy write
+                  SPM                   ; DS(RAMPZ:Z) <- 0xFFFF dummy write
                   LDI     R24, %[flw]   ; R24 <- NVMCTRL_CMD_FLWR
                   RCALL   nvm_cmd       ; Change NVMCTRL command
           L_%=:   LD      R0, X+        ; R0 <- X+
@@ -483,7 +484,7 @@ int main (void) {
         address.word += MAPPED_EEPROM_START;
         ch = length.word;
         __asm__ __volatile__ ( R"#ASM#( ;
-                  LDI     R24, %[flp]   ; R24 <- NVMCTRL_CMD_FLPER
+                  LDI     R24, %[flp]   ; R24 <- NVMCTRL_CMD_EEPER
                   RCALL   nvm_cmd       ; Change NVMCTRL command
           L_%=:   LD      R0, X+        ; R0 <- X+
                   ST      Z+, R0
@@ -560,7 +561,7 @@ int main (void) {
     }
     else {
 
-#ifdef BIGBOOT
+#if defined(BIGBOOT)
       /* This covers the response to commands like STK_LEAVE_PROGMODE */
       /* Even if you ignore it, the WDT will be reset anyway. */
       if (ch == STK_LEAVE_PROGMODE) {
@@ -654,7 +655,7 @@ void nvm_cmd (uint8_t cmd) {
   );
 }
 
-#ifdef BIGBOOT
+#if defined(BIGBOOT)
 /*
  * Optiboot is designed to fit in 512 bytes, with a minimum feature set.
  * Some chips have a minimum bootloader size of 1024 bytes, and sometimes
@@ -708,7 +709,7 @@ OPTFLASHSECT const char f_uart[] = "UARTTX=" UART_NAME;
 #endif
 
 OPTFLASHSECT const char f_date[] = "Built:" __DATE__ ":" __TIME__;
-#ifdef BIGBOOT
+#if defined(BIGBOOT)
 OPT2FLASH(BIGBOOT);
 #endif
 OPTFLASHSECT const char f_device[] = "Device=" xstr(__AVR_DEVICE_NAME__);

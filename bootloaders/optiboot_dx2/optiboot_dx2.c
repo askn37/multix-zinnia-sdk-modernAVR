@@ -442,7 +442,7 @@ int main (void) {
       uint16_t len = length.word;
 
       ch = getch();
-      uint8_t _buff[512];
+      uint8_t* _buff = RAMEND - 767;
       addr16_t buff = {_buff};
       do *buff.bptr++ = getch(); while (--len);
       buff.bptr = _buff;

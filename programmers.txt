@@ -4,35 +4,17 @@
 01_updi4avr.program.tool=avrdude
 01_updi4avr.program.extra_params=-P {serial.port} -b 1500000
 
-02_updi4avr_HV.name=UPDI4AVR over UART (HV Recomended)
+02_updi4avr_HV.name=UPDI4AVR over UART (HV Recommended)
 02_updi4avr_HV.communication=serial
 02_updi4avr_HV.protocol=updi4avr
 02_updi4avr_HV.program.tool=avrdude
 02_updi4avr_HV.program.extra_params=-P {serial.port} -b 1500000 -F
 
-# 11_serialupdi_57600.name=SerialUPDI over USB (57.6k baud)
-# 11_serialupdi_57600.communication=serial
-# 11_serialupdi_57600.protocol=serialupdi
-# 11_serialupdi_57600.program.tool=avrdude
-# 11_serialupdi_57600.program.extra_params=-P {serial.port} -b 57600 -x rtsdtr=high
-
-# 12_serialupdi_115200.name=SerialUPDI over USB (115.2k baud)
-# 12_serialupdi_115200.communication=serial
-# 12_serialupdi_115200.protocol=serialupdi
-# 12_serialupdi_115200.program.tool=avrdude
-# 12_serialupdi_115200.program.extra_params=-P {serial.port} -b 115200 -x rtsdtr=high
-
-13_serialupdi_230400.name=SerialUPDI over USB (230.4k baud)
+13_serialupdi_230400.name=SerialUPDI over USB
 13_serialupdi_230400.communication=serial
 13_serialupdi_230400.protocol=serialupdi
 13_serialupdi_230400.program.tool=avrdude
-13_serialupdi_230400.program.extra_params=-P {serial.port} -b 230400 -x rtsdtr=high
-
-14_serialupdi_460800.name=SerialUPDI over USB (460.8k baud)
-14_serialupdi_460800.communication=serial
-14_serialupdi_460800.protocol=serialupdi
-14_serialupdi_460800.program.tool=avrdude
-14_serialupdi_460800.program.extra_params=-P {serial.port} -b 460800 -x rtsdtr=high
+13_serialupdi_230400.program.extra_params=-P {serial.port} -b 230400
 
 21_pickit4_updi.name=PICkit4 over USB (UPDI)
 21_pickit4_updi.communication=usb

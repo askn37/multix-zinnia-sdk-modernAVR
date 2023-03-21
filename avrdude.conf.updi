@@ -93,6 +93,12 @@ part
 
     memory "boot"
         size = 0;
+        offset = 0x800000;
+    ;
+
+    memory "application"
+        size = 0;
+        offset = 0x800200;
     ;
 
     memory "signature"
@@ -1390,6 +1396,12 @@ part
 
     memory "boot"
         size = 0;
+        offset = 0x800000;
+    ;
+
+    memory "application"
+        size = 0;
+        offset = 0x800200;
     ;
 
     memory "signature"

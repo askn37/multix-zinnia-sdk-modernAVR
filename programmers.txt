@@ -2,13 +2,13 @@
 01_updi4avr.communication=serial
 01_updi4avr.protocol=updi4avr
 01_updi4avr.program.tool=avrdude
-01_updi4avr.program.extra_params=-P {serial.port} -b 1500000
+01_updi4avr.program.extra_params=-P {serial.port} -b 1000000
 
 02_updi4avr_HV.name=UPDI4AVR over UART (HV Recommended)
 02_updi4avr_HV.communication=serial
 02_updi4avr_HV.protocol=updi4avr
 02_updi4avr_HV.program.tool=avrdude
-02_updi4avr_HV.program.extra_params=-P {serial.port} -b 1500000 -F
+02_updi4avr_HV.program.extra_params=-P {serial.port} -b 1000000 -F
 
 13_serialupdi_230400.name=SerialUPDI over USB
 13_serialupdi_230400.communication=serial

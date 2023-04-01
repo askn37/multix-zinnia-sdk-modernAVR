@@ -35,7 +35,7 @@ compiler.objcopy.eep.extra_flags=
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 compiler.objdump.cmd=avr-objdump
 compiler.objdump.flags=--disassemble --source --line-numbers --demangle --section=.text --section=.data --section=.eeprom --section=.nvmem
-compiler.path={runtime.platform.path}/../../../tools/avr-gcc/7.3.0-avr8-gnu-toolchain/bin/
+compiler.path={runtime.platform.path}/../../../tools/avr-gcc/7.3.0-avr8-gnu-toolchain-230322/bin/
 compiler.size.cmd=avr-size
 compiler.warning_flags.all=-Wall -Wextra
 compiler.warning_flags.default=

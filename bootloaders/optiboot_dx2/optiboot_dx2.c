@@ -345,7 +345,7 @@ int main (void) {
 
 #ifdef PULLUP_RX
   // RX pin pullup (RX is TX next GPIO)
-  MYUART_TXCFG = PORT_PULLUPEN_bm;
+  MYUART_RXCFG = PORT_PULLUPEN_bm;
 #endif
 
 #ifdef USART

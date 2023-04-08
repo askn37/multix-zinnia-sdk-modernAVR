@@ -1,6 +1,7 @@
 # Bootloaders for modernAVR
 
-- optiboot_dx2 -- ブートローダーソース群（modernAVR用）
+- optiboot_dx2 -- ブートローダーソース群（AVR_DA/DB/DD用）
+- optiboot_ex1 -- ブートローダーソース群（AVR_EA用）
 - empty -- 空のダミーHEXだけがある
 - hex -- ビルド済のブートローダーHEXファイル群
 （Arduino IDE サブメニューから選択される）
@@ -26,7 +27,6 @@ PGMEMアドレス`PROGMEM_START+2`以降にSPM命令群スニペットが配置�
 同期従装置USARTが有効になり`XCK`ペリフェラルピンで外部同期クロックを受給できるようになる。
 `XCK`ピンは該当USART周辺機能固定となるので任意には変更できない。
 - EEPROM領域リード/ライトに対応。
-- AVR_EA については現在未検証。
 
 __AVR_DA/DB/DD__ 系統の全品種でバイナリは原則共通だ。
 HEXフォルダには主だったUART/LED違いのバリエーションが置かれている。
@@ -39,6 +39,12 @@ HEXフォルダには主だったUART/LED違いのバリエーションが置か
 で基本的に統一されている。\
 > 小ピン品種ではこの設定はできないので
 バリエーションがある。
+
+## optiboot_ex1
+
+これは __AVR_EA__ 系統用の NVM v3仕様ブートローダーだ。
+`optiboot_dx2`と機能は同等だが、主クロック制御器とSPMスニペットは
+`optiboot_x2`に準じている。
 
 ## EEPROM書込＋検証
 
@@ -74,8 +80,8 @@ EEPROMは以前に書き込んだ状態を維持する。
 
 |Series|Address|マジックナンバー : uint32_t (LE)|
 |-|-|-|
-|megaAVR-0 , tinyAVR-0/1/2|MAPPED_PROGMEM_START + 2 Byte|0xE99DC009|
-|AVR DA/DB/DD|PROGMEM_START + 2 Byte|0x950895F8|
+|megaAVR-0 , tinyAVR-0/1/2, AVR_EA|MAPPED_PROGMEM_START + 2 Byte|0xE99DC009|
+|AVR_DA/DB/DD|PROGMEM_START + 2 Byte|0x950895F8|
 
 これらは
 BOOT領域保護特権で
@@ -106,6 +112,7 @@ FLASH消去/書換を行うのに使うことが出来る。
 
 ```c
 optiboot_dx2> sh makeall.modernAVR.sh
+optiboot_ex1> sh makeall.modernAVR.sh
 ```
 
 > Windows環境での確認はされていない。（要makeコマンド）
@@ -130,6 +137,7 @@ optiboot_dx2> sh makeall.modernAVR.sh
 しかし`page_size=1`とすると *avrdude* はフューズ領域操作と混同して異常動作を起こす。
 真にEEPROMバイト書込が可能な`AVR_DA/DB/DD`では、嘘でもこれを2以上にしなければならない。
 
+> `AVR_DA/DB/DD`での粒度は`page_size=16`である。\
 > `AVR_EA`での粒度は`page_size=8`である。
 
 ### BIGBOOT
@@ -139,7 +147,7 @@ optiboot_dx2> sh makeall.modernAVR.sh
 - `CLKCTRL_MCLKCTRLA`を設定しない。`BIGBOOT`ビルドでは再設定される。
 - 書込と検証完了後の`STK_LEAVE_PROGMODE`動作で`WDT_CTRLA`を再設定しない。
 `BIGBOOT`ビルドでは設定される。
-- `AVR_OP_LOAD_EXT_ADDR`の確認を省略する。`BIGBOOT`ビルドでは正しく確認される。（後述）
+- `STK_UNIVERSAL`のサブパラメータ`AVR_OP_LOAD_EXT_ADDR`の確認を省略する。`BIGBOOT`ビルドでは正しく確認される。（後述）
 
 ### FUSE_OSCCFG
 
@@ -157,24 +165,27 @@ CPU起動後に初期化コード内で`CLKCTRL_MCLKCTRLA`を設定するよう�
 `FUSE_OSCCFG`選択が`OSCHF`であるなら既定の`CLK_PER`は4MHzであるから
 コンパイル時定数`BAUD_RATE`が`62501L`以上である限り、上位レジスタ`BAUDH`はゼロ初期化値のままと扱う。
 
-> `62500L`以下を指定すると 4Byteを追加消費する。
+> 4MHz駆動の`optiboot_dx2`であれば`62500L`以下を指定すると 4Byteを追加消費する。
 
-### RAMPZ
+### RAMPZ (optiboot_dx2)
 
 コンパイル時の指定品種に関わらず`RAMPZ`すなわち`_SFR_MEM8(0x3B)`レジスタの書込可能なビットは、
 それが必要とされる品種に対し、必要な量だけが実装されているものとする。
 従って17bit目のアドレスは常にここに書く。
 そしてその必要のない品種では結果的に無視される。
 
-> これを考慮すると 64KiB以下品種用はより小さな別バイナリを作れるが、それ専用となる。
+> これを考慮すると 64KiB以下品種用はより小さな別バイナリを作れるが、それ専用となる。\
+> `AVR_EA`系統は最大64KiBのため、RAMPZは削除されている。
 
-### STK_UNIVERSAL
+### STK_UNIVERSAL (optiboot_dx2)
 
 `BIGBOOT`ビルドでない場合、
 この`STK500`指令は`RAMPZ`のある品種についてのみ出現すると仮定している。
 かつそれは必ず`AVR_OP_LOAD_EXT_ADDR`指令であるとも仮定している。
 
-### RAMSIZE
+> 従って`AVR_DA/DB/DD`用以外はコードが削除されている。
+
+### RAMSIZE (optiboot_dx2)
 
 `RAMSIZE`値はコンパイル時の指定品種に関わらず `1024`（`RAMSTART`位置が`RAMEND-1023`）であると仮定する。
 これは現在公開されている既知のスペックシート中の最低値`2048`より十分低い。

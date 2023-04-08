@@ -138,7 +138,8 @@ optiboot_ex1> sh makeall.modernAVR.sh
 真にEEPROMバイト書込が可能な`AVR_DA/DB/DD`では、嘘でもこれを2以上にしなければならない。
 
 > `AVR_DA/DB/DD`での粒度は`page_size=16`である。\
-> `AVR_EA`での粒度は`page_size=8`である。
+> `AVR_EA`での粒度は`page_size=8`である。\
+> *avrdude* のターミナルモードでは逆に`page_size=1`操作が強制される。
 
 ### BIGBOOT
 

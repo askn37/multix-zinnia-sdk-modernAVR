@@ -44,7 +44,7 @@ HEXフォルダには主だったUART/LED違いのバリエーションが置か
 
 これは __AVR_EA__ 系統用の NVM v3仕様ブートローダーだ。
 `optiboot_dx2`と機能は同等だが、主クロック制御器とSPMスニペットは
-`optiboot_x2`に準じている。
+`megaAVR`用の`optiboot_x2`に準じている。
 
 ## EEPROM書込＋検証
 

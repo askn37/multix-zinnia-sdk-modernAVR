@@ -158,7 +158,8 @@ optiboot_ex1> sh makeall.modernAVR.sh
 故にこのフューズが`OSCHF`でない場合は、正しく動作しない。
 
 > ボードサブメニューの`Clock`設定`OSCULP`選択はフューズを書かず、
-CPU起動後に初期化コード内で`CLKCTRL_MCLKCTRLA`を設定するようになっている。
+CPU起動後に初期化コード内で`CLKCTRL_MCLKCTRLA`を設定するようになっている。\
+> `AVR_EA`では`OSC32K`起動設定が削除されたため、これは該当しない。
 
 ### USART[n]_BAUD
 

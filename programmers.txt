@@ -4,7 +4,7 @@
 01_updi4avr.program.tool=avrdude
 01_updi4avr.program.extra_params=-P {serial.port} -b 921600
 
-02_updi4avr_HV.name=UPDI4AVR over UART (HV Recommended)
+02_updi4avr_HV.name=UPDI4AVR over UART (HV Enable)
 02_updi4avr_HV.communication=serial
 02_updi4avr_HV.protocol=updi4avr
 02_updi4avr_HV.program.tool=avrdude

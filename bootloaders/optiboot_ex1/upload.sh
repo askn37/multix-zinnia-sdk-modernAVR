@@ -1,0 +1,14 @@
+avrdude \
+-C ../..//avrdude.conf.updi \
+-p avr64ea32 \
+-c updi4avr \
+-P /dev/cu.wchusbserial1420 \
+-e -v \
+-U fuse0:w:0b00000000:m \
+-U fuse1:w:0b00000000:m \
+-U fuse2:w:0b00000000:m \
+-U fuse5:w:0b11011001:m \
+-U fuse6:w:0b00000000:m \
+-U fuse7:w:0x00:m \
+-U fuse8:w:0x02:m \
+-U flash:w:../hex/boot_avrex_test_UART0_A0_115200_LA7.hex:i

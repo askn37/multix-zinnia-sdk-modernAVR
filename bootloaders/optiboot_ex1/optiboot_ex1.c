@@ -1,24 +1,19 @@
 /**********************************************************/
-/* Optiboot bootloader for AVR DA, AVR DB, AVR DD         */
+/* Optiboot bootloader for AVR EA series                  */
 /*                                                        */
 /* Experimental Customization                             */
 /*                                                        */
 /*   OPTIBOOT_CUSTOMVER = 0x20 (+ base version 9 == 41)   */
 /*                                                        */
-/* Copyright 2019-2022 askn (K.Sato) multix.jp            */
+/* Copyright 2019-2023 askn (K.Sato) multix.jp            */
 /*                                                        */
 /* Check Device:                                          */
-/*   AVR32DA32 AVR128DB32                                 */
-/*   AVR32DD14 AVR64DD32                                  */
+/*   AVR64EA32                                            */
 /*                                                        */
 /* Edit History:                                          */
 /*                                                        */
-/* Arg 2022                                               */
-/* 9.2.1 AVR 16/32/64/128 DA/DB/DD (NVMCTRL v2)           */
-/*       EEPROM and 128KiB Flash support.                 */
-/*       native RS485 and USART support.                  */
-/*       spm_zp function : magicnumber $95F8, $9008       */
-/*                                                        */
+/* April 2023                                               */
+/* 9.2.1                                                  */
 /**********************************************************/
 
 /**********************************************************/
@@ -97,18 +92,6 @@ const uint16_t optiboot_version
 const uint16_t optiboot_version = 256 * (OPTIBOOT_MAJVER + OPTIBOOT_CUSTOMVER) + OPTIBOOT_MINVER;
 
 /*
- * RAMPZ - Extended Z-pointer Register
- *
- * This register only has meaning for MCU types with addresses of 17 bits or greater.
- * Others have no effect and are ignored.
- *
- * If not defined, declare a reserved address common to the series.
- */
-#if !defined(RAMPZ)
-  #define RAMPZ _SFR_MEM8(0x3B)
-#endif
-
-/*
  * optiboot uses several "address" variables that are sometimes byte pointers,
  * sometimes word pointers. sometimes 16bit quantities, and sometimes built
  * up from 8bit input characters.  avr-gcc is not great at optimizing the
@@ -123,11 +106,10 @@ typedef union {
 } addr16_t;
 
 /*
- * pin_defs_dx2.h
  * This contains most of the rather ugly defines that implement our
  * ability to use UART=n and LED=D3, and some avr family bit name differences.
  */
-#include "pin_defs_dx2.h"
+#include "pin_defs_ex1.h"
 
 /*
  * stk500.h contains the constant definitions for the stk500v1 comm protocol
@@ -142,13 +124,6 @@ typedef union {
   #warning UART is ignored for this chip (use UARTTX=PortPin instead)
 #endif
 
-/*
- * The AVR Dx-series parts all reset to running on the internal oscillator
- *  at 4 MHz (the internal oscillator speed is selectable here, unlike
- *  older generations). This is much like the tinyAVR 0/1/2 and megaAVR
- *  0-series, but even simpler, since there's no fuse to account for.
- */
-
 #if !defined(USART)
 
 /*
@@ -161,13 +136,16 @@ typedef union {
 /*
  * calculate USARTn.BAUD setting value (asynchronous standard mode)
  */
-#define BAUD_SETTING ((4000000L * 64) / (16L * BAUD_RATE))
+#define BAUD_SETTING_16 ((16000000L / 6 * 64) / (16L * BAUD_RATE))
+#define BAUD_SETTING_20 ((20000000L / 6 * 64) / (16L * BAUD_RATE))
 
-#if (BAUD_SETTING < 64)
-  // max BAUD_RATE 250000 bps (4 Mhz)
+#if (BAUD_SETTING_16 < 64)
   #error Unachievable baud rate (too fast) BAUD_RATE
-#elif (BAUD_SETTING > 65535)
-  // min BAUD_RATE 245 bps (4 Mhz)
+#elif (BAUD_SETTING_16 > 65535)
+  #error Unachievable baud rate (too slow) BAUD_RATE
+#elif (BAUD_SETTING_20 < 64)
+  #error Unachievable baud rate (too fast) BAUD_RATE
+#elif (BAUD_SETTING_20 > 65535)
   #error Unachievable baud rate (too slow) BAUD_RATE
 #endif
 
@@ -204,28 +182,33 @@ typedef union {
  */
 
 int main (void)
-  __attribute__((OS_main))
-  __attribute__((section (".init9")))
-  __attribute__((used));
+    __attribute__((OS_main))
+    __attribute__((section (".init9")))
+    __attribute__((used));
 void putch (uint8_t ch)
-  __attribute__((noinline))
-  __attribute__((leaf));
+    __attribute__((noinline))
+    __attribute__((leaf));
 uint8_t getch (void)
-  __attribute__((noinline))
-  __attribute__((leaf));
+    __attribute__((noinline))
+    __attribute__((leaf));
 void verifySpace (void)
-  __attribute__((noinline));
+    __attribute__((noinline));
 void watchdogConfig (uint8_t x)
-  __attribute__((noinline));
-void nvm_cmd (uint8_t cmd)
-  __attribute__((noinline))
-  __attribute__((used));
+    __attribute__((noinline));
 void getNch (uint8_t count);
 
 #ifndef APP_NOSPM
 void vector_table (void)
-  __attribute__((naked))
-  __attribute__((section (".init0")));
+    __attribute__((naked))
+    __attribute__((section (".init0")));
+void nvmctrl (uint8_t _nvm_cmd)
+    __attribute__((used))
+    __attribute__((noinline))
+    __attribute__((section (".init1")));
+void nvmwrite (uint8_t* _address, uint8_t _data)
+    __attribute__((used))
+    __attribute__((noinline))
+    __attribute__((section (".init2")));
 #endif
 
 #define watchdogReset() __builtin_avr_wdr()
@@ -239,16 +222,25 @@ static inline void flash_led (uint8_t);
  * for self-modifying the flash area.
  *
  * $0000 : Started Bootloader (POR)
- * $0002 : spm_zp function : magicnumber $95F8, $9008
+ * $0002 : nvmwrite function : magicnumber $C009
+ * $0004 : nvmctrl function  : magicnumber $E99D, $BF94
  */
 
 #ifndef APP_NOSPM
 void vector_table (void) {
   __asm__ __volatile__ (
     "RJMP    main \n"
-    "SPM Z+  \n"
-    "RET     \n"
+    "RJMP    nvmwrite"
+    /* next nvmctrl */
   );
+}
+
+void nvmctrl (uint8_t _nvm_cmd) {
+  _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
+  while (NVMCTRL.STATUS & (NVMCTRL_EEBUSY_bm | NVMCTRL_FLBUSY_bm));
+}
+void nvmwrite (uint8_t* _address, uint8_t _data) {
+  *_address = _data;
 }
 #endif
 
@@ -288,7 +280,7 @@ int main (void) {
 #endif
   {
     RSTCTRL_RSTFR = ch;   // clear the reset causes before jumping to app...
-    GPR_GPR0 = ch;        // but, stash the reset cause in GPR_GPR0 for use by app...
+    GPR_GPR0 = ch;        // but, stash the reset cause in GPIOR0 for use by app...
     __asm__ __volatile__ ( "RJMP app" );
   } // end of jumping to app
 
@@ -308,21 +300,30 @@ int main (void) {
 
 #if !defined(USART)
 
-#if (BAUD_SETTING < 256)
-  MYUART.BAUDL = BAUD_SETTING;    // 8bit-wide register
-#else
-  MYUART.BAUD = BAUD_SETTING;     // 16bit-wide register
-#endif
+if (bit_is_set(FUSE_OSCCFG, FUSE_OSCHFFRQ_bp)) {
+  #if (BAUD_SETTING_16 < 256)
+    MYUART.BAUDL = BAUD_SETTING_16;    // 8bit-wide register
+  #else
+    MYUART.BAUD = BAUD_SETTING_16;     // 16bit-wide register
+  #endif
+}
+else {
+  #if (BAUD_SETTING_20 < 256)
+    MYUART.BAUDL = BAUD_SETTING_20;    // 8bit-wide register
+  #else
+    MYUART.BAUD = BAUD_SETTING_20;     // 16bit-wide register
+  #endif
+}
 
 #endif /* not USART */
 
 #ifdef RS485
   // RS485 setting
-  #ifdef MYUART_XDIRPIN_BP
+  #ifdef MYUART_XDIRCFG
     #ifdef RS485_INVERT
   MYUART_XDIRCFG = PORT_INVEN_bm;
     #endif
-  MYUART.CTRLA = USART_RS485_ENABLE_gc;
+  MYUART.CTRLA = USART_RS485_EXT_gc;
   #else
     #error RS485 XDIR pin not USART exists
   #endif
@@ -348,7 +349,7 @@ int main (void) {
 
 #ifdef PULLUP_RX
   // RX pin pullup (RX is TX next GPIO)
-  MYUART_RXCFG = PORT_PULLUPEN_bm;
+  MYUART_TXCFG = PORT_PULLUPEN_bm;
 #endif
 
 #ifdef USART
@@ -411,139 +412,72 @@ int main (void) {
       address.bytes[0] = getch();
       address.bytes[1] = getch();
       // byte addressed mode
+      // Both flash and EEPROM start at offset zero
       verifySpace();
     }
+#ifdef BIGBOOT
     else if (ch == STK_UNIVERSAL) {
-      /* This command will not be sent if there is
-       * no 'load_ext_addr' in the avrdude.conf settings. */
-#if defined(BIGBOOT)
-      ch = getch();
-      if (ch == AVR_OP_LOAD_EXT_ADDR) {
-        // get address (24bit-wide, 3bytes)
-        getch();          // get '0'
-        RAMPZ = getch();  // get the address and put it in RAMPZ
-                          // (unshifted, you were getting the byte address here)
-        getNch(1);
-      }
-      else {
-        getNch(3);        // drop 3bytes
-      }
-      putch(0x00);        // response '0'
-#else
-      getch();
-      getch();
-      RAMPZ = getch();    // get the address and put it in RAMPZ
-      getNch(1);
-      putch(0x00);        // response '0'
-#endif
+      // Not used because it is within 64KiB
+      getNch(4);
+      putch(0x00);  // response '0'
     }
+#endif
     else if (ch == STK_PROG_PAGE) {
-      /* Write up to 1 page of flash (or EEPROM, except that isn't supported due to space) */
-
+      /* Write up to 1 page of flash */
       /* Write memory block mode, length is big endian.  */
       length.bytes[1] = getch();
       length.bytes[0] = getch();
-      uint16_t len = length.word;
-
       ch = getch();
-      uint8_t* _buff = RAMEND - 767;
-      addr16_t buff = {_buff};
-      do *buff.bptr++ = getch(); while (--len);
-      buff.bptr = _buff;
 
+      nvmctrl(NVMCTRL_CMD_NOCMD_gc);
       if (ch == 'F') {
-        /*
-        * Set the RAMPZ IO register (0x003B) correctly before calling.
-        * Counter is in units of "WORD"
-        * Out of range is initialized to 0xFF and rewritten for each page block.
-        */
-       /* Do not add MAPPED_PROGMEM_START as you are using absolute addresses. */
-        ch = length.word >> 1;
-        __asm__ __volatile__ ( R"#ASM#( ;
-                  LDI     R24, %[flp]   ; R24 <- NVMCTRL_CMD_FLPER
-                  RCALL   nvm_cmd       ; Change NVMCTRL command
-                  SPM                   ; DS(RAMPZ:Z) <- 0xFFFF dummy write
-                  LDI     R24, %[flw]   ; R24 <- NVMCTRL_CMD_FLWR
-                  RCALL   nvm_cmd       ; Change NVMCTRL command
-          L_%=:   LD      R0, X+        ; R0 <- X+
-                  LD      R1, X+        ; R1 <- X+
-                  SPM     Z+            ; DS(RAMPZ:Z+) <- R1:R0
-                  DEC     %[len]        ; Decrement
-                  BRNE    L_%=          ; Branch if Not Equal
-                  CLR     __zero_reg__  ; R1 <- 0
-          )#ASM#"
-          : [len] "=d"  ((uint8_t)ch)       /* word length counter */
-          :       "0"   ((uint8_t)ch),
-                  "z"   (address.bptr),     /* Z <- to flash.ptr   */
-            [ptr] "x"   (buff.bptr),        /* X <- from sram.ptr  */
-            [flp] "I"   ((uint8_t)NVMCTRL_CMD_FLPER_gc),
-            [flw] "I"   ((uint8_t)NVMCTRL_CMD_FLWR_gc)
-          : "r24", "r25"
-        );
+        /* Flash write */
+        if (address.bytes[1] < 0x80) {
+          /* Select low FPAGE */
+          address.word += MAPPED_PROGMEM_START;
+          _PROTECTED_WRITE(NVMCTRL_CTRLB, NVMCTRL_FLMAP_SECTION0_gc);
+        }
+        else {
+          /* Select high FPAGE */
+          _PROTECTED_WRITE(NVMCTRL_CTRLB, NVMCTRL_FLMAP_SECTION1_gc);
+        }
+        ch = NVMCTRL_CMD_FLPERW_gc;
       }
       else {
-        /* Supports EEPROM writing. */
-        /* You can pass the file with 'avrdude -U "eeprom:w:Sketch.eep:i"' option. */
+        /* EEPROM write */
         address.word += MAPPED_EEPROM_START;
-        ch = length.word;
-        __asm__ __volatile__ ( R"#ASM#( ;
-                  LDI     R24, %[flp]   ; R24 <- NVMCTRL_CMD_EEPER
-                  RCALL   nvm_cmd       ; Change NVMCTRL command
-          L_%=:   LD      R0, X+        ; R0 <- X+
-                  ST      Z+, R0
-                  DEC     %[len]        ; Decrement
-                  BRNE    L_%=          ; Branch if Not Equal
-          )#ASM#"
-          : [len] "=d"  ((uint8_t)ch)       /* word length counter */
-          :       "0"   ((uint8_t)ch),
-                  "z"   (address.bptr),     /* Z <- to flash.ptr   */
-            [ptr] "x"   (buff.bptr),        /* X <- from sram.ptr  */
-            [flp] "I"   ((uint8_t)NVMCTRL_CMD_EEERWR_gc)
-          : "r24", "r25"
-        );
+        ch = NVMCTRL_CMD_EEPERW_gc;
       }
+      do *(address.bptr++) = getch(); while (--length.word);
+      nvmctrl(ch);
+
+      /* Read command terminator, start reply */
       verifySpace();
     }
     else if (ch == STK_READ_PAGE) {
-
       /* Read memory block mode, length is big endian.  */
       length.bytes[1] = getch();
       length.bytes[0] = getch();
-
       ch = getch();
       verifySpace();
 
       // the entire flash does not fit in the same address space
       // so we call that helper function.
       if (ch == 'F') {
-
-        /*
-         * The ELPM shouldn't work on devices below 128KiB without RAMPZ,
-         * but I've tried it and it works as expected on any AVR-Dx family.
-         *
-         * https://ww1.microchip.com/downloads/en/DeviceDoc/AVR-InstructionSet-Manual-DS40002198.pdf
-         */
-
-        __asm__ __volatile__ ( R"#ASM#( ; Z <- address.bptr
-          L_%=: ELPM    R24, Z+         ; R24 <- (RAMPZ:Z)
-                RCALL   putch           ; putch(R24)
-                SUBI    %A[len], 0x01   ; Decrement R16:R17
-                SBC     %B[len], R1     ;
-                BRNE    L_%=            ; Branch if Not Equal
-          )#ASM#"
-          : [len] "=d"  (length.word)
-          :        "z"  (address.bptr),
-                   "0"  (length.word)
-          : "r24", "r25"
-        );
-
+        if (address.bytes[1] < 0x80) {
+          /* Select low FPAGE */
+          address.word += MAPPED_PROGMEM_START;
+          _PROTECTED_WRITE(NVMCTRL_CTRLB, NVMCTRL_FLMAP_SECTION0_gc);
+        }
+        else {
+          /* Select high FPAGE */
+          _PROTECTED_WRITE(NVMCTRL_CTRLB, NVMCTRL_FLMAP_SECTION1_gc);
+        }
       }
-
       else { // it's EEPROM and we just read it
         address.word += MAPPED_EEPROM_START;
-        do putch(*(address.bptr++)); while (--length.word);
       }
-
+      do putch(*(address.bptr++)); while (--length.word);
     }
     else if (ch == STK_READ_SIGN) {
       // READ SIGN - return actual device signature from SIGROW
@@ -614,8 +548,8 @@ void flash_led (uint8_t count) {
   uint16_t delay;
   do {
     LED_PORT.IN |= LED;
-    // delay assuming 4Mhz
-    delay = 4000000U / 150;
+    // delay assuming 2.66 or 3.33Mhz
+    delay = 3000000U / 150;
     do {
       watchdogReset();
       if (bit_is_set(MYUART.STATUS, USART_RXCIF_bp)) return;
@@ -636,29 +570,7 @@ void watchdogConfig (uint8_t x) {
   _PROTECTED_WRITE(WDT_CTRLA, x);
 }
 
-void nvm_cmd (uint8_t cmd) {
-  // take advantage of the fact that NVMCTRL_CMD_NONE_gc=0x00 and use zero_reg
-  // Also, we don't need to change NVMCTRL.CTRLA to NONE/NOOP until we want to change it.
-
-  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, NVMCTRL_CMD_NONE_gc);
-  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, cmd);
-
-  /* 2 bytes saved... */
-  __asm__ __volatile__ ( R"#ASM#(
-      OUT   %[ccp], %[csm]
-      STS   %[ioreg], __zero_reg__
-      OUT   %[ccp], %[csm]
-      STS   %[ioreg], %[cmd]
-    )#ASM#"
-    :
-    : [ccp]   "I" (_SFR_IO_ADDR(CCP)),
-      [csm]   "d" ((uint8_t)CCP_SPM_gc),
-      [ioreg] "n" (_SFR_MEM_ADDR(NVMCTRL_CTRLA)),
-      [cmd]   "r" ((uint8_t)cmd)
-  );
-}
-
-#if defined(BIGBOOT)
+#ifdef BIGBOOT
 /*
  * Optiboot is designed to fit in 512 bytes, with a minimum feature set.
  * Some chips have a minimum bootloader size of 1024 bytes, and sometimes
@@ -712,7 +624,7 @@ OPTFLASHSECT const char f_uart[] = "UARTTX=" UART_NAME;
 #endif
 
 OPTFLASHSECT const char f_date[] = "Built:" __DATE__ ":" __TIME__;
-#if defined(BIGBOOT)
+#ifdef BIGBOOT
 OPT2FLASH(BIGBOOT);
 #endif
 OPTFLASHSECT const char f_device[] = "Device=" xstr(__AVR_DEVICE_NAME__);
@@ -736,6 +648,7 @@ void app (void)
 
 void app (void) {
   uint8_t ch;
+
   ch = RSTCTRL_RSTFR;
   RSTCTRL_RSTFR = ch; // reset causes
   *(volatile uint16_t *)(&optiboot_version);   // reference the version

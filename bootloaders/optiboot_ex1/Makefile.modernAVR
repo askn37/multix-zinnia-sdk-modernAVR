@@ -2,11 +2,11 @@ HELPTEXT = "\n"
 #----------------------------------------------------------------------
 #
 # program name should not be changed...
-PROGRAM    = optiboot_dx
+PROGRAM    = optiboot_ex
 MF:= $(MAKEFILE_LIST)
 
 ### defaults
-MCU_TARGET = avr128db64
+MCU_TARGET = avr64ea48
 TIMEOUT = 1
 LED_DATA_FLASH = 1
 # BAUD_RATE = 115200
@@ -27,7 +27,7 @@ endif
 
 # User local development install path to;
 #
-# ~/Documents/Arduino/hardware/Multix-Zinnia/modernAVR/bootloaders/optiboot_dx2
+# ~/Documents/Arduino/hardware/Multix-Zinnia/modernAVR/bootloaders/optiboot_ex1
 # ~/Documents/Arduino/tools/avr-gcc/7.3.0-avr8-gnu-toolchain-230322/bin/
 #                    ^__BASE_DIRECTORY__
 #
@@ -124,7 +124,7 @@ optiboot_%.hex: optiboot_%.elf
 #  merging with a real application.)
 # (including it in the .application may be useful for debugging, though)
 
-optiboot_%.elf:	optiboot_dx2.c FORCE
+optiboot_%.elf:	optiboot_ex1.c FORCE
 	$(CC) $(CFLAGS) $(CPU_OPTIONS) $(LED_OPTIONS) $(UART_OPTIONS) $(COMMON_OPTIONS) $(LDFLAGS) $(PACK_OPT) -mmcu=$* -o $@ $<
 #	@echo Bootloader size with skeleton App
 #	@$(SIZE) $@

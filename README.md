@@ -54,6 +54,8 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16DD20 AVR32DD20 AVR64DD20
     - AVR16DD28 AVR32DD28 AVR64DD28
     - AVR16DD32 AVR32DD32 AVR64DD32
+  - AVR EA 系統
+    - AVR64EA28 AVR64EA32 AVR64EA48
 - __Multix Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
@@ -114,9 +116,11 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DA with Bootloader
   - AVR DD with Bootloader
   - AVR DD 14pin with Bootloader
+  - AVR EA with Bootloader
   - AVR DB w/o Bootloader
   - AVR DA w/o Bootloader
   - AVR DD w/o Bootloader
+  - AVR EA w/o Bootloader
 - __Multix Zinnia Product SDK [reduceAVR]__
   - ATtiny4/5/9/10
 
@@ -129,13 +133,19 @@ Arduino IDE でこのSDKを選択すると、
 
 - __Variant__ -- 具体的な製品型番を選択。（必須）
   - 外囲器ピン数＋型番＋フラッシュメモリ量＋SRAM量別になっている。
-  - 例えば Arduino UNO Wifi Rev.2 と Arduino Nano Every なら -> 48pin ATmega4809 (48KiB+16KiB)
-- __Clock__ -- 主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
+- __Clock__ -- AVR_DA/DB/DD用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __FUSE無関係に常時どれでも変更可能__
   - 高周波内蔵発振器による 24MHz〜1MHz
   - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（定格外）
   - 超低消費電力発振器による 32.768kHz (OSC-ULP)
+- __Clock(EA)__ -- AVR_EA専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
+  - F_CPUマクロを参照しないプログラムでは効果なし
+  - __20MHz系列と16Mhz系列は FUSE書込依存で排他選択__
+  - 高周波内蔵発振器による 20MHz/10MHz/5MHz -- 20MHz系列用
+  - 高周波内蔵発振器による 16MHz/8MHz/4MHz/1MHz -- 16MHz系列用
+  - 高周波内蔵発振器による 2MHz -- FUSE設定非依存
+  - 超低消費電力発振器による 32.768kHz (OSC-ULP) -- FUSE設定非依存
 - __BOD Mode__ -- Brown Out Detect（FUSE設定）
   - BOD Disabled -- 無効 -- 既定値
   - BOD Enabled -- 有効
@@ -146,17 +156,17 @@ Arduino IDE でこのSDKを選択すると、
   - 2.45V
   - 2.7V
   - 2.85V
-- __FUSE PF6__ -- megaAVR/AVR DA/DB のリセット端子用途変更（FUSE設定）
+- __FUSE PF6__ -- AVR_DA/DB/DD/EA のリセット端子用途変更（FUSE設定）
   - PF6 pin=Reset -- 既定値
   - PF6 pin=GPIO -- 各個別データシート参照のこと
-- __FUSE UPDI__ -- tinyAVR/AVR DDの UPDIピン用途変更（FUSE設定）
+- __FUSE UPDI__ -- AVR_DD/EAの UPDIピン用途変更（FUSE設定）
   - __原則、既定値からの変更禁止（復元にはHV対応書換器が必須）__
   - 各個別データシート参照のこと
 - __FUSE EEPROM__ -- EEPROM保護フラグ（FUSE設定）
   - Save guard "Retained" -- チップ消去時保護
   - Save guard "Erase" -- チップ消去時一括初期化
   - "Erase" and "Replace" -- ブートローダー/書込器でのEEPROM書換有効
-- __FUSE MVIO__ -- AVR DB/DD の復電圧機能種別（FUSE設定）
+- __FUSE MVIO__ -- AVR_DB/DD の復電圧機能種別（FUSE設定）
   - MVIO "Dual" -- 有効（VDD2へ要外部電圧供給）
   - MVIO "Single" -- 無効（VDD2へ内部固定電圧供給）
   - 各個別データシート参照のこと
@@ -195,6 +205,7 @@ Arduino IDE でこのSDKを選択すると、
   - SerialUPDI over USB (460.8k baud)
   - PICkit4 over USB (UPDI)
   - Curiosity Nano (nEDBG: ATSAMD21E18)
+  - JTAG2UPDI over UART (NVMCTRL v2 Remodeling)-- NVMCTRL v2 非対応のバリアントは使用不可
 
 > FUSE UPDI -> UPDI (default) 選択以外に書換えた場合の復元は __HV対応書込器が必須。__\
 > FUSE EEPROM -> "Erase" and "Replace" 選択は、対応するブートローダーか書込器使用時のみ可。\
@@ -253,7 +264,7 @@ Arduino IDE のシリアルコンソールを閉じる必要はない。
 - 書込装置選択選択
 - すべてのFUSE関連
 
-EEPROM対応書込器を使用しているなら以下も選択可能。__（Arduino Nano Everyは不可）__
+EEPROM対応書込器を使用しているなら以下も選択可能。
 
 - FUSE EEPROM -> "Erase" and "Replace"
 
@@ -327,6 +338,16 @@ optiboot を原型とするが clone である。
 - 書込装置選択 -> __Curiosity Nano (nEDBG: ATSAMD21E18)__ 必須
 
 その他の同種製品も同様に、適切なオプションの手動選択が必要。
+
+## 更新履歴
+
+- v0.2.0 (23/04/08)
+  - `modernAVR`で`AVR_EA`対応。
+    - 現時点の`AVR-LIBC`でビルド可能な __AVR64EA28/32/48__ をバリアント選択に追加。
+    - __AVR64EA32__ を動作検証済表に追加。
+    - 専用ブートローダー`optiboot_ex1`を追加。
+    - `<api/FlashNVM.h>`に`AVR_EA`対応を追加。
+    - __注意__ : 現時点の`AVR-LIBC`では`<avr/eeprom.h>`が`AVR_EA`で正常動作しない。
 
 ## 許諾
 

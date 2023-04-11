@@ -1,4 +1,4 @@
-# Multix Zinnia Product SDK [modernAVR]
+# MultiX Zinnia Product SDK [modernAVR]
 
 このソフトウェア開発キットは、主に新世代のAVRファミリ
 （Microchipブランド統合以降で発表されたもの）
@@ -35,9 +35,9 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 
 現在この SDK は複数の異なる対象アーキテクチャ向けにリポジトリを分けて提供される。
 
-- __Multix Zinnia Product SDK [megaAVR]__
+- __MultiX Zinnia Product SDK [megaAVR]__
   - megaAVR-0 と tinyAVR-0/1/2 系統。（Atmelブランド世代）
-- __Multix Zinnia Product SDK [modernAVR]__
+- __MultiX Zinnia Product SDK [modernAVR]__
   - （Microchipブランド世代）
   - AVR DA 系統
     - AVR32DA28 AVR64DA28 AVR128DA28
@@ -56,7 +56,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16DD32 AVR32DD32 AVR64DD32
   - AVR EA 系統
     - AVR64EA28 AVR64EA32 AVR64EA48
-- __Multix Zinnia Product SDK [reduceAVR]__
+- __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
 > この分割は NVM書換プロトコルおよび/すなわちブートローダーの相互共有性による。\
@@ -105,13 +105,13 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 
 SDK種別と対象ブートローダー使用の有無をここで選ぶ。
 
-- __Multix Zinnia Product SDK [megaAVR]__
+- __MultiX Zinnia Product SDK [megaAVR]__
   - megaAVR-0 with Bootloader
   - tinyAVR-0/1/2 with Bootloader
   - tinyAVR-0/1 8pin with Bootloader
   - megaAVR-0 w/o Bootloader
   - tinyAVR-0/1/2 w/o Bootloader
-- __Multix Zinnia Product SDK [modernAVR]__ <--
+- __MultiX Zinnia Product SDK [modernAVR]__ <--
   - AVR DB with Bootloader
   - AVR DA with Bootloader
   - AVR DD with Bootloader
@@ -121,7 +121,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DA w/o Bootloader
   - AVR DD w/o Bootloader
   - AVR EA w/o Bootloader
-- __Multix Zinnia Product SDK [reduceAVR]__
+- __MultiX Zinnia Product SDK [reduceAVR]__
   - ATtiny4/5/9/10
 
 ## ボード選択サブメニュー
@@ -332,7 +332,7 @@ optiboot を原型とするが clone である。
 
 この製品使用時のメニュー選択は次のようにしなければならない；
 
-- ボードメニュー -> __Multix Zinnia SDK [modernAVR]__ -> __AVR DB w/o Bootloader__ 必須
+- ボードメニュー -> __MultiX Zinnia SDK [modernAVR]__ -> __AVR DB w/o Bootloader__ 必須
 - Variant -> __48pin AVR128DB48 (128KiB+16KiB)__ 必須
 - Console and LED -> __UART3 TX:PB0 RX:PB1 LED=PB3 (AVR128DB48 Curiosity Nano)__ 必須
 - 書込装置選択 -> __Curiosity Nano (nEDBG: ATSAMD21E18)__ 必須

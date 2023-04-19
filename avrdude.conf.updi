@@ -340,6 +340,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F80;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -363,6 +368,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F80;
     ;
 ;
 
@@ -388,6 +398,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -411,6 +426,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F00;
     ;
 ;
 
@@ -436,6 +456,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -459,6 +484,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
     ;
 ;
 
@@ -484,6 +514,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -507,6 +542,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
     ;
 ;
 
@@ -532,6 +572,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3C00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -555,6 +600,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3C00;
     ;
 ;
 
@@ -580,6 +630,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3C00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -603,6 +658,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F80;
     ;
 ;
 
@@ -628,6 +688,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F80;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -651,6 +716,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F00;
     ;
 ;
 
@@ -677,6 +747,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -700,6 +775,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F00;
     ;
 ;
 
@@ -726,6 +806,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3F00;
+    ;
 ;
 
 
@@ -750,6 +835,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
     ;
 ;
 
@@ -776,6 +866,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -799,6 +894,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
     ;
 ;
 
@@ -824,6 +924,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -847,6 +952,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
     ;
 ;
 
@@ -872,6 +982,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -895,6 +1010,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x40;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
     ;
 ;
 
@@ -920,6 +1040,11 @@ part parent ".avr8x_tiny"
         page_size = 0x40;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -943,6 +1068,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
     ;
 ;
 
@@ -968,6 +1098,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -991,6 +1126,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3E00;
     ;
 ;
 
@@ -1016,6 +1156,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3C00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1039,6 +1184,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3C00;
     ;
 ;
 
@@ -1064,6 +1214,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3C00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1088,6 +1243,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
+    ;
 ;
 #------------------------------------------------------------
 # ATtiny1626
@@ -1110,6 +1270,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
     ;
 ;
 
@@ -1135,6 +1300,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1158,6 +1328,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x40;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3400;
     ;
 ;
 
@@ -1183,6 +1358,11 @@ part parent ".avr8x_tiny"
         page_size = 0x40;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3400;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1206,6 +1386,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x40;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3400;
     ;
 ;
 
@@ -1231,6 +1416,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3C00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1254,6 +1444,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3C00;
     ;
 ;
 
@@ -1279,6 +1474,11 @@ part parent ".avr8x_tiny"
         page_size = 0x20;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1302,6 +1502,11 @@ part parent ".avr8x_tiny"
         offset    = 0x1400;
         page_size = 0x20;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3800;
     ;
 ;
 
@@ -1327,6 +1532,11 @@ part parent ".avr8x_mega"
         page_size = 0x40;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1350,6 +1560,11 @@ part parent ".avr8x_mega"
         offset    = 0x1400;
         page_size = 0x40;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x3000;
     ;
 ;
 
@@ -1375,6 +1590,11 @@ part parent ".avr8x_mega"
         page_size = 0x40;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x2800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1398,6 +1618,11 @@ part parent ".avr8x_mega"
         offset    = 0x1400;
         page_size = 0x40;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x2800;
     ;
 ;
 
@@ -1595,6 +1820,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1618,6 +1848,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
     ;
 ;
 
@@ -1643,6 +1878,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1666,6 +1906,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
     ;
 ;
 
@@ -1691,6 +1936,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1715,6 +1965,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1738,6 +1993,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
     ;
 ;
 
@@ -1767,6 +2027,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x4000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1794,6 +2059,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x4000;
     ;
 ;
 
@@ -1823,6 +2093,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x4000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1851,6 +2126,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x4000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1874,6 +2154,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
     ;
 ;
 
@@ -1899,6 +2184,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1922,6 +2212,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
     ;
 ;
 
@@ -1947,6 +2242,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -1970,6 +2270,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
     ;
 ;
 
@@ -1995,6 +2300,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2018,6 +2328,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
     ;
 ;
 
@@ -2047,6 +2362,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x4000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2074,6 +2394,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x4000;
     ;
 ;
 
@@ -2103,6 +2428,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x4000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2131,6 +2461,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x4000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2154,6 +2489,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7800;
     ;
 ;
 
@@ -2179,6 +2519,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2202,6 +2547,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7800;
     ;
 ;
 
@@ -2227,6 +2577,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2250,6 +2605,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
     ;
 ;
 
@@ -2275,6 +2635,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2298,6 +2663,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
     ;
 ;
 
@@ -2323,6 +2693,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2346,6 +2721,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
     ;
 ;
 
@@ -2371,6 +2751,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2395,6 +2780,11 @@ part parent    ".avrdx"
         page_size = 0x10;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2418,6 +2808,11 @@ part parent    ".avrdx"
         offset    = 0x1400;
         page_size = 0x10;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6000;
     ;
 ;
 
@@ -2464,6 +2859,11 @@ part parent    ".avrex"
         page_size = 0x8;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7C00;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2487,6 +2887,11 @@ part parent    ".avrex"
         offset    = 0x1400;
         page_size = 0x8;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7C00;
     ;
 ;
 
@@ -2512,6 +2917,11 @@ part parent    ".avrex"
         page_size = 0x8;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2535,6 +2945,11 @@ part parent    ".avrex"
         offset    = 0x1400;
         page_size = 0x8;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7800;
     ;
 ;
 
@@ -2560,6 +2975,11 @@ part parent    ".avrex"
         page_size = 0x8;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2583,6 +3003,11 @@ part parent    ".avrex"
         offset    = 0x1400;
         page_size = 0x8;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
     ;
 ;
 
@@ -2608,6 +3033,11 @@ part parent    ".avrex"
         page_size = 0x8;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2631,6 +3061,11 @@ part parent    ".avrex"
         offset    = 0x1400;
         page_size = 0x8;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x7000;
     ;
 ;
 
@@ -2656,6 +3091,11 @@ part parent    ".avrex"
         page_size = 0x8;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2680,6 +3120,11 @@ part parent    ".avrex"
         page_size = 0x8;
         readsize  = 0x100;
     ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6800;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2703,5 +3148,10 @@ part parent    ".avrex"
         offset    = 0x1400;
         page_size = 0x8;
         readsize  = 0x100;
+    ;
+
+    memory "data"
+    # USERROW special write address for locked device.
+        offset    = 0x6800;
     ;
 ;

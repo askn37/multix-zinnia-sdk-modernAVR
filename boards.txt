@@ -274,9 +274,9 @@ AVRDB.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrdx_UART0_A0
 AVRDB.menu.95_bootloader.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVRDB.menu.95_bootloader.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7 (default)
 AVRDB.menu.95_bootloader.10=-
-AVRDB.menu.95_bootloader.01_UART2_F0_LA7.bootloader.file=hex/boot_avrdx_UART2_F0_{upload.speed}_LA7.hex
-AVRDB.menu.95_bootloader.01_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
-AVRDB.menu.95_bootloader.01_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7 (32/48/64pin)
+AVRDB.menu.95_bootloader.11_UART2_F0_LA7.bootloader.file=hex/boot_avrdx_UART2_F0_{upload.speed}_LA7.hex
+AVRDB.menu.95_bootloader.11_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
+AVRDB.menu.95_bootloader.11_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7
 AVRDB.menu.95_bootloader.23_UART2_F4_LA7.bootloader.file=hex/boot_avrdx_UART2_F4_{upload.speed}_LA7.hex
 AVRDB.menu.95_bootloader.23_UART2_F4_LA7.build.console_select=-DSerial=Serial2B
 AVRDB.menu.95_bootloader.23_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7 (32/48/64pin)
@@ -506,9 +506,9 @@ AVRDA.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrdx_UART0_A0
 AVRDA.menu.95_bootloader.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVRDA.menu.95_bootloader.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7 (default)
 AVRDA.menu.95_bootloader.10=-
-AVRDA.menu.95_bootloader.01_UART2_F0_LA7.bootloader.file=hex/boot_avrdx_UART2_F0_{upload.speed}_LA7.hex
-AVRDA.menu.95_bootloader.01_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
-AVRDA.menu.95_bootloader.01_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7 (32/48/64pin)
+AVRDA.menu.95_bootloader.11_UART2_F0_LA7.bootloader.file=hex/boot_avrdx_UART2_F0_{upload.speed}_LA7.hex
+AVRDA.menu.95_bootloader.11_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
+AVRDA.menu.95_bootloader.11_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7
 AVRDA.menu.95_bootloader.23_UART2_F4_LA7.bootloader.file=hex/boot_avrdx_UART2_F4_{upload.speed}_LA7.hex
 AVRDA.menu.95_bootloader.23_UART2_F4_LA7.build.console_select=-DSerial=Serial2B
 AVRDA.menu.95_bootloader.23_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7 (32/48/64pin)
@@ -1053,6 +1053,13 @@ AVREA.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVREA.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrex_UART0_A0_{upload.speed}_LA7.hex
 AVREA.menu.95_bootloader.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVREA.menu.95_bootloader.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7 (default)
+AVREA.menu.95_bootloader.10=-
+AVREA.menu.95_bootloader.11_UART2_F0_LA7.bootloader.file=hex/boot_avrex_UART2_F0_{upload.speed}_LA7.hex
+AVREA.menu.95_bootloader.11_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
+AVREA.menu.95_bootloader.11_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7
+AVREA.menu.95_bootloader.23_UART2_F4_LA7.bootloader.file=hex/boot_avrex_UART2_F4_{upload.speed}_LA7.hex
+AVREA.menu.95_bootloader.23_UART2_F4_LA7.build.console_select=-DSerial=Serial2B
+AVREA.menu.95_bootloader.23_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7 (32/48pin)
 
 
 AVRDB_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
@@ -1923,11 +1930,20 @@ AVREA_noloader.menu.54_console_select.01.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVREA_noloader.menu.54_console_select.01=UART0 TX:PA0 RX:PA1 LED=PA7
 AVREA_noloader.menu.54_console_select.02.build.console_select=-DSerial=Serial1A
 AVREA_noloader.menu.54_console_select.02.build.led_pin=-DLED_BUILTIN=PIN_PA7
-AVREA_noloader.menu.54_console_select.02=UART1 TX:PC0 RX:PC1 LED=PA7 (28/32pin)
+AVREA_noloader.menu.54_console_select.02=UART1 TX:PC0 RX:PC1 LED=PA7
+AVREA_noloader.menu.54_console_select.03.build.console_select=-DSerial=Serial2A
+AVREA_noloader.menu.54_console_select.03.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREA_noloader.menu.54_console_select.03=UART2 TX:PF0 RX:PF1 LED=PA7
 AVREA_noloader.menu.54_console_select.10=-
-AVREA_noloader.menu.54_console_select.11.build.console_select=-DSerial=Serial0A
-AVREA_noloader.menu.54_console_select.11.build.led_pin=-DLED_BUILTIN=PIN_PD7
-AVREA_noloader.menu.54_console_select.11=UART0 TX:PA0 RX:PA1 LED=PD7 (14/20pin)
+AVREA_noloader.menu.54_console_select.11.build.console_select=-DSerial=Serial0D
+AVREA_noloader.menu.54_console_select.11.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREA_noloader.menu.54_console_select.11=UART0 TX:PD4 RX:PD5 LED=PA7 (alt)
+AVREA_noloader.menu.54_console_select.12.build.console_select=-DSerial=Serial1C
+AVREA_noloader.menu.54_console_select.12.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREA_noloader.menu.54_console_select.12=UART1 TX:PD6 RX:PD7 LED=PA7 (alt)
+AVREA_noloader.menu.54_console_select.13.build.console_select=-DSerial=Serial2B
+AVREA_noloader.menu.54_console_select.13.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREA_noloader.menu.54_console_select.13=UART2 TX:PF4 RX:PF5 LED=PA7 (alt 32/48pin only)
 AVREA_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVREA_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVREA_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400

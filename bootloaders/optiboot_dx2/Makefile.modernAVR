@@ -28,10 +28,10 @@ endif
 # User local development install path to;
 #
 # ~/Documents/Arduino/hardware/Multix-Zinnia/modernAVR/bootloaders/optiboot_dx2
-# ~/Documents/Arduino/tools/avr-gcc/7.3.0-avr8-gnu-toolchain-230322/bin/
+# ~/Documents/Arduino/tools/avr-gcc/7.3.0-avr8-gnu-toolchain/bin/
 #                    ^__BASE_DIRECTORY__
 #
-AVRGCCROOT = ../../../../../tools/avr-gcc/7.3.0-avr8-gnu-toolchain-230322/bin/
+AVRGCCROOT = ../../../../../tools/avr-gcc/7.3.0-avr8-gnu-toolchain/bin/
 AVRDUDE_CONF =
 
 # export symbols to recursive makes (for ISP)

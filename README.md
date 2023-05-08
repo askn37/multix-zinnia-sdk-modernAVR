@@ -55,7 +55,9 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16DD28 AVR32DD28 AVR64DD28
     - AVR16DD32 AVR32DD32 AVR64DD32
   - AVR EA 系統
-    - AVR64EA28 AVR64EA32 AVR64EA48
+    - AVR16EA48 AVR32EA48 AVR64EA48
+    - AVR16EA32 AVR32EA32 AVR64EA32
+    - AVR16EA28 AVR32EA28 AVR64EA28
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
@@ -340,6 +342,11 @@ optiboot を原型とするが clone である。
 その他の同種製品も同様に、適切なオプションの手動選択が必要。
 
 ## 更新履歴
+
+- v0.2.1 (23/05/08)
+  - `7.3.0-avr8-gnu-toolchain-230418`に更新。
+    - __注意__ : この版では未だ`<avr/eeprom.h>`が`AVR_EA`では正常動作しない。
+  - __AVR16EAxx__、__AVR32EAxx__ をバリアント選択に追加。
 
 - v0.2.0 (23/04/08)
   - `modernAVR`で`AVR_EA`対応。

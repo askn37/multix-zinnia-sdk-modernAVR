@@ -71,11 +71,12 @@
 
 /* PORTG not implemented */
 
-#define NOT_A_PIN 255
-#define PIN_RST   PIN_PF6
+#define NOT_A_PIN    255
+#define PIN_VREFA    PIN_PD7
+#define PIN_RESET    PIN_PF6
 
 #ifndef LED_BUILTIN
-#define LED_BUILTIN PIN_PA7
+#define LED_BUILTIN  PIN_PA7
 #endif
 #define LED_BUILTIN_INVERT  /* implementation dependent */
 

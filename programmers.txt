@@ -2,19 +2,19 @@
 01_updi4avr.communication=serial
 01_updi4avr.protocol=updi4avr
 01_updi4avr.program.tool=avrdude
-01_updi4avr.program.extra_params=-P {serial.port} -b 921600
+01_updi4avr.program.extra_params=-P {serial.port}
 
 02_updi4avr_HV.name=UPDI4AVR over UART (HV Enable)
 02_updi4avr_HV.communication=serial
 02_updi4avr_HV.protocol=updi4avr
 02_updi4avr_HV.program.tool=avrdude
-02_updi4avr_HV.program.extra_params=-P {serial.port} -b 921600 -F
+02_updi4avr_HV.program.extra_params=-P {serial.port} -F
 
-13_serialupdi_230400.name=SerialUPDI over USB
-13_serialupdi_230400.communication=serial
-13_serialupdi_230400.protocol=serialupdi
-13_serialupdi_230400.program.tool=avrdude
-13_serialupdi_230400.program.extra_params=-P {serial.port} -b 230400
+13_serialupdi.name=SerialUPDI over USB
+13_serialupdi.communication=serial
+13_serialupdi.protocol=serialupdi
+13_serialupdi.program.tool=avrdude
+13_serialupdi.program.extra_params=-P {serial.port}
 
 21_pickit4_updi.name=PICkit4 over USB (UPDI)
 21_pickit4_updi.communication=usb
@@ -62,7 +62,7 @@
 31_jtag2updi.communication=serial
 31_jtag2updi.protocol=jtag2updi
 31_jtag2updi.program.tool=avrdude
-31_jtag2updi.program.extra_params=-P {serial.port} -b 115200
+31_jtag2updi.program.extra_params=-P {serial.port}
 
 # 32_jtag2updi.name=JTAG2UPDI over UART (slow) (NVM v2 Remodeling)
 # 32_jtag2updi.communication=serial

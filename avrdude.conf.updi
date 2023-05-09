@@ -7,7 +7,7 @@ programmer
   desc  = "JTAGv2 to UPDI bridge";
   type  = "jtagmkii_pdi";
   connection_type = serial;
-  baudrate = 921600;
+  baudrate = 460800;
 ;
 
 programmer
@@ -71,6 +71,7 @@ programmer
   desc  = "SerialUPDI";
   type  = "serialupdi";
   connection_type = serial;
+  baudrate = 230400;
 ;
 
 programmer
@@ -78,6 +79,7 @@ programmer
   desc  = "Arduino";
   type  = "arduino";
   connection_type = serial;
+  baudrate = 115200;
 ;
 
 #------------------------------------------------------------

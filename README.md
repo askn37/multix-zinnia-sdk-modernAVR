@@ -347,6 +347,8 @@ optiboot を原型とするが clone である。
   - `7.3.0-avr8-gnu-toolchain-230418`に更新。
     - __注意__ : この版では未だ`<avr/eeprom.h>`が`AVR_EA`では正常動作しない。
   - __AVR16EAxx__、__AVR32EAxx__ をバリアント選択に追加。
+  - 添付 *avrdude.conf* での`UPDI4AVR`規定速度を`460800`に制限。
+    - 古いCH3xx用ドライバにて速度上限があるため。（現行最新では改善されている）
 
 - v0.2.0 (23/04/08)
   - `modernAVR`で`AVR_EA`対応。

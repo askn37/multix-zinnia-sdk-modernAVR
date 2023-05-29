@@ -4,7 +4,7 @@
 01_updi4avr.program.tool=avrdude
 01_updi4avr.program.extra_params=-P {serial.port}
 
-02_updi4avr_DS.name=UPDI4AVR over UART (Double Speed)
+02_updi4avr_DS.name=UPDI4AVR over UART (High Speed)
 02_updi4avr_DS.communication=serial
 02_updi4avr_DS.protocol=updi4avr
 02_updi4avr_DS.program.tool=avrdude

@@ -7,7 +7,7 @@ programmer
   desc  = "JTAGv2 to UPDI bridge";
   type  = "jtagmkii_pdi";
   connection_type = serial;
-  baudrate = 460800;
+  baudrate = 230400;
 ;
 
 programmer
@@ -118,7 +118,7 @@ part
 
     memory "sernum"
         size      = 10;
-        offset    = 0x1104;
+        offset    = 0x1103;
         readsize  = 1;
     ;
 

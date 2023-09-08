@@ -16,11 +16,11 @@
 03_updi4avr_HV.program.tool=avrdude
 03_updi4avr_HV.program.extra_params=-P {serial.port} -F
 
-13_serialupdi.name=SerialUPDI over USB (UART)
+13_serialupdi.name=SerialUPDI over UART
 13_serialupdi.communication=serial
 13_serialupdi.protocol=serialupdi
 13_serialupdi.program.tool=avrdude
-13_serialupdi.program.extra_params=-P {serial.port}
+13_serialupdi.program.extra_params=-P {serial.port} -xrtsdtr=high
 
 21_pickit4_updi.name=PICkit4 over USB (UPDI)
 21_pickit4_updi.communication=usb

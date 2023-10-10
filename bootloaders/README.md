@@ -91,7 +91,7 @@ FLASH消去/書換を行うのに使うことが出来る。
 - `MCUdude`版や`DxCore`版の同種の機能とは仕様が異なり、相互に互換性はない。
 
 > 実際の使用例は
-[FlashNVM_sample](https://github.com/askn37/MacroMicroAPI_lib/tree/b5d0d734ce43017d904106a845f7fc4c8ccb3f91/examples/EEPROM%20and%20NVM/FlashNVM_sample)
+[FlashNVM_sample](https://github.com/askn37/MacroMicroAPI_lib/tree/main/examples/EEPROM%20and%20NVM/FlashNVM_sample)
 を参照のこと。
 
 ## optibootバージョン

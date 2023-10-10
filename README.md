@@ -343,6 +343,9 @@ optiboot を原型とするが clone である。
 
 ## 更新履歴
 
+- v0.2.5 (23/10/09)
+  - *avrdude.conf.updi* 記述を avrdude 7.1 準拠に改正
+
 - v0.2.4 (23/09/09)
   - `7.3.0-avr8-gnu-toolchain-230831`に更新。
   - `programmers.txt`を改正。

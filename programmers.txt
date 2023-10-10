@@ -1,24 +1,28 @@
 01_updi4avr.name=UPDI4AVR over UART (Standard)
 01_updi4avr.communication=serial
 01_updi4avr.protocol=updi4avr
+01_updi4avr.program.protocol=jtagmkii_updi
 01_updi4avr.program.tool=avrdude
 01_updi4avr.program.extra_params=-P {serial.port}
 
 # 02_updi4avr_DS.name=UPDI4AVR over UART (High Speed)
 # 02_updi4avr_DS.communication=serial
 # 02_updi4avr_DS.protocol=updi4avr
+# 02_updi4avr_DS.program.protocol=jtagmkii_updi
 # 02_updi4avr_DS.program.tool=avrdude
 # 02_updi4avr_DS.program.extra_params=-P {serial.port} -b 921600
 
 03_updi4avr_HV.name=UPDI4AVR over UART (HV Enable)
 03_updi4avr_HV.communication=serial
 03_updi4avr_HV.protocol=updi4avr
+03_updi4avr_HV.program.protocol=jtagmkii_updi
 03_updi4avr_HV.program.tool=avrdude
 03_updi4avr_HV.program.extra_params=-P {serial.port} -F
 
 13_serialupdi.name=SerialUPDI over UART
 13_serialupdi.communication=serial
 13_serialupdi.protocol=serialupdi
+13_serialupdi.program.protocol=serialupdi
 13_serialupdi.program.tool=avrdude
 13_serialupdi.program.extra_params=-P {serial.port} -xrtsdtr=high
 
@@ -38,8 +42,8 @@
 
 23_nedbg.name=Curiosity Nano (nEDBG: ATSAMD21E18)
 23_nedbg.communication=usb
-23_nedbg.protocol=curiosity_updi
-23_nedbg.program.protocol=curiosity_updi
+23_nedbg.protocol=pkobn_updi
+23_nedbg.program.protocol=jtagice3_updi
 23_nedbg.program.tool=avrdude
 23_nedbg.program.extra_params=-Pusb
 
@@ -54,6 +58,7 @@
 # 25_medbg.communication=usb
 # 25_medbg.protocol=xplainedmini_updi
 # 25_medbg.program.protocol=xplainedmini_updi
+# 25_medbg.program.protocol=jtagice3_updi
 # 25_medbg.program.tool=avrdude
 # 25_medbg.program.extra_params=-Pusb
 
@@ -61,17 +66,20 @@
 # 26_atmelice_updi.communication=usb
 # 26_atmelice_updi.protocol=atmelice_updi
 # 26_atmelice_updi.program.protocol=jtagice3_updi
+# 26_atmelice_updi.program.protocol=jtagice3_updi
 # 26_atmelice_updi.program.tool=avrdude
 # 26_atmelice_updi.program.extra_params=-P usb
 
 31_jtag2updi.name=JTAG2UPDI over UART (NVM v2 Remodeling)
 31_jtag2updi.communication=serial
 31_jtag2updi.protocol=jtag2updi
+31_jtag2updi.program.protocol=jtagmkii_updi
 31_jtag2updi.program.tool=avrdude
 31_jtag2updi.program.extra_params=-P {serial.port}
 
 # 32_jtag2updi.name=JTAG2UPDI over UART (slow) (NVM v2 Remodeling)
 # 32_jtag2updi.communication=serial
 # 32_jtag2updi.protocol=jtag2updi
+# 32_jtag2updi.program.protocol=jtagmkii_updi
 # 32_jtag2updi.program.tool=avrdude
 # 32_jtag2updi.program.extra_params=-P {serial.port} -b 19200

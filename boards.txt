@@ -910,7 +910,7 @@ AVREA.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader
 AVREA.bootloader.BOOTSIZE=0x02
 AVREA.bootloader.CODESIZE=0x00
 AVREA.bootloader.OSCCFG=0b11110111
-AVREA.bootloader.SYSCFG0=0b110{bootloader.updi_bit}{bootloader.reset_bit}1{bootloader.eesave_bit}
+AVREA.bootloader.SYSCFG0=0b110{bootloader.updi_bit}{bootloader.reset_bit}0{bootloader.eesave_bit}
 AVREA.bootloader.SYSCFG1=0b11111111
 AVREA.bootloader.WDTCFG=0b00000000
 AVREA.bootloader.bod_lvl=000
@@ -1040,16 +1040,16 @@ AVREA.menu.11_BODMODE.03_sampled=BOD Sampled
 AVREA.menu.11_BODMODE.04_enablewait.bootloader.bod_mode=11
 AVREA.menu.11_BODMODE.04_enablewait=BOD Enabled hold wakeup
 AVREA.menu.12_BODLVL.BODLEVEL0.bootloader.bod_lvl=000
-AVREA.menu.12_BODLVL.BODLEVEL0=Level 1.9V (default)
+AVREA.menu.12_BODLVL.BODLEVEL0=Level 1.75V (default)
 AVREA.menu.12_BODLVL.BODLEVEL1.bootloader.bod_lvl=001
-AVREA.menu.12_BODLVL.BODLEVEL1=Level 2.45V
+AVREA.menu.12_BODLVL.BODLEVEL1=Level 1.90V
 AVREA.menu.12_BODLVL.BODLEVEL2.bootloader.bod_lvl=010
-AVREA.menu.12_BODLVL.BODLEVEL2=Level 2.7V
+AVREA.menu.12_BODLVL.BODLEVEL2=Level 2.60V
 AVREA.menu.12_BODLVL.BODLEVEL3.bootloader.bod_lvl=011
-AVREA.menu.12_BODLVL.BODLEVEL3=Level 2.85V
-AVREA.menu.21_resetpin.01_reset.bootloader.reset_bit=11
+AVREA.menu.12_BODLVL.BODLEVEL3=Level 4.30V
+AVREA.menu.21_resetpin.01_reset.bootloader.reset_bit=10
 AVREA.menu.21_resetpin.01_reset=PF6 pin=Reset
-AVREA.menu.21_resetpin.02_gpio.bootloader.reset_bit=01
+AVREA.menu.21_resetpin.02_gpio.bootloader.reset_bit=00
 AVREA.menu.21_resetpin.02_gpio=PF6 pin=GPIO (input only)
 AVREA.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVREA.menu.22_updipin.01_updi=PF7 pin=UPDI (default)

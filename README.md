@@ -322,6 +322,14 @@ optiboot を原型とするが clone である。
 
 > ブートローダーバイナリのリビルドは、makeコマンド（OS依存）が別途用意できれば本 SDKのみで行える。
 
+### AVR_EA/EB 系統への対応
+
+23/10現在、*avrdude* 内蔵の __SerialUPDI__ は、AVR_EA 系統を正しく操作することができない。
+確実に AVR_EA 系統の不揮発メモリを読み書きできると判明しているプログラムライターは、__UPDI4AVR__ と __PICkit4/5__ だけである。
+本SDKに付属の *avrdude.conf.updi* は __UPDI4AVR__ でのみ正しく動作する記述であることに注意されたい。
+
+- *avrdude 7.2* で __SerialUPDI__ は AVR_EA に部分対応したが、標準添付の avrdude.conf はまだ十分検証されておらず、ほとんどの品種で正常動作の担保が取れていない。
+
 ### その他注意事項
 
 以下に上げる完成販売品は本来、それぞれ既定の開発環境があり
@@ -344,6 +352,7 @@ optiboot を原型とするが clone である。
 
 - v0.2.6 (23/10/16)
   - `7.2-arduino.1`に更新。
+    - この版でも`serialupdi`は現状、AVR_EAを正しく操作できない。
   - `7.3.0-avr8-gnu-toolchain-231004`に更新。
     - `Atmel.ATautomotive_DFP.2.0.214.atpack (2022-03-03)`追加。`ATtiny416auto`対応。
     - `Atmel.AVR-Ex_DFP.2.7.184 (2023-10-02)`対応。

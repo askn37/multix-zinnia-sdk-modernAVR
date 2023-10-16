@@ -202,9 +202,8 @@ Arduino IDE でこのSDKを選択すると、
   - 環境依存
 - __書込装置選択__
   - UPDI4AVR over UART (Standard)
-  - UPDI4AVR over UART (HV Recomended) -- __HV書込対応__
-  - SerialUPDI over USB (230.4k baud)
-  - SerialUPDI over USB (460.8k baud)
+  - UPDI4AVR over UART (HV Enable) -- __HV書込対応__
+  - SerialUPDI over UART
   - PICkit4 over USB (UPDI)
   - Curiosity Nano (nEDBG: ATSAMD21E18)
   - JTAG2UPDI over UART (NVMCTRL v2 Remodeling)-- NVMCTRL v2 非対応のバリアントは使用不可
@@ -342,6 +341,12 @@ optiboot を原型とするが clone である。
 その他の同種製品も同様に、適切なオプションの手動選択が必要。
 
 ## 更新履歴
+
+- v0.2.6 (23/10/16)
+  - `7.2-arduino.1`に更新。
+  - `7.3.0-avr8-gnu-toolchain-231004`に更新。
+    - `Atmel.ATautomotive_DFP.2.0.214.atpack (2022-03-03)`追加。`ATtiny416auto`対応。
+    - `Atmel.AVR-Ex_DFP.2.7.184 (2023-10-02)`対応。
 
 - v0.2.5 (23/10/09)
   - *avrdude.conf.updi* 記述を avrdude 7.1 準拠に改正

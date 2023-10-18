@@ -1,12 +1,13 @@
 menu.01_variant=Variant
-menu.02_clock=Clock
-menu.03_clock=Clock(EA)
+menu.02_clock=Clock(Dx)
+menu.03_clock=Clock(Ex)
 menu.11_BODMODE=BOD Mode
 menu.12_BODLVL=BOD Level
 menu.21_resetpin=FUSE PF6
 menu.22_updipin=FUSE UPDI
 menu.23_eeprom=FUSE EEPROM
 menu.24_mvsyscfg=FUSE MVIO
+menu.25_bootrow=FUSE BOOTROW
 menu.51_buildopt=Build Option
 menu.52_macroapi=Build API
 menu.53_printf=Build "printf"
@@ -44,6 +45,9 @@ AVRDD_noloader.build.core=modernAVR
 AVREA_noloader.name=AVR EA w/o Bootloader
 AVREA_noloader.build.board=AVR64EA32
 AVREA_noloader.build.core=modernAVR
+AVREB_noloader.name=AVR EB w/o Bootloader
+AVREB_noloader.build.board=AVR16EB32
+AVREB_noloader.build.core=modernAVR
 
 
 AVRDB.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
@@ -1972,13 +1976,13 @@ AVREA_noloader.menu.11_BODMODE.03_sampled=BOD Sampled
 AVREA_noloader.menu.11_BODMODE.04_enablewait.bootloader.bod_mode=11
 AVREA_noloader.menu.11_BODMODE.04_enablewait=BOD Enabled hold wakeup
 AVREA_noloader.menu.12_BODLVL.BODLEVEL0.bootloader.bod_lvl=000
-AVREA_noloader.menu.12_BODLVL.BODLEVEL0=Level 1.9V (default)
+AVREA_noloader.menu.12_BODLVL.BODLEVEL0=Level 1.75V (default)
 AVREA_noloader.menu.12_BODLVL.BODLEVEL1.bootloader.bod_lvl=001
-AVREA_noloader.menu.12_BODLVL.BODLEVEL1=Level 2.45V
+AVREA_noloader.menu.12_BODLVL.BODLEVEL1=Level 1.90V
 AVREA_noloader.menu.12_BODLVL.BODLEVEL2.bootloader.bod_lvl=010
-AVREA_noloader.menu.12_BODLVL.BODLEVEL2=Level 2.7V
+AVREA_noloader.menu.12_BODLVL.BODLEVEL2=Level 2.60V
 AVREA_noloader.menu.12_BODLVL.BODLEVEL3.bootloader.bod_lvl=011
-AVREA_noloader.menu.12_BODLVL.BODLEVEL3=Level 2.85V
+AVREA_noloader.menu.12_BODLVL.BODLEVEL3=Level 4.30V
 AVREA_noloader.menu.21_resetpin.01_reset.bootloader.reset_bit=11
 AVREA_noloader.menu.21_resetpin.01_reset=PF6 pin=Reset
 AVREA_noloader.menu.21_resetpin.02_gpio.bootloader.reset_bit=01
@@ -2044,3 +2048,183 @@ AVREA_noloader.menu.90_console_baud.20=-
 AVREA_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVREA_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVREA_noloader.menu.95_bootloader.00_woBootloader=without Bootloader
+
+
+AVREB_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
+AVREB_noloader.bootloader.BOOTSIZE=0x00
+AVREB_noloader.bootloader.CODESIZE=0x00
+AVREB_noloader.bootloader.OSCCFG=0b11110111
+AVREB_noloader.bootloader.SYSCFG0=0b110{bootloader.updi_bit}{bootloader.reset_bit}{bootloader.browsave_bit}{bootloader.eesave_bit}
+AVREB_noloader.bootloader.SYSCFG1=0b11111111
+AVREB_noloader.bootloader.WDTCFG=0b00000000
+AVREB_noloader.bootloader.bod_lvl=000
+AVREB_noloader.bootloader.bod_mode=00
+AVREB_noloader.bootloader.bod_sample=0
+AVREB_noloader.bootloader.eepupload=
+AVREB_noloader.bootloader.eesave_bit=1
+AVREB_noloader.bootloader.browsave_bit=1
+AVREB_noloader.bootloader.reset_bit=10
+AVREB_noloader.bootloader.tool=avrdude
+AVREB_noloader.bootloader.updi_bit=1
+AVREB_noloader.bootloader.file=empty/empty.hex
+AVREB_noloader.bootloader.programed_type=
+AVREB_noloader.build.console_select=
+AVREB_noloader.build.export_merged_output=false
+AVREB_noloader.build.text_section_start=.text=0x0
+AVREB_noloader.build.buildopt=-DNDEBUG
+AVREB_noloader.build.console_baud=-DCONSOLE_BAUD=9600
+AVREB_noloader.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREB_noloader.build.macroapi=-DENABLE_MACRO_API
+AVREB_noloader.build.printf=
+AVREB_noloader.build.printflt=
+AVREB_noloader.upload.speed=115200
+AVREB_noloader.upload.tool=
+AVREB_noloader.menu.01_variant.24.build.board=AVR_AVR16EB32
+AVREB_noloader.menu.01_variant.24.build.mcu=avr16eb32
+AVREB_noloader.menu.01_variant.24.build.variant=avr_eb32
+AVREB_noloader.menu.01_variant.24.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/avrxmega3_p64.x
+AVREB_noloader.menu.01_variant.24.upload.maximum_data_size=2048
+AVREB_noloader.menu.01_variant.24.upload.maximum_size=16384
+AVREB_noloader.menu.01_variant.24=32pin AVR16EB32 (16KiB+2KiB)
+AVREB_noloader.menu.01_variant.30=-
+AVREB_noloader.menu.01_variant.34.build.board=AVR_AVR16EB28
+AVREB_noloader.menu.01_variant.34.build.mcu=avr16eb28
+AVREB_noloader.menu.01_variant.34.build.variant=avr_eb28
+AVREB_noloader.menu.01_variant.34.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/avrxmega3_p64.x
+AVREB_noloader.menu.01_variant.34.upload.maximum_data_size=2048
+AVREB_noloader.menu.01_variant.34.upload.maximum_size=16384
+AVREB_noloader.menu.01_variant.34=28pin AVR16EB28 (16KiB+2KiB)
+AVREB_noloader.menu.01_variant.40=-
+AVREB_noloader.menu.01_variant.44.build.board=AVR_AVR16EB20
+AVREB_noloader.menu.01_variant.44.build.mcu=avr16eb20
+AVREB_noloader.menu.01_variant.44.build.variant=avr_eb20
+AVREB_noloader.menu.01_variant.44.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/avrxmega3_p64.x
+AVREB_noloader.menu.01_variant.44.upload.maximum_data_size=2048
+AVREB_noloader.menu.01_variant.44.upload.maximum_size=16384
+AVREB_noloader.menu.01_variant.44=20pin AVR16EB20 (16KiB+2KiB)
+AVREB_noloader.menu.01_variant.50=-
+AVREB_noloader.menu.01_variant.54.build.board=AVR_AVR16EB14
+AVREB_noloader.menu.01_variant.54.build.mcu=avr16eb14
+AVREB_noloader.menu.01_variant.54.build.variant=avr_eb14
+AVREB_noloader.menu.01_variant.54.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/avrxmega3_p64.x
+AVREB_noloader.menu.01_variant.54.upload.maximum_data_size=2048
+AVREB_noloader.menu.01_variant.54.upload.maximum_size=16384
+AVREB_noloader.menu.01_variant.54=14pin AVR16EB14 (16KiB+2KiB)
+AVREB_noloader.menu.03_clock.01_20MHz.bootloader.bod_sample=0
+AVREB_noloader.menu.03_clock.01_20MHz.build.f_cpu=20000000L
+AVREB_noloader.menu.03_clock.01_20MHz=Internal 20 MHz
+AVREB_noloader.menu.03_clock.02_10MHz.bootloader.bod_sample=0
+AVREB_noloader.menu.03_clock.02_10MHz.build.f_cpu=10000000L
+AVREB_noloader.menu.03_clock.02_10MHz=Internal 10 MHz
+AVREB_noloader.menu.03_clock.03_5MHz.bootloader.bod_sample=0
+AVREB_noloader.menu.03_clock.03_5MHz.build.f_cpu=5000000L
+AVREB_noloader.menu.03_clock.03_5MHz=Internal 5 MHz
+AVREB_noloader.menu.03_clock.10=-
+AVREB_noloader.menu.03_clock.11_16MHz.bootloader.OSCCFG=0b11111111
+AVREB_noloader.menu.03_clock.11_16MHz.bootloader.bod_sample=0
+AVREB_noloader.menu.03_clock.11_16MHz.build.f_cpu=16000000L
+AVREB_noloader.menu.03_clock.11_16MHz=Internal 16 MHz
+AVREB_noloader.menu.03_clock.12_8MHz.bootloader.OSCCFG=0b11111111
+AVREB_noloader.menu.03_clock.12_8MHz.bootloader.bod_sample=0
+AVREB_noloader.menu.03_clock.12_8MHz.build.f_cpu=8000000L
+AVREB_noloader.menu.03_clock.12_8MHz=Internal 8 MHz
+AVREB_noloader.menu.03_clock.13_4MHz.bootloader.OSCCFG=0b11111111
+AVREB_noloader.menu.03_clock.13_4MHz.bootloader.bod_sample=0
+AVREB_noloader.menu.03_clock.13_4MHz.build.f_cpu=4000000L
+AVREB_noloader.menu.03_clock.13_4MHz=Internal 4 MHz
+AVREB_noloader.menu.03_clock.15_1MHz.bootloader.OSCCFG=0b11111111
+AVREB_noloader.menu.03_clock.15_1MHz.bootloader.bod_sample=0
+AVREB_noloader.menu.03_clock.15_1MHz.build.f_cpu=1000000L
+AVREB_noloader.menu.03_clock.15_1MHz=Internal 1 MHz
+AVREB_noloader.menu.03_clock.20=-
+AVREB_noloader.menu.03_clock.21_2MHz.bootloader.bod_sample=0
+AVREB_noloader.menu.03_clock.21_2MHz.build.f_cpu=2000000L
+AVREB_noloader.menu.03_clock.21_2MHz=Internal 2 MHz
+AVREB_noloader.menu.03_clock.22_32768Hz.bootloader.bod_sample=1
+AVREB_noloader.menu.03_clock.22_32768Hz.build.f_cpu=32768
+AVREB_noloader.menu.03_clock.22_32768Hz=Internal 32.768 kHz (ULP)
+AVREB_noloader.menu.11_BODMODE.01_disabled.bootloader.bod_mode=00
+AVREB_noloader.menu.11_BODMODE.01_disabled=BOD Disabled
+AVREB_noloader.menu.11_BODMODE.02_enabled.bootloader.bod_mode=01
+AVREB_noloader.menu.11_BODMODE.02_enabled=BOD Enabled
+AVREB_noloader.menu.11_BODMODE.03_sampled.bootloader.bod_mode=10
+AVREB_noloader.menu.11_BODMODE.03_sampled=BOD Sampled
+AVREB_noloader.menu.11_BODMODE.04_enablewait.bootloader.bod_mode=11
+AVREB_noloader.menu.11_BODMODE.04_enablewait=BOD Enabled hold wakeup
+AVREB_noloader.menu.12_BODLVL.BODLEVEL0.bootloader.bod_lvl=000
+AVREB_noloader.menu.12_BODLVL.BODLEVEL0=Level 1.75V (default)
+AVREB_noloader.menu.12_BODLVL.BODLEVEL1.bootloader.bod_lvl=001
+AVREB_noloader.menu.12_BODLVL.BODLEVEL1=Level 1.90V
+AVREB_noloader.menu.12_BODLVL.BODLEVEL2.bootloader.bod_lvl=010
+AVREB_noloader.menu.12_BODLVL.BODLEVEL2=Level 2.60V
+AVREB_noloader.menu.12_BODLVL.BODLEVEL3.bootloader.bod_lvl=011
+AVREB_noloader.menu.12_BODLVL.BODLEVEL3=Level 4.30V
+AVREB_noloader.menu.21_resetpin.01_reset.bootloader.reset_bit=11
+AVREB_noloader.menu.21_resetpin.01_reset=PF6 pin=Reset
+AVREB_noloader.menu.21_resetpin.02_gpio.bootloader.reset_bit=01
+AVREB_noloader.menu.21_resetpin.02_gpio=PF6 pin=GPIO (input only)
+AVREB_noloader.menu.22_updipin.01_updi.bootloader.updi_bit=1
+AVREB_noloader.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
+AVREB_noloader.menu.22_updipin.02_gpio.bootloader.updi_bit=0
+AVREB_noloader.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
+AVREB_noloader.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
+AVREB_noloader.menu.23_eeprom.01_keep=Save guard "Retained"
+AVREB_noloader.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
+AVREB_noloader.menu.23_eeprom.02_erase=Save guard "Erase"
+AVREB_noloader.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVREB_noloader.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
+AVREB_noloader.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVREB_noloader.menu.25_bootrow.01_keep.bootloader.browsave_bit=1
+AVREB_noloader.menu.25_bootrow.01_keep=Save guard "Retained"
+AVREB_noloader.menu.25_bootrow.02_erase.bootloader.browsave_bit=0
+AVREB_noloader.menu.25_bootrow.02_erase=Save guard "Erase"
+AVREB_noloader.menu.51_buildopt.01_Release=Build Release (default)
+AVREB_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
+AVREB_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
+AVREB_noloader.menu.51_buildopt.03_Debug2.build.buildopt=-DDEBUG=2
+AVREB_noloader.menu.51_buildopt.03_Debug2=Build DEBUG=2
+AVREB_noloader.menu.52_macroapi.01_Enable=Macro API Enable (default)
+AVREB_noloader.menu.52_macroapi.02_Disable.build.macroapi=
+AVREB_noloader.menu.52_macroapi.02_Disable=Macro API Disable
+AVREB_noloader.menu.52_macroapi.03_AllDisable.build.macroapi=
+AVREB_noloader.menu.52_macroapi.03_AllDisable.compiler.ldflags=-nostartfiles -nostdlib
+AVREB_noloader.menu.52_macroapi.03_AllDisable=Standard Library All Disable
+AVREB_noloader.menu.53_printf.01_default=default
+AVREB_noloader.menu.53_printf.02_full.build.printf=-DUSE_PRINTF_FLT
+AVREB_noloader.menu.53_printf.02_full.build.printflt=-Wl,-u,vfprintf -lprintf_flt
+AVREB_noloader.menu.53_printf.02_full=Float Support
+AVREB_noloader.menu.54_console_select.01.build.console_select=-DSerial=Serial0A
+AVREB_noloader.menu.54_console_select.01.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREB_noloader.menu.54_console_select.01=UART0 TX:PA0 RX:PA1 LED=PA7
+AVREB_noloader.menu.54_console_select.02.build.console_select=-DSerial=Serial1A
+AVREB_noloader.menu.54_console_select.02.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREB_noloader.menu.54_console_select.02=UART1 TX:PC0 RX:PC1 LED=PA7
+AVREB_noloader.menu.54_console_select.03.build.console_select=-DSerial=Serial2A
+AVREB_noloader.menu.54_console_select.03.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREB_noloader.menu.54_console_select.03=UART2 TX:PF0 RX:PF1 LED=PA7
+AVREB_noloader.menu.54_console_select.10=-
+AVREB_noloader.menu.54_console_select.11.build.console_select=-DSerial=Serial0D
+AVREB_noloader.menu.54_console_select.11.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREB_noloader.menu.54_console_select.11=UART0 TX:PD4 RX:PD5 LED=PA7 (alt)
+AVREB_noloader.menu.54_console_select.12.build.console_select=-DSerial=Serial1C
+AVREB_noloader.menu.54_console_select.12.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREB_noloader.menu.54_console_select.12=UART1 TX:PD6 RX:PD7 LED=PA7 (alt)
+AVREB_noloader.menu.54_console_select.13.build.console_select=-DSerial=Serial2B
+AVREB_noloader.menu.54_console_select.13.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVREB_noloader.menu.54_console_select.13=UART2 TX:PF4 RX:PF5 LED=PA7 (alt 32/48pin only)
+AVREB_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
+AVREB_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
+AVREB_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400
+AVREB_noloader.menu.90_console_baud.03_38400bps=CONSOLE_BAUD=38400 bps
+AVREB_noloader.menu.90_console_baud.04_57600bps.build.console_baud=-DCONSOLE_BAUD=57600
+AVREB_noloader.menu.90_console_baud.04_57600bps=CONSOLE_BAUD=57600 bps
+AVREB_noloader.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=115200
+AVREB_noloader.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
+AVREB_noloader.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
+AVREB_noloader.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVREB_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
+AVREB_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
+AVREB_noloader.menu.90_console_baud.20=-
+AVREB_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
+AVREB_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
+AVREB_noloader.menu.95_bootloader.00_woBootloader=without Bootloader

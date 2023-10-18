@@ -78,7 +78,7 @@
 #define PIN_UPDI     PIN_PF7
 
 #ifndef LED_BUILTIN
-#define LED_BUILTIN  PIN_PD5
+#define LED_BUILTIN  PIN_PD7
 #endif
 #define LED_BUILTIN_INVERT  /* implementation dependent */
 

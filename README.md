@@ -135,13 +135,13 @@ Arduino IDE でこのSDKを選択すると、
 
 - __Variant__ -- 具体的な製品型番を選択。（必須）
   - 外囲器ピン数＋型番＋フラッシュメモリ量＋SRAM量別になっている。
-- __Clock__ -- AVR_DA/DB/DD用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
+- __Clock(Dx)__ -- AVR_DA/DB/DD用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __FUSE無関係に常時どれでも変更可能__
   - 高周波内蔵発振器による 24MHz〜1MHz
   - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（定格外）
   - 超低消費電力発振器による 32.768kHz (OSC-ULP)
-- __Clock(EA)__ -- AVR_EA専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
+- __Clock(Ex)__ -- AVR_Ex専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __20MHz系列と16Mhz系列は FUSE書込依存で排他選択__
   - 高周波内蔵発振器による 20MHz/10MHz/5MHz -- 20MHz系列用
@@ -154,10 +154,10 @@ Arduino IDE でこのSDKを選択すると、
   - BOD Sampled -- 各個別データシート参照のこと
   - BOD Enabled hold wakeup -- 各個別データシート参照のこと
 - __BOD Level__ -- BOD監視電圧レベル（FUSE設定）
-  - 1.9V -- 既定値
-  - 2.45V
-  - 2.7V
-  - 2.85V
+  - 1.90V or 1.75V -- 既定値
+  - 2.45V or 1.90V
+  - 2.70V or 2.60V
+  - 2.85V or 4.30V
 - __FUSE PF6__ -- AVR_DA/DB/DD/EA のリセット端子用途変更（FUSE設定）
   - PF6 pin=Reset -- 既定値
   - PF6 pin=GPIO -- 各個別データシート参照のこと
@@ -168,6 +168,9 @@ Arduino IDE でこのSDKを選択すると、
   - Save guard "Retained" -- チップ消去時保護
   - Save guard "Erase" -- チップ消去時一括初期化
   - "Erase" and "Replace" -- ブートローダー/書込器でのEEPROM書換有効
+- __FUSE BOOTROW__ -- AVR_EB の BOOTROW保護フラグ（FUSE設定）
+  - Save guard "Retained" -- チップ消去時保護
+  - Save guard "Erase" -- チップ消去時一括初期化
 - __FUSE MVIO__ -- AVR_DB/DD の復電圧機能種別（FUSE設定）
   - MVIO "Dual" -- 有効（VDD2へ要外部電圧供給）
   - MVIO "Single" -- 無効（VDD2へ内部固定電圧供給）
@@ -193,6 +196,7 @@ Arduino IDE でこのSDKを選択すると、
   - 38400 bps
   - 57600 bps
   - 115200 bps
+  - 230400 bps
   - 1000000 bps
   - 2400 bps -- OSC-LUP対応
 - __Bootloader__ -- ブートローダー選択
@@ -352,6 +356,7 @@ optiboot を原型とするが clone である。
 ## 更新履歴
 
 - v0.2.7 (23/10/18)
+  - AVR16EBnn（w/o bootloader）のビルドに対応
   - `dryrun`を書込器選択に追加。
   - `avrdude.conf`参照ルールの変更。
     - `arduino`/`UPDI4VAR`/`TPI4AVR`/`dryrun`を書込器に指定した場合のみ、ローカルの特別な設定ファイルを参照する。それ以外は規定の（tools/avrdude/etc内の）`avrdude.conf`を参照する。

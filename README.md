@@ -207,6 +207,7 @@ Arduino IDE でこのSDKを選択すると、
   - PICkit4 over USB (UPDI)
   - Curiosity Nano (nEDBG: ATSAMD21E18)
   - JTAG2UPDI over UART (NVMCTRL v2 Remodeling)-- NVMCTRL v2 非対応のバリアントは使用不可
+  - dryrun (Emulates programming without a programmer) -- 実際には何もしないダミーの書込器で、各種設定の論理的妥当性を検証するのに使用する
 
 > FUSE UPDI -> UPDI (default) 選択以外に書換えた場合の復元は __HV対応書込器が必須。__\
 > FUSE EEPROM -> "Erase" and "Replace" 選択は、対応するブートローダーか書込器使用時のみ可。\
@@ -349,6 +350,12 @@ optiboot を原型とするが clone である。
 その他の同種製品も同様に、適切なオプションの手動選択が必要。
 
 ## 更新履歴
+
+- v0.2.7 (23/10/18)
+  - `dryrun`を書込器選択に追加。
+  - `avrdude.conf`参照ルールの変更。
+    - `arduino`/`UPDI4VAR`/`TPI4AVR`/`dryrun`を書込器に指定した場合のみ、ローカルの特別な設定ファイルを参照する。それ以外は規定の（tools/avrdude/etc内の）`avrdude.conf`を参照する。
+    - この変更により、AVR_EA系統のようにまだ他の書込器で未対応／未検証のパーツ設定が分離された。
 
 - v0.2.6 (23/10/16)
   - `7.2-arduino.1`に更新。

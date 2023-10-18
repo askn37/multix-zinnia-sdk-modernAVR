@@ -1,0 +1,3323 @@
+#
+# AVRDUDE Configuration File
+#
+
+#
+# Overall avrdude defaults; suitable for ~/.config/avrdude/avrdude.rc
+#
+default_parallel   = "/dev/parport0";
+default_serial     = "/dev/ttyS0";
+default_spi        = "";
+# default_bitclock = 2.5;
+default_linuxgpio  = "gpiochip0";
+allow_subshells    = no;
+
+#
+# PROGRAMMER DEFINITIONS
+#
+
+#------------------------------------------------------------
+# dryrun
+#------------------------------------------------------------
+
+programmer
+    id                     = "dryrun";
+    desc                   = "Emulates programming without a programmer";
+    type                   = "dryrun";
+    prog_modes             = PM_TPI | PM_ISP | PM_UPDI | PM_PDI;
+;
+
+#------------------------------------------------------------
+# arduino
+#------------------------------------------------------------
+
+programmer
+    id                     = "arduino";
+    desc                   = "Arduino for bootloader using STK500 v1 protocol";
+    type                   = "arduino";
+    prog_modes             = PM_SPM;
+    connection_type        = serial;
+;
+
+#------------------------------------------------------------
+# updi4avr
+#------------------------------------------------------------
+
+# UPDI4AVR
+# https://askn37.github.io/product/UPDI4AVR/README_en.html
+
+programmer
+    id                     = "updi4avr";
+    desc                   = "JTAGv2 to UPDI bridge";
+    type                   = "jtagmkii_updi";
+    prog_modes             = PM_UPDI;
+    extra_features         = HAS_VTARG_READ;
+    connection_type        = serial;
+    baudrate               = 230400;
+    hvupdi_support         = 0, 1, 2;
+;
+
+#
+# PART DEFINITIONS
+#
+
+#------------------------------------------------------------
+# AVR8X family common values
+#------------------------------------------------------------
+
+part
+    desc                   = "AVR8X family common values";
+    id                     = ".avr8x";
+    prog_modes             = PM_SPM | PM_UPDI;
+    n_boot_sections        = 1;
+    boot_section_size      = 256;
+    nvm_base               = 0x1000;
+    ocd_base               = 0x0f80;
+
+    memory "boot"
+        size               = 0;
+        offset             = 0x800000;
+    ;
+
+    memory "application"
+        size               = 0;
+        offset             = 0x800200;
+    ;
+
+    memory "fuse0"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1280;
+        readsize           = 1;
+    ;
+
+    memory "wdtcfg"
+        alias "fuse0";
+    ;
+
+    memory "fuse1"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1281;
+        readsize           = 1;
+    ;
+
+    memory "bodcfg"
+        alias "fuse1";
+    ;
+
+    memory "fuse2"
+        size               = 1;
+        initval            = 0x7e;
+        bitmask            = 0x83;
+        offset             = 0x1282;
+        readsize           = 1;
+    ;
+
+    memory "osccfg"
+        alias "fuse2";
+    ;
+
+    memory "fuse5"
+        size               = 1;
+        initval            = 0xf6;
+        bitmask            = 0xcd;
+        offset             = 0x1285;
+        readsize           = 1;
+    ;
+
+    memory "syscfg0"
+        alias "fuse5";
+    ;
+
+    memory "fuse6"
+        size               = 1;
+        initval            = 0xff;
+        bitmask            = 0x07;
+        offset             = 0x1286;
+        readsize           = 1;
+    ;
+
+    memory "syscfg1"
+        alias "fuse6";
+    ;
+
+    memory "fuse7"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1287;
+        readsize           = 1;
+    ;
+
+    memory "append"
+        alias "fuse7";
+    ;
+
+    memory "codesize"
+        alias "fuse7";
+    ;
+
+    memory "fuse8"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1288;
+        readsize           = 1;
+    ;
+
+    memory "bootend"
+        alias "fuse8";
+    ;
+
+    memory "bootsize"
+        alias "fuse8";
+    ;
+
+    memory "fuses"
+        size               = 9;
+        page_size          = 10;
+        offset             = 0x1280;
+        readsize           = 10;
+    ;
+
+    memory "lock"
+        size               = 1;
+        offset             = 0x128a;
+        readsize           = 1;
+    ;
+
+    memory "tempsense"
+        size               = 2;
+        offset             = 0x1120;
+        readsize           = 1;
+    ;
+
+    memory "signature"
+        size               = 3;
+        offset             = 0x1100;
+        readsize           = 3;
+    ;
+
+    memory "prodsig"
+        size               = 61;
+        page_size          = 61;
+        offset             = 0x1103;
+        readsize           = 61;
+    ;
+
+    memory "sernum"
+        size               = 10;
+        offset             = 0x1104;
+        readsize           = 1;
+    ;
+
+    memory "osccal16"
+        size               = 2;
+        offset             = 0x1118;
+        readsize           = 1;
+    ;
+
+    memory "osccal20"
+        size               = 2;
+        offset             = 0x111a;
+        readsize           = 1;
+    ;
+
+    memory "osc16err"
+        size               = 2;
+        offset             = 0x1122;
+        readsize           = 1;
+    ;
+
+    memory "osc20err"
+        size               = 2;
+        offset             = 0x1124;
+        readsize           = 1;
+    ;
+
+    memory "revid"
+        size               = 1;
+        offset             = 0x0f01;
+        readsize           = 1;
+    ;
+
+    memory "data"
+        # SRAM, only used to supply the offset
+        offset             = 0x1000000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR8X tiny family common values
+#------------------------------------------------------------
+
+part parent ".avr8x"
+    desc                   = "AVR8X tiny family common values";
+    id                     = ".avr8x_tiny";
+    family_id              = "tinyAVR";
+    # Shared UPDI pin, HV on UPDI pin
+    hvupdi_variant         = 0;
+
+    memory "userrow"
+        size               = 32;
+        page_size          = 32;
+        offset             = 0x1300;
+        readsize           = 256;
+    ;
+
+    memory "usersig"
+        alias "userrow";
+    ;
+
+    memory "lock"
+        initval            = 0xc5;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR8X mega family common values
+#------------------------------------------------------------
+
+part parent ".avr8x"
+    desc                   = "AVR8X mega family common values";
+    id                     = ".avr8x_mega";
+    family_id              = "megaAVR";
+    # Dedicated UPDI pin, no HV
+    hvupdi_variant         = 1;
+
+    memory "fuse5"
+        bitmask            = 0xc9;
+    ;
+
+    memory "userrow"
+        size               = 64;
+        page_size          = 64;
+        offset             = 0x1300;
+        readsize           = 256;
+    ;
+
+    memory "usersig"
+        alias "userrow";
+    ;
+
+    memory "lock"
+        initval            = 0xc5;
+    ;
+
+;
+
+#------------------------------------------------------------
+# ATtiny202
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny202";
+    id                     = "t202";
+    variants               =
+        "ATtiny202-SSF:  SOIC8, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny202-SSFR: SOIC8, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny202-SSN:  SOIC8, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny202-SSNR: SOIC8, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 280;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x91 0x23;
+
+    memory "eeprom"
+        size               = 64;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 2048;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse4"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1284;
+        readsize           = 1;
+    ;
+
+    memory "tcd0cfg"
+        alias "fuse4";
+    ;
+
+    memory "data"
+        size               = 128;
+        offset             = 0x3f80;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny204
+#------------------------------------------------------------
+
+part parent "t202"
+    desc                   = "ATtiny204";
+    id                     = "t204";
+    variants               =
+        "ATtiny204-SSF:  SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny204-SSFR: SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny204-SSN:  SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny204-SSNR: SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 281;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x91 0x22;
+;
+
+#------------------------------------------------------------
+# ATtiny402
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny402";
+    id                     = "t402";
+    variants               =
+        "ATtiny402-SSF:  SOIC8, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny402-SSFR: SOIC8, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny402-SSN:  SOIC8, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny402-SSNR: SOIC8, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 284;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x92 0x27;
+
+    memory "eeprom"
+        size               = 128;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 4096;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse4"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1284;
+        readsize           = 1;
+    ;
+
+    memory "tcd0cfg"
+        alias "fuse4";
+    ;
+
+    memory "data"
+        size               = 256;
+        offset             = 0x3f00;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny404
+#------------------------------------------------------------
+
+part parent "t402"
+    desc                   = "ATtiny404";
+    id                     = "t404";
+    variants               =
+        "ATtiny404-SSF:  SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny404-SSFR: SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny404-SSN:  SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny404-SSNR: SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 285;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x92 0x26;
+;
+
+#------------------------------------------------------------
+# ATtiny406
+#------------------------------------------------------------
+
+part parent "t402"
+    desc                   = "ATtiny406";
+    id                     = "t406";
+    variants               =
+        "ATtiny406-MFR: VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny406-MNR: VQFN20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny406-SF:  SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny406-SFR: SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny406-SN:  SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny406-SNR: SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 286;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x92 0x25;
+;
+
+#------------------------------------------------------------
+# ATtiny804
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny804";
+    id                     = "t804";
+    variants               =
+        "ATtiny804-SSF:  SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny804-SSFR: SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny804-SSN:  SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny804-SSNR: SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 295;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x93 0x25;
+
+    memory "eeprom"
+        size               = 128;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 8192;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "lock"
+        initval            = 0xc5;
+    ;
+
+    memory "data"
+        size               = 512;
+        offset             = 0x3e00;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny806
+#------------------------------------------------------------
+
+part parent "t804"
+    desc                   = "ATtiny806";
+    id                     = "t806";
+    variants               =
+        "ATtiny806-MF:  VQFN20,     Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny806-MFR: QFN20,      Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[2.7 V, 5.5 V]",
+        "ATtiny806-MN:  VQFN20,     Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny806-MNR: QFN20,      Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny806-SF:  SOIC20,     Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny806-SFR: SOIC300-20, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny806-SN:  SOIC20,     Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny806-SNR: SOIC300-20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 296;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x93 0x24;
+;
+
+#------------------------------------------------------------
+# ATtiny807
+#------------------------------------------------------------
+
+part parent "t804"
+    desc                   = "ATtiny807";
+    id                     = "t807";
+    variants               =
+        "ATtiny807-MF:  VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny807-MFR: VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny807-MN:  VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny807-MNR: VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny807-MRF: VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 297;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x93 0x23;
+;
+
+#------------------------------------------------------------
+# ATtiny1604
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny1604";
+    id                     = "t1604";
+    variants               =
+        "ATtiny1604-SSF:  SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1604-SSFR: SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1604-SSN:  SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1604-SSNR: SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 304;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x94 0x25;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x4000;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "lock"
+        initval            = 0xc5;
+    ;
+
+    memory "data"
+        size               = 1024;
+        offset             = 0x3c00;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny1606
+#------------------------------------------------------------
+
+part parent "t1604"
+    desc                   = "ATtiny1606";
+    id                     = "t1606";
+    variants               =
+        "ATtiny1606-MF:  VQFN20,     Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1606-MFR: VQFN20,     Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1606-MN:  VQFN20,     Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1606-MNR: VQFN20,     Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1606-SF:  SOIC20,     Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1606-SFR: SOIC300-20, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1606-SN:  SOIC20,     Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1606-SNR: SOIC300-20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 305;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x94 0x24;
+;
+
+#------------------------------------------------------------
+# ATtiny1607
+#------------------------------------------------------------
+
+part parent "t1604"
+    desc                   = "ATtiny1607";
+    id                     = "t1607";
+    variants               =
+        "ATtiny1607-MF:  VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1607-MFR: VQFN24, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1607-MN:  VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1607-MNR: VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1607-MRF: VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 306;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x94 0x23;
+;
+
+#------------------------------------------------------------
+# ATtiny212
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny212";
+    id                     = "t212";
+    variants               =
+        "ATtiny212-SSF:  SOIC8, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny212-SSFR: SOIC8, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny212-SSN:  SOIC8, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny212-SSNR: SOIC8, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 282;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x91 0x21;
+
+    memory "eeprom"
+        size               = 64;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 2048;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse4"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1284;
+        readsize           = 1;
+    ;
+
+    memory "tcd0cfg"
+        alias "fuse4";
+    ;
+
+    memory "data"
+        size               = 128;
+        offset             = 0x3f80;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny214
+#------------------------------------------------------------
+
+part parent "t212"
+    desc                   = "ATtiny214";
+    id                     = "t214";
+    variants               =
+        "ATtiny214-SSF:  SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny214-SSFR: SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny214-SSN:  SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny214-SSNR: SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 283;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x91 0x20;
+;
+
+#------------------------------------------------------------
+# ATtiny412
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny412";
+    id                     = "t412";
+    variants               =
+        "ATtiny412-SSF:  SOIC8, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny412-SSFR: SOIC8, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny412-SSN:  SOIC8, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny412-SSNR: SOIC8, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 287;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x92 0x23;
+
+    memory "eeprom"
+        size               = 128;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 4096;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse4"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1284;
+        readsize           = 1;
+    ;
+
+    memory "tcd0cfg"
+        alias "fuse4";
+    ;
+
+    memory "data"
+        size               = 256;
+        offset             = 0x3f00;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny414
+#------------------------------------------------------------
+
+part parent "t412"
+    desc                   = "ATtiny414";
+    id                     = "t414";
+    variants               =
+        "ATtiny414-SSF:  SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny414-SSFR: SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny414-SSN:  SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny414-SSNR: SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 288;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x92 0x22;
+;
+
+#------------------------------------------------------------
+# ATtiny416
+#------------------------------------------------------------
+
+part parent "t412"
+    desc                   = "ATtiny416";
+    id                     = "t416";
+    variants               =
+        "ATtiny416-MFR: VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny416-MNR: VQFN20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny416-SF:  SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny416-SFR: SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny416-SN:  SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny416-SNR: SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 289;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x92 0x21;
+;
+
+#------------------------------------------------------------
+# ATtiny416auto
+#------------------------------------------------------------
+
+part parent "t416"
+    desc                   = "ATtiny416auto";
+    id                     = "t416auto";
+    variants               =
+        "ATtiny416-MBT: VQFN20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[2.7 V, 5.5 V]",
+        "ATtiny416-MZT: VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[2.7 V, 5.5 V]";
+    mcuid                  = 290;
+    signature              = 0x1e 0x92 0x28;
+
+    memory "fuse2"
+        initval            = 0x7d;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny417
+#------------------------------------------------------------
+
+part parent "t412"
+    desc                   = "ATtiny417";
+    id                     = "t417";
+    variants               =
+        "ATtiny417-MF:  VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny417-MFR: QFN24,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny417-MN:  VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny417-MNR: QFN24,  Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 291;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x92 0x20;
+;
+
+#------------------------------------------------------------
+# ATtiny814
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny814";
+    id                     = "t814";
+    variants               =
+        "ATtiny814-SSF:    SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny814-SSFR:   SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny814-SSN:    SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny814-SSNR:   SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny814-SSNRES: SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 298;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x93 0x22;
+
+    memory "eeprom"
+        size               = 128;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 8192;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse4"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1284;
+        readsize           = 1;
+    ;
+
+    memory "tcd0cfg"
+        alias "fuse4";
+    ;
+
+    memory "data"
+        size               = 256;
+        offset             = 0x3e00;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny816
+#------------------------------------------------------------
+
+part parent "t814"
+    desc                   = "ATtiny816";
+    id                     = "t816";
+    variants               =
+        "ATtiny816-MF:    VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny816-MFR:   VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny816-MN:    VQFN20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny816-MNR:   VQFN20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny816-MNRES: VQFN20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny816-SF:    SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny816-SFR:   SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny816-SN:    SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny816-SNR:   SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 299;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x93 0x21;
+;
+
+#------------------------------------------------------------
+# ATtiny817
+#------------------------------------------------------------
+
+part parent "t814"
+    desc                   = "ATtiny817";
+    id                     = "t817";
+    variants               =
+        "ATtiny817-MF:    VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny817-MFR:   VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny817-MN:    VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny817-MNR:   VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny817-MNRES: VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 300;
+    n_interrupts           = 26;
+    signature              = 0x1e 0x93 0x20;
+;
+
+#------------------------------------------------------------
+# ATtiny1614
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny1614";
+    id                     = "t1614";
+    variants               =
+        "ATtiny1614-SSF:  SOIC14, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1614-SSFR: SOIC14, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1614-SSN:  SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1614-SSNR: SOIC14, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 307;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x94 0x22;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x4000;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse4"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1284;
+        readsize           = 1;
+    ;
+
+    memory "tcd0cfg"
+        alias "fuse4";
+    ;
+
+    memory "data"
+        size               = 2048;
+        offset             = 0x3800;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny1616
+#------------------------------------------------------------
+
+part parent "t1614"
+    desc                   = "ATtiny1616";
+    id                     = "t1616";
+    variants               =
+        "ATtiny1616-MFR: QFN20,  Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1616-MNR: QFN20,  Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1616-SF:  SOIC20, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1616-SFR: SOIC20, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1616-SN:  SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1616-SNR: SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 308;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x94 0x21;
+;
+
+#------------------------------------------------------------
+# ATtiny1617
+#------------------------------------------------------------
+
+part parent "t1616"
+    desc                   = "ATtiny1617";
+    id                     = "t1617";
+    variants               =
+        "ATtiny1617-MF:  VQFN24, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[2.7 V, 5.5 V]",
+        "ATtiny1617-MFR: VQFN24, Fmax=16 MHz, T=[-40 C, 125 C], Vcc=[2.7 V, 5.5 V]",
+        "ATtiny1617-MN:  QFN24,  Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1617-MNR: QFN24,  Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 309;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x94 0x20;
+;
+
+#------------------------------------------------------------
+# ATtiny3216
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny3216";
+    id                     = "t3216";
+    variants               =
+        "ATtiny3216-SF:  SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3216-SFR: SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3216-SN:  SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3216-SNR: SOIC20, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 314;
+    n_interrupts           = 31;
+    signature              = 0x1e 0x95 0x21;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 64;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x8000;
+        page_size          = 128;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse4"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1284;
+        readsize           = 1;
+    ;
+
+    memory "tcd0cfg"
+        alias "fuse4";
+    ;
+
+    memory "userrow"
+        size               = 64;
+        page_size          = 64;
+    ;
+
+    memory "data"
+        size               = 2048;
+        offset             = 0x3800;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny3217
+#------------------------------------------------------------
+
+part parent "t3216"
+    desc                   = "ATtiny3217";
+    id                     = "t3217";
+    variants               =
+        "ATtiny3217-MF:  VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3217-MFR: VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3217-MN:  VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3217-MNR: VQFN24, Fmax=20 MHz, T=[-40 C, 105 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 315;
+    signature              = 0x1e 0x95 0x22;
+;
+
+#------------------------------------------------------------
+# ATtiny424
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny424";
+    id                     = "t424";
+    variants               =
+        "ATtiny424:      SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny424-SSF:  SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny424-SSFR: SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny424-SSU:  SOIC14,  Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny424-SSUR: SOIC14,  Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny424-XF:   TSSOP14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny424-XFR:  TSSOP14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny424-XU:   TSSOP14, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny424-XUR:  TSSOP14, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 292;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x92 0x2c;
+
+    memory "eeprom"
+        size               = 128;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 4096;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        bitmask            = 0xdd;
+    ;
+
+    memory "data"
+        size               = 512;
+        offset             = 0x3e00;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny426
+#------------------------------------------------------------
+
+part parent "t424"
+    desc                   = "ATtiny426";
+    id                     = "t426";
+    variants               =
+        "ATtiny426:     VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-MF:  VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-MFR: VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-MU:  VQFN20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-MUR: VQFN20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-SF:  SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-SFR: SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-SU:  SOIC20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-SUR: SOIC20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-XF:  SSOP20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-XFR: SSOP20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-XU:  SSOP20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny426-XUR: SSOP20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 293;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x92 0x2b;
+;
+
+#------------------------------------------------------------
+# ATtiny427
+#------------------------------------------------------------
+
+part parent "t424"
+    desc                   = "ATtiny427";
+    id                     = "t427";
+    variants               =
+        "ATtiny427:     VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny427-MF:  VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny427-MFR: VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny427-MU:  VQFN24, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny427-MUR: VQFN24, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 294;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x92 0x2a;
+
+;
+
+#------------------------------------------------------------
+# ATtiny824
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny824";
+    id                     = "t824";
+    variants               =
+        "ATtiny824:      SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny824-SSF:  SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny824-SSFR: SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny824-SSU:  SOIC14,  Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny824-SSUR: SOIC14,  Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny824-XF:   TSSOP14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny824-XFR:  TSSOP14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny824-XU:   TSSOP14, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny824-XUR:  TSSOP14, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 301;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x93 0x29;
+
+    memory "eeprom"
+        size               = 128;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 8192;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        bitmask            = 0xdd;
+    ;
+
+    memory "data"
+        size               = 1024;
+        offset             = 0x3c00;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny826
+#------------------------------------------------------------
+
+part parent "t824"
+    desc                   = "ATtiny826";
+    id                     = "t826";
+    variants               =
+        "ATtiny826:     VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-MF:  VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-MFR: VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-MU:  VQFN20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-MUR: VQFN20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-SF:  SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-SFR: SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-SU:  SOIC20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-SUR: SOIC20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-XF:  SSOP20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-XFR: SSOP20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-XU:  SSOP20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny826-XUR: SSOP20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 302;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x93 0x28;
+;
+
+#------------------------------------------------------------
+# ATtiny827
+#------------------------------------------------------------
+
+part parent "t824"
+    desc                   = "ATtiny827";
+    id                     = "t827";
+    variants               =
+        "ATtiny827:     VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny827-MF:  VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny827-MFR: VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny827-MU:  VQFN24, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny827-MUR: VQFN24, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 303;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x93 0x27;
+;
+
+#------------------------------------------------------------
+# ATtiny1624
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny1624";
+    id                     = "t1624";
+    variants               =
+        "ATtiny1624:      SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1624-SSF:  SOIC14,  Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1624-SSFR: SOIC14,  Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1624-SSU:  SOIC14,  Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1624-SSUR: SOIC14,  Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1624-XF:   TSSOP14, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1624-XFR:  TSSOP14, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1624-XU:   TSSOP14, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1624-XUR:  TSSOP14, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 310;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x94 0x2a;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x4000;
+        page_size          = 64;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        bitmask            = 0xdd;
+    ;
+
+    memory "data"
+        size               = 2048;
+        offset             = 0x3800;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny1626
+#------------------------------------------------------------
+
+part parent "t1624"
+    desc                   = "ATtiny1626";
+    id                     = "t1626";
+    variants               =
+        "ATtiny1626:     VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-MF:  VQFN20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-MFR: VQFN20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-MU:  VQFN20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-MUR: VQFN20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-SF:  SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-SFR: SOIC20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-SU:  SOIC20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-SUR: SOIC20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-XF:  SSOP20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-XFR: SSOP20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-XU:  SSOP20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1626-XUR: SSOP20, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 311;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x94 0x29;
+;
+
+#------------------------------------------------------------
+# ATtiny1627
+#------------------------------------------------------------
+
+part parent "t1624"
+    desc                   = "ATtiny1627";
+    id                     = "t1627";
+    variants               =
+        "ATtiny1627:     VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1627-MF:  VQFN24, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1627-MFR: VQFN24, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1627-MU:  VQFN24, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny1627-MUR: VQFN24, Fmax=20 MHz, T=[-40 C,   N/A], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 312;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x94 0x28;
+;
+
+#------------------------------------------------------------
+# ATtiny3224
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATtiny3224";
+    id                     = "t3224";
+    variants               =
+        "ATtiny3224:      SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3224-SSF:  SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3224-SSFR: SOIC14,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3224-SSU:  SOIC14,  Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3224-SSUR: SOIC14,  Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3224-XF:   TSSOP14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3224-XFR:  TSSOP14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3224-XU:   TSSOP14, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3224-XUR:  TSSOP14, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 316;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x95 0x28;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 64;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x8000;
+        page_size          = 128;
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        bitmask            = 0xdd;
+    ;
+
+    memory "data"
+        size               = 3072;
+        offset             = 0x3400;
+    ;
+;
+
+#------------------------------------------------------------
+# ATtiny3226
+#------------------------------------------------------------
+
+part parent "t3224"
+    desc                   = "ATtiny3226";
+    id                     = "t3226";
+    variants               =
+        "ATtiny3226:     VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-MF:  VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-MFR: VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-MU:  VQFN20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-MUR: VQFN20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-SF:  SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-SFR: SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-SU:  SOIC20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-SUR: SOIC20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-XF:  SSOP20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-XFR: SSOP20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-XU:  SSOP20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3226-XUR: SSOP20, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 317;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x95 0x27;
+;
+
+#------------------------------------------------------------
+# ATtiny3227
+#------------------------------------------------------------
+
+part parent "t3224"
+    desc                   = "ATtiny3227";
+    id                     = "t3227";
+    variants               =
+        "ATtiny3227:     VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3227-MF:  VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3227-MFR: VQFN24, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3227-MU:  VQFN24, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATtiny3227-MUR: VQFN24, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 318;
+    n_interrupts           = 30;
+    signature              = 0x1e 0x95 0x26;
+;
+
+#------------------------------------------------------------
+# ATmega808
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATmega808";
+    id                     = "m808";
+    variants               =
+        "ATmega808-AF:  TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-AFR: TQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-AU:  TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-AUR: TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-MF:  VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-MFR: QFN32,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-MU:  VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-MUR: VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-XF:  SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-XFR: SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-XU:  SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega808-XUR: SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 319;
+    n_interrupts           = 36;
+    signature              = 0x1e 0x93 0x26;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 8192;
+        page_size          = 64;
+        offset             = 0x4000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        bitmask            = 0xc9;
+    ;
+
+    memory "data"
+        size               = 1024;
+        offset             = 0x3c00;
+    ;
+;
+
+#------------------------------------------------------------
+# ATmega809
+#------------------------------------------------------------
+
+part parent "m808"
+    desc                   = "ATmega809";
+    id                     = "m809";
+    variants               =
+        "ATmega809-AF:  TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega809-AFR: TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega809-AU:  TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega809-AUR: TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega809-MF:  VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega809-MFR: QFN48,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega809-MU:  VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega809-MUR: VQFN48, Fmax=N/A,    T=[N/A,     N/A], Vcc=[N/A,     N/A]";
+    mcuid                  = 320;
+    n_interrupts           = 40;
+    signature              = 0x1e 0x93 0x2a;
+;
+
+#------------------------------------------------------------
+# ATmega1608
+#------------------------------------------------------------
+
+part parent ".avr8x_tiny"
+    desc                   = "ATmega1608";
+    id                     = "m1608";
+    variants               =
+        "ATmega1608-AF:  TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-AFR: TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-AU:  TQFP32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-AUR: TQFP32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-MF:  VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-MFR: VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-MU:  VQFN32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-MUR: VQFN32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-XF:  SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-XFR: SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-XU:  SSOP28, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1608-XUR: SSOP28, Fmax=N/A,    T=[N/A,     N/A], Vcc=[N/A,     N/A]";
+    mcuid                  = 321;
+    n_interrupts           = 36;
+    signature              = 0x1e 0x94 0x27;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 32;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x4000;
+        page_size          = 64;
+        offset             = 0x4000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        bitmask            = 0xc9;
+    ;
+
+    memory "data"
+        size               = 2048;
+        offset             = 0x3800;
+    ;
+;
+
+#------------------------------------------------------------
+# ATmega1609
+#------------------------------------------------------------
+
+part parent "m1608"
+    desc                   = "ATmega1609";
+    id                     = "m1609";
+    variants               =
+        "ATmega1609-AF:  TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1609-AFR: TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1609-AU:  TQFP48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1609-AUR: TQFP48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1609-MF:  VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1609-MFR: VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1609-MU:  VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega1609-MUR: VQFN48, Fmax=N/A,    T=[N/A,     N/A], Vcc=[N/A,     N/A]";
+    mcuid                  = 322;
+    n_interrupts           = 40;
+    signature              = 0x1e 0x94 0x26;
+;
+
+#------------------------------------------------------------
+# ATmega3208
+#------------------------------------------------------------
+
+part parent ".avr8x_mega"
+    desc                   = "ATmega3208";
+    id                     = "m3208";
+    variants               =
+        "ATmega3208-AF:  TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-AFR: TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-AU:  TQFP32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-AUR: TQFP32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-MF:  VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-MFR: VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-MU:  VQFN32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-MUR: VQFN32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-XF:  SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-XFR: SSOP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-XU:  SSOP28, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3208-XUR: SSOP28, Fmax=N/A,    T=[N/A,     N/A], Vcc=[N/A,     N/A]";
+    mcuid                  = 323;
+    n_interrupts           = 36;
+    signature              = 0x1e 0x95 0x30;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 64;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x8000;
+        page_size          = 128;
+        offset             = 0x4000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 4096;
+        offset             = 0x3000;
+    ;
+;
+
+#------------------------------------------------------------
+# ATmega3209
+#------------------------------------------------------------
+
+part parent "m3208"
+    desc                   = "ATmega3209";
+    id                     = "m3209";
+    variants               =
+        "ATmega3209-AF:  TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3209-AFR: TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3209-AU:  TQFP48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3209-AUR: TQFP48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3209-MF:  VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3209-MFR: VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3209-MU:  VQFN48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega3209-MUR: VQFN48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 324;
+    n_interrupts           = 40;
+    signature              = 0x1e 0x95 0x31;
+;
+
+#------------------------------------------------------------
+# ATmega4808
+#------------------------------------------------------------
+
+part parent ".avr8x_mega"
+    desc                   = "ATmega4808";
+    id                     = "m4808";
+    variants               =
+        "ATmega4808-AF:  TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-AFR: TQFP32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-AU:  TQFP32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-AUR: TQFP32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-MF:  VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-MFR: VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-MU:  VQFN32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-MUR: VQFN32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-XF:  SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-XFR: SSOP28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-XU:  SSOP28, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4808-XUR: SSOP28, Fmax=N/A,    T=[N/A,     N/A], Vcc=[N/A,     N/A]";
+    mcuid                  = 325;
+    n_interrupts           = 36;
+    signature              = 0x1e 0x96 0x50;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 64;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0xc000;
+        page_size          = 128;
+        offset             = 0x4000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 6144;
+        offset             = 0x2800;
+    ;
+;
+
+#------------------------------------------------------------
+# ATmega4809
+#------------------------------------------------------------
+
+part parent "m4808"
+    desc                   = "ATmega4809";
+    id                     = "m4809";
+    variants               =
+        "ATmega4809-AF:  TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4809-AFR: TQFP48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4809-AU:  TQFP48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4809-AUR: TQFP48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4809-MF:  VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4809-MFR: VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4809-MU:  VQFN48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4809-MUR: VQFN48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "ATmega4809-PF:  PDIP40, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 326;
+    n_interrupts           = 40;
+    signature              = 0x1e 0x96 0x51;
+;
+
+#------------------------------------------------------------
+# AVR-Dx family common values
+#------------------------------------------------------------
+
+part
+    desc                   = "AVR-Dx family common values";
+    id                     = ".avrdx";
+    family_id              = "AVR    ";
+    prog_modes             = PM_SPM | PM_UPDI;
+    n_boot_sections        = 1;
+    boot_section_size      = 512;
+    # Dedicated UPDI pin, no HV
+    hvupdi_variant         = 1;
+    nvm_base               = 0x1000;
+    ocd_base               = 0x0f80;
+
+    memory "boot"
+        size               = 0;
+        offset             = 0x800000;
+    ;
+
+    memory "application"
+        size               = 0;
+        offset             = 0x800200;
+    ;
+
+    memory "fuse0"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1050;
+        readsize           = 1;
+    ;
+
+    memory "wdtcfg"
+        alias "fuse0";
+    ;
+
+    memory "fuse1"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1051;
+        readsize           = 1;
+    ;
+
+    memory "bodcfg"
+        alias "fuse1";
+    ;
+
+    memory "fuse2"
+        size               = 1;
+        initval            = 0x00;
+        bitmask            = 0x07;
+        offset             = 0x1052;
+        readsize           = 1;
+    ;
+
+    memory "osccfg"
+        alias "fuse2";
+    ;
+
+    memory "fuse5"
+        size               = 1;
+        initval            = 0xc0;
+        bitmask            = 0xed;
+        offset             = 0x1055;
+        readsize           = 1;
+    ;
+
+    memory "syscfg0"
+        alias "fuse5";
+    ;
+
+    memory "fuse6"
+        size               = 1;
+        initval            = 0x08;
+        bitmask            = 0x1f;
+        offset             = 0x1056;
+        readsize           = 1;
+    ;
+
+    memory "syscfg1"
+        alias "fuse6";
+    ;
+
+    memory "fuse7"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1057;
+        readsize           = 1;
+    ;
+
+    memory "codesize"
+        alias "fuse7";
+    ;
+
+    memory "append"
+        alias "fuse7";
+    ;
+
+    memory "fuse8"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1058;
+        readsize           = 1;
+    ;
+
+    memory "bootsize"
+        alias "fuse8";
+    ;
+
+    memory "bootend"
+        alias "fuse8";
+    ;
+
+    memory "fuses"
+        size               = 9;
+        page_size          = 16;
+        offset             = 0x1050;
+        readsize           = 16;
+    ;
+
+    memory "lock"
+        size               = 4;
+        offset             = 0x1040;
+        initval            = 0x5cc5c55c;
+        readsize           = 4;
+    ;
+
+    memory "tempsense"
+        size               = 2;
+        offset             = 0x1104;
+        readsize           = 1;
+    ;
+
+    memory "signature"
+        size               = 3;
+        offset             = 0x1100;
+        readsize           = 3;
+    ;
+
+    memory "prodsig"
+        size               = 125;
+        page_size          = 125;
+        offset             = 0x1103;
+        readsize           = 125;
+    ;
+
+    memory "sernum"
+        size               = 16;
+        offset             = 0x1110;
+        readsize           = 1;
+    ;
+
+    memory "userrow"
+        size               = 32;
+        page_size          = 32;
+        offset             = 0x1080;
+        readsize           = 32;
+    ;
+
+    memory "usersig"
+        alias "userrow";
+    ;
+
+    memory "revid"
+        size               = 1;
+        offset             = 0x0f01;
+        readsize           = 1;
+    ;
+
+    memory "data"
+        # SRAM, only used to supply the offset
+        offset             = 0x1000000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR32DA28
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR32DA28";
+    id                     = "avr32da28";
+    variants               =
+        "AVR32DA28:       SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28-E/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28-E/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28-E/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28T-E/SO: SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28T-E/SS: SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28T-I/SO: SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA28T-I/SS: SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 338;
+    n_interrupts           = 41;
+    signature              = 0x1e 0x95 0x34;
+
+    memory "eeprom"
+        size               = 512;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x8000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "fuse6"
+        initval            = 0x00;
+        bitmask            = 0x07;
+    ;
+
+    memory "data"
+        size               = 4096;
+        offset             = 0x7000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR32DA32
+#------------------------------------------------------------
+
+part parent "avr32da28"
+    desc                   = "AVR32DA32";
+    id                     = "avr32da32";
+    variants               =
+        "AVR32DA32:        QFN32,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA32-E/PT:   TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA32-E/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA32-I/PT:   TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA32-I/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA32T-E/PT:  TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA32T-E/RXB: VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA32T-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA32T-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 342;
+    n_interrupts           = 44;
+    signature              = 0x1e 0x95 0x33;
+;
+
+#------------------------------------------------------------
+# AVR32DA48
+#------------------------------------------------------------
+
+part parent "avr32da28"
+    desc                   = "AVR32DA48";
+    id                     = "avr32da48";
+    variants               =
+        "AVR32DA48:        QFN48,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA48-E/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA48-E/PT:   TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA48-I/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA48-I/PT:   TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA48T-E/6LX: VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA48T-E/PT:  TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA48T-I/6LX: VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DA48T-I/PT:  TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 346;
+    n_interrupts           = 58;
+    signature              = 0x1e 0x95 0x32;
+;
+
+#------------------------------------------------------------
+# AVR64DA28
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR64DA28";
+    id                     = "avr64da28";
+    variants               =
+        "AVR64DA28:       SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28-E/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28-E/SP:  SPDIP28, Fmax=N/A,    T=[N/A,     N/A], Vcc=[N/A,     N/A]",
+        "AVR64DA28-E/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28T-E/SO: SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28T-E/SS: SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28T-I/SO: SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA28T-I/SS: SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 351;
+    n_interrupts           = 41;
+    signature              = 0x1e 0x96 0x15;
+
+    memory "eeprom"
+        size               = 512;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x10000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "fuse6"
+        initval            = 0x00;
+        bitmask            = 0x07;
+    ;
+
+    memory "data"
+        size               = 8192;
+        offset             = 0x6000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR64DA32
+#------------------------------------------------------------
+
+part parent "avr64da28"
+    desc                   = "AVR64DA32";
+    id                     = "avr64da32";
+    variants               =
+        "AVR64DA32:        QFN32,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA32-E/PT:   TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA32-E/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA32-I/PT:   TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA32-I/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA32T-E/PT:  TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA32T-E/RXB: VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA32T-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA32T-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 355;
+    n_interrupts           = 44;
+    signature              = 0x1e 0x96 0x14;
+;
+
+#------------------------------------------------------------
+# AVR64DA48
+#------------------------------------------------------------
+
+part parent "avr64da28"
+    desc                   = "AVR64DA48";
+    id                     = "avr64da48";
+    variants               =
+        "AVR64DA48:        QFN48,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA48-E/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA48-E/PT:   TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA48-I/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA48-I/PT:   TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA48T-E/6LX: VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA48T-E/PT:  TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA48T-I/6LX: VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA48T-I/PT:  TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 359;
+    n_interrupts           = 58;
+    signature              = 0x1e 0x96 0x13;
+;
+
+#------------------------------------------------------------
+# AVR64DA64
+#------------------------------------------------------------
+
+part parent "avr64da28"
+    desc                   = "AVR64DA64";
+    id                     = "avr64da64";
+    variants               =
+        "AVR64DA64:       QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA64-E/MR:  QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA64-E/PT:  TQFP64, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA64-I/MR:  QFN64,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA64-I/PT:  TQFP64, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA64T-E/MR: QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA64T-E/PT: TQFP64, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA64T-I/MR: QFN64,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DA64T-I/PT: TQFP64, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 362;
+    n_interrupts           = 64;
+    signature              = 0x1e 0x96 0x12;
+;
+
+#------------------------------------------------------------
+# AVR128DA28
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR128DA28";
+    id                     = "avr128da28";
+    variants               =
+        "AVR128DA28:       SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28-E/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28-E/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28-E/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28T-E/SO: SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28T-E/SS: SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28T-I/SO: SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA28T-I/SS: SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    family_id              = "    AVR";
+    mcuid                  = 364;
+    n_interrupts           = 41;
+    signature              = 0x1e 0x97 0x0a;
+
+    memory "eeprom"
+        size               = 512;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x20000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "fuse6"
+        initval            = 0x00;
+        bitmask            = 0x07;
+    ;
+
+    memory "data"
+        size               = 16384;
+        offset             = 0x4000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR128DA32
+#------------------------------------------------------------
+
+part parent "avr128da28"
+    desc                   = "AVR128DA32";
+    id                     = "avr128da32";
+    variants               =
+        "AVR128DA32:        QFN32,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA32-E/PT:   TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA32-E/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA32-I/PT:   TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA32-I/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA32T-E/PT:  TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA32T-E/RXB: VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA32T-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA32T-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 366;
+    n_interrupts           = 44;
+    signature              = 0x1e 0x97 0x09;
+;
+
+#------------------------------------------------------------
+# AVR128DA48
+#------------------------------------------------------------
+
+part parent "avr128da28"
+    desc                   = "AVR128DA48";
+    id                     = "avr128da48";
+    variants               =
+        "AVR128DA48:        QFN48,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA48-E/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA48-E/PT:   TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA48-I/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA48-I/PT:   TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA48T-E/6LX: VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA48T-E/PT:  TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA48T-I/6LX: VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA48T-I/PT:  TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 368;
+    n_interrupts           = 58;
+    signature              = 0x1e 0x97 0x08;
+;
+
+#------------------------------------------------------------
+# AVR128DA64
+#------------------------------------------------------------
+
+part parent "avr128da28"
+    desc                   = "AVR128DA64";
+    id                     = "avr128da64";
+    variants               =
+        "AVR128DA64:       QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA64-E/MR:  QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA64-E/PT:  TQFP64, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA64-I/MR:  QFN64,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA64-I/PT:  TQFP64, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA64T-E/MR: QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA64T-E/PT: TQFP64, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA64T-I/MR: QFN64,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DA64T-I/PT: TQFP64, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
+    mcuid                  = 370;
+    n_interrupts           = 64;
+    signature              = 0x1e 0x97 0x07;
+;
+
+#------------------------------------------------------------
+# AVR32DB28
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR32DB28";
+    id                     = "avr32db28";
+    variants               =
+        "AVR32DB28:       SOIC28,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28-E/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28-E/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28-E/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28T-E/SO: SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28T-E/SS: SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28T-I/SO: SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB28T-I/SS: SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 339;
+    n_interrupts           = 42;
+    signature              = 0x1e 0x95 0x37;
+
+    memory "eeprom"
+        size               = 512;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x8000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 4096;
+        offset             = 0x7000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR32DB32
+#------------------------------------------------------------
+
+part parent "avr32db28"
+    desc                   = "AVR32DB32";
+    id                     = "avr32db32";
+    variants               =
+        "AVR32DB32:        QFN32,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB32-E/PT:   TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB32-E/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB32-I/PT:   TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB32-I/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB32T-E/PT:  TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB32T-E/RXB: VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB32T-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB32T-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 343;
+    n_interrupts           = 44;
+    signature              = 0x1e 0x95 0x36;
+;
+
+#------------------------------------------------------------
+# AVR32DB48
+#------------------------------------------------------------
+
+part parent "avr32db28"
+    desc                   = "AVR32DB48";
+    id                     = "avr32db48";
+    variants               =
+        "AVR32DB48:        QFN48,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB48-E/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB48-E/PT:   TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB48-I/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB48-I/PT:   TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB48T-E/6LX: VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB48T-E/PT:  TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB48T-I/6LX: VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DB48T-I/PT:  TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 347;
+    n_interrupts           = 61;
+    signature              = 0x1e 0x95 0x35;
+;
+
+#------------------------------------------------------------
+# AVR64DB28
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR64DB28";
+    id                     = "avr64db28";
+    variants               =
+        "AVR64DB28:       SOIC28,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28-E/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28-E/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28-E/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28T-E/SO: SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28T-E/SS: SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28T-I/SO: SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB28T-I/SS: SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 352;
+    n_interrupts           = 42;
+    signature              = 0x1e 0x96 0x19;
+
+    memory "eeprom"
+        size               = 512;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x10000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 8192;
+        offset             = 0x6000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR64DB32
+#------------------------------------------------------------
+
+part parent "avr64db28"
+    desc                   = "AVR64DB32";
+    id                     = "avr64db32";
+    variants               =
+        "AVR64DB32:        QFN32,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB32-E/PT:   TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB32-E/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB32-I/PT:   TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB32-I/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB32T-E/PT:  TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB32T-E/RXB: VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB32T-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB32T-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 356;
+    n_interrupts           = 44;
+    signature              = 0x1e 0x96 0x18;
+;
+
+#------------------------------------------------------------
+# AVR64DB48
+#------------------------------------------------------------
+
+part parent "avr64db28"
+    desc                   = "AVR64DB48";
+    id                     = "avr64db48";
+    variants               =
+        "AVR64DB48:        QFN48,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB48-E/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB48-E/PT:   TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB48-I/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB48-I/PT:   TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB48T-E/6LX: VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB48T-E/PT:  TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB48T-I/6LX: VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB48T-I/PT:  TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 360;
+    n_interrupts           = 61;
+    signature              = 0x1e 0x96 0x17;
+;
+
+#------------------------------------------------------------
+# AVR64DB64
+#------------------------------------------------------------
+
+part parent "avr64db28"
+    desc                   = "AVR64DB64";
+    id                     = "avr64db64";
+    variants               =
+        "AVR64DB64:       QFN64,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB64-E/MR:  QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB64-E/PT:  TQFP64, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB64-I/MR:  QFN64,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB64-I/PT:  TQFP64, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB64T-E/MR: QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB64T-E/PT: TQFP64, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB64T-I/MR: QFN64,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DB64T-I/PT: TQFP64, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 363;
+    n_interrupts           = 65;
+    signature              = 0x1e 0x96 0x16;
+;
+
+#------------------------------------------------------------
+# AVR128DB28
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR128DB28";
+    id                     = "avr128db28";
+    variants               =
+        "AVR128DB28:       SOIC28,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28-E/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28-E/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28-E/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28T-E/SO: SOIC28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28T-E/SS: SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28T-I/SO: SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB28T-I/SS: SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 365;
+    n_interrupts           = 42;
+    signature              = 0x1e 0x97 0x0e;
+
+    memory "eeprom"
+        size               = 512;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x20000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 16384;
+        offset             = 0x4000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR128DB32
+#------------------------------------------------------------
+
+part parent "avr128db28"
+    desc                   = "AVR128DB32";
+    id                     = "avr128db32";
+    variants               =
+        "AVR128DB32:        QFN32,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB32-E/PT:   TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB32-E/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB32-I/PT:   TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB32-I/RXB:  VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB32T-E/PT:  TQFP32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB32T-E/RXB: VQFN32, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB32T-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB32T-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 367;
+    n_interrupts           = 44;
+    signature              = 0x1e 0x97 0x0d;
+;
+
+#------------------------------------------------------------
+# AVR128DB48
+#------------------------------------------------------------
+
+part parent "avr128db28"
+    desc                   = "AVR128DB48";
+    id                     = "avr128db48";
+    variants               =
+        "AVR128DB48:        QFN48,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB48-E/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB48-E/PT:   TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB48-I/6LX:  VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB48-I/PT:   TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB48T-E/6LX: VQFN48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB48T-E/PT:  TQFP48, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB48T-I/6LX: VQFN48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB48T-I/PT:  TQFP48, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 369;
+    n_interrupts           = 61;
+    signature              = 0x1e 0x97 0x0c;
+;
+
+#------------------------------------------------------------
+# AVR128DB64
+#------------------------------------------------------------
+
+part parent "avr128db28"
+    desc                   = "AVR128DB64";
+    id                     = "avr128db64";
+    variants               =
+        "AVR128DB64:       QFN64,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB64-E/MR:  QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB64-E/PT:  TQFP64, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB64-I/MR:  QFN64,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB64-I/PT:  TQFP64, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB64T-E/MR: QFN64,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB64T-E/PT: TQFP64, Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB64T-I/MR: QFN64,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR128DB64T-I/PT: TQFP64, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 371;
+    n_interrupts           = 65;
+    signature              = 0x1e 0x97 0x0b;
+;
+
+#------------------------------------------------------------
+# AVR16DD14
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR16DD14";
+    id                     = "avr16dd14";
+    variants               =
+        "AVR16DD14:      SOIC14, Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD14-I/SL: SOIC14, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 329;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x94 0x34;
+
+    memory "eeprom"
+        size               = 256;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x4000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        initval            = 0xd0;
+        bitmask            = 0xf9;
+    ;
+
+    memory "data"
+        size               = 2048;
+        offset             = 0x7800;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR16DD20
+#------------------------------------------------------------
+
+part parent "avr16dd14"
+    desc                   = "AVR16DD20";
+    id                     = "avr16dd20";
+    variants               =
+        "AVR16DD20:       QFN20,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD20-I/REB: VQFN20, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD20-I/SO:  SOIC20, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 330;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x94 0x33;
+;
+
+#------------------------------------------------------------
+# AVR16DD28
+#------------------------------------------------------------
+
+part parent "avr16dd14"
+    desc                   = "AVR16DD28";
+    id                     = "avr16dd28";
+    variants               =
+        "AVR16DD28:       SOIC28,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD28-I/STX: N/A,     Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 331;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x94 0x32;
+;
+
+#------------------------------------------------------------
+# AVR16DD32
+#------------------------------------------------------------
+
+part parent "avr16dd14"
+    desc                   = "AVR16DD32";
+    id                     = "avr16dd32";
+    variants               =
+        "AVR16DD32:       QFN32,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD32-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16DD32-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 333;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x94 0x31;
+;
+
+#------------------------------------------------------------
+# AVR32DD14
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR32DD14";
+    id                     = "avr32dd14";
+    variants               =
+        "AVR32DD14:      SOIC14, Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD14-I/SL: SOIC14, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 336;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x95 0x3b;
+
+    memory "eeprom"
+        size               = 256;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x8000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        initval            = 0xd0;
+        bitmask            = 0xf9;
+    ;
+
+    memory "data"
+        size               = 4096;
+        offset             = 0x7000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR32DD20
+#------------------------------------------------------------
+
+part parent "avr32dd14"
+    desc                   = "AVR32DD20";
+    id                     = "avr32dd20";
+    variants               =
+        "AVR32DD20:       QFN20,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD20-I/REB: VQFN20, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD20-I/SO:  SOIC20, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 337;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x95 0x3a;
+;
+
+#------------------------------------------------------------
+# AVR32DD28
+#------------------------------------------------------------
+
+part parent "avr32dd14"
+    desc                   = "AVR32DD28";
+    id                     = "avr32dd28";
+    variants               =
+        "AVR32DD28:       SOIC28,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD28-I/STX: N/A,     Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 340;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x95 0x39;
+;
+
+#------------------------------------------------------------
+# AVR32DD32
+#------------------------------------------------------------
+
+part parent "avr32dd14"
+    desc                   = "AVR32DD32";
+    id                     = "avr32dd32";
+    variants               =
+        "AVR32DD32:       QFN32,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD32-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR32DD32-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 344;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x95 0x38;
+;
+
+#------------------------------------------------------------
+# AVR64DD14
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR64DD14";
+    id                     = "avr64dd14";
+    variants               =
+        "AVR64DD14:      SOIC14, Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DD14-I/SL: SOIC14, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 349;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x96 0x1d;
+
+    memory "eeprom"
+        size               = 256;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x10000;
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "fuse5"
+        initval            = 0xd0;
+        bitmask            = 0xf9;
+    ;
+
+    memory "data"
+        size               = 8192;
+        offset             = 0x6000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR64DD20
+#------------------------------------------------------------
+
+part parent "avr64dd14"
+    desc                   = "AVR64DD20";
+    id                     = "avr64dd20";
+    variants               =
+        "AVR64DD20:      QFN20,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DD20-I/SO: SOIC20, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 350;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x96 0x1c;
+;
+
+#------------------------------------------------------------
+# AVR64DD28
+#------------------------------------------------------------
+
+part parent "avr64dd14"
+    desc                   = "AVR64DD28";
+    id                     = "avr64dd28";
+    variants               =
+        "AVR64DD28:       SOIC28,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DD28-I/SO:  SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DD28-I/SP:  SPDIP28, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DD28-I/SS:  SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DD28-I/STX: VQFN28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 353;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x96 0x1b;
+;
+
+#------------------------------------------------------------
+# AVR64DD32
+#------------------------------------------------------------
+
+part parent "avr64dd14"
+    desc                   = "AVR64DD32";
+    id                     = "avr64dd32";
+    variants               =
+        "AVR64DD32:       QFN32,  Fmax=32 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DD32-I/PT:  TQFP32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64DD32-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 357;
+    n_interrupts           = 36;
+    hvupdi_variant         = 2;
+    signature              = 0x1e 0x96 0x1a;
+;
+
+#------------------------------------------------------------
+# AVR-EA family common values
+#------------------------------------------------------------
+
+part parent ".avrdx"
+    desc                   = "AVR-EA family common values";
+    id                     = ".avrea";
+    # Shared UPDI pin, HV on _RESET
+    hvupdi_variant         = 2;
+
+    memory "fuse2"
+        bitmask            = 0x08;
+    ;
+
+    memory "fuse5"
+        initval            = 0xd0;
+        bitmask            = 0xf9;
+    ;
+
+    memory "fuse6"
+        initval            = 0x07;
+        bitmask            = 0x07;
+    ;
+
+    memory "lock"
+        initval            = 0x5cc5c55c;
+    ;
+
+    memory "userrow"
+        size               = 64;
+        page_size          = 64;
+        readsize           = 64;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR8EA28
+#------------------------------------------------------------
+
+# AVR8EAxx is pending product
+part parent ".avrea"
+    desc                   = "AVR8EA28";
+    id                     = "avr8ea28";
+    mcuid                  = 327;
+    signature              = 0x1e 0x93 0x2c;
+
+    memory "eeprom"
+        size               = 512;
+        page_size          = 8;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 8192;
+        page_size          = 64;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 1024;
+        offset             = 0x7c00;
+    ;
+
+    memory "fuse0"
+        initval            = -1;
+    ;
+
+    memory "fuse1"
+        initval            = -1;
+    ;
+
+    memory "fuse2"
+        initval            = -1;
+        bitmask            = -1;
+    ;
+
+    memory "fuse5"
+        initval            = -1;
+        bitmask            = -1;
+    ;
+
+    memory "fuse6"
+        initval            = -1;
+        bitmask            = -1;
+    ;
+
+    memory "fuse7"
+        initval            = -1;
+    ;
+
+    memory "fuse8"
+        initval            = -1;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR8EA32
+#------------------------------------------------------------
+
+# AVR8EAxx is pending product
+part parent "avr8ea28"
+    desc                   = "AVR8EA32";
+    id                     = "avr8ea32";
+    mcuid                  = 328;
+    signature              = 0x1e 0x93 0x2b;
+;
+
+#------------------------------------------------------------
+# AVR16EA28
+#------------------------------------------------------------
+
+part parent ".avrea"
+    desc                   = "AVR16EA28";
+    id                     = "avr16ea28";
+    variants               =
+        "AVR16EA28: SOIC28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 332;
+    signature              = 0x1e 0x94 0x37;
+
+    memory "eeprom"
+        size               = 512;
+        page_size          = 8;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x4000;
+        page_size          = 64;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 2048;
+        offset             = 0x7800;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR16EA32
+#------------------------------------------------------------
+
+part parent "avr16ea28"
+    desc                   = "AVR16EA32";
+    id                     = "avr16ea32";
+    variants               =
+        "AVR16EA32: VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 334;
+    signature              = 0x1e 0x94 0x36;
+;
+
+#------------------------------------------------------------
+# AVR16EA48
+#------------------------------------------------------------
+
+part parent "avr16ea28"
+    desc                   = "AVR16EA48";
+    id                     = "avr16ea48";
+    variants               =
+        "AVR16EA48: VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 335;
+    signature              = 0x1e 0x94 0x35;
+;
+
+#------------------------------------------------------------
+# AVR32EA28
+#------------------------------------------------------------
+
+part parent ".avrea"
+    desc                   = "AVR32EA28";
+    id                     = "avr32ea28";
+    variants               =
+        "AVR32EA28: SOIC28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 341;
+    signature              = 0x1e 0x95 0x3e;
+
+    memory "eeprom"
+        size               = 512;
+        page_size          = 8;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x8000;
+        page_size          = 64;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 4096;
+        offset             = 0x7000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR32EA32
+#------------------------------------------------------------
+
+part parent "avr32ea28"
+    desc                   = "AVR32EA32";
+    id                     = "avr32ea32";
+    variants               =
+        "AVR32EA32: VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 345;
+    signature              = 0x1e 0x95 0x3d;
+;
+
+#------------------------------------------------------------
+# AVR32EA48
+#------------------------------------------------------------
+
+part parent "avr32ea28"
+    desc                   = "AVR32EA48";
+    id                     = "avr32ea48";
+    variants               =
+        "AVR32EA48: VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 348;
+    signature              = 0x1e 0x95 0x3c;
+;
+
+#------------------------------------------------------------
+# AVR64EA28
+#------------------------------------------------------------
+
+part parent ".avrea"
+    desc                   = "AVR64EA28";
+    id                     = "avr64ea28";
+    variants               =
+        "AVR64EA28:      SOIC28,  Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64EA28-I/SP: SPDIP28, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64EA28-I/SS: SSOP28,  Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 354;
+    n_interrupts           = 37;
+    signature              = 0x1e 0x96 0x20;
+
+    memory "eeprom"
+        size               = 512;
+        page_size          = 8;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "flash"
+        size               = 0x10000;
+        page_size          = 128;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 6144;
+        offset             = 0x6800;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR64EA32
+#------------------------------------------------------------
+
+part parent "avr64ea28"
+    desc                   = "AVR64EA32";
+    id                     = "avr64ea32";
+    variants               =
+        "AVR64EA32:       VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64EA32-I/PT:  TQFP32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64EA32-I/RXB: VQFN32, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 358;
+    n_interrupts           = 37;
+    signature              = 0x1e 0x96 0x1f;
+;
+
+#------------------------------------------------------------
+# AVR64EA48
+#------------------------------------------------------------
+
+part parent "avr64ea28"
+    desc                   = "AVR64EA48";
+    id                     = "avr64ea48";
+    variants               =
+        "AVR64EA48:       VQFN48, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64EA48-I/6LX: VQFN48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR64EA48-I/PT:  TQFP48, Fmax=20 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 361;
+    n_interrupts           = 45;
+    signature              = 0x1e 0x96 0x1e;
+;
+
+#------------------------------------------------------------
+# AVR-EB family common values
+#------------------------------------------------------------
+
+part
+    desc                   = "AVR-EB family common values";
+    id                     = ".avreb";
+    family_id              = "AVR    ";
+    prog_modes             = PM_SPM | PM_UPDI;
+    n_boot_sections        = 1;
+    boot_section_size      = 256;
+    # Dedicated UPDI pin, no HV
+    hvupdi_variant         = 2;
+    nvm_base               = 0x1000;
+    ocd_base               = 0x0f80;
+
+    memory "boot"
+        size               = 0;
+        offset             = 0x800000;
+    ;
+
+    memory "application"
+        size               = 0;
+        offset             = 0x800200;
+    ;
+
+    memory "fuse0"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1050;
+        readsize           = 1;
+    ;
+
+    memory "wdtcfg"
+        alias "fuse0";
+    ;
+
+    memory "fuse1"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1051;
+        readsize           = 1;
+    ;
+
+    memory "bodcfg"
+        alias "fuse1";
+    ;
+
+    memory "fuse2"
+        size               = 1;
+        initval            = 0x00;
+        bitmask            = 0x07;
+        offset             = 0x1052;
+        readsize           = 1;
+    ;
+
+    memory "osccfg"
+        alias "fuse2";
+    ;
+
+    memory "fuse5"
+        size               = 1;
+        initval            = 0xc0;
+        bitmask            = 0xed;
+        offset             = 0x1055;
+        readsize           = 1;
+    ;
+
+    memory "syscfg0"
+        alias "fuse5";
+    ;
+
+    memory "fuse6"
+        size               = 1;
+        initval            = 0x08;
+        bitmask            = 0x1f;
+        offset             = 0x1056;
+        readsize           = 1;
+    ;
+
+    memory "syscfg1"
+        alias "fuse6";
+    ;
+
+    memory "fuse7"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1057;
+        readsize           = 1;
+    ;
+
+    memory "codesize"
+        alias "fuse7";
+    ;
+
+    memory "append"
+        alias "fuse7";
+    ;
+
+    memory "fuse8"
+        size               = 1;
+        initval            = 0x00;
+        offset             = 0x1058;
+        readsize           = 1;
+    ;
+
+    memory "bootsize"
+        alias "fuse8";
+    ;
+
+    memory "bootend"
+        alias "fuse8";
+    ;
+
+    memory "fusea"
+        size               = 2;
+        initval            = 0x03;
+        bitmask            = 0xfff3;
+        offset             = 0x105a;
+        readsize           = 1;
+    ;
+
+    memory "pdicfg"
+        alias "fusea";
+    ;
+
+    # *** CAUTION ***
+    # The 'fuses' of the AVR_EB series is originally 11 bytes, 
+    # but is limited to 9 bytes here to avoid irrecoverable failures. 
+    # To rewrite the added last 2 bytes, explicitly specify 'fusea'.
+    memory "fuses"
+        size               = 9;
+        page_size          = 16;
+        offset             = 0x1050;
+        readsize           = 16;
+    ;
+
+    memory "lock"
+        size               = 4;
+        offset             = 0x1040;
+        initval            = 0x5cc5c55c;
+        readsize           = 4;
+    ;
+
+    memory "tempsense"
+        size               = 2;
+        offset             = 0x1084;
+        readsize           = 1;
+    ;
+
+    memory "signature"
+        size               = 3;
+        offset             = 0x1080;
+        readsize           = 3;
+    ;
+
+    memory "prodsig"
+        size               = 125;
+        page_size          = 125;
+        offset             = 0x1083;
+        readsize           = 125;
+    ;
+
+    memory "sernum"
+        size               = 16;
+        offset             = 0x1090;
+        readsize           = 1;
+    ;
+
+    memory "userrow"
+        size               = 32;
+        page_size          = 32;
+        offset             = 0x1200;
+        readsize           = 32;
+    ;
+
+    memory "usersig"
+        alias "userrow";
+    ;
+
+    memory "eeprom"
+        size               = 512;
+        page_size          = 8;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+
+    memory "bootrow"
+        size               = 64;
+        page_size          = 64;
+        offset             = 0x1100;
+        readsize           = 64;
+    ;
+
+    memory "io"
+        size               = 4160;
+        readsize           = 1;
+    ;
+
+    memory "sib"
+        size               = 32;
+        readsize           = 1;
+    ;
+
+    memory "revid"
+        size               = 1;
+        offset             = 0x0f01;
+        readsize           = 1;
+    ;
+
+    memory "data"
+        # SRAM, only used to supply the offset
+        offset             = 0x1000000;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR16EB14
+#------------------------------------------------------------
+
+part parent ".avreb"
+    desc                   = "AVR16EB14";
+    id                     = "avr16eb14";
+    variants               =
+        "AVR16EB14-SOIC/TSSOP: SOIC14, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 380;
+    signature              = 0x1e 0x94 0x49;
+
+    memory "flash"
+        size               = 0x4000;
+        page_size          = 64;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "data"
+        size               = 2048;
+        offset             = 0x7800;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR16EB20
+#------------------------------------------------------------
+
+part parent "avr16eb14"
+    desc                   = "AVR16EB20";
+    id                     = "avr16eb20";
+    variants               =
+        "AVR16EB20-SSOP: SOIC20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16EB20-VQFN: VQFN20, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 381;
+    signature              = 0x1e 0x94 0x40;
+;
+
+#------------------------------------------------------------
+# AVR16EB28
+#------------------------------------------------------------
+
+part parent "avr16eb14"
+    desc                   = "AVR16EB28";
+    id                     = "avr16eb28";
+    variants               =
+        "AVR16EB28-SSOP/SPDIP: SOIC28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
+        "AVR16EB28-VQFN:       VQFN28, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 382;
+    signature              = 0x1e 0x94 0x3f;
+;
+
+#------------------------------------------------------------
+# AVR16EB32
+#------------------------------------------------------------
+
+part parent "avr16eb14"
+    desc                   = "AVR16EB32";
+    id                     = "avr16eb32";
+    variants               =
+        "AVR16EB32-VQFN/TQFP: VQFN32, Fmax=20 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]";
+    mcuid                  = 383;
+    signature              = 0x1e 0x94 0x3e;
+;

@@ -81,7 +81,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 工場出荷状態ではブートローダーが書き込まれていないため
 何らかの書込器準備は必要。
 
-- [__UPDI4AVR__](https://github.com/askn37/UPDI4AVR) -- このSDKでもメンテナンスされている。JTAG2UPDI上位互換。
+- [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) -- このSDKでもメンテナンスされている。JTAG2UPDI上位互換。
   - __HV書込__ とUSB-USARTパススルーに対応可。（要外部回路）
   - ゼロからこれを自作する場合は __卵と鶏__ の関係になるため注意。
 - __SerialUPDI__ -- 一般のUSB-UARTと簡易な回路による高速書込環境。

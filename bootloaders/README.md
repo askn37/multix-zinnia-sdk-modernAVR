@@ -208,6 +208,8 @@ CPU起動後に初期化コード内で`CLKCTRL_MCLKCTRLA`を設定するよう�
 
 `SIGROW_DEVICEID0`すなわち`_SFR_MEM8(0x1100)`は全てのAVRで固定の値`0x1E`を返す。従ってこれは読み出さない。
 
+> 逆に言うと、AVR_EB の BOOTROW を書き換え、AVR_EA 用ブートローダーを使用した場合、BOOTROW の先頭1バイト目を参照しない。
+
 ## 著作表示
 
 optibootは GPL v2 で提供されているため、これもまたそれに準じる。

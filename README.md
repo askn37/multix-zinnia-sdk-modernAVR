@@ -130,6 +130,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DA w/o Bootloader
   - AVR DD w/o Bootloader
   - AVR EA w/o Bootloader
+  - AVR EB w/o Bootloader
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - ATtiny4/5/9/10
 

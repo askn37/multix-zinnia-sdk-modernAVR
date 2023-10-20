@@ -356,7 +356,8 @@ optiboot を原型とするが clone である。
 ## 更新履歴
 
 - v0.2.7 (23/10/18)
-  - AVR16EBnn（w/o bootloader）のビルドに対応
+  - __AVR16EBxx__ に実験的対応
+    - bootloader の正常動作は未確認
   - `dryrun`を書込器選択に追加。
   - `avrdude.conf`参照ルールの変更。
     - `arduino`/`UPDI4VAR`/`TPI4AVR`/`dryrun`を書込器に指定した場合のみ、ローカルの特別な設定ファイルを参照する。それ以外は規定の（tools/avrdude/etc内の）`avrdude.conf`を参照する。

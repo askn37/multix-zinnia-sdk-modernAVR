@@ -8,11 +8,11 @@
 /* Copyright 2019-2023 askn (K.Sato) multix.jp            */
 /*                                                        */
 /* Check Device:                                          */
-/*   AVR64EA32                                            */
+/*   AVR64EA32 AVR16EB32                                  */
 /*                                                        */
 /* Edit History:                                          */
 /*                                                        */
-/* April 2023                                               */
+/* April 2023                                             */
 /* 9.2.1                                                  */
 /**********************************************************/
 

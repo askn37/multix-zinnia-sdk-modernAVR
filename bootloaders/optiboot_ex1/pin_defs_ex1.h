@@ -441,7 +441,9 @@
  * Handle devices with up to 6 uarts.
  */
 #if \
-  defined(__AVR_AVR64EA48__) || defined(__AVR_AVR32EA48__) || defined(__AVR_AVR16EA48__)
+  defined(__AVR_AVR64EA48__) || defined(__AVR_AVR32EA48__) || defined(__AVR_AVR16EA48__) || \
+  defined(__AVR_AVR64EA32__) || defined(__AVR_AVR32EA32__) || defined(__AVR_AVR16EA32__) || \
+  defined(__AVR_AVR64EA28__) || defined(__AVR_AVR32EA28__) || defined(__AVR_AVR16EA28__)
   #if   (UARTTX == A0)
     #define UART_NAME "A0"
     #ifndef USART0
@@ -642,6 +644,104 @@
     #define MYUART_XCKPIN  PIN6_bm
     #define MYUART_XCKCFG  PORTG_PIN6CTRL
     #define MYUART_PORTREG PORTG
+  #endif
+#endif
+
+#if \
+  defined(__AVR_AVR32EB32__) || defined(__AVR_AVR32EB28__) || defined(__AVR_AVR32EB20__) || defined(__AVR_AVR32EB14__) || \
+  defined(__AVR_AVR16EB32__) || defined(__AVR_AVR16EB28__) || defined(__AVR_AVR16EB20__) || defined(__AVR_AVR16EB14__)
+  #if   (UARTTX == A0)
+    #define UART_NAME "A0"
+    #ifndef USART0
+      #error Pin on USART0, but no USART0 exists
+    #endif
+    #define MYUART USART0
+    #define MYUART_TXPORT VPORTA
+    #define MYUART_TXPIN  PIN0_bm
+    #define MYUART_TXCFG  PORTA_PIN0CTRL
+    #define MYUART_RXCFG  PORTA_PIN1CTRL
+    #define MYUART_PMUX_VAL (PORTMUX_USART0_DEFAULT_gc)
+    #define MYPMUX_REG PORTMUX_USARTROUTEA
+    #define MYUART_XDIRPIN PIN3_bm
+    #define MYUART_XDIRCFG PORTA_PIN3CTRL
+    #define MYUART_XCKPIN  PIN2_bm
+    #define MYUART_XCKCFG  PORTA_PIN2CTRL
+    #define MYUART_PORTREG PORTA
+  #elif (UARTTX == A4)
+    #define UART_NAME "A4"
+    #ifndef USART0
+      #error Pin on USART0, but no USART0 exists
+    #endif
+    #define MYUART USART0
+    #define MYUART_TXPORT VPORTA
+    #define MYUART_TXPIN  PIN4_bm
+    #define MYUART_TXCFG  PORTA_PIN4CTRL
+    #define MYUART_RXCFG  PORTA_PIN5CTRL
+    #define MYUART_PMUX_VAL (PORTMUX_USART0_ALT1_gc)
+    #define MYPMUX_REG PORTMUX.USARTROUTEA
+    #define MYUART_XDIRPIN PIN7_bm
+    #define MYUART_XDIRCFG PORTA_PIN7CTRL
+    #define MYUART_XCKPIN  PIN6_bm
+    #define MYUART_XCKCFG  PORTA_PIN6CTRL
+    #define MYUART_PORTREG PORTA
+  #elif (UARTTX == A2)
+    #define UART_NAME "A2"
+    #ifndef USART0
+      #error Pin on USART0, but no USART0 exists
+    #endif
+    #define MYUART USART0
+    #define MYUART_TXPORT VPORTA
+    #define MYUART_TXPIN  PIN2_bm
+    #define MYUART_TXCFG  PORTA_PIN2CTRL
+    #define MYUART_RXCFG  PORTA_PIN3CTRL
+    #define MYUART_PMUX_VAL (PORTMUX_USART0_ALT2_gc)
+    #define MYPMUX_REG PORTMUX.USARTROUTEA
+    #define MYUART_PORTREG PORTA
+  #elif (UARTTX == D4)
+    #define UART_NAME "D4"
+    #ifndef USART0
+      #error Pin on USART0, but no USART0 exists
+    #endif
+    #define MYUART USART0
+    #define MYUART_TXPORT VPORTD
+    #define MYUART_TXPIN  PIN4_bm
+    #define MYUART_TXCFG  PORTD_PIN4CTRL
+    #define MYUART_RXCFG  PORTD_PIN5CTRL
+    #define MYUART_PMUX_VAL (PORTMUX_USART0_ALT3_gc)
+    #define MYPMUX_REG PORTMUX.USARTROUTEA
+    #define MYUART_XDIRPIN PIN7_bm
+    #define MYUART_XDIRCFG PORTD_PIN7CTRL
+    #define MYUART_XCKPIN  PIN6_bm
+    #define MYUART_XCKCFG  PORTD_PIN6CTRL
+    #define MYUART_PORTREG PORTD
+  #elif (UARTTX == C1)
+    #define UART_NAME "C1"
+    #ifndef USART0
+      #error Pin on USART0, but no USART0 exists
+    #endif
+    #define MYUART USART0
+    #define MYUART_TXPORT VPORTC
+    #define MYUART_TXPIN  PIN1_bm
+    #define MYUART_TXCFG  PORTC_PIN1CTRL
+    #define MYUART_RXCFG  PORTC_PIN2CTRL
+    #define MYUART_PMUX_VAL (PORTMUX_USART0_ALT4_gc)
+    #define MYPMUX_REG PORTMUX.USARTROUTEA
+    #define MYUART_XCKPIN  PIN3_bm
+    #define MYUART_XCKCFG  PORTC_PIN3CTRL
+    #define MYUART_PORTREG PORTC
+  #elif (UARTTX == F7)
+    #define UART_NAME "F7"
+    #ifndef USART0
+      #error Pin on USART0, but no USART0 exists
+    #endif
+    #define MYUART USART0
+    #define MYUART_TXPORT VPORTF
+    #define MYUART_TXPIN  PIN7_bm
+    #define MYUART_TXCFG  PORTF_PIN7CTRL
+    #define MYUART_RXCFG  PORTF_PIN6CTRL
+    #define MYUART_PMUX_VAL (PORTMUX_USART0_ALT6_gc)
+    #define MYPMUX_REG PORTMUX.USARTROUTEA
+    #define MYUART_PORTREG PORTF
   #endif
 #endif
 

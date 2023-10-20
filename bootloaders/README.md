@@ -1,7 +1,7 @@
 # Bootloaders for modernAVR
 
 - optiboot_dx2 -- ブートローダーソース群（AVR_DA/DB/DD用）
-- optiboot_ex1 -- ブートローダーソース群（AVR_EA用）
+- optiboot_ex1 -- ブートローダーソース群（AVR_EA/EB用）
 - empty -- 空のダミーHEXだけがある
 - hex -- ビルド済のブートローダーHEXファイル群
 （Arduino IDE サブメニューから選択される）
@@ -40,11 +40,20 @@ HEXフォルダには主だったUART/LED違いのバリエーションが置か
 > 小ピン品種ではこの設定はできないので
 バリエーションがある。
 
+> 14pin 品種には PA7 がないので、PD7 を代わりの LED_BUILTIN として使用する。
+
+> 20pin 以下の品種には PC0 がないので、該当する USART の使用が制限される。
+
 ## optiboot_ex1
 
-これは __AVR_EA__ 系統用の NVM v3仕様ブートローダーだ。
+これは __AVR_EA/EB__ 系統用の NVM v3仕様ブートローダーだ。
 `optiboot_dx2`と機能は同等だが、主クロック制御器とSPMスニペットは
 `megaAVR`用の`optiboot_x2`に準じている。
+
+なお __AVR_EA/EB__ はそれぞれ専用のブートローダーとなる。
+これは __AVR_EB__ のデバイス識標アドレスが異なるためだ。
+
+> AVR_EB 固有の __BOOTROW__ を適切に設定している場合に限り、AVR_EA用ブートローダーで AVR_EB を動作させることは可能。
 
 ## EEPROM書込＋検証
 
@@ -91,17 +100,19 @@ FLASH消去/書換を行うのに使うことが出来る。
 - `MCUdude`版や`DxCore`版の同種の機能とは仕様が異なり、相互に互換性はない。
 
 > 実際の使用例は
-[FlashNVM_sample](https://github.com/askn37/MacroMicroAPI_lib/tree/main/examples/EEPROM%20and%20NVM/FlashNVM_sample)
+[[FlashNVM ツールリファレンス]](https://github.com/askn37/askn37.github.io/wiki/FlashNVM)
 を参照のこと。
 
 ## optibootバージョン
 
-以下の PGMEMアドレスに固定値が書かれている。
+以下の PGMEMアドレスに固定値がマジックナンバーとして書かれている。
 
 |ADDR|NAME|内容|
 |----|----|---|
 |$01FE|OPTIBOOT_MINVER|0x02|
 |$01FF|OPTIBOOT_MAJVER|0x29|
+
+> このアドレスの格納値を適切な CRC-16 検証値に置き換えると、`SYSCFG0`の BOOT領域 CRC改竄検査を有効にすることができる。
 
 ## リビルド
 
@@ -115,7 +126,7 @@ optiboot_dx2> sh makeall.modernAVR.sh
 optiboot_ex1> sh makeall.modernAVR.sh
 ```
 
-> Windows環境での確認はされていない。（要makeコマンド）
+> Windows環境でのビルド確認はされていない。gmakeコマンドを別途用意し、各ファイル中のファイルパス指定他を Windows流儀に修正する必要がある。
 
 ## コーディング
 
@@ -177,7 +188,7 @@ CPU起動後に初期化コード内で`CLKCTRL_MCLKCTRLA`を設定するよう�
 そしてその必要のない品種では結果的に無視される。
 
 > これを考慮すると 64KiB以下品種用はより小さな別バイナリを作れるが、それ専用となる。\
-> `AVR_EA`系統は最大64KiBのため、RAMPZは削除されている。
+> `AVR_Ex`系統は最大64KiBのため、RAMPZは削除されている。
 
 ### STK_UNIVERSAL (optiboot_dx2)
 

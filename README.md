@@ -58,6 +58,11 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16EA48 AVR32EA48 AVR64EA48
     - AVR16EA32 AVR32EA32 AVR64EA32
     - AVR16EA28 AVR32EA28 AVR64EA28
+  - AVR EB 系統
+    - AVR16EA32
+    - AVR16EA28
+    - AVR16EA20
+    - AVR16EA14
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
@@ -117,8 +122,10 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DB with Bootloader
   - AVR DA with Bootloader
   - AVR DD with Bootloader
-  - AVR DD 14pin with Bootloader
   - AVR EA with Bootloader
+  - AVR EB with Bootloader
+  - AVR DD 14pin with Bootloader
+  - AVR EB 14pin with Bootloader
   - AVR DB w/o Bootloader
   - AVR DA w/o Bootloader
   - AVR DD w/o Bootloader

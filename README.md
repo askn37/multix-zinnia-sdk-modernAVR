@@ -213,8 +213,8 @@ Arduino IDE でこのSDKを選択すると、
 - __シリアルポート選択__
   - 環境依存
 - __書込装置選択__
-  - UPDI4AVR over UART (Standard)
-  - UPDI4AVR over UART (HV Enable) -- __HV書込対応__
+  - [UPDI4AVR over UART](https://askn37.github.io/product/UPDI4AVR/) (Standard)
+  - [UPDI4AVR over UART](https://askn37.github.io/product/UPDI4AVR/) (HV Enable) -- __HV書込対応__
   - SerialUPDI over UART
   - PICkit4 over USB (UPDI)
   - Curiosity Nano (nEDBG: ATSAMD21E18)
@@ -338,8 +338,8 @@ optiboot を原型とするが clone である。
 ### AVR_EA/EB 系統への対応
 
 23/10現在、*avrdude* 内蔵の __SerialUPDI__ は、AVR_EA 系統を正しく操作することができない。
-確実に AVR_EA 系統の不揮発メモリを読み書きできると判明しているプログラムライターは、__UPDI4AVR__ と __PICkit4/5__ だけである。
-本SDKに付属の *avrdude.conf.updi* は __UPDI4AVR__ でのみ正しく動作する記述であることに注意されたい。
+確実に AVR_EA 系統の不揮発メモリを読み書きできると判明しているプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) と __PICkit4/5__ だけである。
+本SDKに付属の *avrdude.conf.updi* は [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) でのみ正しく動作する記述であることに注意されたい。
 
 - *avrdude 7.2* で __SerialUPDI__ は AVR_EA に部分対応したが、標準添付の avrdude.conf はまだ十分検証されておらず、ほとんどの品種で正常動作の担保が取れていない。
 

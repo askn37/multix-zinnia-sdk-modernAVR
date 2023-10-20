@@ -84,7 +84,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 - [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) -- このSDKでもメンテナンスされている。JTAG2UPDI上位互換。
   - __HV書込__ とUSB-USARTパススルーに対応可。（要外部回路）
   - ゼロからこれを自作する場合は __卵と鶏__ の関係になるため注意。
-- __SerialUPDI__ -- 一般のUSB-UARTと簡易な回路による高速書込環境。
+- [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) -- 一般のUSB-UARTと簡易な回路による高速書込環境。
   - 準備にはいくらかの部品と配線準備が必要だが難易度は低い。HV書込は望めない。
   - 対象MCUの UART通信とは回路が排他で外部切替が必要。（自動切替は要外付制御回路）
 - PICkit4 -- 公式のプログラム書込装置兼 __デバッグトレース__ 装置。
@@ -215,7 +215,7 @@ Arduino IDE でこのSDKを選択すると、
 - __書込装置選択__
   - [UPDI4AVR over UART](https://askn37.github.io/product/UPDI4AVR/) (Standard)
   - [UPDI4AVR over UART](https://askn37.github.io/product/UPDI4AVR/) (HV Enable) -- __HV書込対応__
-  - SerialUPDI over UART
+  - [SerialUPDI over UART](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/)
   - PICkit4 over USB (UPDI)
   - Curiosity Nano (nEDBG: ATSAMD21E18)
   - JTAG2UPDI over UART (NVMCTRL v2 Remodeling)-- NVMCTRL v2 非対応のバリアントは使用不可
@@ -337,11 +337,11 @@ optiboot を原型とするが clone である。
 
 ### AVR_EA/EB 系統への対応
 
-23/10現在、*avrdude* 内蔵の __SerialUPDI__ は、AVR_EA 系統を正しく操作することができない。
+23/10現在、*avrdude* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_EA 系統を正しく操作することができない。
 確実に AVR_EA 系統の不揮発メモリを読み書きできると判明しているプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) と __PICkit4/5__ だけである。
 本SDKに付属の *avrdude.conf.updi* は [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) でのみ正しく動作する記述であることに注意されたい。
 
-- *avrdude 7.2* で __SerialUPDI__ は AVR_EA に部分対応したが、標準添付の avrdude.conf はまだ十分検証されておらず、ほとんどの品種で正常動作の担保が取れていない。
+- *avrdude 7.2* で [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は AVR_EA に部分対応したが、標準添付の avrdude.conf はまだ十分検証されておらず、ほとんどの品種で正常動作の担保が取れていない。
 
 ### その他注意事項
 

@@ -59,10 +59,10 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16EA32 AVR32EA32 AVR64EA32
     - AVR16EA28 AVR32EA28 AVR64EA28
   - AVR EB 系統
-    - AVR16EA32
-    - AVR16EA28
-    - AVR16EA20
-    - AVR16EA14
+    - AVR16EB32
+    - AVR16EB28
+    - AVR16EB20
+    - AVR16EB14
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 

@@ -74,14 +74,17 @@ part
     nvm_base               = 0x1000;
     ocd_base               = 0x0f80;
 
+    # The boot and application section offsets are 
+    # from the beginning of the flash area. 
+    # Any value can be specified for the size.
     memory "boot"
-        size               = 0;
-        offset             = 0x800000;
+        size               = 0x200;
+        offset             = 0x000000;
     ;
 
     memory "application"
-        size               = 0;
-        offset             = 0x800200;
+        size               = 0x200;
+        offset             = 0x000200;
     ;
 
     memory "fuse0"
@@ -1673,14 +1676,17 @@ part
     nvm_base               = 0x1000;
     ocd_base               = 0x0f80;
 
+    # The boot and application section offsets are 
+    # from the beginning of the flash area. 
+    # Any value can be specified for the size.
     memory "boot"
-        size               = 0;
-        offset             = 0x800000;
+        size               = 0x200;
+        offset             = 0x000000;
     ;
 
     memory "application"
-        size               = 0;
-        offset             = 0x800200;
+        size               = 0x200;
+        offset             = 0x000200;
     ;
 
     memory "fuse0"
@@ -3056,14 +3062,17 @@ part
     nvm_base               = 0x1000;
     ocd_base               = 0x0f80;
 
+    # The boot and application section offsets are 
+    # from the beginning of the flash area. 
+    # Any value can be specified for the size.
     memory "boot"
-        size               = 0;
-        offset             = 0x800000;
+        size               = 0x200;
+        offset             = 0x000000;
     ;
 
     memory "application"
-        size               = 0;
-        offset             = 0x800200;
+        size               = 0x200;
+        offset             = 0x000200;
     ;
 
     memory "fuse0"

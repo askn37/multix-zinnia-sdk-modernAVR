@@ -432,6 +432,9 @@ else {
       nvmctrl(NVMCTRL_CMD_NOCMD_gc);
       if (ch == 'F') {
         /* Flash write */
+        /*
+         * The AVR_Ex series does not have a RAMPZ register, so adjust the FLMAP bit.
+         */
         if (address.bytes[1] < 0x80) {
           /* Select low FPAGE */
           address.word += MAPPED_PROGMEM_START;
@@ -461,8 +464,11 @@ else {
       ch = getch();
       verifySpace();
 
-      // the entire flash does not fit in the same address space
-      // so we call that helper function.
+      /*
+       * The entire flash does not fit in the same address space
+       * so we call that helper function.
+       * The AVR_Ex series does not have a RAMPZ register, so adjust the FLMAP bit.
+       */
       if (ch == 'F') {
         if (address.bytes[1] < 0x80) {
           /* Select low FPAGE */
@@ -487,10 +493,7 @@ else {
       /* SIGROW_DEVICEID0 : This value is always fixed. */
       putch(0x1E);
 
-      /*
-       * This value indicates the flash size and indicates whether
-       * or not there is a RAMPZ register.
-       */
+      /* This value indicates the size of the flash. */
       putch(SIGROW_DEVICEID1);
 
       /* Inconsistent values to avoid duplicate SIGROW */

@@ -2,15 +2,7 @@
 # AVRDUDE Configuration File
 #
 
-#
-# Overall avrdude defaults; suitable for ~/.config/avrdude/avrdude.rc
-#
-default_parallel   = "/dev/parport0";
-default_serial     = "/dev/ttyS0";
-default_spi        = "";
-# default_bitclock = 2.5;
-default_linuxgpio  = "gpiochip0";
-allow_subshells    = no;
+# avrdude_conf_version = "7.2";
 
 #
 # PROGRAMMER DEFINITIONS
@@ -20,7 +12,7 @@ allow_subshells    = no;
 # dryrun
 #------------------------------------------------------------
 
-programmer
+programmer # dryrun
     id                     = "dryrun";
     desc                   = "Emulates programming without a programmer";
     type                   = "dryrun";
@@ -31,12 +23,29 @@ programmer
 # arduino
 #------------------------------------------------------------
 
-programmer
+programmer # arduino
     id                     = "arduino";
     desc                   = "Arduino for bootloader using STK500 v1 protocol";
     type                   = "arduino";
     prog_modes             = PM_SPM;
     connection_type        = serial;
+;
+
+#------------------------------------------------------------
+# jtag2updi
+#------------------------------------------------------------
+
+# JTAG2UPDI
+# https://github.com/ElTangas/jtag2updi
+
+programmer
+    id                     = "jtag2updi";
+    desc                   = "JTAGv2 to UPDI bridge";
+    type                   = "jtagmkii_updi";
+    prog_modes             = PM_UPDI;
+    connection_type        = serial;
+    baudrate               = 115200;
+    hvupdi_support         = 1;
 ;
 
 #------------------------------------------------------------
@@ -46,9 +55,9 @@ programmer
 # UPDI4AVR
 # https://askn37.github.io/product/UPDI4AVR/README_en.html
 
-programmer
+programmer # updi4avr
     id                     = "updi4avr";
-    desc                   = "JTAGv2 to UPDI bridge";
+    desc                   = "JTAGv2 to UPDI translator";
     type                   = "jtagmkii_updi";
     prog_modes             = PM_UPDI;
     extra_features         = HAS_VTARG_READ;
@@ -62,6 +71,50 @@ programmer
 #
 
 #------------------------------------------------------------
+# Locked Device
+#------------------------------------------------------------
+
+part
+    id                     = "tinyAVR-0/1/2 locked device";
+    signature              = 0x1e 0x74 0x30;
+;
+
+part
+    id                     = "megaAVR-0 locked device";
+    signature              = 0x1e 0x6d 0x30;
+;
+
+part
+    id                     = "AVR-DA/DB/DD locked device";
+    signature              = 0x1e 0x41 0x32;
+;
+
+part
+    id                     = "AVR-EA locked device";
+    signature              = 0x1e 0x41 0x33;
+;
+
+part
+    id                     = "AVR-DU locked device";
+    signature              = 0x1e 0x41 0x34;
+;
+
+part
+    id                     = "AVR-EB locked device";
+    signature              = 0x1e 0x41 0x35;
+;
+
+part
+    id                     = "Offline or UPDI disabled device";
+    signature              = 0xff 0xff 0xff;
+;
+
+part
+    id                     = "Devices that use UPDI for GPIO?";
+    signature              = 0x00 0x00 0x00;
+;
+
+#------------------------------------------------------------
 # AVR8X family common values
 #------------------------------------------------------------
 
@@ -73,18 +126,11 @@ part
     boot_section_size      = 256;
     nvm_base               = 0x1000;
     ocd_base               = 0x0f80;
+    idr                    = 0x31;  # substitute hvupdi_variant
 
-    # The boot and application section offsets are 
-    # from the beginning of the flash area. 
-    # Any value can be specified for the size.
     memory "boot"
-        size               = 0x200;
-        offset             = 0x000000;
-    ;
-
-    memory "application"
-        size               = 0x200;
-        offset             = 0x000200;
+        # UPDI implementation only refers to offsets
+        size               = 0;
     ;
 
     memory "fuse0"
@@ -237,15 +283,20 @@ part
         readsize           = 1;
     ;
 
-    memory "revid"
-        size               = 1;
-        offset             = 0x0f01;
+    memory "data"
+        # SRAM, only used to supply the offset
+        # Not referenced in UPDI implementation
+        offset             = 0x01000000;
+    ;
+
+    memory "io"
+        size               = 4352;
         readsize           = 1;
     ;
 
-    memory "data"
-        # SRAM, only used to supply the offset
-        offset             = 0x1000000;
+    memory "sib"
+        size               = 32;
+        readsize           = 1;
     ;
 ;
 
@@ -259,12 +310,22 @@ part parent ".avr8x"
     family_id              = "tinyAVR";
     # Shared UPDI pin, HV on UPDI pin
     hvupdi_variant         = 0;
+    idr                    = 0x30;  # substitute hvupdi_variant
+
+    memory "boot"
+        offset             = 0x8000;
+    ;
+
+    memory "flash"
+        offset             = 0x8000;
+        readsize           = 256;
+    ;
 
     memory "userrow"
         size               = 32;
         page_size          = 32;
         offset             = 0x1300;
-        readsize           = 256;
+        readsize           = 32;
     ;
 
     memory "usersig"
@@ -286,6 +347,17 @@ part parent ".avr8x"
     family_id              = "megaAVR";
     # Dedicated UPDI pin, no HV
     hvupdi_variant         = 1;
+    idr                    = 0x31;  # substitute hvupdi_variant
+
+    memory "boot"
+        size               = 0;
+        offset             = 0x4000;
+    ;
+
+    memory "flash"
+        offset             = 0x4000;
+        readsize           = 256;
+    ;
 
     memory "fuse5"
         bitmask            = 0xc9;
@@ -305,7 +377,6 @@ part parent ".avr8x"
     memory "lock"
         initval            = 0xc5;
     ;
-
 ;
 
 #------------------------------------------------------------
@@ -328,7 +399,7 @@ part parent ".avr8x_tiny"
         size               = 64;
         page_size          = 32;
         offset             = 0x1400;
-        readsize           = 256;
+        readsize           = 64;
     ;
 
     memory "flash"
@@ -347,11 +418,6 @@ part parent ".avr8x_tiny"
 
     memory "tcd0cfg"
         alias "fuse4";
-    ;
-
-    memory "data"
-        size               = 128;
-        offset             = 0x3f80;
     ;
 ;
 
@@ -392,7 +458,7 @@ part parent ".avr8x_tiny"
         size               = 128;
         page_size          = 32;
         offset             = 0x1400;
-        readsize           = 256;
+        readsize           = 128;
     ;
 
     memory "flash"
@@ -413,10 +479,6 @@ part parent ".avr8x_tiny"
         alias "fuse4";
     ;
 
-    memory "data"
-        size               = 256;
-        offset             = 0x3f00;
-    ;
 ;
 
 #------------------------------------------------------------
@@ -475,7 +537,7 @@ part parent ".avr8x_tiny"
         size               = 128;
         page_size          = 32;
         offset             = 0x1400;
-        readsize           = 256;
+        readsize           = 128;
     ;
 
     memory "flash"
@@ -487,11 +549,6 @@ part parent ".avr8x_tiny"
 
     memory "lock"
         initval            = 0xc5;
-    ;
-
-    memory "data"
-        size               = 512;
-        offset             = 0x3e00;
     ;
 ;
 
@@ -567,11 +624,6 @@ part parent ".avr8x_tiny"
     memory "lock"
         initval            = 0xc5;
     ;
-
-    memory "data"
-        size               = 1024;
-        offset             = 0x3c00;
-    ;
 ;
 
 #------------------------------------------------------------
@@ -633,7 +685,7 @@ part parent ".avr8x_tiny"
         size               = 64;
         page_size          = 32;
         offset             = 0x1400;
-        readsize           = 256;
+        readsize           = 64;
     ;
 
     memory "flash"
@@ -652,11 +704,6 @@ part parent ".avr8x_tiny"
 
     memory "tcd0cfg"
         alias "fuse4";
-    ;
-
-    memory "data"
-        size               = 128;
-        offset             = 0x3f80;
     ;
 ;
 
@@ -697,7 +744,7 @@ part parent ".avr8x_tiny"
         size               = 128;
         page_size          = 32;
         offset             = 0x1400;
-        readsize           = 256;
+        readsize           = 128;
     ;
 
     memory "flash"
@@ -716,11 +763,6 @@ part parent ".avr8x_tiny"
 
     memory "tcd0cfg"
         alias "fuse4";
-    ;
-
-    memory "data"
-        size               = 256;
-        offset             = 0x3f00;
     ;
 ;
 
@@ -816,7 +858,7 @@ part parent ".avr8x_tiny"
         size               = 128;
         page_size          = 32;
         offset             = 0x1400;
-        readsize           = 256;
+        readsize           = 128;
     ;
 
     memory "flash"
@@ -835,11 +877,6 @@ part parent ".avr8x_tiny"
 
     memory "tcd0cfg"
         alias "fuse4";
-    ;
-
-    memory "data"
-        size               = 256;
-        offset             = 0x3e00;
     ;
 ;
 
@@ -922,11 +959,6 @@ part parent ".avr8x_tiny"
 
     memory "tcd0cfg"
         alias "fuse4";
-    ;
-
-    memory "data"
-        size               = 2048;
-        offset             = 0x3800;
     ;
 ;
 
@@ -1011,11 +1043,6 @@ part parent ".avr8x_tiny"
         size               = 64;
         page_size          = 64;
     ;
-
-    memory "data"
-        size               = 2048;
-        offset             = 0x3800;
-    ;
 ;
 
 #------------------------------------------------------------
@@ -1059,7 +1086,7 @@ part parent ".avr8x_tiny"
         size               = 128;
         page_size          = 32;
         offset             = 0x1400;
-        readsize           = 256;
+        readsize           = 128;
     ;
 
     memory "flash"
@@ -1071,11 +1098,6 @@ part parent ".avr8x_tiny"
 
     memory "fuse5"
         bitmask            = 0xdd;
-    ;
-
-    memory "data"
-        size               = 512;
-        offset             = 0x3e00;
     ;
 ;
 
@@ -1149,7 +1171,7 @@ part parent ".avr8x_tiny"
         size               = 128;
         page_size          = 32;
         offset             = 0x1400;
-        readsize           = 256;
+        readsize           = 128;
     ;
 
     memory "flash"
@@ -1161,11 +1183,6 @@ part parent ".avr8x_tiny"
 
     memory "fuse5"
         bitmask            = 0xdd;
-    ;
-
-    memory "data"
-        size               = 1024;
-        offset             = 0x3c00;
     ;
 ;
 
@@ -1251,11 +1268,6 @@ part parent ".avr8x_tiny"
     memory "fuse5"
         bitmask            = 0xdd;
     ;
-
-    memory "data"
-        size               = 2048;
-        offset             = 0x3800;
-    ;
 ;
 
 #------------------------------------------------------------
@@ -1340,11 +1352,6 @@ part parent ".avr8x_tiny"
     memory "fuse5"
         bitmask            = 0xdd;
     ;
-
-    memory "data"
-        size               = 3072;
-        offset             = 0x3400;
-    ;
 ;
 
 #------------------------------------------------------------
@@ -1395,7 +1402,7 @@ part parent "t3224"
 # ATmega808
 #------------------------------------------------------------
 
-part parent ".avr8x_tiny"
+part parent ".avr8x_mega"
     desc                   = "ATmega808";
     id                     = "m808";
     variants               =
@@ -1432,11 +1439,6 @@ part parent ".avr8x_tiny"
     memory "fuse5"
         bitmask            = 0xc9;
     ;
-
-    memory "data"
-        size               = 1024;
-        offset             = 0x3c00;
-    ;
 ;
 
 #------------------------------------------------------------
@@ -1464,7 +1466,7 @@ part parent "m808"
 # ATmega1608
 #------------------------------------------------------------
 
-part parent ".avr8x_tiny"
+part parent ".avr8x_mega"
     desc                   = "ATmega1608";
     id                     = "m1608";
     variants               =
@@ -1500,11 +1502,6 @@ part parent ".avr8x_tiny"
 
     memory "fuse5"
         bitmask            = 0xc9;
-    ;
-
-    memory "data"
-        size               = 2048;
-        offset             = 0x3800;
     ;
 ;
 
@@ -1566,11 +1563,6 @@ part parent ".avr8x_mega"
         offset             = 0x4000;
         readsize           = 256;
     ;
-
-    memory "data"
-        size               = 4096;
-        offset             = 0x3000;
-    ;
 ;
 
 #------------------------------------------------------------
@@ -1631,11 +1623,6 @@ part parent ".avr8x_mega"
         offset             = 0x4000;
         readsize           = 256;
     ;
-
-    memory "data"
-        size               = 6144;
-        offset             = 0x2800;
-    ;
 ;
 
 #------------------------------------------------------------
@@ -1661,11 +1648,11 @@ part parent "m4808"
 ;
 
 #------------------------------------------------------------
-# AVR-Dx family common values
+# AVR-DA/DB family common values
 #------------------------------------------------------------
 
 part
-    desc                   = "AVR-Dx family common values";
+    desc                   = "AVR-DA/DB family common values";
     id                     = ".avrdx";
     family_id              = "AVR    ";
     prog_modes             = PM_SPM | PM_UPDI;
@@ -1675,18 +1662,25 @@ part
     hvupdi_variant         = 1;
     nvm_base               = 0x1000;
     ocd_base               = 0x0f80;
+    idr                    = 0x31;  # substitute hvupdi_variant
 
-    # The boot and application section offsets are 
-    # from the beginning of the flash area. 
-    # Any value can be specified for the size.
     memory "boot"
-        size               = 0x200;
-        offset             = 0x000000;
+        size               = 0;
+        offset             = 0x800000;
     ;
 
-    memory "application"
-        size               = 0x200;
-        offset             = 0x000200;
+    memory "flash"
+        # UPDI4AVR can write up to 512. Others are 256.
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 512;
+    ;
+
+    memory "eeprom"
+        size               = 512;
+        page_size          = 2;
+        offset             = 0x1400;
+        readsize           = 256;
     ;
 
     memory "fuse0"
@@ -1827,15 +1821,20 @@ part
         alias "userrow";
     ;
 
-    memory "revid"
-        size               = 1;
-        offset             = 0x0f01;
+    memory "data"
+        # SRAM, only used to supply the offset
+        # Not referenced in UPDI implementation
+        offset             = 0x01000000;
+    ;
+
+    memory "io"
+        size               = 4160;
         readsize           = 1;
     ;
 
-    memory "data"
-        # SRAM, only used to supply the offset
-        offset             = 0x1000000;
+    memory "sib"
+        size               = 32;
+        readsize           = 1;
     ;
 ;
 
@@ -1864,27 +1863,13 @@ part parent ".avrdx"
     n_interrupts           = 41;
     signature              = 0x1e 0x95 0x34;
 
-    memory "eeprom"
-        size               = 512;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x8000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
     ;
 
     memory "fuse6"
         initval            = 0x00;
         bitmask            = 0x07;
-    ;
-
-    memory "data"
-        size               = 4096;
-        offset             = 0x7000;
     ;
 ;
 
@@ -1961,27 +1946,13 @@ part parent ".avrdx"
     n_interrupts           = 41;
     signature              = 0x1e 0x96 0x15;
 
-    memory "eeprom"
-        size               = 512;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x10000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
     ;
 
     memory "fuse6"
         initval            = 0x00;
         bitmask            = 0x07;
-    ;
-
-    memory "data"
-        size               = 8192;
-        offset             = 0x6000;
     ;
 ;
 
@@ -2076,32 +2047,19 @@ part parent ".avrdx"
         "AVR128DA28T-E/SS: SSOP28,  Fmax=24 MHz, T=[-40 C, 125 C], Vcc=[1.8 V, 5.5 V]",
         "AVR128DA28T-I/SO: SOIC28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]",
         "AVR128DA28T-I/SS: SSOP28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
-    family_id              = "    AVR";
+  # This family_id product has been recalled
+  # family_id              = "    AVR";
     mcuid                  = 364;
     n_interrupts           = 41;
     signature              = 0x1e 0x97 0x0a;
 
-    memory "eeprom"
-        size               = 512;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x20000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
     ;
 
     memory "fuse6"
         initval            = 0x00;
         bitmask            = 0x07;
-    ;
-
-    memory "data"
-        size               = 16384;
-        offset             = 0x4000;
     ;
 ;
 
@@ -2200,22 +2158,8 @@ part parent ".avrdx"
     n_interrupts           = 42;
     signature              = 0x1e 0x95 0x37;
 
-    memory "eeprom"
-        size               = 512;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x8000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
-    ;
-
-    memory "data"
-        size               = 4096;
-        offset             = 0x7000;
     ;
 ;
 
@@ -2286,22 +2230,8 @@ part parent ".avrdx"
     n_interrupts           = 42;
     signature              = 0x1e 0x96 0x19;
 
-    memory "eeprom"
-        size               = 512;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x10000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
-    ;
-
-    memory "data"
-        size               = 8192;
-        offset             = 0x6000;
     ;
 ;
 
@@ -2394,22 +2324,8 @@ part parent ".avrdx"
     n_interrupts           = 42;
     signature              = 0x1e 0x97 0x0e;
 
-    memory "eeprom"
-        size               = 512;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x20000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
-    ;
-
-    memory "data"
-        size               = 16384;
-        offset             = 0x4000;
     ;
 ;
 
@@ -2480,10 +2396,36 @@ part parent "avr128db28"
 ;
 
 #------------------------------------------------------------
-# AVR16DD14
+# AVR-DD family common values
 #------------------------------------------------------------
 
 part parent ".avrdx"
+    desc                   = "AVR-DD family common values";
+    id                     = ".avrdd";
+    family_id              = "AVR    ";
+    # Shared UPDI pin, HV on _RESET
+    hvupdi_variant         = 2;
+    idr                    = 0x32;  # substitute hvupdi_variant
+
+    memory "flash"
+        page_size          = 512;
+        offset             = 0x800000;
+        readsize           = 512;
+    ;
+
+    memory "eeprom"
+        size               = 256;
+        page_size          = 2;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
+;
+
+#------------------------------------------------------------
+# AVR16DD14
+#------------------------------------------------------------
+
+part parent ".avrdd"
     desc                   = "AVR16DD14";
     id                     = "avr16dd14";
     variants               =
@@ -2491,30 +2433,15 @@ part parent ".avrdx"
         "AVR16DD14-I/SL: SOIC14, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 329;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x94 0x34;
-
-    memory "eeprom"
-        size               = 256;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
 
     memory "flash"
         size               = 0x4000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
     ;
 
     memory "fuse5"
         initval            = 0xd0;
         bitmask            = 0xf9;
-    ;
-
-    memory "data"
-        size               = 2048;
-        offset             = 0x7800;
     ;
 ;
 
@@ -2531,7 +2458,6 @@ part parent "avr16dd14"
         "AVR16DD20-I/SO:  SOIC20, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 330;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x94 0x33;
 ;
 
@@ -2550,7 +2476,6 @@ part parent "avr16dd14"
         "AVR16DD28-I/STX: N/A,     Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 331;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x94 0x32;
 ;
 
@@ -2567,7 +2492,6 @@ part parent "avr16dd14"
         "AVR16DD32-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 333;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x94 0x31;
 ;
 
@@ -2575,7 +2499,7 @@ part parent "avr16dd14"
 # AVR32DD14
 #------------------------------------------------------------
 
-part parent ".avrdx"
+part parent ".avrdd"
     desc                   = "AVR32DD14";
     id                     = "avr32dd14";
     variants               =
@@ -2583,30 +2507,15 @@ part parent ".avrdx"
         "AVR32DD14-I/SL: SOIC14, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 336;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x95 0x3b;
-
-    memory "eeprom"
-        size               = 256;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
 
     memory "flash"
         size               = 0x8000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
     ;
 
     memory "fuse5"
         initval            = 0xd0;
         bitmask            = 0xf9;
-    ;
-
-    memory "data"
-        size               = 4096;
-        offset             = 0x7000;
     ;
 ;
 
@@ -2623,7 +2532,6 @@ part parent "avr32dd14"
         "AVR32DD20-I/SO:  SOIC20, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 337;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x95 0x3a;
 ;
 
@@ -2642,7 +2550,6 @@ part parent "avr32dd14"
         "AVR32DD28-I/STX: N/A,     Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 340;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x95 0x39;
 ;
 
@@ -2659,7 +2566,6 @@ part parent "avr32dd14"
         "AVR32DD32-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 344;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x95 0x38;
 ;
 
@@ -2667,7 +2573,7 @@ part parent "avr32dd14"
 # AVR64DD14
 #------------------------------------------------------------
 
-part parent ".avrdx"
+part parent ".avrdd"
     desc                   = "AVR64DD14";
     id                     = "avr64dd14";
     variants               =
@@ -2675,30 +2581,15 @@ part parent ".avrdx"
         "AVR64DD14-I/SL: SOIC14, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 349;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x96 0x1d;
-
-    memory "eeprom"
-        size               = 256;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
 
     memory "flash"
         size               = 0x10000;
-        page_size          = 512;
-        offset             = 0x800000;
-        readsize           = 256;
     ;
 
     memory "fuse5"
         initval            = 0xd0;
         bitmask            = 0xf9;
-    ;
-
-    memory "data"
-        size               = 8192;
-        offset             = 0x6000;
     ;
 ;
 
@@ -2714,7 +2605,6 @@ part parent "avr64dd14"
         "AVR64DD20-I/SO: SOIC20, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 350;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x96 0x1c;
 ;
 
@@ -2733,7 +2623,6 @@ part parent "avr64dd14"
         "AVR64DD28-I/STX: VQFN28,  Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 353;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x96 0x1b;
 ;
 
@@ -2750,7 +2639,6 @@ part parent "avr64dd14"
         "AVR64DD32-I/RXB: VQFN32, Fmax=24 MHz, T=[-40 C,  85 C], Vcc=[1.8 V, 5.5 V]";
     mcuid                  = 357;
     n_interrupts           = 36;
-    hvupdi_variant         = 2;
     signature              = 0x1e 0x96 0x1a;
 ;
 
@@ -2763,6 +2651,20 @@ part parent ".avrdx"
     id                     = ".avrea";
     # Shared UPDI pin, HV on _RESET
     hvupdi_variant         = 2;
+    idr                    = 0x32;  # substitute hvupdi_variant
+
+    memory "flash"
+        page_size          = 128;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "eeprom"
+        size               = 512;
+        page_size          = 8;
+        offset             = 0x1400;
+        readsize           = 256;
+    ;
 
     memory "fuse2"
         bitmask            = 0x08;
@@ -2787,6 +2689,12 @@ part parent ".avrdx"
         page_size          = 64;
         readsize           = 64;
     ;
+
+    memory "data"
+        # SRAM, only used to supply the offset
+        # Not referenced in UPDI implementation
+        offset             = 0x01000000;
+    ;
 ;
 
 #------------------------------------------------------------
@@ -2800,23 +2708,8 @@ part parent ".avrea"
     mcuid                  = 327;
     signature              = 0x1e 0x93 0x2c;
 
-    memory "eeprom"
-        size               = 512;
-        page_size          = 8;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 8192;
-        page_size          = 64;
-        offset             = 0x800000;
-        readsize           = 256;
-    ;
-
-    memory "data"
-        size               = 1024;
-        offset             = 0x7c00;
     ;
 
     memory "fuse0"
@@ -2875,23 +2768,8 @@ part parent ".avrea"
     mcuid                  = 332;
     signature              = 0x1e 0x94 0x37;
 
-    memory "eeprom"
-        size               = 512;
-        page_size          = 8;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x4000;
-        page_size          = 64;
-        offset             = 0x800000;
-        readsize           = 256;
-    ;
-
-    memory "data"
-        size               = 2048;
-        offset             = 0x7800;
     ;
 ;
 
@@ -2933,23 +2811,8 @@ part parent ".avrea"
     mcuid                  = 341;
     signature              = 0x1e 0x95 0x3e;
 
-    memory "eeprom"
-        size               = 512;
-        page_size          = 8;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x8000;
-        page_size          = 64;
-        offset             = 0x800000;
-        readsize           = 256;
-    ;
-
-    memory "data"
-        size               = 4096;
-        offset             = 0x7000;
     ;
 ;
 
@@ -2994,23 +2857,8 @@ part parent ".avrea"
     n_interrupts           = 37;
     signature              = 0x1e 0x96 0x20;
 
-    memory "eeprom"
-        size               = 512;
-        page_size          = 8;
-        offset             = 0x1400;
-        readsize           = 256;
-    ;
-
     memory "flash"
         size               = 0x10000;
-        page_size          = 128;
-        offset             = 0x800000;
-        readsize           = 256;
-    ;
-
-    memory "data"
-        size               = 6144;
-        offset             = 0x6800;
     ;
 ;
 
@@ -3057,22 +2905,28 @@ part
     prog_modes             = PM_SPM | PM_UPDI;
     n_boot_sections        = 1;
     boot_section_size      = 256;
-    # Dedicated UPDI pin, no HV
+    # Shared UPDI pin, HV on _RESET
     hvupdi_variant         = 2;
     nvm_base               = 0x1000;
     ocd_base               = 0x0f80;
+    idr                    = 0x32;  # substitute hvupdi_variant
 
-    # The boot and application section offsets are 
-    # from the beginning of the flash area. 
-    # Any value can be specified for the size.
     memory "boot"
-        size               = 0x200;
-        offset             = 0x000000;
+        size               = 0;
+        offset             = 0x800000;
     ;
 
-    memory "application"
-        size               = 0x200;
-        offset             = 0x000200;
+    memory "flash"
+        page_size          = 128;
+        offset             = 0x800000;
+        readsize           = 256;
+    ;
+
+    memory "eeprom"
+        size               = 512;
+        page_size          = 8;
+        offset             = 0x1400;
+        readsize           = 256;
     ;
 
     memory "fuse0"
@@ -3178,7 +3032,8 @@ part
     # *** CAUTION ***
     # The 'fuses' of the AVR_EB series is originally 11 bytes, 
     # but is limited to 9 bytes here to avoid irrecoverable failures. 
-    # To rewrite the added last 2 bytes, explicitly specify 'fusea'.
+    # To overwrite the last two bytes added, 
+    # explicitly specify 'fusea' or 'pdicfg'.
     memory "fuses"
         size               = 9;
         page_size          = 16;
@@ -3253,15 +3108,20 @@ part
         readsize           = 1;
     ;
 
-    memory "revid"
-        size               = 1;
-        offset             = 0x0f01;
+    memory "data"
+        # SRAM, only used to supply the offset
+        # Not referenced in UPDI implementation
+        offset             = 0x01000000;
+    ;
+
+    memory "io"
+        size               = 4160;
         readsize           = 1;
     ;
 
-    memory "data"
-        # SRAM, only used to supply the offset
-        offset             = 0x1000000;
+    memory "sib"
+        size               = 32;
+        readsize           = 1;
     ;
 ;
 
@@ -3279,14 +3139,6 @@ part parent ".avreb"
 
     memory "flash"
         size               = 0x4000;
-        page_size          = 64;
-        offset             = 0x800000;
-        readsize           = 256;
-    ;
-
-    memory "data"
-        size               = 2048;
-        offset             = 0x7800;
     ;
 ;
 

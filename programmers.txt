@@ -3,21 +3,21 @@
 01_updi4avr.protocol=updi4avr
 01_updi4avr.program.protocol=jtagmkii_updi
 01_updi4avr.program.tool=avrdude
-01_updi4avr.program.extra_params=-P {serial.port} -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
+01_updi4avr.program.extra_params=-P {serial.port} -xrtsdtr=high -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
 
 # 02_updi4avr_DS.name=UPDI4AVR over UART (High Speed)
 # 02_updi4avr_DS.communication=serial
 # 02_updi4avr_DS.protocol=updi4avr
 # 02_updi4avr_DS.program.protocol=jtagmkii_updi
 # 02_updi4avr_DS.program.tool=avrdude
-# 02_updi4avr_DS.program.extra_params=-P {serial.port} -b 460800 -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
+# 02_updi4avr_DS.program.extra_params=-P {serial.port} -xrtsdtr=high -b 500000 -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
 
 03_updi4avr_HV.name=UPDI4AVR over UART (HV Enable)
 03_updi4avr_HV.communication=serial
 03_updi4avr_HV.protocol=updi4avr
 03_updi4avr_HV.program.protocol=jtagmkii_updi
 03_updi4avr_HV.program.tool=avrdude
-03_updi4avr_HV.program.extra_params=-P {serial.port} -F -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
+03_updi4avr_HV.program.extra_params=-P {serial.port} -xrtsdtr=high -F -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
 
 13_serialupdi.name=SerialUPDI over UART
 13_serialupdi.communication=serial
@@ -70,14 +70,14 @@
 # 26_atmelice_updi.program.tool=avrdude
 # 26_atmelice_updi.program.extra_params=-P usb
 
-31_jtag2updi.name=JTAG2UPDI over UART (NVM v2 Remodeling)
+31_jtag2updi.name=JTAG2UPDI over UART (NVM v2/v3 Remodeling)
 31_jtag2updi.communication=serial
 31_jtag2updi.protocol=jtag2updi
 31_jtag2updi.program.protocol=jtagmkii_updi
 31_jtag2updi.program.tool=avrdude
 31_jtag2updi.program.extra_params=-P {serial.port}
 
-# 32_jtag2updi.name=JTAG2UPDI over UART (slow) (NVM v2 Remodeling)
+# 32_jtag2updi.name=JTAG2UPDI over UART (slow) (NVM v2/v3 Remodeling)
 # 32_jtag2updi.communication=serial
 # 32_jtag2updi.protocol=jtag2updi
 # 32_jtag2updi.program.protocol=jtagmkii_updi

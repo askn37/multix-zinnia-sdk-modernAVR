@@ -1673,7 +1673,7 @@ part
         # UPDI4AVR can write up to 512. Others are 256.
         page_size          = 512;
         offset             = 0x800000;
-        readsize           = 512;
+        readsize           = 256;
     ;
 
     memory "eeprom"

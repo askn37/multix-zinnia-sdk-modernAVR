@@ -22,9 +22,9 @@
 #define AVR_AVREB20   1
 
 //// Pin name to PORT configuration
-////   bit[756] PORTA-G index position
+////   bit[765] PORTA-G index position
 ////   bit[4]   1 (+16) (A=16,B=48,C=80,D=112,E=144,F=176,G=208)
-////   bit[4]   0
+////   bit[3]   0
 ////   bit[210] PIN0-7 bit position (0-7)
 
 /* GPIO x18 (other VDD,GND) */

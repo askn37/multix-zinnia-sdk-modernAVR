@@ -65,14 +65,16 @@ Licensing and redistribution are subject to the MIT License.
   #endif
 #endif /* not USART */
 
-/*
- * This section provides an auxiliary capability
- * for self-modifying the flash area.
- *
- * $0000 : Started Bootloader (POR)
- * $0002 : nvm_write function : magicnumber $C009
- * $0004 : nvm_ctrl  function : magicnumber $E99D, $BF94
- */
+/***
+  This section provides an auxiliary capability
+  for self-modifying the flash area.
+
+  $0000 : Started Bootloader (POR)
+  $0002 : spm_zp  function : magicnumber $95F8
+  $0004 : ret              :             $9508
+  $0006 : nvm_cmd function : magicnumber $E99D, $BF94
+  $0200 : appcode
+***/
 
 __attribute__((naked))
 __attribute__((noreturn))
@@ -81,14 +83,17 @@ void vector_table (void) {
   __asm__ __volatile__ (
   R"#ASM#(
     RJMP  main
-    RJMP  nvm_write
+    SPM   Z+
+    RET
   )#ASM#"
   );
   /* next is nvm_cmd */
 }
 
-/* This version of the SPM snippet consists of two functions.
-   One is to simply write CMD to NVMCTRL and check STATUS. */
+/* The SPM snippet consists of two functions.
+   One is to simply execute an SPM instruction.
+   The next step is to write CMD to her NVMCTRL and check the STATUS. */
+
 __attribute__((used))
 __attribute__((noinline))
 __attribute__((section (".init1")))
@@ -96,26 +101,6 @@ void nvm_cmd (uint8_t _nvm_cmd) {
   /* This function occupies 18 bytes of space. */
   _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
   while (NVMCTRL.STATUS & 3);
-}
-
-/* The other writes a single word to the code region's word pointer.
-   Note that it is not a byte type. */
-__attribute__((used))
-__attribute__((noinline))
-__attribute__((section (".init2")))
-void nvm_write (uint16_t* _address, uint16_t _word) {
-  /* According to the C/C++ specification,
-     the second argument is passed to the R23:R22 register pair.
-     The first argument is copied to the Z pointer.
-     This function occupies 10 bytes of space. */
-  __asm__ __volatile__ (
-    R"#ASM#(
-        MOVW  R0, R22       ; R1:R0 <- R23:R22
-        SPM                 ; DS(Z) <- R1:R0
-        CLR   __zero_reg__  ; R1 <- 0
-    )#ASM#"
-    :: "z" (_address)
-  );
 }
 
 __attribute__((noinline))
@@ -129,7 +114,7 @@ __attribute__((noinline))
 uint8_t pullch (void) {
   /* Pull-Character blocks if buffer is empty.
      If nothing is received, WDT will eventually work. */
-  register uint8_t ch, er;
+  uint8_t ch, er;
   loop_until_bit_is_set(UART_BASE.STATUS, USART_RXCIF_bp);
   er = UART_BASE.RXDATAH;
   ch = UART_BASE.RXDATAL;
@@ -163,11 +148,11 @@ inline static
 void blink (void) {
   /* Makes the LED blink at a different rate than normal.
      This code uses about 10 bytes of extra space. */
-  register uint8_t count = LED_BLINK;
+  uint8_t count = LED_BLINK;
   do {
     LED_PORT.IN |= _BV(LED_PIN);
     /* delay assuming 3Mhz */
-    register uint16_t delay = 3000000U / 200;
+    uint16_t delay = 3000000U / 200;
     do {
       if (bit_is_set(UART_BASE.STATUS, USART_RXCIF_bp)) return;
     } while (--delay);
@@ -178,7 +163,6 @@ void blink (void) {
 
 /* main program starts here */
 __attribute__((OS_main))
-__attribute__((used))
 int main (void) {
   /* It is preferable that these variables be allocated directly to registers. */
   register addr16_t address;
@@ -308,7 +292,7 @@ else {
 #elif defined(LED_PORT)
   /* Set noinit SRAM as a flag and make the LED blink
      alternately every time the WDT restarts. */
-  if (++_SFR_MEM8(RAMEND - 256) & 1) LED_PORT.IN |= _BV(LED_PIN);
+  if (++_SFR_MEM8(RAMEND - 767) & 1) LED_PORT.IN |= _BV(LED_PIN);
 #endif
 
   /* This probably isn't necessary since WDT isn't started yet. */

@@ -64,7 +64,9 @@ Licensing and redistribution are subject to the MIT License.
   for self-modifying the flash area.
 
   $0000 : Started Bootloader (POR)
-  $0002 : spm_zp function : magicnumber $95F8, $9008
+  $0002 : spm_zp  function : magicnumber $95F8
+  $0004 : ret              :             $9508
+  $0006 : nvm_cmd function : magicnumber $E99D, $BF94
   $0200 : appcode
 ***/
 
@@ -75,14 +77,25 @@ void vector_table (void) {
   __asm__ __volatile__ (
   R"#ASM#(
     RJMP  main
-    SPM   Z+    ; snippet
+    SPM   Z+
     RET
   )#ASM#"
   );
+  /* next is nvm_cmd */
 }
-/* This version of the SPM snippet consists of one function.
-   It simply executes SPM instructions.
-   This function occupies 4 bytes of space. */
+
+/* The SPM snippet consists of two functions.
+   One is to simply execute an SPM instruction.
+   The next step is to write CMD to her NVMCTRL and check the STATUS. */
+
+__attribute__((used))
+__attribute__((noinline))
+__attribute__((section (".init1")))
+void nvm_cmd (uint8_t _nvm_cmd) {
+  /* This function occupies 18 bytes of space. */
+  _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
+  while (NVMCTRL.STATUS & 3);
+}
 
 __attribute__((noinline))
 void putch (uint8_t ch) {
@@ -95,7 +108,7 @@ __attribute__((noinline))
 uint8_t pullch (void) {
   /* Pull-Character blocks if buffer is empty.
      If nothing is received, WDT will eventually work. */
-  register uint8_t ch, er;
+  uint8_t ch, er;
   loop_until_bit_is_set(UART_BASE.STATUS, USART_RXCIF_bp);
   er = UART_BASE.RXDATAH;
   ch = UART_BASE.RXDATAL;
@@ -129,11 +142,11 @@ inline static
 void blink (void) {
   /* Makes the LED blink at a different rate than normal.
      This code uses about 10 bytes of extra space. */
-  register uint8_t count = LED_BLINK;
+  uint8_t count = LED_BLINK;
   do {
     LED_PORT.IN |= _BV(LED_PIN);
     /* delay assuming 4Mhz */
-    register uint16_t delay = 4000000U / 200;
+    uint16_t delay = 4000000U / 200;
     do {
       if (bit_is_set(UART_BASE.STATUS, USART_RXCIF_bp)) return;
     } while (--delay);
@@ -141,34 +154,6 @@ void blink (void) {
   while (--count);
 }
 #endif
-
-__attribute__((used))
-__attribute__((noinline))
-void nvm_cmd (uint8_t cmd) {
-/* Take advantage of the fact that NVMCTRL_CMD_NONE_gc=0x00 and use zero_reg Also,
-   we don't need to change NVMCTRL.CTRLA to NOCMD/NOOP until we want to change it. */
-
-  while (NVMCTRL_STATUS & 3);
-
-  /* Equivalent code. */
-  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, NVMCTRL_CMD_NONE_gc);
-  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, cmd);
-
-  /* Writing in ASM saves 2 bytes. */
-  __asm__ __volatile__ (
-    R"#ASM#(
-      OUT   %[ccp], %[csm]
-      STS   %[ioreg], __zero_reg__
-      OUT   %[ccp], %[csm]
-      STS   %[ioreg], %[cmd]
-    )#ASM#"
-    :
-    : [ccp]   "I" (_SFR_IO_ADDR(CCP)),
-      [csm]   "d" ((uint8_t)CCP_SPM_gc),
-      [ioreg] "n" (_SFR_MEM_ADDR(NVMCTRL_CTRLA)),
-      [cmd]   "r" ((uint8_t)cmd)
-  );
-}
 
 /* main program starts here */
 __attribute__((OS_main))

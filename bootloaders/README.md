@@ -93,8 +93,8 @@ ATMEL STK500 version 1 プロトコルの制約により、ブートローダー
 
 |Series|Address|マジックナンバー : uint32_t (LE)|
 |-|-|-|
-|megaAVR-0 tinyAVR-0/1/2 AVR_EA/EB|MAPPED_PROGMEM_START + 2 Byte|0xE99DC009|
-|AVR_DA/DB/DD|PROGMEM_START + 2 Byte|0x950895F8|
+|megaAVR-0 tinyAVR-0/1/2|MAPPED_PROGMEM_START + 2 Byte|0xE99DC009|
+|AVR_DA/DB/DD/EA/EB|PROGMEM_START + 2 Byte|0x950895F8|
 
 これらは BOOT領域保護特権で CODE領域 / APPEND領域の FLASH消去/書換を行うのに使うことが出来る。
 

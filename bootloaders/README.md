@@ -1,87 +1,91 @@
 # Bootloaders for modernAVR
 
-- optiboot_dx2 -- ブートローダーソース群（AVR_DA/DB/DD用）
-- optiboot_ex1 -- ブートローダーソース群（AVR_EA/EB用）
+- *boot_ax -- ブートローダーソース群（tinyAVR-0/1/2、megaAVR-0用）*
+- boot_dx -- ブートローダーソース群（AVR_DA/DB/DD用）
+- boot_ex -- ブートローダーソース群（AVR_EA/EB用）
 - empty -- 空のダミーHEXだけがある
+- bin -- ビルド済のブートローダーBINファイル群
 - hex -- ビルド済のブートローダーHEXファイル群
 （Arduino IDE サブメニューから選択される）
 
-このフォルダ以下に含まれる
-`optiboot_dx2`は
-`optiboot`ver.8 を原型とするが、実体は大きく異なる。
+> [megaAVR / tinyAVR系統用ブートローダー]（boot_ax）は[こちら](https://github.com/askn37/multix-zinnia-sdk-megaAVR/tree/main/bootloaders)
 
-> [[megaAVR / tinyAVR系統用ブートローダー]はこちら](https://github.com/askn37/multix-zinnia-sdk-megaAVR/tree/main/bootloaders)
+## 概要
 
-## optiboot_dx2
+この moderAVR 用ブートストラップローダー・ファームウェアは ATMEL STK500 version 1 プロトコルに基づいており、Arduino ブートローダーと完全な互換性がある。
 
-これは __AVR_DA/DB/DD__ 系統用の NVM v2仕様ブートローダーだ。
-`DxCore`版と似ているが以下の点で異なる。
+ファームウェアが起動すると、RESET情報フラグが点検され、WDT またはソフトウェアリセットの場合、アプリケーションコード (0x200 から始まる) がすぐに実行を開始する。それ以外ではタイムアウト期間内に有効な STK500 version 1 コマンドが受信されたならば、UART を開いて NVM 操作を開始する。
 
-- マクロ`APP_NOSPM`が無効でビルドされた場合、
-PGMEMアドレス`PROGMEM_START+2`以降にSPM命令群スニペットが配置される。
-既定で有効。
-- マクロ`RS485`が有効でビルドされる場合、
-周辺機能USARTによるRS485機能の`XDIR`ペリフェラルピン出力が有効になる。
-（原型はGPIO操作で`RS485_XDIR`を制御していた。）
-- マクロ`USART`が有効でビルドされる場合、
-同期従装置USARTが有効になり`XCK`ペリフェラルピンで外部同期クロックを受給できるようになる。
-`XCK`ピンは該当USART周辺機能固定となるので任意には変更できない。
-- EEPROM領域リード/ライトに対応。
+ビルドは AVR-GCC および AVR-LIBC で可能だが、他のコンパイラに付いては考慮されていない。バイナリコードは 512バイト以内におさまる。
 
-__AVR_DA/DB/DD__ 系統の全品種でバイナリは原則共通だ。
-HEXフォルダには主だったUART/LED違いのバリエーションが置かれている。
-（DxCore版は品種別にバイナリが異なる）
+過去のソースコードは`Optiboot`のクローンであったが、現在はそうではない。彼らの支援対象は原則としてより古い世代のデバイスだけである。そうした理由により、ここで公開されているソースコードは改めて書き起こされた。
 
-> 28pin以上の品種用は
-```TX:PA0```
-```RX:PA1```
-```LED:PA7```
-で基本的に統一されている。\
-> 小ピン品種ではこの設定はできないので
-バリエーションがある。
+使用許諾と再配布には MIT ライセンスが適用される。
 
-> 14pin 品種には PA7 がないので、PD7 を代わりの LED_BUILTIN として使用する。
+### boot_ax.c
 
-> 20pin 以下の品種には PC0 がないので、該当する USART の使用が制限される。
+これは __tinyAVR-0/1/2__ 系統と __megaAVR-0__ 系統用の NVMCTRL version 0 仕様に適合するブートローダーだ。
+生成されるバイナリは対応全品種に共通してインストール可能であり、バリエーションは UARTや LEDの選択違いだけである。
+EEPROM は バイト粒度で、リード 256 byte、ライト 32 byte または 64 byte に対応する。
+FLASH は最大容量 48 KiB、ワード粒度で、リード 256 byte、ライト 64 byte または 128 byte に対応する。
 
-## optiboot_ex1
+> この系統は BOOTCODE 粒度が 256 byte なので、FUSE_BOOTSIZE（fuse8）には `2` を指定する。
 
-これは __AVR_EA/EB__ 系統用の NVM v3仕様ブートローダーだ。
-`optiboot_dx2`と機能は同等だが、主クロック制御器とSPMスニペットは
-`megaAVR`用の`optiboot_x2`に準じている。
+### boot_dx.c
 
-なお __AVR_EA/EB__ はそれぞれ専用のブートローダーとなる。
-これは __AVR_EB__ のデバイス識標アドレスが異なるためだ。
+これは __AVR_DA/DB/DD__ 系統用の NVMCTRL version 2 仕様に適合するブートローダーだ。
+生成されるバイナリは __AVR_DA/DB/DD__ 系統の全品種に共通してインストール可能であり、バリエーションは UARTや LEDの選択違いだけである。
+EEPROM は バイト粒度で、リード 256 byte、ライト 2 byte に対応する。
+FLASH は最大容量 128 KiB、ワード粒度で、リード 512 byte、ライト 512 byte に対応する。
 
-> AVR_EB 固有の __BOOTROW__ を適切に設定している場合に限り、AVR_EA用ブートローダーで AVR_EB を動作させることは可能。
+> この系統は BOOTCODE 粒度が 512 byte なので、FUSE_BOOTSIZE（fuse8）には `1` を指定する。
 
-## EEPROM書込＋検証
+### boot_ex.c
 
-Arduino IDE サブメニューの
-`FUSE EEPROM`\>`"Erase" and "Replace"`
-を選択すると、
-EEPROM領域をスケッチと同時に書くことが出来る。
+これは __AVR_EA__ 系統用の NVMCTRL version 3 仕様と、
+これは __AVR_EB__ 系統用の NVMCTRL version 5 仕様に適合するブートローダーだ。両者の差は僅かなので、同一のソースコードからそれぞれのバイナリを作り分ける。
+生成されるバイナリは __AVR_EA/EB__ 各系統別に共通してインストール可能であり、バリエーションは UARTや LEDの選択違いだけである。
+EEPROM は バイト粒度で、リード 256 byte、ライト 8 byte に対応する。
+FLASH は最大容量 64 KiB、ワード粒度で、リード 256 byte、ライト 128 byte に対応する。
+
+> この系統は BOOTCODE 粒度が 256 byte なので、FUSE_BOOTSIZE（fuse8）には `2` を指定する。
+
+## 特徴
+
+`Optiboot` やその亜種とは以下の点で異なる。
+
+- UART `TxD` ピンの既定 Hi-Z。
+- EEPROM領域リード/ライト対応。
+- PGMEMアドレス`PROGMEM_START+2`以降にSPM命令スニペットが配置される。
+- `RS485` と `USART` 機能のハードウェア応用支援。
+
+> `RxD`、`XDIR`、`XCLK`の各ピンは`TxD`ピンが定まれば一意に決定され、任意のピンに割り当てることはできない。
+
+HEXフォルダとBINフォルダには主だったUART/LED違いのバリエーションが置かれている。既定ビルドは、20pin以上の品種用は `TX:PA0`、`RX:PA1`、`LED:PA7` で統一されている。
+
+> AVR_DD/EBの 14pin 品種には PA7 がないため PD7 が代わりに使用される。
+
+## Arduino IDE での EEPROM リード/ライト
+
+Arduino IDE サブメニューの `FUSE EEPROM`\>`"Erase" and "Replace"` を選択すると、EEPROM領域をスケッチと同時に書くことが出来る。
 
 ```c
 #include <avr/eeprom.h>
 char estring[] EEMEM = "0123456789ABCDEF";  // <-- HERE
 ```
 
-その後`Save guard "Retained"`とした場合、
-新たなスケッチを書き込んでも
-EEPROMは以前に書き込んだ状態を維持する。
+その後`Save guard "Retained"`とした場合、新たなスケッチを書き込んでも EEPROMは以前に書き込んだ状態を維持する。
 
-この状態は
-`Save guard "Erase"`
-として消去するか、
-`"Erase" and "Replace"`
-として改めて書き込み直すまで変わらない。
+この状態は `Save guard "Erase"` として消去するか、`"Erase" and "Replace"` として改めて書き込み直すまで変わらない。
 
-> EEPROM領域量は MCU品種によって異なる。
-その大きさはマクロ`EEPROM_SIZE`で知ることが出来る。
+> EEPROM領域量は MCU品種によって異なる。その大きさはマクロ`EEPROM_SIZE`で知ることが出来る。
 
-- この機能は`MCUdude`版と運用互換性がある。
-- この機能は`DxCore`版には実装されていない。
+- この機能は`MCUdude`版ブートローダーと運用互換性がある。
+- この機能は`DxCore`版ブートローダーには実装されていない。
+
+### USERROW リード
+
+ATMEL STK500 version 1 プロトコルの制約により、ブートローダーでの対応 NVM 種別は FLASH と EEPROM に限られる。ただし UPDI 世代デバイスの特性により EEPROM 種別選択を流用すると全 64KiB のデータ空間を読むことが可能だ。書き込みはできないが EEPROM 設定を USERROW のそれに（ユーザー構成ファイルを使って）置き換えると、USERROW 空間へもアクセスできる。これは施錠されたデバイスの USERROW をブートローダーを使って読むことが可能になるため、知っておくと便利だ。
 
 ## SPMスニペット
 
@@ -89,167 +93,97 @@ EEPROMは以前に書き込んだ状態を維持する。
 
 |Series|Address|マジックナンバー : uint32_t (LE)|
 |-|-|-|
-|megaAVR-0 , tinyAVR-0/1/2, AVR_EA|MAPPED_PROGMEM_START + 2 Byte|0xE99DC009|
+|megaAVR-0 tinyAVR-0/1/2 AVR_EA/EB|MAPPED_PROGMEM_START + 2 Byte|0xE99DC009|
 |AVR_DA/DB/DD|PROGMEM_START + 2 Byte|0x950895F8|
 
-これらは
-BOOT領域保護特権で
-CODE領域 / APPEND領域の
-FLASH消去/書換を行うのに使うことが出来る。
+これらは BOOT領域保護特権で CODE領域 / APPEND領域の FLASH消去/書換を行うのに使うことが出来る。
 
-- `MCUdude`版や`DxCore`版の同種の機能とは仕様が異なり、相互に互換性はない。
+- `MCUdude`や`DxCore`での同種の機能とは仕様が異なり、相互に互換性はない。
 
-> 実際の使用例は
-[[FlashNVM ツールリファレンス]](https://github.com/askn37/askn37.github.io/wiki/FlashNVM)
-を参照のこと。
-
-## optibootバージョン
-
-以下の PGMEMアドレスに固定値がマジックナンバーとして書かれている。
-
-|ADDR|NAME|内容|
-|----|----|---|
-|$01FE|OPTIBOOT_MINVER|0x02|
-|$01FF|OPTIBOOT_MAJVER|0x29|
-
-> このアドレスの格納値を適切な CRC-16 検証値に置き換えると、`SYSCFG0`の BOOT領域 CRC改竄検査を有効にすることができる。
+> 実際の使用例は [[FlashNVM ツールリファレンス]](https://github.com/askn37/askn37.github.io/wiki/FlashNVM) を参照のこと。
 
 ## リビルド
 
-詳細は`makeall.*.sh`や
-`parse_options.mk`を参照のこと。
-それぞれのカレントディレクトリで
-次のようにすれば`hex`フォルダが更新される。
+詳細は`make_all.sh`や `Makefile`を参照のこと。それぞれのカレントディレクトリで 次のようにすれば`hex/bin`フォルダが更新される。
+使用する avr-gccツールチェインには、AVR_Dx/Exサポートパックが組み込まれていなければならない。
 
 ```c
-optiboot_dx2> sh makeall.modernAVR.sh
-optiboot_ex1> sh makeall.modernAVR.sh
+boot_ax> sh make_all.sh
+boot_dx> sh make_all.sh
+boot_ex> sh make_all.sh
 ```
 
 > Windows環境でのビルド確認はされていない。gmakeコマンドを別途用意し、各ファイル中のファイルパス指定他を Windows流儀に修正する必要がある。
 
-## コーディング
+以下のビルドオプションは make コマンドラインオプションに指定できる。
 
-原型の optiboot は可能な限りアセンブリコードは含まない方針で設計されていたが、
-ここでは少しでもROMサイズを削るため書込処理部で幾らか多めのアセンブリコードを含んでいる。
+### ビルドターゲット
 
-### フラッシュメモリの最大ブロックサイズ
+`avr128db64` 等の対象AVR-MCU品種を指示する。常に必須。同一グループ内（データシートの区分）であれば何を指定しても同一のバイナリが生成されるが、品種により以下の違いが現れる。
 
-このコードでは`memory "flash"`において送受信とも最大512バイト＝256ワードに対応している。
-端数の奇数バイト量は偶数バイト量に切り詰められる。
-しかし`readsize=0x200`指定は他の実装`SerialUPDI`等の動作が異常をきたすので
-`readsize=0x100`と指示するのが正しい。
+- 128KiB 品種は 17bit アドレス幅対応のためバイナリサイズが若干増える。
+- ピン数の少ない下位品種ほど選択可能な UART と、LED の選択肢が減少する。
 
-> `AVR_DA/DB/DD`での書込操作は 512Byte単位が最小粒度かつ必須なので、どの書込機でも対応している。
+### UART=A0
 
-### EEPROMの最小粒度
+UART の TxD ピンをシンボルで指定する。既定値は`A0`。品種指定により対応できない無効値の場合はビルドが停止する。
 
-このコードでのこれは最小1バイトに対応している。
-しかし`page_size=1`とすると *avrdude* はフューズ領域操作と混同して異常動作を起こす。
-真にEEPROMバイト書込が可能な`AVR_DA/DB/DD`では、嘘でもこれを2以上にしなければならない。
+### LED=A7
 
-> `AVR_DA/DB/DD`での粒度は`page_size=16`である。\
-> `AVR_EA`での粒度は`page_size=8`である。\
-> *avrdude* のターミナルモードでは逆に`page_size=1`操作が強制される。
+LED インジケーターに使用するピンをシンボルで指定する。既定値は`A7`。無効値（例えば`0`）の場合は LED インジケーターを使用しない。
 
-### BIGBOOT
+### LED_BLINK=6
 
-`BIGBOOT`ビルドが無効の場合、以下のコードを削る。
+LED インジケーターの点滅反転回数を指定する。偶数か奇数で点滅後の ON/OFF が反転する。既定値は`6`。`0`を指定すると TIMEOUT 周期の交互ブリンクになる。
 
-- `CLKCTRL_MCLKCTRLA`を設定しない。`BIGBOOT`ビルドでは再設定される。
-- 書込と検証完了後の`STK_LEAVE_PROGMODE`動作で`WDT_CTRLA`を再設定しない。
-`BIGBOOT`ビルドでは設定される。
-- `STK_UNIVERSAL`のサブパラメータ`AVR_OP_LOAD_EXT_ADDR`の確認を省略する。`BIGBOOT`ビルドでは正しく確認される。（後述）
+### TIMEOUT=1
 
-### FUSE_OSCCFG
+ホストからの通信開始を待機する秒数を指定する。`0`、`1`、`2`、`4`、`8`が指定可能。既定値は`1`。`0`指定は 0.5秒待機となる。
+応用コードがソフトウェアリセット、BOD、WDTのいずれかで再起動した場合は、待機時間はない。
 
-`BIGBOOT`ビルドでない場合、
-`CLKCTRL_MCLKCTRLA`を設定しない。
-従って`FUSE_OSCFG`による`OSC32K`設定を覆さない。
-故にこのフューズが`OSCHF`でない場合は、正しく動作しない。
+> 4と 8は、PORでしかブートローダーを起動できない（UPDIピンをRESET機能に変更していない）tinyAVR のために用意されている。UPDI外部リセット機能を備えた支援アダプターと併用する場合は変更の必要はない。
 
-> ボードサブメニューの`Clock`設定`OSCULP`選択はフューズを書かず、
-CPU起動後に初期化コード内で`CLKCTRL_MCLKCTRLA`を設定するようになっている。\
-> `AVR_EA`では`OSC32K`起動設定が削除されたため、これは該当しない。
+### BAUD_RATE=115200
 
-### USART[n]_BAUD
+UARTの調歩同期通信速度を指定する。既定値は`115200`。より高速に変更する場合は`F_CPU_Scale`も調整すべきだ。`USART`有効時は無効。
 
-書き込むべき値が256未満の場合、下位レジスタ`BAUDL`だけを書く。
-`FUSE_OSCCFG`選択が`OSCHF`であるなら既定の`CLK_PER`は4MHzであるから
-コンパイル時定数`BAUD_RATE`が`62501L`以上である限り、上位レジスタ`BAUDH`はゼロ初期化値のままと扱う。
+> 逆に有効な最低速度は`4800`である。
 
-> 4MHz駆動の`optiboot_dx2`であれば`62500L`以下を指定すると 4Byteを追加消費する。
+### F_CPU_Scale=1
 
-### RAMPZ (optiboot_dx2)
+起動時の主クロック速度を調整する。規定値は`1`で、これは `BAUD_RATE=200000` 以下に対応する。
+`BAUD_RATE`をより大きくしたい場合には`2`以上を指定する。
+`AVR_DA/DB/DD`は `1...6`を、`tinyAVR`、`megaAVR`、`AVR_EA/EB`は `1...4`を指定可能。
+ただし通信エラーには過敏になるため、この変更は推奨されない。
 
-コンパイル時の指定品種に関わらず`RAMPZ`すなわち`_SFR_MEM8(0x3B)`レジスタの書込可能なビットは、
-それが必要とされる品種に対し、必要な量だけが実装されているものとする。
-従って17bit目のアドレスは常にここに書く。
-そしてその必要のない品種では結果的に無視される。
+### PULLUP_RX=1
 
-> これを考慮すると 64KiB以下品種用はより小さな別バイナリを作れるが、それ専用となる。\
-> `AVR_Ex`系統は最大64KiBのため、RAMPZは削除されている。
+RxDピンの内蔵プルアップ抵抗を有効にする。既定値は無効。通常は送信側がプッシュプル動作を行うので指定の必要はない。
 
-### STK_UNIVERSAL (optiboot_dx2)
+### USART=1
 
-`BIGBOOT`ビルドでない場合、
-この`STK500`指令は`RAMPZ`のある品種についてのみ出現すると仮定している。
-かつそれは必ず`AVR_OP_LOAD_EXT_ADDR`指令であるとも仮定している。
+通常の二線式調歩同期ではなく、XCK入力ピンによる同期通信従装置モードを選択する。RS485とも組み合わせ可能。`BAUD_RATE`設定は無効になる。`F_CPU_Scale=1`では約 1Mbps以上で通信可能。
 
-> 従って`AVR_DA/DB/DD`用以外はコードが削除されている。
+### RS485=1
 
-### RAMSIZE (optiboot_dx2)
+RS485モードを有効にし、XDIR出力ピンを有効にする。
 
-`RAMSIZE`値はコンパイル時の指定品種に関わらず `1024`（`RAMSTART`位置が`RAMEND-1023`）であると仮定する。
-これは現在公開されている既知のスペックシート中の最低値`2048`より十分低い。
-それを`256+512+256`バイトに分けて、`作業メモリ+NVM書換バッファ+スタック`領域として扱う。
+### RS485_SINGLE=1
 
-### SIGROW_DEVICEID0
+RS485モード有効時に、RxD入力ピンを無効にした単線半二重通信モードを有効にする。TxDピンが双方向で使われ、内蔵プルアップも有効になる。
 
-`SIGROW_DEVICEID0`すなわち`_SFR_MEM8(0x1100)`は全てのAVRで固定の値`0x1E`を返す。従ってこれは読み出さない。
+### RS485_INVERT=1
 
-> 逆に言うと、AVR_EB の BOOTROW を書き換え、AVR_EA 用ブートローダーを使用した場合、BOOTROW の先頭1バイト目を参照しない。
+RS485モード有効時の XDIR出力ピンを負論理に反転する。
 
-## 著作表示
+## Copyright and Contact
 
-optibootは GPL v2 で提供されているため、これもまたそれに準じる。
-
-Twitter: [@askn37](https://twitter.com/askn37) \
+Twitter(X): [@askn37](https://twitter.com/askn37) \
+BlueSky Social: [@multix.jp](https://bsky.app/profile/multix.jp) \
 GitHub: [https://github.com/askn37/](https://github.com/askn37/) \
 Product: [https://askn37.github.io/](https://askn37.github.io/)
 
-Copyright (c) askn (K.Sato) multix.jp
-
-----
-
-Notes on GPLv2 WRT the Optiboot bootloader:
-
-In general, it can be hard to interpret exactly how the GPL license
-applies to microcontroller embedded software.  Assumptions about
-logically distinct applications, oepratnig systems, dynamically loaded
-libraries, and the end-user ability to re-compile, re-link, or
-re-install, don't quite "fit."
-
-There is a "Bootloader Exception" which seems applicable and I've
-included below, but it's current use seems to be in the PyInstaller
-utility, which is still very far from a Flashed microcontroller bootloader.
-
-The INTENT of the Optiboot maintainers is that Optiboot may be treated
-much like the operating system on a larger computer, and that it's
-GPLv2 status has no effect on the application itself.  That means that
-there are no restrictions to using Optiboot with commercial, closed
-source, or proprietary applications, and no "viral OSSW" infection of
-any applications by the bootloader.  The only requirement is that
-fixes and enhancements to Optiboot itself be fed back to the Optiboot
-project.
-
-Bootloader Exception
-
-In addition to the permissions in the GNU General Public License, the
-authors give you unlimited permission to link or embed compiled
-bootloader and related files into combinations with other programs,
-and to distribute those combinations without any restriction coming
-from the use of those files. (The General Public License restrictions
-do apply in other respects; for example, they cover modification of
-the files, and distribution when not linked into a combined
-executable.)
+Copyright (c) 2022,2023 askn (K.Sato) multix.jp \
+Released under the MIT license \
+[https://opensource.org/licenses/mit-license.php](https://opensource.org/licenses/mit-license.php) \
+[https://www.oshwa.org/](https://www.oshwa.org/)

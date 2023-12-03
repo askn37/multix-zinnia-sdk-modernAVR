@@ -1,5 +1,5 @@
 name=MultiX Zinnia Product SDK [modernAVR]
-version=0.2.8
+version=0.2.9
 
 archive_file_path={build.path}/{archive_file}
 bootloader.tool=avrdude

@@ -64,7 +64,7 @@ Licensing and redistribution are subject to the MIT License.
   for self-modifying the flash area.
 
   $0000 : Started Bootloader (POR)
-  $0002 : spm_zp  function : magicnumber $95F8
+  $0002 : nvm_spm function : magicnumber $95F8
   $0004 : ret              :             $9508
   $0006 : nvm_cmd function : magicnumber $E99D, $BF94
   $0200 : appcode

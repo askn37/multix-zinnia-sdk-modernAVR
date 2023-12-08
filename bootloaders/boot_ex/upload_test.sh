@@ -9,5 +9,6 @@ BOOTS=./boot_avr64ea48.hex
 # The BOOTCODE granularity for this series is 256 bytes, so write 2 to FUSE8.
 
 ${AVRDUDEROOT}/avrdude -P $PORT -c $PGM -p $PART \
-  -U fuse8:w:2:m \
+  -U syscfg0:w:0xd9:m \
+  -U bootsize:w:2:m \
   -U flash:w:$BOOTS:i

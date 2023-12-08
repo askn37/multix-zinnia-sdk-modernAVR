@@ -64,6 +64,10 @@ OBJDUMP = $(AVRGCCROOT)/avr-objdump
 SIZE    = $(AVRGCCROOT)/avr-size
 LISTING = $(OBJDUMP) -S
 
+PERL := $(shell which perl)
+GENCRC = ../gencrc.pl
+GENCRCOPT = -u -c2
+
 ### Resolving abstract specifications
 
 OPTIONS = -mmcu=$*
@@ -114,7 +118,13 @@ endif
 ### make section
 
 boot_%.hex: boot_%.elf
+ifneq ($(PERL),'')
+	$(OBJCOPY) $(JOINING) -O binary $< boot_$*.tmp
+	$(PERL) $(GENCRC) $(GENCRCOPT) -i boot_$*.tmp -o boot_$*.bin
+	$(OBJCOPY) -I binary -O ihex boot_$*.bin $@
+else
 	$(OBJCOPY) $(JOINING) -O ihex $< $@
+endif
 	@echo "******************************"
 	@echo "*** Bare Bootloader size:"
 	$(SIZE) $@
@@ -129,12 +139,12 @@ boot_%.elf:	$(SOURCE) FORCE
 
 avr%:
 	$(MAKE) -f $(MF) boot_avr$*.hex
-	$(MAKE) -f $(MF) boot_avr$*.bin
+	# $(MAKE) -f $(MF) boot_avr$*.bin
 	@echo "******************************"
 	@echo "*** Output:"
 	# mv boot_avr$*.lst ../hex/${BOOTNAME}_${UART}_${BAUD_RATE}_L${LED}.lst
 	cp boot_avr$*.hex ../hex/${BOOTNAME}_${UART}_${BAUD_RATE}_L${LED}.hex
-	mv boot_avr$*.bin ../bin/${BOOTNAME}_${UART}_${BAUD_RATE}_L${LED}.bin
+	cp boot_avr$*.bin ../bin/${BOOTNAME}_${UART}_${BAUD_RATE}_L${LED}.bin
 
 all:
 	$(MAKE) -f $(MF) $(MCU_TARGET) BOOTNAME=$(PROGRAM)
@@ -145,8 +155,8 @@ clean:
 	@echo "******************************"
 	@echo "*** Cleanup:"
 	@touch __temp_.o __temp_.map __temp_.i __temp_.s __temp_.sym __temp_.lss __temp_.srec
-	@touch __temp_.bin __temp_.hex __temp_.lst __temp_.eep __temp_.elf __temp_.tmp.sh
-	rm -rf *.o *.elf *.lst *.map *.i *.s *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh
+	@touch __temp_.bin __temp_.hex __temp_.lst __temp_.eep __temp_.elf __temp_.tmp.sh __temp_.tmp
+	rm -rf *.o *.elf *.lst *.map *.i *.s *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh *.tmp
 
 %.lst: %.elf FORCE
 	$(OBJDUMP) -h -S $< > $@
@@ -154,7 +164,7 @@ clean:
 %.srec: %.elf FORCE
 	$(OBJCOPY) $(JOINING) -O srec $< $@
 
-%.bin: %.elf FORCE
-	$(OBJCOPY) $(JOINING) -O binary $< $@
+# %.bin: %.hex FORCE
+# 	$(OBJCOPY) -I ihex -O binary $< $@
 
 ### end of makefile

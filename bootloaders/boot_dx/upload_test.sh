@@ -9,6 +9,6 @@ BOOTS=./boot_avr128db64.hex
 # The BOOTCODE granularity for this series is 512 bytes, so write 1 to FUSE8.
 
 ${AVRDUDEROOT}/avrdude -P $PORT -c $PGM -p $PART \
-  -U syscfg0:w:0xd9:m \
+  -U syscfg0:w:0xf9:m \
   -U bootsize:w:1:m \
   -U flash:w:$BOOTS:i

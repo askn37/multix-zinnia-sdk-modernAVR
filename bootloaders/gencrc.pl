@@ -62,7 +62,7 @@ Usage: gencrc.pl [OPTIONS]
 __EOL__
 
 # Option specification
-getopts('aFhqutxc:i:o:s:p:', \my %args);
+getopts('aFhqutxb:c:i:o:s:p:', \my %args);
 my $trim      = $args{t};
 my $adjust    = $trim // $args{a};
 my $unwind    = $args{u};
@@ -148,14 +148,13 @@ my $crc_prod  = ${{
   }
 , 6 => {
     # Ordinary CRC32 XOR output. (IEEE802.3)
-    # Using CRC-32/JAMCRC for verification returns zero.
     name       => "CRC-32/IEEE802.3"
   , alignment  => 4
   , endian     => 0
   , mask       => 0xffffffff
   , initialize => 0xffffffff
   , polynomial => 0xedb88320
-  , finalize   => 0xffffffff
+  , finalize   => 0
   , xor        => 0xffffffff
   , unwinding  => 0xdb710641  # (P << 1) | 1
   , encoder    => \&encoder_crc32_ror
@@ -169,7 +168,7 @@ my $crc_prod  = ${{
   , mask       => 0xffffffff
   , initialize => 0xffffffff
   , polynomial => 0x04c11db7
-  , finalize   => 0xffffffff
+  , finalize   => 0
   , xor        => 0xffffffff
   , unwinding  => 0x82608edb  # (P >> 1) | 0x80000000
   , encoder    => \&encoder_crc32_rol
@@ -324,8 +323,11 @@ unless ($args{q}) {
 }
 
 # Trim trailing invalid 0xff
-$stream =~ s{\xff*$}{}o if $trim;
-$length = length $stream;
+if ($trim) {
+  $stream =~ s{\xff*$}{}go;
+  $length = length $stream;
+  printf "Trim-after-size: %d\n", $length;
+}
 
 # Generate execution
 if ($unwind) {
@@ -343,33 +345,62 @@ if ($unwind) {
   $topend = $p_border * $page_size;
   # Calculate the CRC of the code part
   $crc = encoder($crc_prod, $stream, $length);
-  # Calculate the entire CRC
-  $enti = trimmer($crc_prod, $crc, $topend, $length);
-  if ($enti != $crc_prod->{finalize}) {
-    # If the whole CRC does not match, check the CRC storage area
-    if ((($length + $alignment) % $page_size) <= $alignment) {
-      # Add pages if there is no storage space
-      $p_border++;
-      $topend += $page_size;
-      # Re-calculate the entire CRC
-      $enti = trimmer($crc_prod, $crc, $topend, $length);
+  if ($crc_prod->{xor}) {
+    # Calculate the entire CRC
+    $enti = trimmer($crc_prod, $crc, $topend - $alignment, $length);
+    if ($enti != ($crc_prod->{finalize} ^ $crc_prod->{xor})) {
+      if ((($length + $alignment) % $page_size) <= $alignment) {
+        # Add pages if there is no storage space
+        $p_border++;
+        $topend += $page_size;
+        # Re-calculate the entire CRC
+        $enti = trimmer($crc_prod, $crc, $topend, $length);
+      }
+      # Xor the two CRCs from the beginning and end, and then Xor the padding value
+      $trim = decoder($crc_prod, $topend - $alignment, $length, $stream);
+      $fixd = $crc_prod->{mask} ^ $crc ^ $trim;
     }
-    # Xor the two CRCs from the beginning and end, and then Xor the padding value
-    $trim = decoder($crc_prod, $topend, $length, $stream);
-    $fixd = $crc_prod->{mask} ^ $crc ^ $trim;
+    else {
+      # The correct CRC is already there
+      $length -= $alignment;
+      $fixd = unpack $format, substr $stream, $length, $alignment;
+      # Recalculation for display only
+      # This should be the same value for both
+      $crc = encoder($crc_prod, $stream, $length);
+      $trim = decoder($crc_prod, $topend, $length, $stream);
+      $output = 0;
+    }
   }
   else {
-    # The correct CRC is already there
-    $length -= $alignment;
-    $fixd = unpack $format, substr $stream, $length, $alignment;
-    # Recalculation for display only
-    # This should be the same value for both
-    $crc = encoder($crc_prod, $stream, $length);
-    $trim = decoder($crc_prod, $topend, $length, $stream);
-    $output = 0;
+    # Calculate the entire CRC
+    $enti = trimmer($crc_prod, $crc, $topend, $length);
+    if ($enti != $crc_prod->{finalize}) {
+      # If the whole CRC does not match, check the CRC storage area
+      if ((($length + $alignment) % $page_size) <= $alignment) {
+        # Add pages if there is no storage space
+        $p_border++;
+        $topend += $page_size;
+        # Re-calculate the entire CRC
+        $enti = trimmer($crc_prod, $crc, $topend, $length);
+      }
+      # Xor the two CRCs from the beginning and end, and then Xor the padding value
+      $trim = decoder($crc_prod, $topend, $length, $stream);
+      $fixd = $crc_prod->{mask} ^ $crc ^ $trim;
+    }
+    else {
+      # The correct CRC is already there
+      $length -= $alignment;
+      $fixd = unpack $format, substr $stream, $length, $alignment;
+      # Recalculation for display only
+      # This should be the same value for both
+      $crc = encoder($crc_prod, $stream, $length);
+      $trim = decoder($crc_prod, $topend, $length, $stream);
+      $output = 0;
+    }
   }
   unless ($args{q}) {
-    print  "[Unwind-CRC calculation result mode]\n";
+    print  "[Unwind-CRC calculation mode]\n";
+    print  "[Xor result]\n" if $crc_prod->{xor};
     printf "Page-size: %d\n", $page_size;
     printf "Page-length:  %d\n", $p_border;
     printf "Page-capacity: \$%06X %.2fKiB\n", $topend, $topend / 1024;
@@ -389,29 +420,41 @@ if ($unwind) {
 }
 else {
   ### Normal CRC calculation
-  my($enti, $tmp) = (0);
+  my($enti, $fixd) = (0);
   if ($adjust) {
     # alignment adjustment
     $stream .= "\xff" x ($length % $alignment);
     $length = length $stream;
   }
-  # Find the CRC of the code part
-  $enti = $crc = encoder($crc_prod, $stream, $length);
-  $output = 0 if $enti == $crc_prod->{finalize};
-  # Generate a new CRC
-  substr $stream, $length, $alignment, pack $format, $crc_prod->{mask};
-  $topend = $length + $alignment;
-  $crc = decoder($crc_prod, $topend, $length, $stream) ^ $enti ^ $crc_prod->{mask};
+  if ($crc_prod->{xor}) {
+    if ($alignment <= $length) {
+      $crc = encoder($crc_prod, $stream, $length - $alignment) ^ $crc_prod->{xor};
+      $enti = $crc ^ unpack $format, substr $stream, $length - $alignment, $alignment;
+      if (!$force_out && $enti == $crc_prod->{finalize}) {
+        $output = 0;
+        $length -= $alignment;
+      }
+    }
+    $enti = $crc = encoder($crc_prod, $stream, $length) ^ $crc_prod->{xor};
+  }
+  else {
+    # Find the CRC of the code part
+    $enti = $crc = encoder($crc_prod, $stream, $length);
+    $output = 0 if $enti == $crc_prod->{finalize};
+    # Generate a new CRC
+    substr $stream, $length, $alignment, pack $format, $crc_prod->{mask};
+    $topend = $length + $alignment;
+    $crc = decoder($crc_prod, $topend, $length, $stream) ^ $enti ^ $crc_prod->{mask};
+  }
   unless ($args{q}) {
-    print  "[Normal-CRC calculation result mode]\n";
-    printf "Entire-CRC%d: %0*X ($endian) %s\n", $alignment * 8, $alignment * 2,
-      $enti ^ $crc_prod->{xor}, $output ? "(Oops)" : "(Good)";
-    printf "Fixed-CRC%d: %0*X ^ %0*X ($endian)\n",
-      $alignment * 8, $alignment * 2, $enti, $alignment * 2, $enti ^ $crc_prod->{xor};
+    print  "[Normal-CRC calculation mode]\n";
+    print  "[Xor result]\n" if $crc_prod->{xor};
+    printf "Entire-CRC%d: %0*X ($endian) %s\n", $alignment * 8, $alignment * 2, $enti, $output ? "(Oops)" : "(Good)";
+    printf "Fixed-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $crc;
     printf "Position: \$%06X\n", $length;
   }
   else {
-    printf "%0*X\n", $alignment * 2, $crc ^ $crc_prod->{xor};
+    printf "%0*X\n", $alignment * 2, $crc;
   }
 }
 

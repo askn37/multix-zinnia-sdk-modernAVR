@@ -125,7 +125,7 @@ boot_ex> sh make_all.sh
 - megaAVR、tinyAVR 系統用は CRC16 検査値が埋め込まれている。`FUSE_SYSCFG0`に`CRCSEL`ビットはない。
 - AVR_Dx系統用は CRC32 検査値が埋め込まれている。`FUSE_SYSCFG0`の`CRCSEL`ビットは`FUSE_CRCSEL_bp`をセットする。
 
-> AVR_Ex系統用は CRC32 検査値が埋め込まれているが、現行の`B1`シリコンリビジョンでは Eratta により事実上使用できない。
+> AVR_Ex系統用は CRC32 検査値が埋め込まれているが、現行のシリコンでは Eratta により事実上使用できない。
 
 ### ビルドオプション
 

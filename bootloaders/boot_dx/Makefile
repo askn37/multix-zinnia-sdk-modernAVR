@@ -66,7 +66,7 @@ LISTING = $(OBJDUMP) -S
 
 PERL := $(shell which perl)
 GENCRC = ../gencrc.pl
-GENCRCOPT = -u -c4
+GENCRCOPT = -u -c6
 
 ### Resolving abstract specifications
 

@@ -17,6 +17,7 @@ use Getopt::Std;
 use IO::File;
 use Data::Dumper;
 my $max_limit = 128;  # KiB
+my $ihex_fold = 16;
 my $usage = <<__EOL__;
 
 Usage: gencrc.pl [OPTIONS]
@@ -25,6 +26,9 @@ Usage: gencrc.pl [OPTIONS]
               Can read up to ${max_limit}KiB.
   -o <file>   Output binary file. : Default is not used
     -F        Output file even if CRC matches.
+
+              If the extension is `.hex`, it will be treated as Intel-HEX format.
+              Others are in binary format.
 
   -c <num>    CRC algorithm select: Default value = 1
                 1 CRC-16/MCRF4XX(CCITT) P=0x8408 (Reverse 0x1021)
@@ -154,7 +158,7 @@ my $crc_prod  = ${{
   , mask       => 0xffffffff
   , initialize => 0xffffffff
   , polynomial => 0xedb88320
-  , finalize   => 0
+  , finalize   => 0xdebb20e3  # magicnumber (bitrev 0xc704dd7b)
   , xor        => 0xffffffff
   , unwinding  => 0xdb710641  # (P << 1) | 1
   , encoder    => \&encoder_crc32_ror
@@ -168,7 +172,7 @@ my $crc_prod  = ${{
   , mask       => 0xffffffff
   , initialize => 0xffffffff
   , polynomial => 0x04c11db7
-  , finalize   => 0
+  , finalize   => 0xfea994c0  # magicnumber
   , xor        => 0xffffffff
   , unwinding  => 0x82608edb  # (P >> 1) | 0x80000000
   , encoder    => \&encoder_crc32_rol
@@ -182,7 +186,7 @@ my $crc_prod  = ${{
   , mask       => 0xffffffff
   , initialize => 0
   , polynomial => 0x04c11db7
-  , finalize   => 0xffffffff
+  , finalize   => 0x44922959  # magicnumber
   , xor        => 0xffffffff
   , unwinding  => 0x82608edb  # (P >> 1) | 0x80000000
   , encoder    => \&encoder_crc32_rol
@@ -198,9 +202,6 @@ my($crc, $output, $topend) = (0, 1, 0);
 # Conditions for displaying Usage
 die $usage if $args{h} || !defined $infile;
 unless (-f $infile) { $args{h} = 1; warn "Illegal: -i input file not found.\n"; }
-elsif ($max_limit * 1024 < -s $infile) {
-  $args{h} = 1; warn "Illegal: -i input file size is too large.\n";
-}
 unless (defined $crc_name) { $args{h} = 1; warn "Illegal: -c <num>\n"; }
 if ($unwind) {
   unless (defined $page_size) { $args{h} = 1; warn "Illegal: -p <num>\n"; }
@@ -307,9 +308,45 @@ sub decoder_crc32_rol {
 ### Main processing ###
 
 # Read the input file in binary format
+my($stream, $start_addr) = ('');
 open my $FH, "<", $infile or die "$!\n";
-$FH->binmode(1);
-my $stream = join '', <$FH>;
+if ($infile =~ m{\.hex$}io) {
+  # Intel-HEX file input
+  my $offset = 0;
+  while (<$FH>) {
+    next unless m{^(:[\dA-F]+)}io;
+    my $hexrec = $1;
+    my $binrec = pack "H*", substr $hexrec, 1;
+    unless (0 == unpack "%8C*", $binrec) {
+      warn "warning: ihex checksum doesn't match line $.\n";
+      next;
+    }
+    my($addr, $type, $data) = unpack "x n C X4 C x3 /a", $binrec;
+    if ($type == 1) {
+      last;
+    }
+    elsif ($type == 4) {
+      $offset = (unpack "n", $data) << 16;
+    }
+    elsif ($type == 0) {
+      unless (defined $start_addr) {
+        $start_addr = $addr;
+      }
+      $addr += $offset;
+      $addr -= $start_addr;
+    }
+    my $stretch = $addr - length $stream;
+    $stream .= "\xff" x $stretch if $stretch > 0;
+    $stream .= $data;
+  }
+  die "Illegal: -i input file size is too large.\n" if $max_limit * 1024 < length $stream;
+}
+else {
+  # Binary file input
+  die "Illegal: -i input file size is too large.\n" if $max_limit * 1024 < -s $infile;
+  $FH->binmode(1);
+  $stream = join '', <$FH>;
+}
 $FH->close;
 my $length = length $stream;
 
@@ -345,71 +382,41 @@ if ($unwind) {
   $topend = $p_border * $page_size;
   # Calculate the CRC of the code part
   $crc = encoder($crc_prod, $stream, $length);
-  if ($crc_prod->{xor}) {
-    # Calculate the entire CRC
-    $enti = trimmer($crc_prod, $crc, $topend - $alignment, $length);
-    if ($enti != ($crc_prod->{finalize} ^ $crc_prod->{xor})) {
-      if ((($length + $alignment) % $page_size) <= $alignment) {
-        # Add pages if there is no storage space
-        $p_border++;
-        $topend += $page_size;
-        # Re-calculate the entire CRC
-        $enti = trimmer($crc_prod, $crc, $topend, $length);
-      }
-      # Xor the two CRCs from the beginning and end, and then Xor the padding value
-      $trim = decoder($crc_prod, $topend - $alignment, $length, $stream);
-      $fixd = $crc_prod->{mask} ^ $crc ^ $trim;
+  # Calculate the entire CRC
+  $enti = trimmer($crc_prod, $crc, $topend, $length);
+  if ($enti != $crc_prod->{finalize}) {
+    # If the whole CRC does not match, check the CRC storage area
+    if ((($length + $alignment) % $page_size) <= $alignment) {
+      # Add pages if there is no storage space
+      $p_border++;
+      $topend += $page_size;
+      # Re-calculate the entire CRC
+      $enti = trimmer($crc_prod, $crc, $topend, $length);
     }
-    else {
-      # The correct CRC is already there
-      $length -= $alignment;
-      $fixd = unpack $format, substr $stream, $length, $alignment;
-      # Recalculation for display only
-      # This should be the same value for both
-      $crc = encoder($crc_prod, $stream, $length);
-      $trim = decoder($crc_prod, $topend, $length, $stream);
-      $output = 0;
-    }
+    # Xor the two CRCs from the beginning and end, and then Xor the padding value
+    $trim = decoder($crc_prod, $topend, $length, $stream);
+    $fixd = $crc_prod->{mask} ^ $crc ^ $trim;
   }
   else {
-    # Calculate the entire CRC
-    $enti = trimmer($crc_prod, $crc, $topend, $length);
-    if ($enti != $crc_prod->{finalize}) {
-      # If the whole CRC does not match, check the CRC storage area
-      if ((($length + $alignment) % $page_size) <= $alignment) {
-        # Add pages if there is no storage space
-        $p_border++;
-        $topend += $page_size;
-        # Re-calculate the entire CRC
-        $enti = trimmer($crc_prod, $crc, $topend, $length);
-      }
-      # Xor the two CRCs from the beginning and end, and then Xor the padding value
-      $trim = decoder($crc_prod, $topend, $length, $stream);
-      $fixd = $crc_prod->{mask} ^ $crc ^ $trim;
-    }
-    else {
-      # The correct CRC is already there
-      $length -= $alignment;
-      $fixd = unpack $format, substr $stream, $length, $alignment;
-      # Recalculation for display only
-      # This should be the same value for both
-      $crc = encoder($crc_prod, $stream, $length);
-      $trim = decoder($crc_prod, $topend, $length, $stream);
-      $output = 0;
-    }
+    # The correct CRC is already there
+    $length -= $alignment;
+    $fixd = unpack $format, substr $stream, $length, $alignment;
+    # Recalculation for display only
+    # This should be the same value for both
+    $crc = encoder($crc_prod, $stream, $length);
+    $trim = decoder($crc_prod, $topend, $length, $stream);
+    $output = 0;
   }
   unless ($args{q}) {
-    print  "[Unwind-CRC calculation mode]\n";
-    print  "[Xor result]\n" if $crc_prod->{xor};
+    printf "[Unwind-CRC calculation mode%s]\n", $crc_prod->{xor} ? " (Xout)" : "";
     printf "Page-size: %d\n", $page_size;
     printf "Page-length:  %d\n", $p_border;
     printf "Page-capacity: \$%06X %.2fKiB\n", $topend, $topend / 1024;
     printf "Entire-CRC%d: %0*X ($endian) %s\n", $alignment * 8, $alignment * 2,
-      $enti ^ $crc_prod->{xor}, $output ? "(Oops)" : "(Good)";
+      $enti, $output ? "(Oops)" : "(Good)";
     printf "Code-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $crc ^ $crc_prod->{xor};
     printf "Trim-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $trim ^ $crc_prod->{xor};
-    printf "Fixed-CRC%d: %0*X ^ %0*X ($endian)\n",
-      $alignment * 8, $alignment * 2, $fixd, $alignment * 2, $fixd ^ $crc_prod->{xor};
+    printf "Fixed-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $fixd ^ $crc_prod->{xor};
     printf "Position: \$%06X\n", $length;
   }
   else {
@@ -426,31 +433,18 @@ else {
     $stream .= "\xff" x ($length % $alignment);
     $length = length $stream;
   }
-  if ($crc_prod->{xor}) {
-    if ($alignment <= $length) {
-      $crc = encoder($crc_prod, $stream, $length - $alignment) ^ $crc_prod->{xor};
-      $enti = $crc ^ unpack $format, substr $stream, $length - $alignment, $alignment;
-      if (!$force_out && $enti == $crc_prod->{finalize}) {
-        $output = 0;
-        $length -= $alignment;
-      }
-    }
-    $enti = $crc = encoder($crc_prod, $stream, $length) ^ $crc_prod->{xor};
-  }
-  else {
-    # Find the CRC of the code part
-    $enti = $crc = encoder($crc_prod, $stream, $length);
-    $output = 0 if $enti == $crc_prod->{finalize};
-    # Generate a new CRC
-    substr $stream, $length, $alignment, pack $format, $crc_prod->{mask};
-    $topend = $length + $alignment;
-    $crc = decoder($crc_prod, $topend, $length, $stream) ^ $enti ^ $crc_prod->{mask};
-  }
+  # Find the CRC of the code part
+  $enti = $crc = encoder($crc_prod, $stream, $length);
+  $output = 0 if $enti == $crc_prod->{finalize};
+  # Generate a new CRC
+  substr $stream, $length, $alignment, pack $format, $crc_prod->{mask};
+  $topend = $length + $alignment;
+  $crc = decoder($crc_prod, $topend, $length, $stream) ^ $enti ^ $crc_prod->{mask};
   unless ($args{q}) {
-    print  "[Normal-CRC calculation mode]\n";
-    print  "[Xor result]\n" if $crc_prod->{xor};
-    printf "Entire-CRC%d: %0*X ($endian) %s\n", $alignment * 8, $alignment * 2, $enti, $output ? "(Oops)" : "(Good)";
-    printf "Fixed-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $crc;
+    printf "[Normal-CRC calculation mode%s]\n", $crc_prod->{xor} ? " (Xout)" : "";
+    printf "Entire-CRC%d: %0*X ($endian) %s\n", $alignment * 8, $alignment * 2,
+      $enti, $output ? "(Oops)" : "(Good)";
+    printf "Fixed-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $crc ^ $crc_prod->{xor};
     printf "Position: \$%06X\n", $length;
   }
   else {
@@ -466,20 +460,48 @@ if ($outfile) {
   }
   # stream add CRC
   substr $stream, $length, $alignment, pack $format, $crc;
+  $length = length $stream;
   if ($expand) {
     # When padding to page boundaries
+    $stream .= "\xff" x ($topend - $length);
     $length = length $stream;
-    $stream .= "\xff" x ($topend - $stream);
   }
   die "*** Error: output file too large.\n"
     if $max_limit * 1024 < $length;
   unless ($args{q}) {
     printf "Output-file: %s\n", $outfile;
-    printf "Output-size: %d\n", $length ; #length $stream;
+    printf "Output-size: %d\n", $length;
   }
   open my $FH, ">", $outfile or die "$!\n";
   $FH->binmode(1);
-  $FH->print(substr $stream, 0, $length + $alignment);
+  if ($outfile =~ m{\.hex$}io) {
+    # Intel-HEX file output
+    $start_addr //= 0;
+    my($addr, $type, $data, $binrec, $len);
+    my $offset = $start_addr & 0xFFFF;
+    while (length $stream) {
+      if (($offset & 0xFFFF) == 0 && $start_addr >> 16) {
+        $binrec = pack "C n C n", 2, 0, 4, $start_addr >> 16;
+        $binrec .= pack "C", (-unpack "%8C*", $binrec) & 0xFF;
+        $FH->print(':', uc unpack("H*", $binrec), "\r\n");
+        $offset = $start_addr & 0xFFFF;
+      }
+      $len = $ihex_fold - $offset % $ihex_fold;
+      $data = substr $stream, 0, $len, '';
+      $len = length $data;
+      $binrec = pack "C n C", $len, $offset & 0xFFFF, 0;
+      $binrec .= $data;
+      $binrec .= pack "C", (-unpack "%8C*", $binrec) & 0xFF;
+      $FH->print(':', uc unpack("H*", $binrec), "\r\n");
+      $offset += $len;
+      $start_addr += $len;
+    }
+    $FH->print(":00000001FF\r\n");
+  }
+  else {
+    # Binary file output
+    $FH->print($stream);
+  }
   $FH->close;
   exit(0);
 }

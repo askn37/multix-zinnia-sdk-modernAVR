@@ -120,8 +120,7 @@ endif
 boot_%.hex: boot_%.elf
 ifneq ($(PERL),'')
 	$(OBJCOPY) $(JOINING) -O binary $< boot_$*.tmp
-	$(PERL) $(GENCRC) $(GENCRCOPT) -i boot_$*.tmp -o boot_$*.bin
-	$(OBJCOPY) -I binary -O ihex boot_$*.bin $@
+	$(PERL) $(GENCRC) $(GENCRCOPT) -i boot_$*.tmp -o $@
 else
 	$(OBJCOPY) $(JOINING) -O ihex $< $@
 endif

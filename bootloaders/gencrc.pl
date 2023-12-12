@@ -358,7 +358,7 @@ unless ($args{q}) {
   my $test = pack $format, $crc_prod->{initialize};
   $test .= pack $format, encoder($crc_prod, $test, $alignment) ^ $crc_prod->{xor};
   $test = encoder($crc_prod, $test, $alignment * 2);
-  printf "CRC-type: \"%s\" model:0x%0*X final:0x%0*X\n",
+  printf "CRC-type: \"%s\" model:0x%0*X magic:0x%0*X\n",
     $crc_name, $alignment * 2, $crc, $alignment * 2, $test;
 }
 

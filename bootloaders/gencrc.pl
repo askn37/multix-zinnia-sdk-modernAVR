@@ -36,7 +36,7 @@ Usage: gencrc.pl [OPTIONS]
                 3 CRC-16/XMODEM P=0x1021 (Bigendian, Initialize=0)
                 4 CRC-32/JAMCRC P=0xedb88320 (Reverse 0x04c11db7)
                 5 CRC-32/MPEG-2 P=0x04c11db7 (Bigendian)
-                6 CRC-32/IEEE802.3 P=0xedb88320 (Reverse 0x04c11db7, Xout)
+                6 CRC-32/XOR P=0xedb88320 (Reverse 0x04c11db7, Xout)
                 7 CRC-32/BZIP2 P=0x04c11db7 (Bigendian, Xout)
                 8 CRC-32/POSIX P=0x04c11db7 (Big, Init=0, Fini=-1, Xout)
   -t          Delete consecutive `0xff` at the end of the input file.
@@ -151,28 +151,28 @@ my $crc_prod  = ${{
   , decoder    => \&decoder_crc32_rol
   }
 , 6 => {
-    # Ordinary CRC32 XOR output. (IEEE802.3)
-    name       => "CRC-32/IEEE802.3"
+    # Ordinary CRC32 XOR output.
+    name       => "CRC-32/XOR"
   , alignment  => 4
   , endian     => 0
   , mask       => 0xffffffff
   , initialize => 0xffffffff
   , polynomial => 0xedb88320
-  , finalize   => 0xdebb20e3  # magicnumber (bitrev 0xc704dd7b)
+  , finalize   => 0xdebb20e3  # magicnumber (ref 0xc704dd7b)
   , xor        => 0xffffffff
   , unwinding  => 0xdb710641  # (P << 1) | 1
   , encoder    => \&encoder_crc32_ror
   , decoder    => \&decoder_crc32_ror
   }
 , 7 => {
-    # CRC-32/MPEG-2 XOR output.
+    # CRC-32/MPEG-2 XOR output. (Ethernet)
     name       => "CRC-32/BZIP2"
   , alignment  => 4
   , endian     => 1
   , mask       => 0xffffffff
   , initialize => 0xffffffff
   , polynomial => 0x04c11db7
-  , finalize   => 0xfea994c0  # magicnumber
+  , finalize   => 0xc704dd7b  # magicnumber (ref 0xdebb20e3)
   , xor        => 0xffffffff
   , unwinding  => 0x82608edb  # (P >> 1) | 0x80000000
   , encoder    => \&encoder_crc32_rol
@@ -186,7 +186,7 @@ my $crc_prod  = ${{
   , mask       => 0xffffffff
   , initialize => 0
   , polynomial => 0x04c11db7
-  , finalize   => 0x44922959  # magicnumber
+  , finalize   => 0xc704dd7b  # magicnumber (ref 0x4822bf83)
   , xor        => 0xffffffff
   , unwinding  => 0x82608edb  # (P >> 1) | 0x80000000
   , encoder    => \&encoder_crc32_rol

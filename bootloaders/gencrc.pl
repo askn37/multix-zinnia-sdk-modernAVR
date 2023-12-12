@@ -186,7 +186,7 @@ my $crc_prod  = ${{
   , mask       => 0xffffffff
   , initialize => 0
   , polynomial => 0x04c11db7
-  , finalize   => 0xc704dd7b  # magicnumber (ref 0x4822bf83)
+  , finalize   => 0xc704dd7b  # magicnumber (ref 0xdebb20e3)
   , xor        => 0xffffffff
   , unwinding  => 0x82608edb  # (P >> 1) | 0x80000000
   , encoder    => \&encoder_crc32_rol
@@ -355,8 +355,11 @@ unless ($args{q}) {
   printf "Input-file: %s\n", $infile;
   printf "Input-size: %d\n", $length;
   my $crc = encoder($crc_prod, "123456789", 9) ^ $crc_prod->{xor};
-  printf "CRC-type: \"%s\" model 0x%0*X\n",
-    $crc_name, $alignment * 2, $crc;
+  my $test = pack $format, $crc_prod->{initialize};
+  $test .= pack $format, encoder($crc_prod, $test, $alignment) ^ $crc_prod->{xor};
+  $test = encoder($crc_prod, $test, $alignment * 2);
+  printf "CRC-type: \"%s\" model:0x%0*X final:0x%0*X\n",
+    $crc_name, $alignment * 2, $crc, $alignment * 2, $test;
 }
 
 # Trim trailing invalid 0xff
@@ -414,13 +417,13 @@ if ($unwind) {
     printf "Page-capacity: \$%06X %.2fKiB\n", $topend, $topend / 1024;
     printf "Entire-CRC%d: %0*X ($endian) %s\n", $alignment * 8, $alignment * 2,
       $enti, $output ? "(Oops)" : "(Good)";
-    printf "Code-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $crc ^ $crc_prod->{xor};
-    printf "Trim-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $trim ^ $crc_prod->{xor};
-    printf "Fixed-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $fixd ^ $crc_prod->{xor};
+    printf "Code-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $crc;
+    printf "Trim-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $trim;
+    printf "Fixed-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $fixd;
     printf "Position: \$%06X\n", $length;
   }
   else {
-    printf "%0*X\n", $alignment * 2, $enti ^ $crc_prod->{xor};
+    printf "%0*X\n", $alignment * 2, $enti;
   }
   $crc = $fixd;
   # If the overall CRC matches, file output is not necessary
@@ -444,7 +447,7 @@ else {
     printf "[Normal-CRC calculation mode%s]\n", $crc_prod->{xor} ? " (Xout)" : "";
     printf "Entire-CRC%d: %0*X ($endian) %s\n", $alignment * 8, $alignment * 2,
       $enti, $output ? "(Oops)" : "(Good)";
-    printf "Fixed-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $crc ^ $crc_prod->{xor};
+    printf "Fixed-CRC%d: %0*X ($endian)\n", $alignment * 8, $alignment * 2, $crc;
     printf "Position: \$%06X\n", $length;
   }
   else {

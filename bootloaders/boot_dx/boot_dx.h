@@ -481,6 +481,75 @@ typedef union {
   #endif
 #endif
 
+/*** AVR_DU Series ***/
+/* The PORTMUX layout of this series is special. */
+/* PC0 cannot be selected as TxD because it conflicts with the MVIO function. */
+
+#if \
+  defined(__AVR_AVR64DU32__) || defined(__AVR_AVR32DU32__) || defined(__AVR_AVR16DU32__) || \
+  defined(__AVR_AVR64DU28__) || defined(__AVR_AVR32DU28__) || defined(__AVR_AVR16DU28__) || \
+  defined(__AVR_AVR32DU20__) || defined(__AVR_AVR16DU20__) || \
+  defined(__AVR_AVR32DU14__) || defined(__AVR_AVR16DU14__)
+  #if (UART == A0) && defined(USART0)
+    #define UART_PORTREG  PORTA
+    #define UART_BASE     USART0
+    #define UART_TXPORT   VPORTA
+    #define UART_TXPIN    PIN0_bm
+    #define UART_TXCFG    PORTA_PIN0CTRL
+    #define UART_RXCFG    PORTA_PIN1CTRL
+    // #define UART_PMUX_VAL PORTMUX_USART0_DEFAULT_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEA
+    #define UART_XCKPIN   PIN2_bm
+    #define UART_XCKCFG   PORTA_PIN2CTRL
+    #define UART_XDIRPIN  PIN3_bm
+    #define UART_XDIRCFG  PORTA_PIN3CTRL
+  #elif (UART == A4) && defined(USART0) && defined(PORTA_PIN4CTRL)
+    #define UART_BASE     USART0
+    #define UART_PORTREG  PORTA
+    #define UART_TXPORT   VPORTA
+    #define UART_TXPIN    PIN4_bm
+    #define UART_TXCFG    PORTA_PIN4CTRL
+    #define UART_RXCFG    PORTA_PIN5CTRL
+    #define UART_PMUX_VAL PORTMUX_USART0_ALT1_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEA
+    #define UART_XCKPIN   PIN6_bm
+    #define UART_XCKCFG   PORTA_PIN6CTRL
+    #define UART_XDIRPIN  PIN7_bm
+    #define UART_XDIRCFG  PORTA_PIN7CTRL
+  #elif (UART == A2) && defined(USART0) && defined(PORTA_PIN2CTRL)
+    #define UART_BASE     USART0
+    #define UART_PORTREG  PORTA
+    #define UART_TXPORT   VPORTA
+    #define UART_TXPIN    PIN2_bm
+    #define UART_TXCFG    PORTA_PIN2CTRL
+    #define UART_RXCFG    PORTA_PIN3CTRL
+    #define UART_PMUX_VAL PORTMUX_USART0_ALT2_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEA
+  #elif (UART == D4) && defined(USART0) && defined(PORTD_PIN4CTRL)
+    #define UART_BASE     USART0
+    #define UART_PORTREG  PORTD
+    #define UART_TXPORT   VPORTD
+    #define UART_TXPIN    PIN4_bm
+    #define UART_TXCFG    PORTD_PIN4CTRL
+    #define UART_RXCFG    PORTD_PIN5CTRL
+    #define UART_PMUX_VAL PORTMUX_USART0_ALT3_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEA
+    #define UART_XCKPIN   PIN6_bm
+    #define UART_XCKCFG   PORTD_PIN6CTRL
+    #define UART_XDIRPIN  PIN7_bm
+    #define UART_XDIRCFG  PORTD_PIN7CTRL
+  #elif (UART == D6) && defined(USART1)
+    #define UART_BASE     USART1
+    #define UART_PORTREG  PORTD
+    #define UART_TXPORT   VPORTD
+    #define UART_TXPIN    PIN6_bm
+    #define UART_TXCFG    PORTD_PIN6CTRL
+    #define UART_RXCFG    PORTD_PIN7CTRL
+    #define UART_PMUX_VAL PORTMUX_USART1_ALT2_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEA
+  #endif
+#endif
+
 #ifndef UART_BASE
   #error The specified UART TxD pin does not exist. Please check the datasheet.
   #include "BUILD_STOP"

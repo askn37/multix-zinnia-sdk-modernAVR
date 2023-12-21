@@ -230,7 +230,7 @@ else {
 
 #ifdef RS485
   /*** For RS485 mode ***/
-  #ifdef UART_XDIRPIN_BP
+  #ifdef UART_XDIRPIN
     #ifdef RS485_INVERT
   UART_XDIRCFG = PORT_INVEN_bm;
     #endif

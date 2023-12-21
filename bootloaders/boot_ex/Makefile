@@ -138,7 +138,7 @@ boot_%.elf:	$(SOURCE) FORCE
 
 avr%:
 	$(MAKE) -f $(MF) boot_avr$*.hex
-	# $(MAKE) -f $(MF) boot_avr$*.bin
+	$(OBJCOPY) -I ihex -O binary boot_avr$*.hex boot_avr$*.bin
 	@echo "******************************"
 	@echo "*** Output:"
 	# mv boot_avr$*.lst ../hex/${BOOTNAME}_${UART}_${BAUD_RATE}_L${LED}.lst

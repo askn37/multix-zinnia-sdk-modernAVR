@@ -7,6 +7,9 @@
 ### AVR_DA/DB/DD 28/32/48/64pin using USERT0.PA0 LED.PA7
 make avr128db64 BOOTNAME=boot_avrdx_UART0 UART=A0 LED=A7
 
+### with Pull-Up RxD
+make avr128db64 BOOTNAME=boot_avrdx_UART0_PU UART=A0 LED=A7 PULLUP_RX=1
+
 ###
 ### AVR_DA/DB Alternate
 ###
@@ -32,6 +35,26 @@ make avr64dd20 BOOTNAME=boot_avrdd_UART0 UART=A0 LED=D7
 
 ### AVR_DD 14/20pin using UART1.PD6 LED.C2 (Xplained)
 make avr64dd14 BOOTNAME=boot_avrdd_UART1 UART=D6 LED=C2
+
+###
+### AVR_DU Generic (NVMCTRL version 4)
+###
+
+### AVR_DU 14/20/28/32pin using USERT0.PA0 LED.PA7 (14pin is PA7 not implimented)
+make avr64du32 BOOTNAME=boot_avrdu_UART0 UART=A0 LED=A7
+
+###
+### AVR_DU Alternate (NVMCTRL version 4)
+###
+
+### AVR_DU 20/28/32pin using USERT0.PA2 LED.PA7
+make avr64du32 BOOTNAME=boot_avrdu_UART0 UART=A2 LED=A7
+
+### AVR_DU 14/20/28/32pin using USERT0.PA0 LED.PC3 (PC3 is LUT1_OUT)
+make avr64du32 BOOTNAME=boot_avrdu_UART0 UART=A0 LED=C3
+
+### AVR_DU 14/20/28/32pin using USERT1.PD6 LED.PC3 (PC3 is LUT1_OUT)
+make avr64du32 BOOTNAME=boot_avrdu_UART1 UART=D6 LED=C3
 
 ###
 ### Cleanup

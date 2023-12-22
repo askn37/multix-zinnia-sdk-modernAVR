@@ -20,6 +20,8 @@
 #define AVR_AVRDX     1
 #define AVR_AVRDB     1
 #define AVR_AVRDB48   1
+#define AVR_NVMCTRL   2
+#define AVR_EVSYS   201
 
 //// Pin name to PORT configuration
 ////   bit[765] PORTA-G index position

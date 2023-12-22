@@ -22,6 +22,9 @@
 #define USART_RS485_1_bm    (1<<1)  /* RS485 Mode internal transmitter bit 1 mask. */
 #define USART_RS485_1_bp    1       /* RS485 Mode internal transmitter bit 1 position. */
 
+/* C Language Only */
+#if !defined (__ASSEMBLER__)
+
 /* Clock select */
 typedef enum CLKCTRL_CLKSEL_ALT_enum
 {
@@ -44,6 +47,12 @@ typedef enum CLKCTRL_PDIV_ALT_enum
     CLKCTRL_PDIV_24X_gc = (0x0B<<1),  /* 24X */
     CLKCTRL_PDIV_48X_gc = (0x0C<<1)   /* 48X */
 } CLKCTRL_PDIV_ALT_t;
+
+#define EVSYS_CHANNEL_RTC_EVGEN0_gc     EVSYS_CHANNEL_RTC_PITEV0_gc
+#define EVSYS_CHANNEL_RTC_EVGEN1_gc     EVSYS_CHANNEL_RTC_PITEV1_gc
+
+#ifdef ENABLE_RBC
+/* Backward compatibility not recommended */
 
 /* Channel generator select */
 #define EVSYS_CHANNEL0_OFF_gc EVSYS_CHANNEL_OFF_gc
@@ -118,5 +127,8 @@ typedef enum CLKCTRL_PDIV_ALT_enum
 #define EVSYS_CHANNEL3_ADC0_WCMP_gc EVSYS_CHANNEL_ADC0_WCMP_gc
 #define EVSYS_CHANNEL4_ADC0_WCMP_gc EVSYS_CHANNEL_ADC0_WCMP_gc
 #define EVSYS_CHANNEL5_ADC0_WCMP_gc EVSYS_CHANNEL_ADC0_WCMP_gc
+
+#endif
+#endif
 
 // end of code

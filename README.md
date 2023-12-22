@@ -353,9 +353,9 @@ STK500 version 1 プロトコルに基づく Arduino互換ブートローダー�
 
 - v0.2.10 (23/12/20)
   - `7.3.0-avr8-gnu-toolchain-231214`に更新。
-    - AVR-LIBCの`AVR64DU28`と`AVR64DU32`の支援が追加。
-  - __Core Libraries__ に `<ReadUART.h>`を追加。
-  - __Core Modules__ の `<api/UarfUART.h>`を微修正。
+    - __AVR64DU28/32__ に暫定対応。
+  - __Core Modules__ の `<api/UarfUART.h>`を微修正。`AVR_EVSYS=201`修正。
+  - __Core Libraries__ に `<ReadUART.h>`を追加。`AVR_EVSYS=201`修正。
 
 - v0.2.9 (23/12/11)
   - megaVAR/modernAVRについて、同梱ブートローダー全体を独自のArduino上位互換動作コードに変更。（`Optiboot`由来ソースコードを除去）

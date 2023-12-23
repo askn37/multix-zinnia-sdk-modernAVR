@@ -37,7 +37,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 
 - __MultiX Zinnia Product SDK [megaAVR]__
   - megaAVR-0 と tinyAVR-0/1/2 系統。（Atmelブランド世代）
-- __MultiX Zinnia Product SDK [modernAVR]__
+- __MultiX Zinnia Product SDK [modernAVR]__ <--
   - （Microchipブランド世代）
   - AVR DA 系統
     - AVR32DA28 AVR64DA28 AVR128DA28
@@ -113,26 +113,22 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 SDK種別と対象ブートローダー使用の有無をここで選ぶ。
 
 - __MultiX Zinnia Product SDK [megaAVR]__
-  - megaAVR-0 with Bootloader
-  - tinyAVR-0/1/2 with Bootloader
-  - tinyAVR-0/1 8pin with Bootloader
-  - megaAVR-0 w/o Bootloader
-  - tinyAVR-0/1/2 w/o Bootloader
 - __MultiX Zinnia Product SDK [modernAVR]__ <--
   - AVR DB with Bootloader
   - AVR DA with Bootloader
   - AVR DD with Bootloader
+  - AVR DU with Bootloader (Preliminary)
   - AVR EA with Bootloader
-  - AVR EB with Bootloader
+  - AVR EB with Bootloader (Preliminary)
   - AVR DD 14pin with Bootloader
   - AVR EB 14pin with Bootloader
   - AVR DB w/o Bootloader
   - AVR DA w/o Bootloader
   - AVR DD w/o Bootloader
+  - AVR DU w/o Bootloader (Preliminary)
   - AVR EA w/o Bootloader
-  - AVR EB w/o Bootloader
+  - AVR EB w/o Bootloader (Preliminary)
 - __MultiX Zinnia Product SDK [reduceAVR]__
-  - ATtiny4/5/9/10
 
 ## ボード選択サブメニュー
 
@@ -147,7 +143,7 @@ Arduino IDE でこのSDKを選択すると、
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __FUSE無関係に常時どれでも変更可能__
   - 高周波内蔵発振器による 24MHz〜1MHz
-  - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（定格外）
+  - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（AVR_DA/DB/DDでは定格外）
   - 超低消費電力発振器による 32.768kHz (OSC-ULP)
 - __Clock(Ex)__ -- AVR_Ex専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
@@ -176,7 +172,7 @@ Arduino IDE でこのSDKを選択すると、
   - Save guard "Retained" -- チップ消去時保護
   - Save guard "Erase" -- チップ消去時一括初期化
   - "Erase" and "Replace" -- ブートローダー/書込器でのEEPROM書換有効
-- __FUSE BOOTROW__ -- AVR_EB の BOOTROW保護フラグ（FUSE設定）
+- __FUSE BOOTROW__ -- AVR_DU/EB の BOOTROW保護フラグ（FUSE設定）
   - Save guard "Retained" -- チップ消去時保護
   - Save guard "Erase" -- チップ消去時一括初期化
 - __FUSE MVIO__ -- AVR_DB/DD の復電圧機能種別（FUSE設定）

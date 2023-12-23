@@ -54,6 +54,9 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16DD20 AVR32DD20 AVR64DD20
     - AVR16DD28 AVR32DD28 AVR64DD28
     - AVR16DD32 AVR32DD32 AVR64DD32
+  - AVR DU 系統
+    - AVR64DD28
+    - AVR64DD32
   - AVR EA 系統
     - AVR16EA48 AVR32EA48 AVR64EA48
     - AVR16EA32 AVR32EA32 AVR64EA32
@@ -120,8 +123,10 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DU with Bootloader (Preliminary)
   - AVR EA with Bootloader
   - AVR EB with Bootloader (Preliminary)
+  - (separator)
   - AVR DD 14pin with Bootloader
   - AVR EB 14pin with Bootloader
+  - (separator)
   - AVR DB w/o Bootloader
   - AVR DA w/o Bootloader
   - AVR DD w/o Bootloader
@@ -139,11 +144,11 @@ Arduino IDE でこのSDKを選択すると、
 
 - __Variant__ -- 具体的な製品型番を選択。（必須）
   - 外囲器ピン数＋型番＋フラッシュメモリ量＋SRAM量別になっている。
-- __Clock(Dx)__ -- AVR_DA/DB/DD用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
+- __Clock(Dx)__ -- AVR_DA/DB/DD/DU用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __FUSE無関係に常時どれでも変更可能__
   - 高周波内蔵発振器による 24MHz〜1MHz
-  - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（AVR_DA/DB/DDでは定格外）
+  - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（AVR_DA/DB/DDでは定格外、AVR_DUでは定格内）
   - 超低消費電力発振器による 32.768kHz (OSC-ULP)
 - __Clock(Ex)__ -- AVR_Ex専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
@@ -162,10 +167,10 @@ Arduino IDE でこのSDKを選択すると、
   - 2.45V or 1.90V
   - 2.70V or 2.60V
   - 2.85V or 4.30V
-- __FUSE PF6__ -- AVR_DA/DB/DD/EA のリセット端子用途変更（FUSE設定）
+- __FUSE PF6__ -- AVR_DA/DB/DD/DU/EA/EB のリセット端子用途変更（FUSE設定）
   - PF6 pin=Reset -- 既定値
   - PF6 pin=GPIO -- 各個別データシート参照のこと
-- __FUSE UPDI__ -- AVR_DD/EAの UPDIピン用途変更（FUSE設定）
+- __FUSE UPDI__ -- AVR_DD/DU/EA/EBの UPDIピン用途変更（FUSE設定）
   - __原則、既定値からの変更禁止（復元にはHV対応書換器が必須）__
   - 各個別データシート参照のこと
 - __FUSE EEPROM__ -- EEPROM保護フラグ（FUSE設定）
@@ -176,8 +181,8 @@ Arduino IDE でこのSDKを選択すると、
   - Save guard "Retained" -- チップ消去時保護
   - Save guard "Erase" -- チップ消去時一括初期化
 - __FUSE MVIO__ -- AVR_DB/DD の復電圧機能種別（FUSE設定）
-  - MVIO "Dual" -- 有効（VDD2へ要外部電圧供給）
-  - MVIO "Single" -- 無効（VDD2へ内部固定電圧供給）
+  - MVIO "Dual" -- 有効（VDD2端子へ要外部電圧供給）
+  - MVIO "Single" -- 無効（VDD2端子へ内部固定電圧供給）
   - 各個別データシート参照のこと
 - __Build Option__ -- DEBUGマクロ有無（任意選択）
   - Build Release -- 既定値（NDEBUG設定）

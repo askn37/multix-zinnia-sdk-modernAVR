@@ -214,19 +214,27 @@ int main (void) {
 
 #ifdef RS485
   /*** For RS485 mode ***/
-  #ifdef UART_XDIRPIN
-    #ifdef RS485_INVERT
+  /* RS485 mode allows any combination of open-drain
+     single-wire communication and XCK reception.
+     Additionally, enable USART to allow XCK reception. */
+  #if defined(UART_XDIRPIN)
+    #if defined(RS485_INVERT)
   UART_XDIRCFG = PORT_INVEN_bm;
     #endif
-    #ifdef RS485_SINGLE
-  UART_BASE.CTRLA = USART_RS485_ENABLE_gc|_BV(1)|USART_LBME_bm;
-    #else
-  UART_BASE.CTRLA = USART_RS485_ENABLE_gc|_BV(1);
-    #endif
-  #else
-    #error RS485 XDIR pin not USART exists
-    #include "BUILD_STOP"
+  UART_TXPORT.DIR |= UART_XDIRPIN;
   #endif
+  #ifdef RS485_SINGLE
+  UART_BASE.CTRLA = USART_RS485_ENABLE_gc|_BV(1)|USART_LBME_bm;
+  UART_TXCFG = PORT_PULLUPEN_bm;
+  #else
+  UART_BASE.CTRLA = USART_RS485_ENABLE_gc|_BV(1);
+  #endif
+#endif
+
+#if defined(PULLUP_RX) && !defined(RS485_SINGLE)
+  /* RX pin pullup (RX is TX next GPIO).
+     Normally, the TxD side is push-pull, so it is not required. */
+  UART_RXCFG = PORT_PULLUPEN_bm;
 #endif
 
 #ifdef USART
@@ -239,20 +247,6 @@ int main (void) {
     #error USART XCK pin not USART exists
     #include "BUILD_STOP"
   #endif
-#endif
-
-#if defined(RS485) && defined(UART_XDIRPIN)
-  UART_TXPORT.DIR |= UART_XDIRPIN;
-#elif defined(RS485) && defined(RS485_SINGLE)
-  UART_TXPORT.DIR |= UART_TXPIN;
-  UART_TXCFG = PORT_PULLUPEN_bm;
-#elif defined(PULLUP_RX)
-  /* RX pin pullup (RX is TX next GPIO).
-     Normally, the TxD side is push-pull, so it is not required. */
-  UART_RXCFG = PORT_PULLUPEN_bm;
-#endif
-
-#ifdef USART
   /* For synchronous USART */
   UART_BASE.CTRLC = USART_CHSIZE_8BIT_gc|USART_CMODE_SYNCHRONOUS_gc;
 #else
@@ -261,11 +255,11 @@ int main (void) {
 #endif
 
   /* not interrupt, polling read-write UART started */
-  #if defined(RS485) && defined(RS485_SINGLE)
+#if defined(RS485) && defined(RS485_SINGLE)
   UART_BASE.CTRLB = USART_RXEN_bm|USART_TXEN_bm|USART_ODME_bm;
-  #else
+#else
   UART_BASE.CTRLB = USART_RXEN_bm|USART_TXEN_bm;
-  #endif
+#endif
 
   /* At this stage, the UART only acts as a receiver.
      TxD pin is not configured as an output yet and remains Hi-Z */

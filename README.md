@@ -216,10 +216,10 @@ Arduino IDE でこのSDKを選択すると、
 - __書込装置選択__
   - [UPDI4AVR over UART](https://askn37.github.io/product/UPDI4AVR/) (Standard)
   - [UPDI4AVR over UART](https://askn37.github.io/product/UPDI4AVR/) (HV Enable) -- __HV書込対応__
-  - [SerialUPDI over UART](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/)
-  - PICkit4 over USB (UPDI)
+  - SerialUPDI over UART -- *avrdude 7.2* では AVR_DU/EA/DB は対応不可
+  - PICkit4 over USB (UPDI) -- ファームウェア更新が必要
   - Curiosity Nano (nEDBG: ATSAMD21E18)
-  - JTAG2UPDI over UART (NVMCTRL v2 Remodeling)-- NVMCTRL v2 非対応のバリアントは使用不可
+  - [JTAG2UPDI over UART (NVMCTRL v2 Remodeling)](https://github.com/askn37/jtag2updi) -- リンク先の "Clone" バリアントは AVR_DD/DU/EA/EB も対応
   - dryrun (Emulates programming without a programmer) -- 実際には何もしないダミーの書込器で、各種設定の論理的妥当性を検証するのに使用する
 
 > FUSE UPDI -> UPDI (default) 選択以外に書換えた場合の復元は __HV対応書込器が必須。__\
@@ -228,7 +228,7 @@ Arduino IDE でこのSDKを選択すると、
 
 ## プログラム書込
 
-### ブートローダーでのスケッチ書込 ```Ctrl+U``` ```⌘+U```
+### ブートローダーでのスケッチ書込 `Ctrl+U` `⌘+U`
 
 ボードメニューでブートローダー有を選んだ場合はこのモードが標準。
 書込器は不要。MCUの UART経由でスケッチを書き込む。
@@ -248,7 +248,7 @@ tinyAVR/megaAVR系統では Clock 選択と現在の真のFUSE設定が一致し
 UARTが正しく動作しない。
 FUSE現在値が不明な場合は __2MHz__ を選択するとよい。
 
-### 書込器でのブートローダー付スケッチ書込 ```Ctrl+Shift+U``` ```⌘+Shift+U```
+### 書込器でのブートローダー付スケッチ書込 `Ctrl+Shift+U` `⌘+Shift+U`
 
 ボードメニューでブートローダー有を選んでおり、かつ書込器も併用している場合に有効。
 FUSEも同時に更新される。
@@ -267,7 +267,7 @@ EEPROM対応書込器を使用しているなら以下も選択可能。
 
 tinyAVR/megaAVR系統では任意の Clock 選択が有効となる。
 
-### 書込器でのブートローダー無スケッチ書込 ```Ctrl+U``` ```⌘+U```
+### 書込器でのブートローダー無スケッチ書込 `Ctrl+U` `⌘+U`
 
 ボードメニューでブートローダー無を選んだ場合はこのモード。
 FUSEも同時に更新される。
@@ -304,7 +304,7 @@ Arduino IDE のシリアルコンソールは __閉じていなければなら�
 tinyAVR / megaAVR系統では任意の Clock 選択が有効となる。
 FUSE変更以後は 20MHz / 16MHz 各系統内の選択のみが FUSE変更なしで可能となる。
 
-### ビルド出力確認 ```Ctrl+Alt+S``` ```⌘+Alt+S```
+### ビルド出力確認 `Ctrl+Alt+S` `⌘+Alt+S`
 
 （書込み可能な場合の）スケッチフォルダに、
 スケッチがビルドされた HEX ファイル、
@@ -322,15 +322,15 @@ STK500 version 1 プロトコルに基づく Arduino互換ブートローダー�
 代表的な UART と LED の組み合わせについてはビルド済のバイナリが用意されている。
 
 > ブートローダーバイナリのリビルドは、makeコマンド（OS依存）が別途用意できれば本 SDKのみで行える。\
-> v0.2.9から独自のコードに変更された。
+> v0.2.9から独自のファームウェアコードに変更された。
 
-### AVR_EA/EB 系統への対応
+### AVR_DU/EA/EB 系統への対応
 
-23/10現在、*avrdude* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_EA 系統を正しく操作することができない。
-確実に AVR_EA 系統の不揮発メモリを読み書きできると判明しているプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) と __PICkit4/5__ だけである。
-本SDKに付属の *avrdude.conf.updi* は [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) でのみ正しく動作する記述であることに注意されたい。
+- __AVR_EA/EB__ 系統の正式サポートには *avrdude 7.3* 以降のリリースが必要
+- __AVR_DU__ 系統の正式サポートには *avrdude 7.4* 以降のリリースが必要（計画）
 
-- *avrdude 7.2* で [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は AVR_EA に部分対応したが、標準添付の avrdude.conf はまだ十分検証されておらず、ほとんどの品種で正常動作の担保が取れていない。
+23/12現在、*avrdude 7.2* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_DU/EA/EB 系統を正しく操作することができない。暫定的に AVR_DU/EB/EA 系統の不揮発メモリを読み書きできるプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/)、[__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) と __PICkit4/5__ （要 Firmware アップグレード）だけである。
+本SDKに付属の *avrdude.conf.UPDI4AVR* は [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) および [__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) でのみ正しく動作する記述であることに注意されたい。
 
 ### その他注意事項
 
@@ -339,7 +339,7 @@ STK500 version 1 プロトコルに基づく Arduino互換ブートローダー�
 搭載された MCU は対応範囲内なので
 以下のようにすれば使用可能である。
 
-#### Microchip Curiosity Nano AVR128DB48
+### Microchip Curiosity Nano AVR128DB48
 
 この製品使用時のメニュー選択は次のようにしなければならない；
 

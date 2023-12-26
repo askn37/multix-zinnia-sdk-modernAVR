@@ -80,9 +80,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 
 ## 対応する主なプログラムライタ
 
-完成品として販売されている製品以外の、
-工場出荷状態ではブートローダーが書き込まれていないため
-何らかの書込器準備は必要。
+完成品として販売されている製品以外の、工場出荷状態ではブートローダーが書き込まれていないため何らかの書込器準備は必要。
 
 - [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) -- このSDKでもメンテナンスされている。JTAG2UPDI上位互換。
   - __HV書込__ とUSB-USARTパススルーに対応可。（要外部回路）
@@ -90,12 +88,16 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 - [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) -- 一般のUSB-UARTと簡易な回路による高速書込環境。
   - 準備にはいくらかの部品と配線準備が必要だが難易度は低い。HV書込は望めない。
   - 対象MCUの UART通信とは回路が排他で外部切替が必要。（自動切替は要外付制御回路）
+  - *avrdude 7.2* では AVR_DU/EA/EB には非対応。（AVR_EA/EB は 7.3以降、AVR_DU は 7.4以降で対応予定）
 - PICkit4 -- 公式のプログラム書込装置兼 __デバッグトレース__ 装置。
   - 使用開始前に MPLAB X によるFWアップデートが要求される。購入状態での対応範囲不明。
   - フルスペックの公式開発環境が別途必須なのでエンドユーザーのPC環境によっては難がある。\
     Arduino IDEの動作スペックより数倍大きなディスク空容量やハードウェア性能とIDE操作習熟が必要。
+- [__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi)
+  - __Arduino UNO__ やその派生バリアント製品を無改造で UPDI対応プログラムライターに転換するファームウェア。
+  - リンク先の "Clone" バリアントは、AVR_DA/DB/DDと、AVR_DU/EA/EB に暫定対応する。（__UPDI4AVR__ からのバックポート）
 - プログラムライタ内蔵完成市販品 -- これらはブートローダー書込不要。（あるいは対応不可）
-  - Microchip Curiosity Nano Series の一部 -- AVR DA/DB + nEDBG
+  - __Microchip Curiosity Nano Series__ の一部 -- AVR DA/DB + nEDBG
 
 ## 導入方法
 
@@ -123,10 +125,10 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DU with Bootloader (Preliminary)
   - AVR EA with Bootloader
   - AVR EB with Bootloader (Preliminary)
-  - (separator)
+  - *(separator) 以上28ピン以上製品専用、以下14ピン/20ピン製品専用*
   - AVR DD 14pin with Bootloader
   - AVR EB 14pin with Bootloader
-  - (separator)
+  - *(separator) 以下ブートローダーなし*
   - AVR DB w/o Bootloader
   - AVR DA w/o Bootloader
   - AVR DD w/o Bootloader

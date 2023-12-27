@@ -427,15 +427,12 @@ int main (void) {
           R"#ASM#(                ; Z <- address.bptr
           1:  ELPM  R24, Z+       ; R24 <- (RAMPZ:Z)
               RCALL putch         ; putch(R24)
-              ELPM  R24, Z+       ; R24 <- (RAMPZ:Z)
-              RCALL putch         ; putch(R24)
-              SUBI  %A[len], 0x01 ; Decrement R16:R17
-              SBC   %B[len], R1   ;
+              SBIW  %[len], 1     ; Decrement R29:R28
               BRNE  1b            ; Branch if Not Equal
           )#ASM#"
-          : [len] "=d" ((uint8_t)ch)
+          : [len] "=d" (length.word)
           :        "z" (address.bptr),
-                   "0" ((uint8_t)ch)
+                   "0" (length.word)
           : "r24", "r25"
         );
       }

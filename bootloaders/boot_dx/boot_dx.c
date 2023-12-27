@@ -422,17 +422,20 @@ int main (void) {
          so we call that helper function. */
       if (ch == 'F') {
         /* Read the code space using ELPM. */
+        ch = length.word >> 1;
         __asm__ __volatile__ (
           R"#ASM#(                ; Z <- address.bptr
           1:  ELPM  R24, Z+       ; R24 <- (RAMPZ:Z)
+              RCALL putch         ; putch(R24)
+              ELPM  R24, Z+       ; R24 <- (RAMPZ:Z)
               RCALL putch         ; putch(R24)
               SUBI  %A[len], 0x01 ; Decrement R16:R17
               SBC   %B[len], R1   ;
               BRNE  1b            ; Branch if Not Equal
           )#ASM#"
-          : [len] "=d" (length.word)
+          : [len] "=d" ((uint8_t)ch)
           :        "z" (address.bptr),
-                   "0" (length.word)
+                   "0" ((uint8_t)ch)
           : "r24", "r25"
         );
       }

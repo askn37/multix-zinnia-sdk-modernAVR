@@ -1679,7 +1679,7 @@ part
     ;
 
     memory "eeprom"
-        size               = 256;
+        size               = 512;
         page_size          = 2;
         offset             = 0x1400;
         readsize           = 256;
@@ -2411,6 +2411,10 @@ part parent ".avrdx"
     # Shared UPDI pin, HV on _RESET
     hvupdi_variant         = 2;
     idr                    = 0x32;  # substitute hvupdi_variant
+
+    memory "eeprom"
+        size               = 256;
+    ;
 
     memory "fuse5"
         # Starting with this series, the UPDI and RESET pins can be configured individually
@@ -3172,7 +3176,7 @@ part
     ;
 
     memory "eeprom"
-        size               = 512;
+        size               = 256;
         page_size          = 2;
         offset             = 0x1400;
         readsize           = 256;

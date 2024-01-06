@@ -326,9 +326,14 @@ STK500 version 1 プロトコルに基づく Arduino互換ブートローダー�
 > ブートローダーバイナリのリビルドは、makeコマンド（OS依存）が別途用意できれば本 SDKのみで行える。\
 > 0.2.9から独自のファームウェアコードに変更された。
 
+> __AVR_DU__ 系統用に 24/01現在用意されているブートローダーは、シリアルポート接続用（実験的実装）である。
+USB-CDC接続用ブートローダーはまだ準備されていない。
+DFU（FLIP接続）仕様のファームウェアは Microchip社から提供される *はず* である。
+
 ### AVR_DU/EA/EB 系統への対応
 
 - __AVR_EA/EB__ 系統の正式サポートには *avrdude 7.3* 以降のリリースが必要
+  - ただし __AVR_EB__ の BOOTROW 書き込みには書込器側ファームウェア対応の制約がある。
 - __AVR_DU__ 系統の正式サポートには *avrdude 7.4* 以降のリリースが必要（計画）
 
 23/12現在、*avrdude 7.2* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_DU/EA/EB 系統を正しく操作することができない。暫定的に AVR_DU/EB/EA 系統の不揮発メモリを読み書きできるプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/)、[__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) と __PICkit4/5__ （要 Firmware アップグレード）だけである。

@@ -4,7 +4,7 @@
    are permitted in any medium without royalty provided the copyright
    notice and this notice are preserved.  */
 OUTPUT_FORMAT("elf32-avr","elf32-avr","elf32-avr")
-OUTPUT_ARCH(avr:104)
+OUTPUT_ARCH(avr:103)
 __TEXT_REGION_ORIGIN__ = DEFINED(__TEXT_REGION_ORIGIN__) ? __TEXT_REGION_ORIGIN__ : 0;
 __DATA_REGION_ORIGIN__ = DEFINED(__DATA_REGION_ORIGIN__) ? __DATA_REGION_ORIGIN__ : 0x802000;
 __TEXT_REGION_LENGTH__ = DEFINED(__TEXT_REGION_LENGTH__) ? __TEXT_REGION_LENGTH__ : 1024K;
@@ -183,7 +183,7 @@ SECTIONS
   }  > data AT> text
   .nvmem   LOADADDR(.data) + SIZEOF(.data) :  AT (ADDR (.nvmem))
   {
-    . = ALIGN(512);
+    . = ALIGN(128);
      PROVIDE (__nvmem_start = .) ;
     *(.nvmem)
      *(.nvmem.*)

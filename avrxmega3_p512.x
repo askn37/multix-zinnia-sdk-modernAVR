@@ -14,7 +14,7 @@ __FUSE_REGION_LENGTH__ = DEFINED(__FUSE_REGION_LENGTH__) ? __FUSE_REGION_LENGTH_
 __LOCK_REGION_LENGTH__ = DEFINED(__LOCK_REGION_LENGTH__) ? __LOCK_REGION_LENGTH__ : 1K;
 __SIGNATURE_REGION_LENGTH__ = DEFINED(__SIGNATURE_REGION_LENGTH__) ? __SIGNATURE_REGION_LENGTH__ : 1K;
 __USER_SIGNATURE_REGION_LENGTH__ = DEFINED(__USER_SIGNATURE_REGION_LENGTH__) ? __USER_SIGNATURE_REGION_LENGTH__ : 1K;
-__RODATA_PM_OFFSET__ = DEFINED(__RODATA_PM_OFFSET__) ? __RODATA_PM_OFFSET__ : 0x8000;
+__BOOT_SIGNATURE_REGION_LENGTH__ = DEFINED(__BOOT_SIGNATURE_REGION_LENGTH__) ? __BOOT_SIGNATURE_REGION_LENGTH__ : 1K;
 MEMORY
 {
   text   (rx)   : ORIGIN = __TEXT_REGION_ORIGIN__, LENGTH = __TEXT_REGION_LENGTH__
@@ -24,6 +24,7 @@ MEMORY
   lock      (rw!x) : ORIGIN = 0x830000, LENGTH = __LOCK_REGION_LENGTH__
   signature (rw!x) : ORIGIN = 0x840000, LENGTH = __SIGNATURE_REGION_LENGTH__
   user_signatures (rw!x) : ORIGIN = 0x850000, LENGTH = __USER_SIGNATURE_REGION_LENGTH__
+  boot_signatures (rw!x) : ORIGIN = 0x860000, LENGTH = __BOOT_SIGNATURE_REGION_LENGTH__
 }
 SECTIONS
 {
@@ -167,18 +168,15 @@ SECTIONS
     KEEP (*(.fini0))
      _etext = . ;
   }  > text
-  .rodata  ADDR(.text) + SIZEOF (.text) + __RODATA_PM_OFFSET__    :
-  {
-    *(.rodata)
-     *(.rodata*)
-    *(.gnu.linkonce.r*)
-  } AT> text
   .data          :
   {
      PROVIDE (__data_start = .) ;
     *(.data)
      *(.data*)
     *(.gnu.linkonce.d*)
+    *(.rodata)  /* We need to include .rodata here if gcc is used */
+     *(.rodata*) /* with -fdata-sections.  */
+    *(.gnu.linkonce.r*)
     . = ALIGN(2);
      _edata = . ;
      PROVIDE (__data_end = .) ;
@@ -235,6 +233,10 @@ SECTIONS
   {
     KEEP(*(.user_signatures*))
   }  > user_signatures
+  .boot_signatures  :
+  {
+    KEEP(*(.boot_signatures*))
+  }  > boot_signatures
   /* Stabs debugging sections.  */
   .stab 0 : { *(.stab) }
   .stabstr 0 : { *(.stabstr) }

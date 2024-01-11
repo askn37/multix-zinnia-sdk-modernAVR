@@ -14,6 +14,7 @@ __FUSE_REGION_LENGTH__ = DEFINED(__FUSE_REGION_LENGTH__) ? __FUSE_REGION_LENGTH_
 __LOCK_REGION_LENGTH__ = DEFINED(__LOCK_REGION_LENGTH__) ? __LOCK_REGION_LENGTH__ : 1K;
 __SIGNATURE_REGION_LENGTH__ = DEFINED(__SIGNATURE_REGION_LENGTH__) ? __SIGNATURE_REGION_LENGTH__ : 1K;
 __USER_SIGNATURE_REGION_LENGTH__ = DEFINED(__USER_SIGNATURE_REGION_LENGTH__) ? __USER_SIGNATURE_REGION_LENGTH__ : 1K;
+__BOOT_SIGNATURE_REGION_LENGTH__ = DEFINED(__BOOT_SIGNATURE_REGION_LENGTH__) ? __BOOT_SIGNATURE_REGION_LENGTH__ : 1K;
 MEMORY
 {
   text   (rx)   : ORIGIN = __TEXT_REGION_ORIGIN__, LENGTH = __TEXT_REGION_LENGTH__
@@ -23,6 +24,7 @@ MEMORY
   lock      (rw!x) : ORIGIN = 0x830000, LENGTH = __LOCK_REGION_LENGTH__
   signature (rw!x) : ORIGIN = 0x840000, LENGTH = __SIGNATURE_REGION_LENGTH__
   user_signatures (rw!x) : ORIGIN = 0x850000, LENGTH = __USER_SIGNATURE_REGION_LENGTH__
+  boot_signatures (rw!x) : ORIGIN = 0x860000, LENGTH = __BOOT_SIGNATURE_REGION_LENGTH__
 }
 SECTIONS
 {
@@ -231,6 +233,10 @@ SECTIONS
   {
     KEEP(*(.user_signatures*))
   }  > user_signatures
+  .boot_signatures  :
+  {
+    KEEP(*(.boot_signatures*))
+  }  > boot_signatures
   /* Stabs debugging sections.  */
   .stab 0 : { *(.stab) }
   .stabstr 0 : { *(.stabstr) }

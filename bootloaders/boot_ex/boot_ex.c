@@ -69,10 +69,11 @@ Licensing and redistribution are subject to the MIT License.
   This section provides an auxiliary capability
   for self-modifying the flash area.
 
-  $0000 : Started Bootloader (POR)
-  $0002 : nvm_spm function : magicnumber $95F8
-  $0004 : ret              :             $9508
-  $0006 : nvm_cmd function : magicnumber $E99D, $BF94
+  $0000 : Started Bootloader (POR)       $C02F
+  $0002 : nvm_stz function : magicnumber $95089361
+  $0006 : nvm_ldz function : magicnumber $95089181
+  $000A : nvm_spm function : magicnumber $950895F8
+  $000E : nvm_cmd function : magicnumber $BF94E99D
   $0200 : appcode
 ***/
 
@@ -82,8 +83,12 @@ __attribute__((section (".init0")))
 void vector_table (void) {
   __asm__ __volatile__ (
   R"#ASM#(
-    RJMP  main
-    SPM   Z+
+    RJMP  main      ; $0000
+    ST    Z+, R22   ; $0002 nvm_stz
+    RET
+    LD    R24, Z+   ; $0006 nvm_ldz
+    RET
+    SPM   Z+        ; $000A nvm_spm
     RET
   )#ASM#"
   );
@@ -99,8 +104,20 @@ __attribute__((noinline))
 __attribute__((section (".init1")))
 void nvm_cmd (uint8_t _nvm_cmd) {
   /* This function occupies 18 bytes of space. */
-  _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
-  while (NVMCTRL.STATUS & 3);
+  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
+  // while (NVMCTRL_STATUS & 3);
+  __asm__ __volatile__ (
+    R"#ASM#(
+          LDI   R25, 0x9D 
+          OUT   0x34, R25
+          STS   %1, R24
+      1:  LDS   R25, %0
+          ANDI  R25, 3
+          BRNE  1b
+    )#ASM#"
+    :: "p" (_SFR_MEM_ADDR(NVMCTRL_STATUS))
+     , "p" (_SFR_MEM_ADDR(NVMCTRL_CTRLA))
+  );
 }
 
 __attribute__((noinline))
@@ -143,7 +160,7 @@ void drop_packet (uint8_t count) {
   end_of_packet();
 }
 
-#if defined(LED_BLINK) && defined(LED_PORT)
+#if defined(LED_BLINK) && defined(LED_PORT) && (LED_BLINK >= 2)
 inline static
 void blink (void) {
   /* Makes the LED blink at a different rate than normal.
@@ -152,7 +169,7 @@ void blink (void) {
   do {
     LED_PORT.IN |= _BV(LED_PIN);
     /* delay assuming 3Mhz */
-    uint16_t delay = 3000000U / 200;
+    uint16_t delay = 3000000U / 150;
     do {
       if (bit_is_set(UART_BASE.STATUS, USART_RXCIF_bp)) return;
     } while (--delay);
@@ -280,7 +297,7 @@ else {
   /* At this stage, the UART only acts as a receiver.
      TxD pin is not configured as an output yet and remains Hi-Z */
 
-#if defined(LED_BLINK) && defined(LED_PORT)
+#if defined(LED_BLINK) && defined(LED_PORT) && (LED_BLINK >= 2)
   /* LED flashing time is not included in WDT limit. */
   blink();
 #elif defined(LED_PORT)
@@ -335,15 +352,7 @@ else {
       ch = pullch();
 
       nvm_cmd(NVMCTRL_CMD_NOCMD_gc);
-      if (ch == 'E') {
-        /* Supports EEPROM writing. */
-        /* You can pass the file with
-           'avrdude -U eeprom:w:Sketch.eep:i' option. */
-        address.word += MAPPED_EEPROM_START;
-        do *(address.bptr++) = pullch(); while (--length.word);
-        ch = NVMCTRL_CMD_EEPERW_gc;
-      }
-      else /* if (ch == 'F') */ {
+      if (ch == 'F') {
         /***
           Write in code space word by "WORD" using SPM.
           The counter is in “WORD” units.
@@ -368,6 +377,19 @@ else {
           : "r24", "r25"
         );
         ch = NVMCTRL_CMD_FLPERW_gc;
+      }
+      else {
+        if (ch == 'E') {
+          /* Supports EEPROM writing. */
+          /* You can pass the file with
+            'avrdude -U eeprom:w:Sketch.eep:i' option. */
+          address.word += MAPPED_EEPROM_START;
+          ch = NVMCTRL_CMD_EEPERW_gc;
+        }
+        else {
+          ch = NVMCTRL_CMD_FLPERW_gc;
+        }
+        do *(address.bptr++) = pullch(); while (--length.word);
       }
       nvm_cmd(ch);
       end_of_packet();
@@ -397,9 +419,9 @@ else {
           : "r24", "r25"
         );
       }
-      else /* if (ch == 'E') */ {
+      else {
         /* It's not an absolute address, so add the EEPROM offset. */
-        address.word += MAPPED_EEPROM_START;
+        if (ch == 'E') address.word += MAPPED_EEPROM_START;
         do putch(*(address.bptr++)); while (--length.word);
       }
     }

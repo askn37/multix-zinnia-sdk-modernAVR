@@ -2862,7 +2862,7 @@ part
 
     memory "flash"
         # size will be defined later
-        page_size          = 128;
+        page_size          = 64;
         offset             = 0x800000;
         readsize           = 256;
     ;
@@ -2876,10 +2876,10 @@ part
 
     memory "userrow"
         # size will be defined later
-        size               = 32;
-        page_size          = 32;
+        size               = 64;
+        page_size          = 64;
         offset             = 0x1200;
-        readsize           = 32;
+        readsize           = 64;
     ;
 
     memory "usersig"

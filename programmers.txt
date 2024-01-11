@@ -75,14 +75,14 @@
 31_jtag2updi.protocol=jtag2updi
 31_jtag2updi.program.protocol=jtagmkii_updi
 31_jtag2updi.program.tool=avrdude
-31_jtag2updi.program.extra_params=-P {serial.port}
+31_jtag2updi.program.extra_params=-P {serial.port} -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
 
 # 32_jtag2updi.name=JTAG2UPDI over UART (slow) (NVM v2/v3 Remodeling)
 # 32_jtag2updi.communication=serial
 # 32_jtag2updi.protocol=jtag2updi
 # 32_jtag2updi.program.protocol=jtagmkii_updi
 # 32_jtag2updi.program.tool=avrdude
-# 32_jtag2updi.program.extra_params=-P {serial.port} -b 19200
+# 32_jtag2updi.program.extra_params=-P {serial.port} -b 19200 -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
 
 99_dryrun.name=dryrun (Emulates programming without a programmer)
 99_dryrun.communication=usb

@@ -13,9 +13,9 @@
 
 /*** Default vaules ***/
 
-// #define BOOT_HW_VER 2   /* This is defined later */
+// #define BOOT_HW_VER '2' /* This is defined later */
 #define BOOT_MAJVER 3
-#define BOOT_MINVER 7
+#define BOOT_MINVER 71
 
 #ifndef UART
 #define UART A0
@@ -244,7 +244,7 @@ typedef union {
   defined(__AVR_AVR128DB48__) || defined(__AVR_AVR64DB48__) || defined(__AVR_AVR32DB48__) || \
   defined(__AVR_AVR128DB32__) || defined(__AVR_AVR64DB32__) || defined(__AVR_AVR32DB32__) || \
   defined(__AVR_AVR128DB28__) || defined(__AVR_AVR64DB28__) || defined(__AVR_AVR32DB28__)
-  #define BOOT_HW_VER 2
+  #define BOOT_HW_VER '2' /* Make sure to match the NVMCTRL version. */
   #if (UART == A0) && defined(USART0)
     #define UART_BASE     USART0
     #define UART_PORTREG  PORTA
@@ -411,7 +411,7 @@ typedef union {
   defined(__AVR_AVR64DD28__) || defined(__AVR_AVR32DD28__) || defined(__AVR_AVR16DD28__) || \
   defined(__AVR_AVR64DD20__) || defined(__AVR_AVR32DD20__) || defined(__AVR_AVR16DD20__) || \
   defined(__AVR_AVR64DD14__) || defined(__AVR_AVR32DD14__) || defined(__AVR_AVR16DD14__)
-  #define BOOT_HW_VER 2
+  #define BOOT_HW_VER '2' /* Make sure to match the NVMCTRL version. */
   #if (UART == A0) && defined(USART0)
     #define UART_PORTREG  PORTA
     #define UART_BASE     USART0
@@ -492,7 +492,7 @@ typedef union {
   defined(__AVR_AVR64DU28__) || defined(__AVR_AVR32DU28__) || defined(__AVR_AVR16DU28__) || \
   defined(__AVR_AVR32DU20__) || defined(__AVR_AVR16DU20__) || \
   defined(__AVR_AVR32DU14__) || defined(__AVR_AVR16DU14__)
-  #define BOOT_HW_VER 4
+  #define BOOT_HW_VER '4' /* Make sure to match the NVMCTRL version. */
   #if (UART == A0) && defined(USART0)
     #define UART_PORTREG  PORTA
     #define UART_BASE     USART0

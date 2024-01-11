@@ -124,8 +124,8 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DD with Bootloader
   - AVR DU with Bootloader (Preliminary)
   - AVR EA with Bootloader
-  - AVR EB with Bootloader (Preliminary)
-  - *(separator) 以上28ピン以上製品専用、以下14ピン/20ピン製品専用*
+  - AVR EB with Bootloader
+  - *(separator) 以上28ピン以上製品専用、以下14ピン製品専用*
   - AVR DD 14pin with Bootloader
   - AVR EB 14pin with Bootloader
   - *(separator) 以下ブートローダーなし*
@@ -134,7 +134,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DD w/o Bootloader
   - AVR DU w/o Bootloader (Preliminary)
   - AVR EA w/o Bootloader
-  - AVR EB w/o Bootloader (Preliminary)
+  - AVR EB w/o Bootloader
 - __MultiX Zinnia Product SDK [reduceAVR]__
 
 ## ボード選択サブメニュー
@@ -180,11 +180,15 @@ Arduino IDE でこのSDKを選択すると、
   - Save guard "Erase" -- チップ消去時一括初期化
   - "Erase" and "Replace" -- ブートローダー/書込器でのEEPROM書換有効
 - __FUSE BOOTROW__ -- AVR_DU/EB の BOOTROW保護フラグ（FUSE設定）
-  - Save guard "Retained" -- チップ消去時保護
   - Save guard "Erase" -- チップ消去時一括初期化
+  - Save guard "Retained" -- チップ消去時保護
 - __FUSE MVIO__ -- AVR_DB/DD の復電圧機能種別（FUSE設定）
   - MVIO "Dual" -- 有効（VDD2端子へ要外部電圧供給）
   - MVIO "Single" -- 無効（VDD2端子へ内部固定電圧供給）
+  - 各個別データシート参照のこと
+- __FUSE USBSINK__ -- AVR_DU の USB周辺機能制御（FUSE設定）
+  - USBSINK "Enable" -- 有効
+  - USBSINK "Disable" -- 無効
   - 各個別データシート参照のこと
 - __Build Option__ -- DEBUGマクロ有無（任意選択）
   - Build Release -- 既定値（NDEBUG設定）
@@ -330,15 +334,6 @@ STK500 version 1 プロトコルに基づく Arduino互換ブートローダー�
 USB-CDC接続用ブートローダーはまだ準備されていない。
 DFU（FLIP接続）仕様のファームウェアは Microchip社から提供される *はず* である。
 
-### AVR_DU/EA/EB 系統への対応
-
-- __AVR_EA/EB__ 系統の正式サポートには *avrdude 7.3* 以降のリリースが必要
-  - ただし __AVR_EB__ の BOOTROW 書き込みには書込器側ファームウェア対応の制約がある。
-- __AVR_DU__ 系統の正式サポートには *avrdude 7.4* 以降のリリースが必要（計画）
-
-23/12現在、*avrdude 7.2* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_DU/EA/EB 系統を正しく操作することができない。暫定的に AVR_DU/EB/EA 系統の不揮発メモリを読み書きできるプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/)、[__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) と __PICkit4/5__ （要 Firmware アップグレード）だけである。
-本SDKに付属の *avrdude.conf.UPDI4AVR* は [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) および [__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) でのみ正しく動作する記述であることに注意されたい。
-
 ### その他注意事項
 
 以下に上げる完成販売品は本来、それぞれ既定の開発環境があり
@@ -357,13 +352,37 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 その他の同種製品も同様に、適切なオプションの手動選択が必要。
 
+## AVR_DU/EA/EB 系統への対応
+
+- __AVR_EA/EB__ 系統の正式サポートには *avrdude 7.3* 以降のリリースが必要
+  - ただし __AVR_EB__ の BOOTROW 書き込みには書込器側ファームウェア対応の制約がある。
+- __AVR_DU__ 系統の正式サポートには *avrdude 7.4* 以降のリリースが必要（計画）
+
+23/12現在、*avrdude 7.2* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_DU/EA/EB 系統を正しく操作することができない。暫定的に AVR_DU/EB/EA 系統の不揮発メモリを読み書きできるプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/)、[__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) と __PICkit4/5__ （要 Firmware アップグレード）だけである。
+本SDKに付属の *avrdude.conf.UPDI4AVR* は [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) および [__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) でのみ正しく動作する記述であることに注意されたい。
+
+### AVR_EA 系統の制約
+
+- FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 値以外に変更してはならない。初期生産ロット(B1)は回路の不具合により正常な動作をしない。この不具合は二次生産ロット(B2)以降で解消されている。
+
+### AVR_EB 系統の制約
+
+- 初期生産ロット(A0)は、LOCK.KEY または FUSE.PDICFG を既定値以外に変更すると、以後の UPDI NVMPROG 制御再獲得が（HV制御と無関係に）全面的に困難または不可能となる。これは公開データシートの記述と異なる挙動である。
+- FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 以外に変更してはならない。初期生産ロット(A0)は回路の不具合により正常な動作をしない。
+- HV制御の推奨投入電圧が 7.5V に変更（低下）した。RESET/PF6 パッドの絶対定格は 8.5V なので、AVR_DD 用に設計された HV制御回路では電圧が高すぎる恐れがある。
+
 ## 更新履歴
 
-- 0.2.10 (23/12/20)
+- 0.2.10 (23/01/11)
   - `7.3.0-avr8-gnu-toolchain-231214`に更新。
     - __AVR64DU28/32__ に暫定対応。
+    - __AVR_EB__ の一部に対応。AVR16EB32 を動作確認済表に追加。
   - __Core Modules__ の `<api/UarfUART.h>`を微修正。`AVR_EVSYS=201`修正。
-  - __Core Libraries__ に `<ReadUART.h>`を追加。`AVR_EVSYS=201`修正。
+  - __Core Libraries__ の修正／追加と応用記述の追加。
+    - `<ReadUART.h>`
+    - `<UrowNVM.h>`
+    - `<FlashNVM.h>`（BOOTROW 対応を追加）
+  - Bootloader を FWV=3.71 に更新。
 
 - 0.2.9 (23/12/11)
   - megaVAR/modernAVRについて、同梱ブートローダー全体を独自のArduino上位互換動作コードに変更。（`Optiboot`由来ソースコードを除去）

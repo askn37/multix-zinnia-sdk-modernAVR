@@ -63,10 +63,11 @@ Licensing and redistribution are subject to the MIT License.
   This section provides an auxiliary capability
   for self-modifying the flash area.
 
-  $0000 : Started Bootloader (POR)
-  $0002 : nvm_spm function : magicnumber $95F8
-  $0004 : ret              :             $9508
-  $0006 : nvm_cmd function : magicnumber $E99D, $BF94
+  $0000 : Started Bootloader (POR)       $C02F
+  $0002 : nvm_stz function : magicnumber $95089361
+  $0006 : nvm_ldz function : magicnumber $95089181
+  $000A : nvm_spm function : magicnumber $950895F8
+  $000E : nvm_cmd function : magicnumber $BF94E99D
   $0200 : appcode
 ***/
 
@@ -76,8 +77,12 @@ __attribute__((section (".init0")))
 void vector_table (void) {
   __asm__ __volatile__ (
   R"#ASM#(
-    RJMP  main
-    SPM   Z+
+    RJMP  main      ; $0000
+    ST    Z+, R22   ; $0002 nvm_stz
+    RET
+    LD    R24, Z+   ; $0006 nvm_ldz
+    RET
+    SPM   Z+        ; $000A nvm_spm
     RET
   )#ASM#"
   );
@@ -93,8 +98,20 @@ __attribute__((noinline))
 __attribute__((section (".init1")))
 void nvm_cmd (uint8_t _nvm_cmd) {
   /* This function occupies 18 bytes of space. */
-  _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
-  while (NVMCTRL.STATUS & 3);
+  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
+  // while (NVMCTRL_STATUS & 3);
+  __asm__ __volatile__ (
+    R"#ASM#(
+          LDI   R25, 0x9D 
+          OUT   0x34, R25
+          STS   %1, R24
+      1:  LDS   R25, %0
+          ANDI  R25, 3
+          BRNE  1b
+    )#ASM#"
+    :: "p" (_SFR_MEM_ADDR(NVMCTRL_STATUS))
+     , "p" (_SFR_MEM_ADDR(NVMCTRL_CTRLA))
+  );
 }
 
 __attribute__((noinline))
@@ -137,7 +154,7 @@ void drop_packet (uint8_t count) {
   end_of_packet();
 }
 
-#if defined(LED_BLINK) && defined(LED_PORT)
+#if defined(LED_BLINK) && defined(LED_PORT) && (LED_BLINK >= 2)
 inline static
 void blink (void) {
   /* Makes the LED blink at a different rate than normal.
@@ -146,7 +163,7 @@ void blink (void) {
   do {
     LED_PORT.IN |= _BV(LED_PIN);
     /* delay assuming 4Mhz */
-    uint16_t delay = 4000000U / 200;
+    uint16_t delay = 4000000U / 150;
     do {
       if (bit_is_set(UART_BASE.STATUS, USART_RXCIF_bp)) return;
     } while (--delay);
@@ -264,7 +281,7 @@ int main (void) {
   /* At this stage, the UART only acts as a receiver.
      TxD pin is not configured as an output yet and remains Hi-Z */
 
-#if defined(LED_BLINK) && defined(LED_PORT)
+#if defined(LED_BLINK) && defined(LED_PORT) && (LED_BLINK >= 2)
   /* LED flashing time is not included in WDT limit. */
   blink();
 #elif defined(LED_PORT)
@@ -346,7 +363,7 @@ int main (void) {
       length.bytes[1] = pullch();
       length.bytes[0] = pullch();
       ch = pullch();
-      register uint16_t len = length.word;
+      uint16_t len = length.word;
 
       /* Any chip has at least 1KiB of SRAM,
          so buffers are reserved in fixed locations. */
@@ -355,30 +372,7 @@ int main (void) {
       do *buff.bptr++ = pullch(); while (--len);
       buff.bptr = _buff;
 
-      if (ch == 'E') {
-        /* Supports EEPROM writing. */
-        /* You can pass the file with
-           'avrdude -U eeprom:w:Sketch.eep:i' option. */
-        address.word += MAPPED_EEPROM_START;
-        ch = length.bytes[0];
-        __asm__ __volatile__ (
-          R"#ASM#(
-              LDI   R24, %[flp] ; R24 <- NVMCTRL_CMD_EEERWR
-              RCALL nvm_cmd     ; Change NVMCTRL command
-          1:  LD    R0, X+      ; R0 <- X+
-              ST    Z+, R0      ;
-              DEC   %[len]      ; Decrement
-              BRNE  1b          ; Branch if Not Equal
-          )#ASM#"
-          : [len] "=d" ((uint8_t)ch)    /* byte length counter */
-          :       "0"  ((uint8_t)ch),
-                  "z"  (address.bptr),  /* Z <- to eeprom.ptr   */
-            [ptr] "x"  (buff.bptr),     /* X <- from sram.ptr  */
-            [flp] "I"  ((uint8_t)NVMCTRL_CMD_EEERWR_gc)
-          : "r24", "r25"
-        );
-      }
-      else /* if (ch == 'F') */ {
+      if (ch == 'F') {
         /***
           Please set the RAMPZ IO register (0x003B) correctly before calling.
           The counter is in “WORD” units.
@@ -388,31 +382,63 @@ int main (void) {
         ch = length.word >> 1;
         __asm__ __volatile__ (
           R"#ASM#(
-              LDI   R24, %[flp]   ; R24 <- NVMCTRL_CMD_FLPER
+              LDI   R24, %3       ; R24 <- NVMCTRL_CMD_FLPER
               RCALL nvm_cmd       ; Change NVMCTRL command
               SPM                 ; DS(RAMPZ:Z) <- 0xFFFF dummy write
-              LDI   R24, %[flw]   ; R24 <- NVMCTRL_CMD_FLWR
+              LDI   R24, %4       ; R24 <- NVMCTRL_CMD_FLWR
               RCALL nvm_cmd       ; Change NVMCTRL command
           1:  LD    R0, X+        ; R0 <- X+
               LD    R1, X+        ; R1 <- X+
               SPM   Z+            ; DS(RAMPZ:Z+) <- R1:R0
-              DEC   %[len]        ; Decrement
+              DEC   %0            ; Decrement
               BRNE  1b            ; Branch if Not Equal
               CLR   __zero_reg__  ; R1 <- 0
           )#ASM#"
-          : [len] "=d" ((uint8_t)ch)    /* word length counter */
-          :       "0"  ((uint8_t)ch),
-                  "z"  (address.bptr),  /* Z <- to flash.ptr   */
-            [ptr] "x"  (buff.bptr),     /* X <- from sram.ptr  */
-            [flp] "I"  ((uint8_t)NVMCTRL_CMD_FLPER_gc),
-            [flw] "I"  ((uint8_t)NVMCTRL_CMD_FLWR_gc)
+          : 
+          : "d" ((uint8_t)ch)    /* word length counter */
+          , "z" (address.bptr)   /* Z <- to flash.ptr   */
+          , "x" (buff.bptr)      /* X <- from sram.ptr  */
+          , "I" ((uint8_t)NVMCTRL_CMD_FLPER_gc)
+          , "I" ((uint8_t)NVMCTRL_CMD_FLWR_gc)
           : "r24", "r25"
+        );
+      }
+      else {
+        if (ch == 'E') {
+          /* Supports EEPROM writing. */
+          /* You can pass the file with
+            'avrdude -U eeprom:w:Sketch.eep:a' option. */
+          address.word += MAPPED_EEPROM_START;
+          nvm_cmd(NVMCTRL_CMD_EEERWR_gc);
+        }
+        else {
+          /* Supports BOOTROW/USERROW writing. */
+          /* You can pass the file with
+            'avrdude -U userrow:w:data.hex:a' option. */
+          nvm_cmd(NVMCTRL_CMD_FLPER_gc);
+          __asm__ __volatile__ (
+            "ST Z, __zero_reg__"
+            : "=z" (address.bptr)
+          );
+          nvm_cmd(NVMCTRL_CMD_FLWR_gc);
+        }
+        __asm__ __volatile__ (
+          R"#ASM#(
+          1:  LD    R0, X+  ; R0 <- X+
+              ST    Z+, R0  ;
+              DEC   %0      ; Decrement
+              BRNE  1b      ; Branch if Not Equal
+          )#ASM#"
+          : "=r" ((uint8_t)length.bytes[0])
+          : "0" ((uint8_t)length.bytes[0])
+          , "z" (address.bptr)  /* Z <- to eeprom.ptr */
+          , "x" (buff.bptr)     /* X <- from sram.ptr */
         );
       }
       end_of_packet();
     }
     else if (ch == STK_READ_PAGE) {
-      /* Read memory block mode, length is big endian.  */
+      /* Read memory block mode, length is big endian. */
       length.bytes[1] = pullch();
       length.bytes[0] = pullch();
       ch = pullch();
@@ -422,23 +448,22 @@ int main (void) {
          so we call that helper function. */
       if (ch == 'F') {
         /* Read the code space using ELPM. */
-        ch = length.word >> 1;
         __asm__ __volatile__ (
-          R"#ASM#(                ; Z <- address.bptr
-          1:  ELPM  R24, Z+       ; R24 <- (RAMPZ:Z)
-              RCALL putch         ; putch(R24)
-              SBIW  %[len], 1     ; Decrement R29:R28
-              BRNE  1b            ; Branch if Not Equal
+          R"#ASM#(            ; Z <- address.bptr
+          1:  ELPM  R24, Z+   ; R24 <- (RAMPZ:Z)
+              RCALL putch     ; putch(R24)
+              SBIW  %0, 1     ; Decrement R29:R28
+              BRNE  1b        ; Branch if Not Equal
           )#ASM#"
-          : [len] "=d" (length.word)
-          :        "z" (address.bptr),
-                   "0" (length.word)
+          : "=d" (length.word)
+          : "z" (address.bptr)
+          , "0" (length.word)
           : "r24", "r25"
         );
       }
-      else /* if (ch == 'E') */ {
+      else {
         /* It's not an absolute address, so add the EEPROM offset. */
-        address.word += MAPPED_EEPROM_START;
+        if (ch == 'E') address.word += MAPPED_EEPROM_START;
         do putch(*(address.bptr++)); while (--length.word);
       }
     }

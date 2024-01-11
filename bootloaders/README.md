@@ -33,8 +33,7 @@ FLASH は最大容量 48 KiB、ワード粒度で、リード 256 byte、ライ�
 
 ### boot_dx.c
 
-これは __AVR_DA/DB/DD__ 系統用の NVMCTRL version 2 仕様と、
-__AVR_DU__ 系統用の NVMCTRL version 4 仕様に適合するブートローダーだ。
+これは __AVR_DA/DB/DD__ 系統用の NVMCTRL version 2 仕様と、__AVR_DU__ 系統用の NVMCTRL version 4 仕様に適合するブートローダーだ。
 生成されるバイナリは __AVR_DA/DB/DD__ 系統、または __AVR_DU__ それぞれの全品種に共通してインストール可能であり、バリエーションは UARTや LEDの選択違いだけである。
 EEPROM は バイト粒度で、リード 256 byte、ライト 2 byte に対応する。
 FLASH は最大容量 128 KiB、ワード粒度で、リード 512 byte、ライト 512 byte に対応する。
@@ -43,15 +42,14 @@ FLASH は最大容量 128 KiB、ワード粒度で、リード 512 byte、ライ
 
 > __AVR_DU__ は NVM制御方法が異なるため他の AVR_Dx 系統とはバイナリ共用ではない。
 また USBインタフェースを持っているため、シリアルポート方式のブートローダーを選択する必要性は薄い。
-（おそらく USBインタフェースファームウェアそれ自体を開発する目的に限定される）
+おそらく USBインタフェースファームウェアそれ自体を開発する目的に限定される。
 
 ### boot_ex.c
 
-これは __AVR_EA__ 系統用の NVMCTRL version 3 仕様と、
-__AVR_EB__ 系統用の NVMCTRL version 5 仕様に適合するブートローダーだ。両者の差は僅かなので、同一のソースコードからそれぞれのバイナリを作り分ける。
+これは __AVR_EA__ 系統用の NVMCTRL version 3 仕様と、__AVR_EB__ 系統用の NVMCTRL version 5 仕様に適合するブートローダーだ。両者の差は僅かなので、同一のソースコードからそれぞれのバイナリを作り分ける。
 生成されるバイナリは __AVR_EA/EB__ 各系統別に共通してインストール可能であり、バリエーションは UARTや LEDの選択違いだけである。
 EEPROM は バイト粒度で、リード 256 byte、ライト 8 byte に対応する。
-FLASH は最大容量 64 KiB、ワード粒度で、リード 256 byte、ライト 128 byte に対応する。
+FLASH は最大容量 64 KiB、ワード粒度で、リード 256 byte、ライト 64 byte または 128 byte に対応する。
 
 > この系統は BOOTCODE 粒度が 256 byte なので、FUSE_BOOTSIZE（fuse8）には `2` を指定する。
 
@@ -69,7 +67,7 @@ FLASH は最大容量 64 KiB、ワード粒度で、リード 256 byte、ライ�
 
 HEXフォルダとBINフォルダには主だったUART/LED違いのバリエーションが置かれている。既定ビルドは、20pin以上の品種用は `TX:PA0`、`RX:PA1`、`LED:PA7` で統一されている。
 
-> AVR_DD/EBの 14pin 品種には PA7 がないため PD7 が代わりに使用される。
+> AVR_DD/EBの 14pin 品種には PA7 がないため PD7 あるいは PC3 が代わりに使用される。
 
 ## Arduino IDE での EEPROM リード/ライト
 
@@ -82,7 +80,7 @@ char estring[] EEMEM = "0123456789ABCDEF";  // <-- HERE
 
 その後`Save guard "Retained"`とした場合、新たなスケッチを書き込んでも EEPROMは以前に書き込んだ状態を維持する。
 
-この状態は `Save guard "Erase"` として消去するか、`"Erase" and "Replace"` として改めて書き込み直すまで変わらない。
+この状態は `Save guard "Erase"` としてブートローダーを書き込むか、`"Erase" and "Replace"` として改めて EEPROM（ファイル）を書き込み直すまで変わらない。
 
 > EEPROM領域量は MCU品種によって異なる。その大きさはマクロ`EEPROM_SIZE`で知ることが出来る。
 
@@ -93,17 +91,60 @@ char estring[] EEMEM = "0123456789ABCDEF";  // <-- HERE
 
 ATMEL STK500 version 1 プロトコルの制約により、ブートローダーでの対応 NVM 種別は FLASH と EEPROM に限られる。ただし UPDI 世代デバイスの特性により EEPROM 種別選択を流用すると全 64KiB のデータ空間を読むことが可能だ。書き込みはできないが EEPROM 設定を USERROW のそれに（ユーザー構成ファイルを使って）置き換えると、USERROW 空間へもアクセスできる。これは施錠されたデバイスの USERROW をブートローダーを使って読むことが可能になるため、知っておくと便利だ。
 
+> [!NOTE]
+> v3.71 では USERROW領域 / BOOTROW領域 の読み書き、および全 64KiB データ空間の読み出しが可能。ただし現行の `AVRDUDE` はこれに対応していない。
+
+## バージョン表記
+
+`avrdude -c arduino -v`を使用した場合、以下の例のような情報を得られる。
+
+```plain
+Programming modes     : UPDI, SPM
+Programmer Type       : Arduino
+Description           : Arduino for bootloader using STK500 v1 protocol
+HW Version            : 53
+FW Version            : 3.71
+```
+
+`FW Version`(FWV)は一般原則に従う、ブートローダーファームウェアの版番号だ。
+`HW Version`(HWV)は次の分類を示し、対象デバイスの`NVMCTRL version`に一致する。
+
+|HWV|ASCII|Series|
+|-|-|-|
+|48|'0'|tinyAVR-0/1/2、megaAVR-0
+|50|'2'|AVR_DA/DB/DD
+|51|'3'|AVR_EA
+|52|'4'|AVR_DU
+|53|'5'|AVR_EB
+
+> `avrdude -c urclock`では、バージョン表記は取得できない。
+
 ## SPMスニペット
 
-以下の PGMEMアドレスに、この機能が有効なら以下の固定値が書かれている。
+以下の PROGMEMアドレスに、以下の固定値が書かれている。（=v3.71）
 
 |Series|Address|マジックナンバー : uint32_t (LE)|
 |-|-|-|
-|megaAVR-0 tinyAVR-0/1/2|MAPPED_PROGMEM_START + 2 Byte|0x95089201|
-|AVR_DA/DB/DD/DU/EA/EB|PROGMEM_START + 2 Byte|0x950895F8|
+|megaAVR-0 tinyAVR-0/1/2|MAPPED_PROGMEM_START + 2 Byte|0x95089361|
+|AVR_DA/DB/DD/DU/EA/EB|PROGMEM_START + 2 Byte|0x95089361|
 
-これらは BOOT領域保護特権で CODE領域 / APPEND領域の FLASH消去/書換を行うのに使うことが出来る。
+> `MAPPED_PROGMEM_START`は通常のデータ空間、`PROGMEM_START`は PROGMEM 空間にある。
 
+使用可能なスニペットは2種あるいは4種存在する。
+これらは実行コード権限のプログラムカウンタ（PC）検査を回避するために、ここに配置されている。
+
+|Offset|HWV=48|HWV=50以上|OP-Code|
+|-|-|-|-|
+|$02|nvm_stz|nvm_stz|ST Z+, R22
+|$06|nvm_cmd|nvm_ldz|LD R24, Z+
+|$0A|-      |nvm_spm|SPM Z+
+|$0E|-      |nvm_cmd|(function)
+
+これらは BOOT領域保護特権で CODE領域 / APPEND領域（そして一部品種の BOOTCODE領域）の FLASH消去/書換を行うのに使うことが出来る。
+
+- HWV=48は 16bitアドレス品種用のため`SPM+`が存在せず、`LPM/LD`の使い分けもない。
+- `LDZ/STZ`は BOOTROW 非採用デバイスでは不要だが、コード互換性のために存在する。
+- C/C++言語からスニペットを呼ぶにはラッパーアセンブリが必要。
 - `MCUdude`や`DxCore`での同種の機能とは仕様が異なり、相互に互換性はない。
 
 > 実際の使用例は [[FlashNVM ツールリファレンス]](https://github.com/askn37/askn37.github.io/wiki/FlashNVM) を参照のこと。
@@ -135,6 +176,9 @@ boot_ex> sh make_all.sh
 ### ビルドオプション
 
 以下のビルドオプションは make コマンドラインオプションに指定できる。
+
+> [!NOTE]
+> __AVR128Dx__ を指定してのビルド時は空き領域が非常に少ないため、すべての追加機能を同時に有効化することができない。実行バイナリ量が 512byte に収まらない場合は、`LED_BLINK=0`あるいは`LED=0`を試すと軽減される。
 
 #### ビルドターゲット
 
@@ -194,6 +238,15 @@ RS485モード有効時に、RxD入力ピンを無効にした単線半二重通
 #### RS485_INVERT=1
 
 RS485モード有効時の XDIR出力ピンを負論理に反転する。
+
+## 更新履歴
+
+- v3.71 (24/01/10)
+  - __AVR16EB32__ での実機確認
+  - BOOTROW 対応に伴う SPMスニペット仕様の変更
+
+- v3.7 (23/12/11)
+  - （Optibootから分離した）初版
 
 ## Copyright and Contact
 

@@ -416,10 +416,7 @@ int main (void) {
           /* You can pass the file with
             'avrdude -U userrow:w:data.hex:a' option. */
           nvm_cmd(NVMCTRL_CMD_FLPER_gc);
-          __asm__ __volatile__ (
-            "ST Z, __zero_reg__"
-            : "=z" (address.bptr)
-          );
+          *(address.bptr) = 0;
           nvm_cmd(NVMCTRL_CMD_FLWR_gc);
         }
         __asm__ __volatile__ (

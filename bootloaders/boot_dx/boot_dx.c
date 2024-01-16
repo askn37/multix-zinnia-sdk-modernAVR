@@ -395,7 +395,7 @@ int main (void) {
               CLR   __zero_reg__  ; R1 <- 0
           )#ASM#"
           : 
-          : "d" ((uint8_t)ch)    /* word length counter */
+          : "r" ((uint8_t)ch)    /* word length counter */
           , "z" (address.bptr)   /* Z <- to flash.ptr   */
           , "x" (buff.bptr)      /* X <- from sram.ptr  */
           , "I" ((uint8_t)NVMCTRL_CMD_FLPER_gc)
@@ -426,8 +426,8 @@ int main (void) {
               DEC   %0      ; Decrement
               BRNE  1b      ; Branch if Not Equal
           )#ASM#"
-          : "=r" ((uint8_t)length.bytes[0])
-          : "0" ((uint8_t)length.bytes[0])
+          :
+          : "r" ((uint8_t)length.bytes[0])
           , "z" (address.bptr)  /* Z <- to eeprom.ptr */
           , "x" (buff.bptr)     /* X <- from sram.ptr */
         );
@@ -452,9 +452,9 @@ int main (void) {
               SBIW  %0, 1     ; Decrement R29:R28
               BRNE  1b        ; Branch if Not Equal
           )#ASM#"
-          : "=d" (length.word)
-          : "z" (address.bptr)
-          , "0" (length.word)
+          : "=p" (length.word)
+          : "0" (length.word)
+          , "z" (address.bptr)
           : "r24", "r25"
         );
       }

@@ -4,7 +4,7 @@ AVRDUDEROOT=../../../../../tools/avrdude/7.2-arduino.1/bin
 PORT=/dev/cu.usbserial-230
 PGM=jtag2updi
 PART=avr64ea32
-BOOTS=./boot_avr64ea48.hex
+BOOTS=./boot_avr64ea32.hex
 
 # The BOOTCODE granularity for this series is 256 bytes, so write 2 to FUSE8.
 

@@ -1798,22 +1798,22 @@ AVRDB_noloader.menu.53_printf.01_default=default
 AVRDB_noloader.menu.53_printf.02_full.build.printf=-DUSE_PRINTF_FLT
 AVRDB_noloader.menu.53_printf.02_full.build.printflt=-Wl,-u,vfprintf -lprintf_flt
 AVRDB_noloader.menu.53_printf.02_full=Float Support
-AVRDB_noloader.menu.54_console_select.01_PA0_PA1_PA7.build.console_select=-DSerial=Serial0A
-AVRDB_noloader.menu.54_console_select.01_PA0_PA1_PA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
-AVRDB_noloader.menu.54_console_select.01_PA0_PA1_PA7=UART0 TX:PA0 RX:PA1 LED=PA7
-AVRDB_noloader.menu.54_console_select.02_PC0_PC1_PA7.build.console_select=-DSerial=Serial1A
-AVRDB_noloader.menu.54_console_select.02_PC0_PC1_PA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
-AVRDB_noloader.menu.54_console_select.02_PC0_PC1_PA7=UART1 TX:PC0 RX:PC1 LED=PA7
-AVRDB_noloader.menu.54_console_select.03_PF0_PF1_PA7.build.console_select=-DSerial=Serial2A
-AVRDB_noloader.menu.54_console_select.03_PF0_PF1_PA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
-AVRDB_noloader.menu.54_console_select.03_PF0_PF1_PA7=UART2 TX:PF0 RX:PF1 LED=PA7
-AVRDB_noloader.menu.54_console_select.03_PF4_PF5_PA7.build.console_select=-DSerial=Serial2B
-AVRDB_noloader.menu.54_console_select.03_PF4_PF5_PA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
-AVRDB_noloader.menu.54_console_select.03_PF4_PF5_PA7=UART2 TX:PF4 RX:PF5 LED=PA7
+AVRDB_noloader.menu.54_console_select.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
+AVRDB_noloader.menu.54_console_select.01_UART0_A0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVRDB_noloader.menu.54_console_select.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7
+AVRDB_noloader.menu.54_console_select.02_UART1_C0_LA7.build.console_select=-DSerial=Serial1A
+AVRDB_noloader.menu.54_console_select.02_UART1_C0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVRDB_noloader.menu.54_console_select.02_UART1_C0_LA7=UART1 TX:PC0 RX:PC1 LED=PA7
+AVRDB_noloader.menu.54_console_select.03_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
+AVRDB_noloader.menu.54_console_select.03_UART2_F0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVRDB_noloader.menu.54_console_select.03_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7
+AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7.build.console_select=-DSerial=Serial2B
+AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7
 AVRDB_noloader.menu.54_console_select.10=-
-AVRDB_noloader.menu.54_console_select.11_PB0_PB1_PB3.build.console_select=-DSerial=Serial3A
-AVRDB_noloader.menu.54_console_select.11_PB0_PB1_PB3.build.led_pin=-DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
-AVRDB_noloader.menu.54_console_select.11_PB0_PB1_PB3=UART3 TX:PB0 RX:PB1 LED=PB3 SW=PB2 (AVR128DB48 Curiosity Nano)
+AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3_Curiosity.build.console_select=-DSerial=Serial3A
+AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3_Curiosity.build.led_pin=-DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
+AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3_Curiosity=UART3 TX:PB0 RX:PB1 LED=PB3 SW=PB2 (AVR128DB48 Curiosity Nano)
 AVRDB_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVRDB_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVRDB_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400
@@ -2687,6 +2687,10 @@ AVREA_noloader.menu.54_console_select.12_UART1_D6_LA7=UART1 TX:PD6 RX:PD7 LED=PA
 AVREA_noloader.menu.54_console_select.13_UART2_F4_LA7.build.console_select=-DSerial=Serial2B
 AVREA_noloader.menu.54_console_select.13_UART2_F4_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVREA_noloader.menu.54_console_select.13_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7 (alt 32/48pin only)
+AVREA_noloader.menu.54_console_select.20=-
+AVREA_noloader.menu.54_console_select.21_UART1_C0_LB3_SC2.build.console_select=-DSerial=Serial1A
+AVREA_noloader.menu.54_console_select.21_UART1_C0_LB3_SC2.build.led_pin=-DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
+AVREA_noloader.menu.54_console_select.21_UART1_C0_LB3_SC2=UART1 TX:PC0 RX:PC1 LED=PB3 SW=PB2 (AVR64EA48 Curiosity Nano)
 AVREA_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVREA_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVREA_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400
@@ -2855,6 +2859,10 @@ AVREB_noloader.menu.54_console_select.10=-
 AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7.build.console_select=-DSerial=Serial0A
 AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7.build.led_pin=-DLED_BUILTIN=PIN_PD7
 AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7=UART0 TX:PA0 RX:PA1 LED=PD7 (14pin)
+AVREB_noloader.menu.54_console_select.20=-
+AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7.build.console_select=-DSerial=Serial1E
+AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7.build.led_pin=-DLED_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PF6
+AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7=UART1 TX:PC1 RX:PC2 LED=PF5 SW=PF6 (AVR16EB32 Curiosity Nano)
 AVREB_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVREB_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVREB_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400

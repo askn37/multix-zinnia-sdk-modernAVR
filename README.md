@@ -376,7 +376,7 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 - 0.2.10 (23/01/11)
   - `7.3.0-avr8-gnu-toolchain-231214`に更新。
     - __AVR64DU28/32__ に暫定対応。
-    - __AVR_EB__ の一部に対応。AVR16EB32 を動作確認済表に追加。
+    - 動作確認済に __AVR64EA32__、 __AVR64EA48__、 __AVR16EB32__ を追加。
   - __Core Modules__ の `<api/UarfUART.h>`を微修正。`AVR_EVSYS=201`修正。
   - __Core Libraries__ の修正／追加と応用記述の追加。
     - `<ReadUART.h>`

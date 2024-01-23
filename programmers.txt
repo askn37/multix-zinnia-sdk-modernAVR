@@ -70,14 +70,14 @@
 # 26_atmelice_updi.program.tool=avrdude
 # 26_atmelice_updi.program.extra_params=-P usb
 
-31_jtag2updi.name=JTAG2UPDI over UART (NVM v2/v3 Remodeling)
+31_jtag2updi.name=JTAG2UPDI over UART (NVM Enhanced)
 31_jtag2updi.communication=serial
 31_jtag2updi.protocol=jtag2updi
 31_jtag2updi.program.protocol=jtagmkii_updi
 31_jtag2updi.program.tool=avrdude
 31_jtag2updi.program.extra_params=-P {serial.port} -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
 
-# 32_jtag2updi.name=JTAG2UPDI over UART (slow) (NVM v2/v3 Remodeling)
+# 32_jtag2updi.name=JTAG2UPDI over UART (slow) (NVM Enhanced)
 # 32_jtag2updi.communication=serial
 # 32_jtag2updi.protocol=jtag2updi
 # 32_jtag2updi.program.protocol=jtagmkii_updi

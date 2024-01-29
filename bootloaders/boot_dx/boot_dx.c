@@ -423,11 +423,11 @@ int main (void) {
           R"#ASM#(
           1:  LD    R0, X+  ; R0 <- X+
               ST    Z+, R0  ;
-              DEC   %0      ; Decrement
+              SBIW  %0, 1   ; Decrement
               BRNE  1b      ; Branch if Not Equal
           )#ASM#"
           :
-          : "r" ((uint8_t)length.bytes[0])
+          : "r" (length.word)
           , "z" (address.bptr)  /* Z <- to eeprom.ptr */
           , "x" (buff.bptr)     /* X <- from sram.ptr */
         );

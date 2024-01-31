@@ -125,6 +125,10 @@ void putch (uint8_t ch) {
   /* Put-Character will not send the character unless the buffer is empty. */
   loop_until_bit_is_set(UART_BASE.STATUS, USART_DREIF_bp);
   UART_BASE.TXDATAL = ch;
+  #ifdef RS485_SINGLE
+  /* drop loopback */
+  pullch();
+  #endif
 }
 
 __attribute__((noinline))
@@ -198,12 +202,11 @@ int main (void) {
   RSTCTRL_RSTFR = ch; /* clear flags */
   GPR_GPR0 = ch;      /* Backup so user code can be referenced */
 
-  /* If the register is zero, consider it a user call and perform a software
-     reset. This is just in case, so it consumes extra code space. */
+  /* If register is zero, perform software reset */
   if (ch == 0) _PROTECTED_WRITE(RSTCTRL_SWRR, 1);
 
-  /* WDT or soft reset executes user code */
-  if (bit_is_set(GPR_GPR0, RSTCTRL_WDRF_bp) || ch < 4) {
+  /* WDT reset executes user code */
+  if (bit_is_set(GPR_GPR0, RSTCTRL_WDRF_bp)) {
     __asm__ __volatile__ ( "RJMP appcode" );
   }
 

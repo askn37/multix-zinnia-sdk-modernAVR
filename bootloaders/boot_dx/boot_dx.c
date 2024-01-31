@@ -199,8 +199,14 @@ int main (void) {
   /* If register is zero, perform software reset */
   if (ch == 0) _PROTECTED_WRITE(RSTCTRL_SWRR, 1);
 
+  #ifdef PORSTRAP
   /* WDT reset executes user code */
-  if (bit_is_set(GPR_GPR0, RSTCTRL_WDRF_bp)) {
+  if (bit_is_set(GPIO_GPIOR0, RSTCTRL_WDRF_bp))
+  #else
+  /* WDT and hardware restart causes user code to execute */
+  if (ch & (RSTCTRL_WDRF_bm | RSTCTRL_BORF_bm | RSTCTRL_PORF_bm))
+  #endif
+  {
     __asm__ __volatile__ ( "RJMP appcode" );
   }
 

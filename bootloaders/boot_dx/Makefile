@@ -91,6 +91,10 @@ ifdef PULLUP_RX
 OPTIONS += -DPULLUP_RX
 endif
 
+ifdef PORSTRAP
+OPTIONS += -DPORSTRAP
+endif
+
 ifdef RS485
 OPTIONS += -DRS485
 endif

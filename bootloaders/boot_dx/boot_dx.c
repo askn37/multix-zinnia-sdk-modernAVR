@@ -97,17 +97,26 @@ __attribute__((used))
 __attribute__((noinline))
 __attribute__((section (".init1")))
 void nvm_cmd (uint8_t _nvm_cmd) {
-  /* This function occupies 18 bytes of space. */
-  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
+  /* This function occupies 22 bytes of space. */
   // while (NVMCTRL_STATUS & 3);
+  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, NVMCTRL_CMD_NONE_gc);
+  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
   __asm__ __volatile__ (
     R"#ASM#(
-          LDI   R25, 0x9D 
-          OUT   0x34, R25
-          STS   %1, R24
       1:  LDS   R25, %0
           ANDI  R25, 3
           BRNE  1b
+          LDI   R25, 0x9D
+    )#ASM#"
+  #if (BOOT_HW_VER == '4')
+    R"#ASM#(
+          OUT   0x34, R25
+          STS   %1, __zero_reg__
+    )#ASM#"
+  #endif
+    R"#ASM#(
+          OUT   0x34, R25
+          STS   %1, R24
     )#ASM#"
     :: "p" (_SFR_MEM_ADDR(NVMCTRL_STATUS))
      , "p" (_SFR_MEM_ADDR(NVMCTRL_CTRLA))
@@ -201,7 +210,7 @@ int main (void) {
 
   #ifdef PORSTRAP
   /* WDT reset executes user code */
-  if (bit_is_set(GPIO_GPIOR0, RSTCTRL_WDRF_bp))
+  if (bit_is_set(GPR_GPR0, RSTCTRL_WDRF_bp))
   #else
   /* WDT and hardware restart causes user code to execute */
   if (ch & (RSTCTRL_WDRF_bm | RSTCTRL_BORF_bm | RSTCTRL_PORF_bm))
@@ -314,8 +323,9 @@ int main (void) {
       end_of_packet();
       if (ch == PAR_SW_MINOR)
         ch = BOOT_MINVER;
-      else if (ch == PAR_SW_MAJOR)
-        ch = BOOT_MAJVER;
+      /* To save space, this value is not returned */
+      // else if (ch == PAR_SW_MAJOR)
+      //   ch = BOOT_MAJVER;
       else
         ch = BOOT_HW_VER;
       putch(ch);
@@ -394,6 +404,8 @@ int main (void) {
               LDI   R24, %3       ; R24 <- NVMCTRL_CMD_FLPER
               RCALL nvm_cmd       ; Change NVMCTRL command
               SPM                 ; DS(RAMPZ:Z) <- 0xFFFF dummy write
+          )#ASM#"
+          R"#ASM#(
               LDI   R24, %4       ; R24 <- NVMCTRL_CMD_FLWR
               RCALL nvm_cmd       ; Change NVMCTRL command
           1:  LD    R0, X+        ; R0 <- X+
@@ -403,7 +415,7 @@ int main (void) {
               BRNE  1b            ; Branch if Not Equal
               CLR   __zero_reg__  ; R1 <- 0
           )#ASM#"
-          : 
+          :
           : "r" ((uint8_t)ch)    /* word length counter */
           , "z" (address.bptr)   /* Z <- to flash.ptr   */
           , "x" (buff.bptr)      /* X <- from sram.ptr  */

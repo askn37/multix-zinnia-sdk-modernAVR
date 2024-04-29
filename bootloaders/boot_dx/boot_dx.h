@@ -14,8 +14,8 @@
 /*** Default vaules ***/
 
 // #define BOOT_HW_VER '2' /* This is defined later */
-#define BOOT_MAJVER 3
-#define BOOT_MINVER 71
+#define BOOT_MAJVER 3   /* To save space, this value is not returned */
+#define BOOT_MINVER 72
 
 #ifndef UART
 #define UART A0

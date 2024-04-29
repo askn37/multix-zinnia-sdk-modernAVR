@@ -26,7 +26,7 @@ AVRDA.build.core=modernAVR
 AVRDD.name=AVR DD with Bootloader
 AVRDD.build.board=AVR64DD32
 AVRDD.build.core=modernAVR
-AVRDU.name=AVR DU with Bootloader (Preliminary)
+AVRDU.name=AVR DU with Bootloader
 AVRDU.build.board=AVR64DU32
 AVRDU.build.core=modernAVR
 AVREA.name=AVR EA with Bootloader
@@ -54,7 +54,7 @@ AVRDA_noloader.build.core=modernAVR
 AVRDD_noloader.name=AVR DD w/o Bootloader
 AVRDD_noloader.build.board=AVR64DD32
 AVRDD_noloader.build.core=modernAVR
-AVRDU_noloader.name=AVR DU w/o Bootloader (Preliminary)
+AVRDU_noloader.name=AVR DU w/o Bootloader
 AVRDU_noloader.build.board=AVR64DU32
 AVRDU_noloader.build.core=modernAVR
 AVREA_noloader.name=AVR EA w/o Bootloader
@@ -795,57 +795,57 @@ AVRDU.menu.01_variant.32_AVR64DU28.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDU.menu.01_variant.32_AVR64DU28.upload.maximum_data_size=8192
 AVRDU.menu.01_variant.32_AVR64DU28.upload.maximum_size=65024
 AVRDU.menu.01_variant.32_AVR64DU28=28pin AVR64DU28 (64KiB+8KiB)
-AVRDU.menu.02_clock.01_32MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.01_32MHz.build.f_cpu=32000000L
-AVRDU.menu.02_clock.01_32MHz=Internal 32 MHz (default)
-AVRDU.menu.02_clock.02_16MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.02_16MHz.build.f_cpu=16000000L
-AVRDU.menu.02_clock.02_16MHz=Internal 16 MHz
-AVRDU.menu.02_clock.03_8MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.03_8MHz.build.f_cpu=8000000L
-AVRDU.menu.02_clock.03_8MHz=Internal 8 MHz
-AVRDU.menu.02_clock.04_4MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.04_4MHz.build.f_cpu=4000000L
-AVRDU.menu.02_clock.04_4MHz=Internal 4 MHz
-AVRDU.menu.02_clock.05_2MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.05_2MHz.build.f_cpu=2000000L
-AVRDU.menu.02_clock.05_2MHz=Internal 2 MHz
-AVRDU.menu.02_clock.06_1MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.06_1MHz.build.f_cpu=1000000L
-AVRDU.menu.02_clock.06_1MHz=Internal 1 MHz
+AVRDU.menu.02_clock.01_20MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.01_20MHz.build.f_cpu=20000000L
+AVRDU.menu.02_clock.01_20MHz=Internal 20 MHz (recommend)
+AVRDU.menu.02_clock.02_10MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.02_10MHz.build.f_cpu=10000000L
+AVRDU.menu.02_clock.02_10MHz=Internal 10 MHz
+AVRDU.menu.02_clock.03_5MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.03_5MHz.build.f_cpu=5000000L
+AVRDU.menu.02_clock.03_5MHz=Internal 5 MHz
 AVRDU.menu.02_clock.10=-
-AVRDU.menu.02_clock.11_28MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.11_28MHz.build.f_cpu=28000000L
-AVRDU.menu.02_clock.11_28MHz=Internal 28 MHz
-AVRDU.menu.02_clock.12_14MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.12_14MHz.build.f_cpu=14000000L
-AVRDU.menu.02_clock.12_14MHz=Internal 14 MHz
-AVRDU.menu.02_clock.13_7MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.13_7MHz.build.f_cpu=7000000L
-AVRDU.menu.02_clock.13_7MHz=Internal 7 MHz
+AVRDU.menu.02_clock.11_24MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.11_24MHz.build.f_cpu=24000000L
+AVRDU.menu.02_clock.11_24MHz=Internal 24 MHz
+AVRDU.menu.02_clock.11_12MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.11_12MHz.build.f_cpu=12000000L
+AVRDU.menu.02_clock.11_12MHz=Internal 12 MHz
+AVRDU.menu.02_clock.13_6MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.13_6MHz.build.f_cpu=6000000L
+AVRDU.menu.02_clock.13_6MHz=Internal 6 MHz
+AVRDU.menu.02_clock.14_3MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.14_3MHz.build.f_cpu=3000000L
+AVRDU.menu.02_clock.14_3MHz=Internal 3 MHz
 AVRDU.menu.02_clock.20=-
-AVRDU.menu.02_clock.21_24MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.21_24MHz.build.f_cpu=24000000L
-AVRDU.menu.02_clock.21_24MHz=Internal 24 MHz
-AVRDU.menu.02_clock.22_12MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.22_12MHz.build.f_cpu=12000000L
-AVRDU.menu.02_clock.22_12MHz=Internal 12 MHz
-AVRDU.menu.02_clock.23_6MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.23_6MHz.build.f_cpu=6000000L
-AVRDU.menu.02_clock.23_6MHz=Internal 6 MHz
-AVRDU.menu.02_clock.24_3MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.24_3MHz.build.f_cpu=3000000L
-AVRDU.menu.02_clock.24_3MHz=Internal 3 MHz
+AVRDU.menu.02_clock.21_16MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.21_16MHz.build.f_cpu=16000000L
+AVRDU.menu.02_clock.21_16MHz=Internal 16 MHz
+AVRDU.menu.02_clock.22_8MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.22_8MHz.build.f_cpu=8000000L
+AVRDU.menu.02_clock.22_8MHz=Internal 8 MHz
+AVRDU.menu.02_clock.23_4MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.23_4MHz.build.f_cpu=4000000L
+AVRDU.menu.02_clock.23_4MHz=Internal 4 MHz
+AVRDU.menu.02_clock.24_2MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.24_2MHz.build.f_cpu=2000000L
+AVRDU.menu.02_clock.24_2MHz=Internal 2 MHz
+AVRDU.menu.02_clock.25_1MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.25_1MHz.build.f_cpu=1000000L
+AVRDU.menu.02_clock.25_1MHz=Internal 1 MHz
 AVRDU.menu.02_clock.30=-
-AVRDU.menu.02_clock.31_20MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.31_20MHz.build.f_cpu=20000000L
-AVRDU.menu.02_clock.31_20MHz=Internal 20 MHz
-AVRDU.menu.02_clock.32_10MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.32_10MHz.build.f_cpu=10000000L
-AVRDU.menu.02_clock.32_10MHz=Internal 10 MHz
-AVRDU.menu.02_clock.33_5MHz.bootloader.bod_sample=0
-AVRDU.menu.02_clock.33_5MHz.build.f_cpu=5000000L
-AVRDU.menu.02_clock.33_5MHz=Internal 5 MHz
+AVRDU.menu.02_clock.31_32MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.31_32MHz.build.f_cpu=32000000L
+AVRDU.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
+AVRDU.menu.02_clock.32_28MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.32_28MHz.build.f_cpu=28000000L
+AVRDU.menu.02_clock.32_28MHz=Internal 28 MHz (OVERCLOCK)
+AVRDU.menu.02_clock.33_14MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.33_14MHz.build.f_cpu=14000000L
+AVRDU.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
+AVRDU.menu.02_clock.34_7MHz.bootloader.bod_sample=0
+AVRDU.menu.02_clock.34_7MHz.build.f_cpu=7000000L
+AVRDU.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDU.menu.02_clock.40=-
 AVRDU.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDU.menu.02_clock.41_32768Hz.build.f_cpu=32256
@@ -922,6 +922,9 @@ AVRDU.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDU.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrdu_UART0_A0_{upload.speed}_LA7.hex
 AVRDU.menu.95_bootloader.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVRDU.menu.95_bootloader.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7 (default)
+AVRDU.menu.95_bootloader.02_UART0_D6_LA7.bootloader.file=hex/boot_avrdu_UART1_D6_{upload.speed}_LA7.hex
+AVRDU.menu.95_bootloader.02_UART0_D6_LA7.build.console_select=-DSerial=Serial1C
+AVRDU.menu.95_bootloader.02_UART0_D6_LA7=UART1 TX:PD6 RX:PD7 LED=PA7 (alt)
 
 
 AVRDD14.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
@@ -1811,9 +1814,9 @@ AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7.build.console_select=-DSer
 AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7
 AVRDB_noloader.menu.54_console_select.10=-
-AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3_Curiosity.build.console_select=-DSerial=Serial3A
-AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3_Curiosity.build.led_pin=-DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
-AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3_Curiosity=UART3 TX:PB0 RX:PB1 LED=PB3 SW=PB2 (AVR128DB48 Curiosity Nano)
+AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3.build.console_select=-DSerial=Serial3A
+AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3.build.led_pin=-DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
+AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3=UART3 TX:PB0 RX:PB1 LED=PB3 SW=PB2 (AVR128DB48 Curiosity Nano)
 AVRDB_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVRDB_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVRDB_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400
@@ -2051,9 +2054,9 @@ AVRDA_noloader.menu.54_console_select.04_UART2_F4_LA7.build.console_select=-DSer
 AVRDA_noloader.menu.54_console_select.04_UART2_F4_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVRDA_noloader.menu.54_console_select.04_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7 (32/48pin only)
 AVRDA_noloader.menu.54_console_select.10=-
-AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7_Curiosity.build.console_select=-DSerial=Serial1A
-AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7_Curiosity.build.led_pin=-DLED_BUILTIN=PIN_PC6 -DSW_BUILTIN=PIN_PC7
-AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7_Curiosity=UART1 TX:PC0 RX:PC1 LED=PC6 SW=PC7 (AVR128DA48 Curiosity Nano)
+AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7.build.console_select=-DSerial=Serial1A
+AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7.build.led_pin=-DLED_BUILTIN=PIN_PC6 -DSW_BUILTIN=PIN_PC7
+AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7=UART1 TX:PC0 RX:PC1 LED=PC6 SW=PC7 (AVR128DA48 Curiosity Nano)
 AVRDA_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVRDA_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVRDA_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400
@@ -2366,57 +2369,57 @@ AVRDU_noloader.menu.01_variant.32_AVR64DU28.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDU_noloader.menu.01_variant.32_AVR64DU28.upload.maximum_data_size=8192
 AVRDU_noloader.menu.01_variant.32_AVR64DU28.upload.maximum_size=65024
 AVRDU_noloader.menu.01_variant.32_AVR64DU28=28pin AVR64DU28 (64KiB+8KiB)
-AVRDU_noloader.menu.02_clock.01_32MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.01_32MHz.build.f_cpu=32000000L
-AVRDU_noloader.menu.02_clock.01_32MHz=Internal 32 MHz (default)
-AVRDU_noloader.menu.02_clock.02_16MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.02_16MHz.build.f_cpu=16000000L
-AVRDU_noloader.menu.02_clock.02_16MHz=Internal 16 MHz
-AVRDU_noloader.menu.02_clock.03_8MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.03_8MHz.build.f_cpu=8000000L
-AVRDU_noloader.menu.02_clock.03_8MHz=Internal 8 MHz
-AVRDU_noloader.menu.02_clock.04_4MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.04_4MHz.build.f_cpu=4000000L
-AVRDU_noloader.menu.02_clock.04_4MHz=Internal 4 MHz
-AVRDU_noloader.menu.02_clock.05_2MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.05_2MHz.build.f_cpu=2000000L
-AVRDU_noloader.menu.02_clock.05_2MHz=Internal 2 MHz
-AVRDU_noloader.menu.02_clock.06_1MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.06_1MHz.build.f_cpu=1000000L
-AVRDU_noloader.menu.02_clock.06_1MHz=Internal 1 MHz
+AVRDU_noloader.menu.02_clock.01_20MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.01_20MHz.build.f_cpu=20000000L
+AVRDU_noloader.menu.02_clock.01_20MHz=Internal 20 MHz (recommend)
+AVRDU_noloader.menu.02_clock.02_10MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.02_10MHz.build.f_cpu=10000000L
+AVRDU_noloader.menu.02_clock.02_10MHz=Internal 10 MHz
+AVRDU_noloader.menu.02_clock.03_5MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.03_5MHz.build.f_cpu=5000000L
+AVRDU_noloader.menu.02_clock.03_5MHz=Internal 5 MHz
 AVRDU_noloader.menu.02_clock.10=-
-AVRDU_noloader.menu.02_clock.11_28MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.11_28MHz.build.f_cpu=28000000L
-AVRDU_noloader.menu.02_clock.11_28MHz=Internal 28 MHz
-AVRDU_noloader.menu.02_clock.12_14MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.12_14MHz.build.f_cpu=14000000L
-AVRDU_noloader.menu.02_clock.12_14MHz=Internal 14 MHz
-AVRDU_noloader.menu.02_clock.13_7MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.13_7MHz.build.f_cpu=7000000L
-AVRDU_noloader.menu.02_clock.13_7MHz=Internal 7 MHz
+AVRDU_noloader.menu.02_clock.11_24MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.11_24MHz.build.f_cpu=24000000L
+AVRDU_noloader.menu.02_clock.11_24MHz=Internal 24 MHz
+AVRDU_noloader.menu.02_clock.11_12MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.11_12MHz.build.f_cpu=12000000L
+AVRDU_noloader.menu.02_clock.11_12MHz=Internal 12 MHz
+AVRDU_noloader.menu.02_clock.13_6MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.13_6MHz.build.f_cpu=6000000L
+AVRDU_noloader.menu.02_clock.13_6MHz=Internal 6 MHz
+AVRDU_noloader.menu.02_clock.14_3MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.14_3MHz.build.f_cpu=3000000L
+AVRDU_noloader.menu.02_clock.14_3MHz=Internal 3 MHz
 AVRDU_noloader.menu.02_clock.20=-
-AVRDU_noloader.menu.02_clock.21_24MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.21_24MHz.build.f_cpu=24000000L
-AVRDU_noloader.menu.02_clock.21_24MHz=Internal 24 MHz
-AVRDU_noloader.menu.02_clock.22_12MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.22_12MHz.build.f_cpu=12000000L
-AVRDU_noloader.menu.02_clock.22_12MHz=Internal 12 MHz
-AVRDU_noloader.menu.02_clock.23_6MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.23_6MHz.build.f_cpu=6000000L
-AVRDU_noloader.menu.02_clock.23_6MHz=Internal 6 MHz
-AVRDU_noloader.menu.02_clock.24_3MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.24_3MHz.build.f_cpu=3000000L
-AVRDU_noloader.menu.02_clock.24_3MHz=Internal 3 MHz
+AVRDU_noloader.menu.02_clock.21_16MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.21_16MHz.build.f_cpu=16000000L
+AVRDU_noloader.menu.02_clock.21_16MHz=Internal 16 MHz
+AVRDU_noloader.menu.02_clock.22_8MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.22_8MHz.build.f_cpu=8000000L
+AVRDU_noloader.menu.02_clock.22_8MHz=Internal 8 MHz
+AVRDU_noloader.menu.02_clock.23_4MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.23_4MHz.build.f_cpu=4000000L
+AVRDU_noloader.menu.02_clock.23_4MHz=Internal 4 MHz
+AVRDU_noloader.menu.02_clock.24_2MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.24_2MHz.build.f_cpu=2000000L
+AVRDU_noloader.menu.02_clock.24_2MHz=Internal 2 MHz
+AVRDU_noloader.menu.02_clock.25_1MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.25_1MHz.build.f_cpu=1000000L
+AVRDU_noloader.menu.02_clock.25_1MHz=Internal 1 MHz
 AVRDU_noloader.menu.02_clock.30=-
-AVRDU_noloader.menu.02_clock.31_20MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.31_20MHz.build.f_cpu=20000000L
-AVRDU_noloader.menu.02_clock.31_20MHz=Internal 20 MHz
-AVRDU_noloader.menu.02_clock.32_10MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.32_10MHz.build.f_cpu=10000000L
-AVRDU_noloader.menu.02_clock.32_10MHz=Internal 10 MHz
-AVRDU_noloader.menu.02_clock.33_5MHz.bootloader.bod_sample=0
-AVRDU_noloader.menu.02_clock.33_5MHz.build.f_cpu=5000000L
-AVRDU_noloader.menu.02_clock.33_5MHz=Internal 5 MHz
+AVRDU_noloader.menu.02_clock.31_32MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.31_32MHz.build.f_cpu=32000000L
+AVRDU_noloader.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
+AVRDU_noloader.menu.02_clock.32_28MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.32_28MHz.build.f_cpu=28000000L
+AVRDU_noloader.menu.02_clock.32_28MHz=Internal 28 MHz (OVERCLOCK)
+AVRDU_noloader.menu.02_clock.33_14MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.33_14MHz.build.f_cpu=14000000L
+AVRDU_noloader.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
+AVRDU_noloader.menu.02_clock.34_7MHz.bootloader.bod_sample=0
+AVRDU_noloader.menu.02_clock.34_7MHz.build.f_cpu=7000000L
+AVRDU_noloader.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDU_noloader.menu.02_clock.40=-
 AVRDU_noloader.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDU_noloader.menu.02_clock.41_32768Hz.build.f_cpu=32256
@@ -2478,6 +2481,12 @@ AVRDU_noloader.menu.53_printf.02_full=Float Support
 AVRDU_noloader.menu.54_console_select.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVRDU_noloader.menu.54_console_select.01_UART0_A0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVRDU_noloader.menu.54_console_select.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7
+AVRDU_noloader.menu.54_console_select.02_UART1_D6_LA7.build.console_select=-DSerial=Serial1C
+AVRDU_noloader.menu.54_console_select.02_UART1_D6_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVRDU_noloader.menu.54_console_select.02_UART1_D6_LA7=UART1 TX:PD6 RX:PD7 LED=PA7
+AVRDU_noloader.menu.54_console_select.03_UART0_D6_LF2.build.console_select=-DSerial=Serial1C
+AVRDU_noloader.menu.54_console_select.03_UART0_D6_LF2.build.led_pin=-DLED_BUILTIN=PIN_PF2
+AVRDU_noloader.menu.54_console_select.03_UART0_D6_LF2_SF6=UART1 TX:PD6 RX:PD7 LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
 AVRDU_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVRDU_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVRDU_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400

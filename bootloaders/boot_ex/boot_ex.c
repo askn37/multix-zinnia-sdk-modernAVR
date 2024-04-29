@@ -207,7 +207,7 @@ int main (void) {
 
   #ifdef PORSTRAP
   /* WDT reset executes user code */
-  if (bit_is_set(GPIO_GPIOR0, RSTCTRL_WDRF_bp))
+  if (bit_is_set(GPR_GPR0, RSTCTRL_WDRF_bp))
   #else
   /* WDT and hardware restart causes user code to execute */
   if (ch & (RSTCTRL_WDRF_bm | RSTCTRL_BORF_bm | RSTCTRL_PORF_bm))
@@ -330,8 +330,9 @@ else {
       end_of_packet();
       if (ch == PAR_SW_MINOR)
         ch = BOOT_MINVER;
-      else if (ch == PAR_SW_MAJOR)
-        ch = BOOT_MAJVER;
+      /* To save space, this value is not returned */
+      // else if (ch == PAR_SW_MAJOR)
+      //   ch = BOOT_MAJVER;
       else
         ch = BOOT_HW_VER;
       putch(ch);

@@ -55,17 +55,19 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16DD28 AVR32DD28 AVR64DD28
     - AVR16DD32 AVR32DD32 AVR64DD32
   - AVR DU 系統
-    - AVR64DD28
-    - AVR64DD32
+    - *AVR16DD14* *AVR32DD14*
+    - *AVR16DD20* *AVR32DD20*
+    - *AVR16DD28* *AVR32DD28* AVR64DD28
+    - *AVR16DD32* *AVR32DD32* AVR64DD32
   - AVR EA 系統
-    - AVR16EA48 AVR32EA48 AVR64EA48
-    - AVR16EA32 AVR32EA32 AVR64EA32
     - AVR16EA28 AVR32EA28 AVR64EA28
+    - AVR16EA32 AVR32EA32 AVR64EA32
+    - AVR16EA48 AVR32EA48 AVR64EA48
   - AVR EB 系統
-    - AVR16EB32
-    - AVR16EB28
-    - AVR16EB20
-    - AVR16EB14
+    - AVR16EB14 *AVR32EB14*
+    - AVR16EB20 *AVR32EB20*
+    - AVR16EB28 *AVR32EB28*
+    - AVR16EB32 *AVR32EB32*
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
@@ -122,7 +124,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DB with Bootloader
   - AVR DA with Bootloader
   - AVR DD with Bootloader
-  - AVR DU with Bootloader (Preliminary)
+  - AVR DU with Bootloader
   - AVR EA with Bootloader
   - AVR EB with Bootloader
   - *(separator) 以上28ピン以上製品専用、以下14ピン製品専用*
@@ -132,7 +134,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DB w/o Bootloader
   - AVR DA w/o Bootloader
   - AVR DD w/o Bootloader
-  - AVR DU w/o Bootloader (Preliminary)
+  - AVR DU w/o Bootloader
   - AVR EA w/o Bootloader
   - AVR EB w/o Bootloader
 - __MultiX Zinnia Product SDK [reduceAVR]__
@@ -354,6 +356,10 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 ## AVR_DU/EA/EB 系統への対応
 
+標準インストールの `AVRDUDE` は、以下のリリースから `https://downloads.arduino.cc/tools/` を通じて組み込まれている。現行最新リリースは`7.2`である。
+
+- [https://github.com/arduino/avrdude-packing/releases](https://github.com/arduino/avrdude-packing/releases)
+
 - __AVR_EA/EB__ 系統の正式サポートには *avrdude 7.3* 以降のリリースが必要
   - ただし __AVR_EB__ の BOOTROW 書き込みには書込器側ファームウェア対応の制約がある。
 - __AVR_DU__ 系統の正式サポートには *avrdude 7.4* 以降のリリースが必要（計画）
@@ -363,15 +369,25 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 ### AVR_EA 系統の制約
 
-- FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 値以外に変更してはならない。初期生産ロット(B1)は回路の不具合により正常な動作をしない。この不具合は二次生産ロット(B2)以降で解消されている。
+- FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 値以外に変更してはならない。初期ロット(B1)は回路の不具合により正常な動作をしない。この不具合は二次生産ロット(B2)以降で解消されている。
 
 ### AVR_EB 系統の制約
 
-- 初期生産ロット(A0)は、LOCK.KEY または FUSE.PDICFG を既定値以外に変更すると、以後の UPDI NVMPROG 制御再獲得が（HV制御と無関係に）全面的に困難または不可能となる。これは公開データシートの記述と異なる挙動である。
-- FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 以外に変更してはならない。初期生産ロット(A0)は回路の不具合により正常な動作をしない。
+- 初期ロット(A0)は、LOCK.KEY または FUSE.PDICFG を既定値以外に変更すると、以後の UPDI NVMPROG 制御再獲得が（HV制御と無関係に）全面的に困難または不可能となる。これは公開データシートの記述と異なる挙動である。
+- FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 以外に変更してはならない。初期ロット(A0)は回路の不具合により正常な動作をしない。
 - HV制御の推奨投入電圧が 7.5V に変更（低下）した。RESET/PF6 パッドの絶対定格は 8.5V なので、AVR_DD 用に設計された HV制御回路では電圧が高すぎる恐れがある。
 
+### AVR_DU 系統の制約
+
+- 24/04時点では、14/20ピンおよび 32MiB以下のバリアントは発売予告段階である。AVR-LIBCも対応していない。
+- 24/04時点では DFUブートローダーが公開されておらず、プリインストールもされていない。専用の VID:PID割り付けも実施されていない。
+- __AVR64DU28/32__ の 初期ロット(A3)は、CPU主クロックを 20MHz以下にしないと USB周辺回路の動作が保証されない。USB周辺機能を使わないのであれば 32MHzまでのオーバークロックも含めて動作する。
+
 ## 更新履歴
+
+- 0.2.12 (24/04/29)
+  - 動作確認済に __AVR64DU28__ を追加。
+  - `boot_dx/ex`を 3.72 に更新。
 
 - 0.2.11 (24/04/13)
   - `platform.txt` のタイプミス修正。

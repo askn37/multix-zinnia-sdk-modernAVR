@@ -92,7 +92,7 @@ char estring[] EEMEM = "0123456789ABCDEF";  // <-- HERE
 ATMEL STK500 version 1 プロトコルの制約により、ブートローダーでの対応 NVM 種別は FLASH と EEPROM に限られる。ただし UPDI 世代デバイスの特性により EEPROM 種別選択を流用すると全 64KiB のデータ空間を読むことが可能だ。書き込みはできないが EEPROM 設定を USERROW のそれに（ユーザー構成ファイルを使って）置き換えると、USERROW 空間へもアクセスできる。これは施錠されたデバイスの USERROW をブートローダーを使って読むことが可能になるため、知っておくと便利だ。
 
 > [!NOTE]
-> v3.71 では USERROW領域 / BOOTROW領域 の読み書き、および全 64KiB データ空間の読み出しが可能。ただし現行の `AVRDUDE` はこれに対応していない。
+> v3.71 以降では USERROW領域 / BOOTROW領域 の読み書き、および全 64KiB データ空間の読み出しが可能。ただし現行の `AVRDUDE` はこれに対応していない。
 
 ## バージョン表記
 
@@ -103,7 +103,7 @@ Programming modes     : UPDI, SPM
 Programmer Type       : Arduino
 Description           : Arduino for bootloader using STK500 v1 protocol
 HW Version            : 53
-FW Version            : 3.71
+FW Version            : 53.72
 ```
 
 `FW Version`(FWV)は一般原則に従う、ブートローダーファームウェアの版番号だ。
@@ -116,6 +116,8 @@ FW Version            : 3.71
 |51|'3'|AVR_EA
 |52|'4'|AVR_DU
 |53|'5'|AVR_EB
+
+- `3.72`以降はもはや`FW`メジャー番号を返さず、`HW Version`と一致するように変更された。従ってマイナー番号にのみ意味がある。
 
 > `avrdude -c urclock`では、バージョン表記は取得できない。
 
@@ -253,6 +255,10 @@ RS485モード有効時に、RxD入力ピンを無効にした単線半二重通
 RS485モード有効時の XDIR出力ピンを負論理に反転する。6byteを追加消費する。
 
 ## 更新履歴
+
+- v3.72 (24/4/28)
+  - __AVR-DU__ 系統対応と実機確認
+  - `FW`メジャー番号の代わりに`HW`バージョンを返すように変更
 
 - v3.71 (24/01/10)
   - __AVR16EB32__ での実機確認

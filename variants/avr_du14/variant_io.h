@@ -3,9 +3,9 @@
  * @author askn (K.Sato) multix.jp
  * @brief
  * @version 0.1
- * @date 2023-12-22
+ * @date 2024-05-12
  *
- * @copyright Copyright (c) 2023 askn37 at github.com
+ * @copyright Copyright (c) 2024 askn37 at github.com
  *
  */
 #include <avr/io.h>

@@ -396,6 +396,7 @@ extern "C" {
 #endif
 
 inline void initVariant (void) {
+  _CLKCTRL_SETUP();
   PORTA.PINCONFIG  = PORT_ISC_INPUT_DISABLE_gc;
   PORTA.PINCTRLUPD = ~0;
   // PORTB.PINCTRLUPD = ~0;
@@ -403,7 +404,6 @@ inline void initVariant (void) {
   PORTD.PINCTRLUPD = ~0;
   // PORTE.PINCTRLUPD = ~0;
   PORTF.PINCTRLUPD = ~0;
-  _CLKCTRL_SETUP();
 }
 
 #ifdef __cplusplus

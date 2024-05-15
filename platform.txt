@@ -27,11 +27,11 @@ compiler.cpp.extra_flags=
 compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -std=gnu++17 -fpermissive -fno-exceptions -fno-threadsafe-statics -Wno-error=narrowing -ffunction-sections -fdata-sections -MMD -flto -mrelax {build.flags}
 compiler.elf2hex.bin.flags=-O binary -R .eeprom
 compiler.elf2hex.cmd=avr-objcopy
-compiler.elf2hex.extra_flags= -R .nvmem
+compiler.elf2hex.extra_flags= -R .nvmem -R .fuse
 compiler.elf2hex.flags=-O ihex -R .eeprom
 compiler.ldflags=
 compiler.objcopy.cmd=avr-objcopy
-compiler.objcopy.eep.extra_flags=
+compiler.objcopy.eep.extra_flags= -R .nvmem -R .fuse
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 compiler.objdump.cmd=avr-objdump
 compiler.objdump.flags=--disassemble --source --line-numbers --demangle --section=.text --section=.data --section=.eeprom --section=.nvmem

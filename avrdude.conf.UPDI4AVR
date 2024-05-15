@@ -3473,7 +3473,7 @@ part parent ".avrdu"
 # AVR32DU28
 #------------------------------------------------------------
 
-part parent "32du14" # 32du28
+part parent ".avrdu"
     desc                   = "AVR32DU28";
     id                     = "avr32du28";
     mcuid                  = 392;
@@ -3488,7 +3488,7 @@ part parent "32du14" # 32du28
 # AVR32DU32
 #------------------------------------------------------------
 
-part parent "32du14" # 32du32
+part parent ".avrdu"
     desc                   = "AVR32DU32";
     id                     = "avr32du32";
     mcuid                  = 393;

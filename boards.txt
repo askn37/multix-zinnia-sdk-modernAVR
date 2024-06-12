@@ -287,6 +287,8 @@ AVRDB.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=115200
 AVRDB.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDB.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDB.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDB.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDB.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDB.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDB.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDB.menu.90_console_baud.20=-
@@ -519,6 +521,8 @@ AVRDA.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=115200
 AVRDA.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDA.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDA.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDA.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDA.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDA.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDA.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDA.menu.90_console_baud.20=-
@@ -744,6 +748,8 @@ AVRDD.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=115200
 AVRDD.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDD.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDD.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDD.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDD.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDD.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDD.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDD.menu.90_console_baud.20=-
@@ -918,6 +924,8 @@ AVRDD14.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=1152
 AVRDD14.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDD14.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDD14.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDD14.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDD14.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDD14.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDD14.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDD14.menu.90_console_baud.20=-
@@ -1134,6 +1142,8 @@ AVRDU.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=115200
 AVRDU.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDU.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDU.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDU.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDU.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDU.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDU.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDU.menu.90_console_baud.20=-
@@ -1309,6 +1319,8 @@ AVRDU14.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=1152
 AVRDU14.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDU14.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDU14.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDU14.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDU14.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDU14.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDU14.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDU14.menu.90_console_baud.20=-
@@ -1503,6 +1515,8 @@ AVREA.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=115200
 AVREA.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVREA.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREA.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVREA.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVREA.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREA.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREA.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVREA.menu.90_console_baud.20=-
@@ -1664,6 +1678,8 @@ AVREB.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=115200
 AVREB.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVREB.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREB.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVREB.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVREB.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREB.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREB.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVREB.menu.90_console_baud.20=-
@@ -1802,6 +1818,8 @@ AVREB14.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BAUD=1152
 AVREB14.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVREB14.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREB14.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVREB14.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVREB14.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREB14.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREB14.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVREB14.menu.90_console_baud.20=-
@@ -2048,6 +2066,8 @@ AVRDB_noloader.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BA
 AVRDB_noloader.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDB_noloader.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDB_noloader.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDB_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDB_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDB_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDB_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDB_noloader.menu.90_console_baud.20=-
@@ -2288,6 +2308,8 @@ AVRDA_noloader.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BA
 AVRDA_noloader.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDA_noloader.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDA_noloader.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDA_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDA_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDA_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDA_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDA_noloader.menu.90_console_baud.20=-
@@ -2537,6 +2559,8 @@ AVRDD_noloader.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BA
 AVRDD_noloader.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDD_noloader.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDD_noloader.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDD_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDD_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDD_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDD_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDD_noloader.menu.90_console_baud.20=-
@@ -2779,6 +2803,8 @@ AVRDU_noloader.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BA
 AVRDU_noloader.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVRDU_noloader.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDU_noloader.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVRDU_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDU_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDU_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDU_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVRDU_noloader.menu.90_console_baud.20=-
@@ -2992,6 +3018,8 @@ AVREA_noloader.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BA
 AVREA_noloader.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVREA_noloader.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREA_noloader.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVREA_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVREA_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREA_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREA_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVREA_noloader.menu.90_console_baud.20=-
@@ -3164,6 +3192,8 @@ AVREB_noloader.menu.90_console_baud.05_115200bps.build.console_baud=-DCONSOLE_BA
 AVREB_noloader.menu.90_console_baud.05_115200bps=CONSOLE_BAUD=115200 bps
 AVREB_noloader.menu.90_console_baud.06_230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREB_noloader.menu.90_console_baud.06_230400bps=CONSOLE_BAUD=230400 bps
+AVREB_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVREB_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREB_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREB_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
 AVREB_noloader.menu.90_console_baud.20=-

@@ -45,7 +45,7 @@
 23_nedbg.protocol=pkobn_updi
 23_nedbg.program.protocol=jtagice3_updi
 23_nedbg.program.tool=avrdude
-23_nedbg.program.extra_params=-Pusb
+23_nedbg.program.extra_params=-Pusb -C "{runtime.platform.path}/avrdude.conf.UPDI4AVR"
 
 # 24_edbg.name=Xplained Pro (eDBG: AT32UC3A4256)
 # 24_edbg.communication=usb

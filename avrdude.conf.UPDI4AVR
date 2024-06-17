@@ -95,6 +95,21 @@ programmer # updi4avr
     hvupdi_support         = 0, 1, 2;
 ;
 
+#------------------------------------------------------------
+# pkobn_updi
+#------------------------------------------------------------
+
+programmer
+    id                     = "pkobn_updi";
+    desc                   = "Curiosity nano (nEDBG) in UPDI mode";
+    type                   = "jtagice3_updi";
+    prog_modes             = PM_UPDI;
+    extra_features         = HAS_VTARG_ADJ | HAS_VTARG_READ;
+    connection_type        = usb;
+    usbpid                 = 0x2175;
+    hvupdi_support         = 1;
+;
+
 #
 # PART DEFINITIONS
 #

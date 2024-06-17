@@ -385,6 +385,12 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 ## 更新履歴
 
+- 0.2.14 (24/06/17)
+  - 各ファイルの MITライセンスリンク対応
+  - modernAVR: __AVR-DU系列専用__ USB周辺機能に暫定対応
+    - `<SerialUSB.h>` 基本的な USB-SERIAL通信クラス
+    - `<USB/USB_CDC.h>` 上記の下位実装（USB-CDC）
+
 - 0.2.13 (24/05/12)
   - `7.3.0-avr8-gnu-toolchain-240510`に更新。
     - __AVR16DU14/20/28/32__、__AVR32DU14/20/28/32__ 対応を追加。

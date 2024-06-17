@@ -5,9 +5,11 @@
  * @version 0.1
  * @date 2023-10-18
  *
- * @copyright Copyright (c) 2023
+ * @copyright Copyright (c) 2024 askn37 at github.com
  *
  */
+// MIT License : https://askn37.github.io/LICENSE.html
+
 #include <api/HarfUART.h>
 #include <api/TWIM.h>
 

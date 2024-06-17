@@ -5,9 +5,11 @@
  * @version 0.1
  * @date 2023-10-18
  *
- * @copyright Copyright (c) 2022
+ * @copyright Copyright (c) 2024 askn37 at github.com
  *
  */
+// MIT License : https://askn37.github.io/LICENSE.html
+
 #include <avr/io.h>
 #define AVR_MEGAAVR_LIKE_MODERNAVR
 

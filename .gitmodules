@@ -7,9 +7,3 @@
 [submodule "libraries/modernAVR"]
 	path = libraries/modernAVR
 	url = https://github.com/askn37/MacroMicroAPI_lib.git
-[submodule "libraries/UPDI4AVR"]
-	path = libraries/UPDI4AVR
-	url = https://github.com/askn37/UPDI4AVR.git
-[submodule "libraries/TPI4AVR"]
-	path = libraries/TPI4AVR
-	url = https://github.com/askn37/TPI4AVR.git

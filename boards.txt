@@ -1028,7 +1028,7 @@ AVRDU.menu.02_clock.01_24MHz.build.f_cpu=24000000L
 AVRDU.menu.02_clock.01_24MHz=Internal 24 MHz (default)
 AVRDU.menu.02_clock.01_12MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.01_12MHz.build.f_cpu=12000000L
-AVRDU.menu.02_clock.01_12MHz=Internal 12 MHz
+AVRDU.menu.02_clock.01_12MHz=Internal 12 MHz (The lowest limit for using USB peripherals)
 AVRDU.menu.02_clock.03_6MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.03_6MHz.build.f_cpu=6000000L
 AVRDU.menu.02_clock.03_6MHz=Internal 6 MHz
@@ -1155,6 +1155,10 @@ AVRDU.menu.95_bootloader.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7 (default)
 AVRDU.menu.95_bootloader.02_UART0_D6_LA7.bootloader.file=hex/boot_avrdu_UART1_D6_{upload.speed}_LA7.hex
 AVRDU.menu.95_bootloader.02_UART0_D6_LA7.build.console_select=-DSerial=Serial1C
 AVRDU.menu.95_bootloader.02_UART0_D6_LA7=UART1 TX:PD6 RX:PD7 LED=PA7 (alt)
+AVRDU.menu.95_bootloader.04_UART1_D6_LF2_SF6.bootloader.file=hex/boot_avrdu_UART1_D6_{upload.speed}_LF2.hex
+AVRDU.menu.95_bootloader.04_UART1_D6_LF2_SF6.build.console_select=-DSerial=Serial1C
+AVRDU.menu.95_bootloader.04_UART1_D6_LF2_SF6.build.led_pin=-DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
+AVRDU.menu.95_bootloader.04_UART1_D6_LF2_SF6=UART1 TX:PD6 RX:PD7 LED=PF2 SW=PF6
 
 
 AVRDU14.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
@@ -1327,10 +1331,10 @@ AVRDU14.menu.90_console_baud.20=-
 AVRDU14.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDU14.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDU14.menu.95_bootloader.01_UART0_A0_LD7.bootloader.file=hex/boot_avrdu_UART0_A0_{upload.speed}_LD7.hex
-AVRDU14.menu.95_bootloader.01_UART0_A0_LD7.build.console_select=-DSerial=Serial0A
+AVRDU14.menu.95_bootloader.01_UART0_A0_LD7.build.console_select=-DSerial=Serial0A -DLED_BUILTIN=PIN_PA7
 AVRDU14.menu.95_bootloader.01_UART0_A0_LD7=UART0 TX:PA0 RX:PA1 LED=PD7 (default)
 AVRDU14.menu.95_bootloader.02_UART0_D6_LC3.bootloader.file=hex/boot_avrdu_UART1_D6_{upload.speed}_LC3.hex
-AVRDU14.menu.95_bootloader.02_UART0_D6_LC3.build.console_select=-DSerial=Serial1C
+AVRDU14.menu.95_bootloader.02_UART0_D6_LC3.build.console_select=-DSerial=Serial1C -DLED_BUILTIN=PIN_PC3
 AVRDU14.menu.95_bootloader.02_UART0_D6_LC3=UART1 TX:PD6 RX:PD7 LED=PC3 (alt)
 
 
@@ -2677,7 +2681,7 @@ AVRDU_noloader.menu.02_clock.01_24MHz.build.f_cpu=24000000L
 AVRDU_noloader.menu.02_clock.01_24MHz=Internal 24 MHz (default)
 AVRDU_noloader.menu.02_clock.01_12MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.01_12MHz.build.f_cpu=12000000L
-AVRDU_noloader.menu.02_clock.01_12MHz=Internal 12 MHz
+AVRDU_noloader.menu.02_clock.01_12MHz=Internal 12 MHz (The lowest limit for using USB peripherals)
 AVRDU_noloader.menu.02_clock.03_6MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.03_6MHz.build.f_cpu=6000000L
 AVRDU_noloader.menu.02_clock.03_6MHz=Internal 6 MHz
@@ -2791,8 +2795,18 @@ AVRDU_noloader.menu.54_console_select.03_UART1_D6_LC3.build.console_select=-DSer
 AVRDU_noloader.menu.54_console_select.03_UART1_D6_LC3.build.led_pin=-DLED_BUILTIN=PIN_PC3
 AVRDU_noloader.menu.54_console_select.03_UART1_D6_LC3=UART1 TX:PD6 RX:PD7 LED=PC3
 AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6.build.console_select=-DSerial=Serial1C
-AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6.build.led_pin=-DLED_BUILTIN=PIN_PF2
+AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6.build.led_pin=-DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
 AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6=UART1 TX:PD6 RX:PD7 LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
+AVRDU_noloader.menu.54_console_select.10_separator=-
+AVRDU_noloader.menu.54_console_select.11_USB0_LA7.build.console_select=-DSerial=SerialUSB
+AVRDU_noloader.menu.54_console_select.11_USB0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
+AVRDU_noloader.menu.54_console_select.11_USB0_LA7=USB0 LED=PA7
+AVRDU_noloader.menu.54_console_select.13_USB0_LC3.build.console_select=-DSerial=SerialUSB
+AVRDU_noloader.menu.54_console_select.13_USB0_LC3.build.led_pin=-DLED_BUILTIN=PIN_PC3
+AVRDU_noloader.menu.54_console_select.13_USB0_LC3=USB0 LED=PC3
+AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6.build.console_select=-DSerial=SerialUSB
+AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6.build.led_pin=-DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
+AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6=USB0 LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
 AVRDU_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVRDU_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVRDU_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400

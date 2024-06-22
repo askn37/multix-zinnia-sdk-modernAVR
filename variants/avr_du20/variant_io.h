@@ -27,6 +27,22 @@
 /* C Language Only */
 #if !defined (__ASSEMBLER__)
 
+/* Prescaler division select */
+typedef enum CLKCTRL_PDIV_ALT_enum
+{
+    CLKCTRL_PDIV_2X_gc  = (0x00<<1),  /* 2X */
+    CLKCTRL_PDIV_4X_gc  = (0x01<<1),  /* 4X */
+    CLKCTRL_PDIV_8X_gc  = (0x02<<1),  /* 8X */
+    CLKCTRL_PDIV_16X_gc = (0x03<<1),  /* 16X */
+    CLKCTRL_PDIV_32X_gc = (0x04<<1),  /* 32X */
+    CLKCTRL_PDIV_64X_gc = (0x05<<1),  /* 64X */
+    CLKCTRL_PDIV_6X_gc  = (0x08<<1),  /* 6X */
+    CLKCTRL_PDIV_10X_gc = (0x09<<1),  /* 10X */
+    CLKCTRL_PDIV_12X_gc = (0x0A<<1),  /* 12X */
+    CLKCTRL_PDIV_24X_gc = (0x0B<<1),  /* 24X */
+    CLKCTRL_PDIV_48X_gc = (0x0C<<1)   /* 48X */
+} CLKCTRL_PDIV_ALT_t;
+
 #ifdef ENABLE_RBC
 /* Backward compatibility not recommended */
 

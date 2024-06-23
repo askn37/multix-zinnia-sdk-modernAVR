@@ -93,9 +93,6 @@
 #define PIN_WO3       PIN_PA3
 #define PIN_WO4       PIN_PA4
 #define PIN_WO5       PIN_PA5
-// #define PIN_WO0_ALT_2 PIN_PC0
-// #define PIN_WO1_ALT_2 PIN_PC1
-// #define PIN_WO2_ALT_2 PIN_PC2
 #define PIN_WO3_ALT_2 PIN_PC3
 #define PIN_WO0_ALT_3 PIN_PD0
 #define PIN_WO1_ALT_3 PIN_PD1
@@ -154,12 +151,12 @@
 /* peripheral ports */
 
 #define PIN_AC0_OUT       PIN_PA7
-#define PIN_AC0_AINP0     PIN_PD2
-#define PIN_AC0_AINN0     PIN_PD3
-#define PIN_AC0_AINP3     PIN_PD6
+#define PIN_AC0_AINN0     PIN_PD4
+#define PIN_AC0_AINN1     PIN_PD0
 #define PIN_AC0_AINN2     PIN_PD7
-// #define PIN_AC0_AINN3     PIN_PC2
-#define PIN_AC0_AINN4     PIN_PC3
+#define PIN_AC0_AINP0     PIN_PD2
+#define PIN_AC0_AINP3     PIN_PD6
+#define PIN_AC0_AINP4     PIN_PC3
 
 #define PIN_ADC0_AIN1     PIN_PD1
 #define PIN_ADC0_AIN2     PIN_PD2
@@ -180,9 +177,6 @@
 #define PIN_ADC0_AIN25    PIN_PA5
 #define PIN_ADC0_AIN26    PIN_PA6
 #define PIN_ADC0_AIN27    PIN_PA7
-// #define PIN_ADC0_AIN28    PIN_PC0
-// #define PIN_ADC0_AIN29    PIN_PC1
-// #define PIN_ADC0_AIN30    PIN_PC2
 #define PIN_ADC0_AIN31    PIN_PC3
 
 // #define PIN_DAC0_OUT      PIN_PD6

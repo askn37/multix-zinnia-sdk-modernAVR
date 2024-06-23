@@ -154,12 +154,12 @@
 /* peripheral ports */
 
 #define PIN_AC0_OUT       PIN_PA7
-// #define PIN_AC0_AINP0     PIN_PD2
-// #define PIN_AC0_AINN0     PIN_PD3
-#define PIN_AC0_AINP3     PIN_PD6
+#define PIN_AC0_AINN0     PIN_PD4
+// #define PIN_AC0_AINN1     PIN_PD0
 #define PIN_AC0_AINN2     PIN_PD7
-// #define PIN_AC0_AINN3     PIN_PC2
-#define PIN_AC0_AINN4     PIN_PC3
+// #define PIN_AC0_AINP0     PIN_PD2
+#define PIN_AC0_AINP3     PIN_PD6
+#define PIN_AC0_AINP4     PIN_PC3
 
 // #define PIN_ADC0_AIN1     PIN_PD1
 // #define PIN_ADC0_AIN2     PIN_PD2

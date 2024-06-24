@@ -364,7 +364,7 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
   - ただし __AVR_EB__ の BOOTROW 書き込みには書込器側ファームウェア対応の制約がある。
 - __AVR_DU__ 系統の正式サポートには *avrdude 7.4* 以降のリリースが必要（計画）
 
-23/12現在、*avrdude 7.2* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_DU/EA/EB 系統を正しく操作することができない。暫定的に AVR_DU/EB/EA 系統の不揮発メモリを読み書きできるプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/)、[__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) と __PICkit4/5__ （要 Firmware アップグレード）だけである。
+23/12現在、*avrdude 7.2* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_DU/EA/EB 系統を正しく操作することができない。暫定的に AVR_DU/EB/EA 系統の不揮発メモリを読み書きできるプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/)、[__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi)、__Curiosity Nano 製品__ と __PICkit4/5__ （要 Firmware アップグレード）だけである。
 本SDKに付属の *avrdude.conf.UPDI4AVR* は [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) および [__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) でのみ正しく動作する記述であることに注意されたい。
 
 ### AVR_EA 系統の制約
@@ -381,7 +381,8 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 - 24/04時点では、14/20ピンおよび 32MiB以下のバリアントは発売予告段階である。AVR-LIBCも対応していない。
 - 24/04時点では DFUブートローダーが公開されておらず、プリインストールもされていない。専用の VID:PID割り付けも実施されていない。
-- __AVR64DU28/32__ の 初期ロット(A3)は、CPU主クロックを 20MHz以下にしないと USB周辺回路の動作が保証されない。USB周辺機能を使わないのであれば 32MHzまでのオーバークロックも含めて動作する。
+- __AVR64DU28/32__ の 初期ロット(A3)は、CPU主クロックを 20MHz以下にしないと動作が保証されないエラッタがある。
+- 0.2.14から発売予告済全種と、USB周辺機能の基本的対応が追加された。
 
 ## 更新履歴
 

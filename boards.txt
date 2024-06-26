@@ -112,7 +112,7 @@ AVRDB.menu.01_variant.02_AVR64DB64.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDB.menu.01_variant.02_AVR64DB64.upload.maximum_data_size=8192
 AVRDB.menu.01_variant.02_AVR64DB64.upload.maximum_size=65024
 AVRDB.menu.01_variant.02_AVR64DB64=64pin AVR64DB64 (64KiB+8KiB)
-AVRDB.menu.01_variant.10=-
+AVRDB.menu.01_variant.10_separator=-
 AVRDB.menu.01_variant.11_AVR128DB48.build.board=AVR_AVR128DB48
 AVRDB.menu.01_variant.11_AVR128DB48.build.mcu=avr128db48
 AVRDB.menu.01_variant.11_AVR128DB48.build.variant=avr_db48
@@ -134,7 +134,7 @@ AVRDB.menu.01_variant.13_AVR32DB48.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDB.menu.01_variant.13_AVR32DB48.upload.maximum_data_size=4096
 AVRDB.menu.01_variant.13_AVR32DB48.upload.maximum_size=32256
 AVRDB.menu.01_variant.13_AVR32DB48=48pin AVR32DB48 (32KiB+4KiB)
-AVRDB.menu.01_variant.20=-
+AVRDB.menu.01_variant.20_separator=-
 AVRDB.menu.01_variant.21_AVR128DB32.build.board=AVR_AVR128DB32
 AVRDB.menu.01_variant.21_AVR128DB32.build.mcu=avr128db32
 AVRDB.menu.01_variant.21_AVR128DB32.build.variant=avr_db32
@@ -156,7 +156,7 @@ AVRDB.menu.01_variant.23_AVR32DB32.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDB.menu.01_variant.23_AVR32DB32.upload.maximum_data_size=4096
 AVRDB.menu.01_variant.23_AVR32DB32.upload.maximum_size=32256
 AVRDB.menu.01_variant.23_AVR32DB32=32pin AVR32DB32 (32KiB+4KiB)
-AVRDB.menu.01_variant.30=-
+AVRDB.menu.01_variant.30_separator=-
 AVRDB.menu.01_variant.31_AVR128DB28.build.board=AVR_AVR128DB28
 AVRDB.menu.01_variant.31_AVR128DB28.build.mcu=avr128db28
 AVRDB.menu.01_variant.31_AVR128DB28.build.variant=avr_db28
@@ -190,7 +190,7 @@ AVRDB.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDB.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDB.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDB.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDB.menu.02_clock.10=-
+AVRDB.menu.02_clock.10_separator=-
 AVRDB.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDB.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDB.menu.02_clock.11_20MHz=Internal 20 MHz
@@ -200,7 +200,7 @@ AVRDB.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDB.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDB.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDB.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDB.menu.02_clock.20=-
+AVRDB.menu.02_clock.20_separator=-
 AVRDB.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDB.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDB.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -216,7 +216,7 @@ AVRDB.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDB.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDB.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDB.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDB.menu.02_clock.30=-
+AVRDB.menu.02_clock.30_separator=-
 AVRDB.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDB.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDB.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -229,7 +229,7 @@ AVRDB.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDB.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDB.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDB.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDB.menu.02_clock.40=-
+AVRDB.menu.02_clock.40_separator=-
 AVRDB.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDB.menu.02_clock.41_32768Hz.build.f_cpu=32768
 AVRDB.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -296,13 +296,13 @@ AVRDB.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDB.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDB.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDB.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDB.menu.90_console_baud.20=-
+AVRDB.menu.90_console_baud.20_separator=-
 AVRDB.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDB.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDB.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrdx_UART0_A0_{upload.speed}_LA7.hex
 AVRDB.menu.95_bootloader.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVRDB.menu.95_bootloader.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7 (default)
-AVRDB.menu.95_bootloader.10=-
+AVRDB.menu.95_bootloader.10_separator=-
 AVRDB.menu.95_bootloader.11_UART2_F0_LA7.bootloader.file=hex/boot_avrdx_UART2_F0_{upload.speed}_LA7.hex
 AVRDB.menu.95_bootloader.11_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
 AVRDB.menu.95_bootloader.11_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7
@@ -355,7 +355,7 @@ AVRDA.menu.01_variant.02_AVR64DA64.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDA.menu.01_variant.02_AVR64DA64.upload.maximum_data_size=8192
 AVRDA.menu.01_variant.02_AVR64DA64.upload.maximum_size=65024
 AVRDA.menu.01_variant.02_AVR64DA64=64pin AVR64DA64 (64KiB+8KiB)
-AVRDA.menu.01_variant.10=-
+AVRDA.menu.01_variant.10_separator=-
 AVRDA.menu.01_variant.11_AVR128DA48.build.board=AVR_AVR128DA48
 AVRDA.menu.01_variant.11_AVR128DA48.build.mcu=avr128da48
 AVRDA.menu.01_variant.11_AVR128DA48.build.variant=avr_da48
@@ -377,7 +377,7 @@ AVRDA.menu.01_variant.13_AVR32DA48.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDA.menu.01_variant.13_AVR32DA48.upload.maximum_data_size=4096
 AVRDA.menu.01_variant.13_AVR32DA48.upload.maximum_size=32256
 AVRDA.menu.01_variant.13_AVR32DA48=48pin AVR32DA48 (32KiB+4KiB)
-AVRDA.menu.01_variant.20=-
+AVRDA.menu.01_variant.20_separator=-
 AVRDA.menu.01_variant.21_AVR128DA32.build.board=AVR_AVR128DA32
 AVRDA.menu.01_variant.21_AVR128DA32.build.mcu=avr128da32
 AVRDA.menu.01_variant.21_AVR128DA32.build.variant=avr_da32
@@ -399,7 +399,7 @@ AVRDA.menu.01_variant.23_AVR32DA32.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDA.menu.01_variant.23_AVR32DA32.upload.maximum_data_size=4096
 AVRDA.menu.01_variant.23_AVR32DA32.upload.maximum_size=32256
 AVRDA.menu.01_variant.23_AVR32DA32=32pin AVR32DA32 (32KiB+4KiB)
-AVRDA.menu.01_variant.30=-
+AVRDA.menu.01_variant.30_separator=-
 AVRDA.menu.01_variant.31_AVR128DA28.build.board=AVR_AVR128DA28
 AVRDA.menu.01_variant.31_AVR128DA28.build.mcu=avr128da28
 AVRDA.menu.01_variant.31_AVR128DA28.build.variant=avr_da28
@@ -433,7 +433,7 @@ AVRDA.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDA.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDA.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDA.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDA.menu.02_clock.10=-
+AVRDA.menu.02_clock.10_separator=-
 AVRDA.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDA.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDA.menu.02_clock.11_20MHz=Internal 20 MHz
@@ -443,7 +443,7 @@ AVRDA.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDA.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDA.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDA.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDA.menu.02_clock.20=-
+AVRDA.menu.02_clock.20_separator=-
 AVRDA.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDA.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDA.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -459,7 +459,7 @@ AVRDA.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDA.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDA.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDA.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDA.menu.02_clock.30=-
+AVRDA.menu.02_clock.30_separator=-
 AVRDA.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDA.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDA.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -472,7 +472,7 @@ AVRDA.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDA.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDA.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDA.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDA.menu.02_clock.40=-
+AVRDA.menu.02_clock.40_separator=-
 AVRDA.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDA.menu.02_clock.41_32768Hz.build.f_cpu=32768
 AVRDA.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -535,13 +535,13 @@ AVRDA.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDA.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDA.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDA.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDA.menu.90_console_baud.20=-
+AVRDA.menu.90_console_baud.20_separator_separator=-
 AVRDA.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDA.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDA.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrdx_UART0_A0_{upload.speed}_LA7.hex
 AVRDA.menu.95_bootloader.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVRDA.menu.95_bootloader.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7 (default)
-AVRDA.menu.95_bootloader.10=-
+AVRDA.menu.95_bootloader.10_separator_separator=-
 AVRDA.menu.95_bootloader.11_UART2_F0_LA7.bootloader.file=hex/boot_avrdx_UART2_F0_{upload.speed}_LA7.hex
 AVRDA.menu.95_bootloader.11_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
 AVRDA.menu.95_bootloader.11_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7
@@ -601,7 +601,7 @@ AVRDD.menu.01_variant.24_AVR16DD32.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDD.menu.01_variant.24_AVR16DD32.upload.maximum_data_size=2048
 AVRDD.menu.01_variant.24_AVR16DD32.upload.maximum_size=15872
 AVRDD.menu.01_variant.24_AVR16DD32=32pin AVR16DD32 (16KiB+2KiB)
-AVRDD.menu.01_variant.30=-
+AVRDD.menu.01_variant.30_separator=-
 AVRDD.menu.01_variant.32_AVR64DD28.build.board=AVR_AVR64DD28
 AVRDD.menu.01_variant.32_AVR64DD28.build.mcu=avr64dd28
 AVRDD.menu.01_variant.32_AVR64DD28.build.variant=avr_dd28
@@ -623,7 +623,7 @@ AVRDD.menu.01_variant.34_AVR16DD28.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDD.menu.01_variant.34_AVR16DD28.upload.maximum_data_size=2048
 AVRDD.menu.01_variant.34_AVR16DD28.upload.maximum_size=15872
 AVRDD.menu.01_variant.34_AVR16DD28=28pin AVR16DD28 (16KiB+2KiB)
-AVRDD.menu.01_variant.40=-
+AVRDD.menu.01_variant.40_separator=-
 AVRDD.menu.01_variant.42_AVR64DD20.build.board=AVR_AVR64DD20
 AVRDD.menu.01_variant.42_AVR64DD20.build.mcu=avr64dd20
 AVRDD.menu.01_variant.42_AVR64DD20.build.variant=avr_dd20
@@ -657,7 +657,7 @@ AVRDD.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDD.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDD.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDD.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDD.menu.02_clock.10=-
+AVRDD.menu.02_clock.10_separator=-
 AVRDD.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDD.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDD.menu.02_clock.11_20MHz=Internal 20 MHz
@@ -667,7 +667,7 @@ AVRDD.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDD.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDD.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDD.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDD.menu.02_clock.20=-
+AVRDD.menu.02_clock.20_separator=-
 AVRDD.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDD.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDD.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -683,7 +683,7 @@ AVRDD.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDD.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDD.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDD.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDD.menu.02_clock.30=-
+AVRDD.menu.02_clock.30_separator=-
 AVRDD.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDD.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDD.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -696,7 +696,7 @@ AVRDD.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDD.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDD.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDD.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDD.menu.02_clock.40=-
+AVRDD.menu.02_clock.40_separator=-
 AVRDD.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDD.menu.02_clock.41_32768Hz.build.f_cpu=32256
 AVRDD.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -767,7 +767,7 @@ AVRDD.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDD.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDD.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDD.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDD.menu.90_console_baud.20=-
+AVRDD.menu.90_console_baud.20_separator=-
 AVRDD.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDD.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDD.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrdx_UART0_A0_{upload.speed}_LA7.hex
@@ -838,7 +838,7 @@ AVRDD14.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDD14.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDD14.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDD14.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDD14.menu.02_clock.10=-
+AVRDD14.menu.02_clock.10_separator=-
 AVRDD14.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDD14.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDD14.menu.02_clock.11_20MHz=Internal 20 MHz
@@ -848,7 +848,7 @@ AVRDD14.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDD14.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDD14.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDD14.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDD14.menu.02_clock.20=-
+AVRDD14.menu.02_clock.20_separator=-
 AVRDD14.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDD14.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDD14.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -864,7 +864,7 @@ AVRDD14.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDD14.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDD14.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDD14.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDD14.menu.02_clock.30=-
+AVRDD14.menu.02_clock.30_separator=-
 AVRDD14.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDD14.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDD14.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -877,7 +877,7 @@ AVRDD14.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDD14.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDD14.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDD14.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDD14.menu.02_clock.40=-
+AVRDD14.menu.02_clock.40_separator=-
 AVRDD14.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDD14.menu.02_clock.41_32768Hz.build.f_cpu=32256
 AVRDD14.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -948,7 +948,7 @@ AVRDD14.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=5000
 AVRDD14.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDD14.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDD14.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDD14.menu.90_console_baud.20=-
+AVRDD14.menu.90_console_baud.20_separator=-
 AVRDD14.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDD14.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDD14.menu.95_bootloader.01_UART0_A0_LD7.bootloader.file=hex/boot_avrdd_UART0_A0_{upload.speed}_LD7.hex
@@ -1008,7 +1008,7 @@ AVRDU.menu.01_variant.24_AVR16Du32.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDU.menu.01_variant.24_AVR16Du32.upload.maximum_data_size=2048
 AVRDU.menu.01_variant.24_AVR16Du32.upload.maximum_size=15872
 AVRDU.menu.01_variant.24_AVR16Du32=32pin AVR16DU32 (16KiB+2KiB)
-AVRDU.menu.01_variant.30=-
+AVRDU.menu.01_variant.30_separator=-
 AVRDU.menu.01_variant.32_AVR64DU28.build.board=AVR_AVR64DU28
 AVRDU.menu.01_variant.32_AVR64DU28.build.mcu=avr64du28
 AVRDU.menu.01_variant.32_AVR64DU28.build.variant=avr_du28
@@ -1030,7 +1030,7 @@ AVRDU.menu.01_variant.34_AVR16DU28.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVRDU.menu.01_variant.34_AVR16DU28.upload.maximum_data_size=2048
 AVRDU.menu.01_variant.34_AVR16DU28.upload.maximum_size=15872
 AVRDU.menu.01_variant.34_AVR16DU28=28pin AVR16DU28 (16KiB+2KiB)
-AVRDU.menu.01_variant.40=-
+AVRDU.menu.01_variant.40_separator=-
 AVRDU.menu.01_variant.43_AVR32DU20.build.board=AVR_AVR32DU20
 AVRDU.menu.01_variant.43_AVR32DU20.build.mcu=avr32dU20
 AVRDU.menu.01_variant.43_AVR32DU20.build.variant=avr_dU20
@@ -1057,7 +1057,7 @@ AVRDU.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDU.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDU.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDU.menu.02_clock.10=-
+AVRDU.menu.02_clock.10_separator=-
 AVRDU.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDU.menu.02_clock.11_20MHz=Internal 20 MHz (recommend)
@@ -1067,7 +1067,7 @@ AVRDU.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDU.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDU.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDU.menu.02_clock.20=-
+AVRDU.menu.02_clock.20_separator=-
 AVRDU.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDU.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -1083,7 +1083,7 @@ AVRDU.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDU.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDU.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDU.menu.02_clock.30=-
+AVRDU.menu.02_clock.30_separator=-
 AVRDU.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDU.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -1096,7 +1096,7 @@ AVRDU.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDU.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDU.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDU.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDU.menu.02_clock.40=-
+AVRDU.menu.02_clock.40_separator=-
 AVRDU.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDU.menu.02_clock.41_32768Hz.build.f_cpu=32256
 AVRDU.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -1169,7 +1169,7 @@ AVRDU.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDU.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDU.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDU.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDU.menu.90_console_baud.20=-
+AVRDU.menu.90_console_baud.20_separator=-
 AVRDU.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDU.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDU.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrdu_UART0_A0_{upload.speed}_LA7.hex
@@ -1241,7 +1241,7 @@ AVRDU14.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDU14.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDU14.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDU14.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDU14.menu.02_clock.10=-
+AVRDU14.menu.02_clock.10_separator=-
 AVRDU14.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDU14.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDU14.menu.02_clock.11_20MHz=Internal 20 MHz (recommend)
@@ -1251,7 +1251,7 @@ AVRDU14.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDU14.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDU14.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDU14.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDU14.menu.02_clock.20=-
+AVRDU14.menu.02_clock.20_separator=-
 AVRDU14.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDU14.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDU14.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -1267,7 +1267,7 @@ AVRDU14.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDU14.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDU14.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDU14.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDU14.menu.02_clock.30=-
+AVRDU14.menu.02_clock.30_separator=-
 AVRDU14.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDU14.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDU14.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -1280,7 +1280,7 @@ AVRDU14.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDU14.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDU14.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDU14.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDU14.menu.02_clock.40=-
+AVRDU14.menu.02_clock.40_separator=-
 AVRDU14.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDU14.menu.02_clock.41_32768Hz.build.f_cpu=32256
 AVRDU14.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -1353,7 +1353,7 @@ AVRDU14.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=5000
 AVRDU14.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDU14.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDU14.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDU14.menu.90_console_baud.20=-
+AVRDU14.menu.90_console_baud.20_separator=-
 AVRDU14.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDU14.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDU14.menu.95_bootloader.01_UART0_A0_LD7.bootloader.file=hex/boot_avrdu_UART0_A0_{upload.speed}_LD7.hex
@@ -1414,7 +1414,7 @@ AVREA.menu.01_variant.14_AVR16EA48.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVREA.menu.01_variant.14_AVR16EA48.upload.maximum_data_size=2048
 AVREA.menu.01_variant.14_AVR16EA48.upload.maximum_size=15872
 AVREA.menu.01_variant.14_AVR16EA48=48pin AVR16EA48 (16KiB+2KiB)
-AVREA.menu.01_variant.20=-
+AVREA.menu.01_variant.20_separator=-
 AVREA.menu.01_variant.22_AVR64EA32.build.board=AVR_AVR64EA32
 AVREA.menu.01_variant.22_AVR64EA32.build.mcu=avr64ea32
 AVREA.menu.01_variant.22_AVR64EA32.build.variant=avr_ea32
@@ -1436,7 +1436,7 @@ AVREA.menu.01_variant.24_AVR16EA32.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVREA.menu.01_variant.24_AVR16EA32.upload.maximum_data_size=2048
 AVREA.menu.01_variant.24_AVR16EA32.upload.maximum_size=15872
 AVREA.menu.01_variant.24_AVR16EA32=32pin AVR16EA32 (16KiB+2KiB)
-AVREA.menu.01_variant.30=-
+AVREA.menu.01_variant.30_separator=-
 AVREA.menu.01_variant.32_AVR64EA28.build.board=AVR_AVR64EA28
 AVREA.menu.01_variant.32_AVR64EA28.build.mcu=avr64ea28
 AVREA.menu.01_variant.32_AVR64EA28.build.variant=avr_ea28
@@ -1467,7 +1467,7 @@ AVREA.menu.03_clock.02_10MHz=Internal 10 MHz
 AVREA.menu.03_clock.03_5MHz.bootloader.bod_sample=0
 AVREA.menu.03_clock.03_5MHz.build.f_cpu=5000000L
 AVREA.menu.03_clock.03_5MHz=Internal 5 MHz
-AVREA.menu.03_clock.10=-
+AVREA.menu.03_clock.10_separator=-
 AVREA.menu.03_clock.11_16MHz.bootloader.OSCCFG=0b00001000
 AVREA.menu.03_clock.11_16MHz.bootloader.bod_sample=0
 AVREA.menu.03_clock.11_16MHz.build.f_cpu=16000000L
@@ -1484,7 +1484,7 @@ AVREA.menu.03_clock.15_1MHz.bootloader.OSCCFG=0b00001000
 AVREA.menu.03_clock.15_1MHz.bootloader.bod_sample=0
 AVREA.menu.03_clock.15_1MHz.build.f_cpu=1000000L
 AVREA.menu.03_clock.15_1MHz=Internal 1 MHz
-AVREA.menu.03_clock.20=-
+AVREA.menu.03_clock.20_separator=-
 AVREA.menu.03_clock.21_2MHz.bootloader.bod_sample=0
 AVREA.menu.03_clock.21_2MHz.build.f_cpu=2000000L
 AVREA.menu.03_clock.21_2MHz=Internal 2 MHz
@@ -1554,13 +1554,13 @@ AVREA.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVREA.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREA.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREA.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVREA.menu.90_console_baud.20=-
+AVREA.menu.90_console_baud.20_separator=-
 AVREA.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVREA.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVREA.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avrea_UART0_A0_{upload.speed}_LA7.hex
 AVREA.menu.95_bootloader.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVREA.menu.95_bootloader.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7 (default)
-AVREA.menu.95_bootloader.10=-
+AVREA.menu.95_bootloader.10_separator=-
 AVREA.menu.95_bootloader.11_UART2_F0_LA7.bootloader.file=hex/boot_avrea_UART2_F0_{upload.speed}_LA7.hex
 AVREA.menu.95_bootloader.11_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
 AVREA.menu.95_bootloader.11_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7
@@ -1606,7 +1606,7 @@ AVREB.menu.01_variant.24_AVR16EB32.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVREB.menu.01_variant.24_AVR16EB32.upload.maximum_data_size=2048
 AVREB.menu.01_variant.24_AVR16EB32.upload.maximum_size=15872
 AVREB.menu.01_variant.24_AVR16EB32=32pin AVR16EB32 (16KiB+2KiB)
-AVREB.menu.01_variant.30=-
+AVREB.menu.01_variant.30_separator=-
 AVREB.menu.01_variant.34_AVR16EB28.build.board=AVR_AVR16EB28
 AVREB.menu.01_variant.34_AVR16EB28.build.mcu=avr16eb28
 AVREB.menu.01_variant.34_AVR16EB28.build.variant=avr_eb28
@@ -1614,7 +1614,7 @@ AVREB.menu.01_variant.34_AVR16EB28.compiler.c.elf.extra_flags=-Wl,-T{runtime.pla
 AVREB.menu.01_variant.34_AVR16EB28.upload.maximum_data_size=2048
 AVREB.menu.01_variant.34_AVR16EB28.upload.maximum_size=15872
 AVREB.menu.01_variant.34_AVR16EB28=28pin AVR16EB28 (16KiB+2KiB)
-AVREB.menu.01_variant.40=-
+AVREB.menu.01_variant.40_separator=-
 AVREB.menu.01_variant.44_AVR16EB20.build.board=AVR_AVR16EB20
 AVREB.menu.01_variant.44_AVR16EB20.build.mcu=avr16eb20
 AVREB.menu.01_variant.44_AVR16EB20.build.variant=avr_eb20
@@ -1631,7 +1631,7 @@ AVREB.menu.03_clock.02_10MHz=Internal 10 MHz
 AVREB.menu.03_clock.03_5MHz.bootloader.bod_sample=0
 AVREB.menu.03_clock.03_5MHz.build.f_cpu=5000000L
 AVREB.menu.03_clock.03_5MHz=Internal 5 MHz
-AVREB.menu.03_clock.10=-
+AVREB.menu.03_clock.10_separator=-
 AVREB.menu.03_clock.11_16MHz.bootloader.OSCCFG=0b00001000
 AVREB.menu.03_clock.11_16MHz.bootloader.bod_sample=0
 AVREB.menu.03_clock.11_16MHz.build.f_cpu=16000000L
@@ -1648,7 +1648,7 @@ AVREB.menu.03_clock.15_1MHz.bootloader.OSCCFG=0b00001000
 AVREB.menu.03_clock.15_1MHz.bootloader.bod_sample=0
 AVREB.menu.03_clock.15_1MHz.build.f_cpu=1000000L
 AVREB.menu.03_clock.15_1MHz=Internal 1 MHz
-AVREB.menu.03_clock.20=-
+AVREB.menu.03_clock.20_separator=-
 AVREB.menu.03_clock.21_2MHz.bootloader.bod_sample=0
 AVREB.menu.03_clock.21_2MHz.build.f_cpu=2000000L
 AVREB.menu.03_clock.21_2MHz=Internal 2 MHz
@@ -1724,7 +1724,7 @@ AVREB.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVREB.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREB.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREB.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVREB.menu.90_console_baud.20=-
+AVREB.menu.90_console_baud.20_separator=-
 AVREB.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVREB.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVREB.menu.95_bootloader.01_UART0_A0_LA7.bootloader.file=hex/boot_avreb_UART0_A0_{upload.speed}_LA7.hex
@@ -1778,7 +1778,7 @@ AVREB14.menu.03_clock.02_10MHz=Internal 10 MHz
 AVREB14.menu.03_clock.03_5MHz.bootloader.bod_sample=0
 AVREB14.menu.03_clock.03_5MHz.build.f_cpu=5000000L
 AVREB14.menu.03_clock.03_5MHz=Internal 5 MHz
-AVREB14.menu.03_clock.10=-
+AVREB14.menu.03_clock.10_separator=-
 AVREB14.menu.03_clock.11_16MHz.bootloader.OSCCFG=0b00001000
 AVREB14.menu.03_clock.11_16MHz.bootloader.bod_sample=0
 AVREB14.menu.03_clock.11_16MHz.build.f_cpu=16000000L
@@ -1795,7 +1795,7 @@ AVREB14.menu.03_clock.15_1MHz.bootloader.OSCCFG=0b00001000
 AVREB14.menu.03_clock.15_1MHz.bootloader.bod_sample=0
 AVREB14.menu.03_clock.15_1MHz.build.f_cpu=1000000L
 AVREB14.menu.03_clock.15_1MHz=Internal 1 MHz
-AVREB14.menu.03_clock.20=-
+AVREB14.menu.03_clock.20_separator=-
 AVREB14.menu.03_clock.21_2MHz.bootloader.bod_sample=0
 AVREB14.menu.03_clock.21_2MHz.build.f_cpu=2000000L
 AVREB14.menu.03_clock.21_2MHz=Internal 2 MHz
@@ -1871,7 +1871,7 @@ AVREB14.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BAUD=5000
 AVREB14.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREB14.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREB14.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVREB14.menu.90_console_baud.20=-
+AVREB14.menu.90_console_baud.20_separator=-
 AVREB14.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVREB14.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVREB14.menu.95_bootloader.01_UART0_A0_LD7.bootloader.file=hex/boot_avreb_UART0_A0_{upload.speed}_LD7.hex
@@ -1924,7 +1924,7 @@ AVRDB_noloader.menu.01_variant.02_AVR64DB64.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDB_noloader.menu.01_variant.02_AVR64DB64.upload.maximum_data_size=8192
 AVRDB_noloader.menu.01_variant.02_AVR64DB64.upload.maximum_size=65536
 AVRDB_noloader.menu.01_variant.02_AVR64DB64=64pin AVR64DB64 (64KiB+8KiB)
-AVRDB_noloader.menu.01_variant.10=-
+AVRDB_noloader.menu.01_variant.10_separator=-
 AVRDB_noloader.menu.01_variant.11_AVR128DB48.build.board=AVR_AVR128DB48
 AVRDB_noloader.menu.01_variant.11_AVR128DB48.build.mcu=avr128db48
 AVRDB_noloader.menu.01_variant.11_AVR128DB48.build.variant=avr_db48
@@ -1946,7 +1946,7 @@ AVRDB_noloader.menu.01_variant.13_AVR32DB48.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDB_noloader.menu.01_variant.13_AVR32DB48.upload.maximum_data_size=4096
 AVRDB_noloader.menu.01_variant.13_AVR32DB48.upload.maximum_size=32768
 AVRDB_noloader.menu.01_variant.13_AVR32DB48=48pin AVR32DB48 (32KiB+4KiB)
-AVRDB_noloader.menu.01_variant.20=-
+AVRDB_noloader.menu.01_variant.20_separator=-
 AVRDB_noloader.menu.01_variant.21_AVR128DB32.build.board=AVR_AVR128DB32
 AVRDB_noloader.menu.01_variant.21_AVR128DB32.build.mcu=avr128db32
 AVRDB_noloader.menu.01_variant.21_AVR128DB32.build.variant=avr_db32
@@ -1968,7 +1968,7 @@ AVRDB_noloader.menu.01_variant.23_AVR32DB32.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDB_noloader.menu.01_variant.23_AVR32DB32.upload.maximum_data_size=4096
 AVRDB_noloader.menu.01_variant.23_AVR32DB32.upload.maximum_size=32768
 AVRDB_noloader.menu.01_variant.23_AVR32DB32=32pin AVR32DB32 (32KiB+4KiB)
-AVRDB_noloader.menu.01_variant.30=-
+AVRDB_noloader.menu.01_variant.30_separator=-
 AVRDB_noloader.menu.01_variant.31_AVR128DB28.build.board=AVR_AVR128DB28
 AVRDB_noloader.menu.01_variant.31_AVR128DB28.build.mcu=avr128db28
 AVRDB_noloader.menu.01_variant.31_AVR128DB28.build.variant=avr_db28
@@ -2002,7 +2002,7 @@ AVRDB_noloader.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDB_noloader.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDB_noloader.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDB_noloader.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDB_noloader.menu.02_clock.10=-
+AVRDB_noloader.menu.02_clock.10_separator=-
 AVRDB_noloader.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDB_noloader.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDB_noloader.menu.02_clock.11_20MHz=Internal 20 MHz
@@ -2012,7 +2012,7 @@ AVRDB_noloader.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDB_noloader.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDB_noloader.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDB_noloader.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDB_noloader.menu.02_clock.20=-
+AVRDB_noloader.menu.02_clock.20_separator=-
 AVRDB_noloader.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDB_noloader.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDB_noloader.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -2028,7 +2028,7 @@ AVRDB_noloader.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDB_noloader.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDB_noloader.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDB_noloader.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDB_noloader.menu.02_clock.30=-
+AVRDB_noloader.menu.02_clock.30_separator=-
 AVRDB_noloader.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDB_noloader.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDB_noloader.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -2041,7 +2041,7 @@ AVRDB_noloader.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDB_noloader.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDB_noloader.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDB_noloader.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDB_noloader.menu.02_clock.40=-
+AVRDB_noloader.menu.02_clock.40_separator=-
 AVRDB_noloader.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDB_noloader.menu.02_clock.41_32768Hz.build.f_cpu=32768
 AVRDB_noloader.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -2106,7 +2106,7 @@ AVRDB_noloader.menu.54_console_select.03_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA
 AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7.build.console_select=-DSerial=Serial2B
 AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVRDB_noloader.menu.54_console_select.03_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7
-AVRDB_noloader.menu.54_console_select.10=-
+AVRDB_noloader.menu.54_console_select.10_separator=-
 AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3.build.console_select=-DSerial=Serial3A
 AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3.build.led_pin=-DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
 AVRDB_noloader.menu.54_console_select.11_UART1_B0_LB3_SB3=UART3 TX:PB0 RX:PB1 LED=PB3 SW=PB2 (AVR128DB48 Curiosity Nano)
@@ -2124,7 +2124,7 @@ AVRDB_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BA
 AVRDB_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDB_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDB_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDB_noloader.menu.90_console_baud.20=-
+AVRDB_noloader.menu.90_console_baud.20_separator=-
 AVRDB_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDB_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDB_noloader.menu.95_bootloader.00_woBootloader=without Bootloader
@@ -2175,7 +2175,7 @@ AVRDA_noloader.menu.01_variant.02_AVR64DA64.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDA_noloader.menu.01_variant.02_AVR64DA64.upload.maximum_data_size=8192
 AVRDA_noloader.menu.01_variant.02_AVR64DA64.upload.maximum_size=65536
 AVRDA_noloader.menu.01_variant.02_AVR64DA64=64pin AVR64DA64 (64KiB+8KiB)
-AVRDA_noloader.menu.01_variant.10=-
+AVRDA_noloader.menu.01_variant.10_separator=-
 AVRDA_noloader.menu.01_variant.11_AVR128DA48.build.board=AVR_AVR128DA48
 AVRDA_noloader.menu.01_variant.11_AVR128DA48.build.mcu=avr128da48
 AVRDA_noloader.menu.01_variant.11_AVR128DA48.build.variant=avr_da48
@@ -2197,7 +2197,7 @@ AVRDA_noloader.menu.01_variant.13_AVR32DA48.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDA_noloader.menu.01_variant.13_AVR32DA48.upload.maximum_data_size=4096
 AVRDA_noloader.menu.01_variant.13_AVR32DA48.upload.maximum_size=32768
 AVRDA_noloader.menu.01_variant.13_AVR32DA48=48pin AVR32DA48 (32KiB+4KiB)
-AVRDA_noloader.menu.01_variant.20=-
+AVRDA_noloader.menu.01_variant.20_separator=-
 AVRDA_noloader.menu.01_variant.21_AVR128DA32.build.board=AVR_AVR128DA32
 AVRDA_noloader.menu.01_variant.21_AVR128DA32.build.mcu=avr128da32
 AVRDA_noloader.menu.01_variant.21_AVR128DA32.build.variant=avr_da32
@@ -2219,7 +2219,7 @@ AVRDA_noloader.menu.01_variant.23_AVR32DA32.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDA_noloader.menu.01_variant.23_AVR32DA32.upload.maximum_data_size=4096
 AVRDA_noloader.menu.01_variant.23_AVR32DA32.upload.maximum_size=32768
 AVRDA_noloader.menu.01_variant.23_AVR32DA32=32pin AVR32DA32 (32KiB+4KiB)
-AVRDA_noloader.menu.01_variant.30=-
+AVRDA_noloader.menu.01_variant.30_separator=-
 AVRDA_noloader.menu.01_variant.31_AVR128DA28.build.board=AVR_AVR128DA28
 AVRDA_noloader.menu.01_variant.31_AVR128DA28.build.mcu=avr128da28
 AVRDA_noloader.menu.01_variant.31_AVR128DA28.build.variant=avr_da28
@@ -2253,7 +2253,7 @@ AVRDA_noloader.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDA_noloader.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDA_noloader.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDA_noloader.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDA_noloader.menu.02_clock.10=-
+AVRDA_noloader.menu.02_clock.10_separator=-
 AVRDA_noloader.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDA_noloader.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDA_noloader.menu.02_clock.11_20MHz=Internal 20 MHz
@@ -2263,7 +2263,7 @@ AVRDA_noloader.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDA_noloader.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDA_noloader.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDA_noloader.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDA_noloader.menu.02_clock.20=-
+AVRDA_noloader.menu.02_clock.20_separator=-
 AVRDA_noloader.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDA_noloader.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDA_noloader.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -2279,7 +2279,7 @@ AVRDA_noloader.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDA_noloader.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDA_noloader.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDA_noloader.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDA_noloader.menu.02_clock.30=-
+AVRDA_noloader.menu.02_clock.30_separator=-
 AVRDA_noloader.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDA_noloader.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDA_noloader.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -2292,7 +2292,7 @@ AVRDA_noloader.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDA_noloader.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDA_noloader.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDA_noloader.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDA_noloader.menu.02_clock.40=-
+AVRDA_noloader.menu.02_clock.40_separator=-
 AVRDA_noloader.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDA_noloader.menu.02_clock.41_32768Hz.build.f_cpu=32768
 AVRDA_noloader.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -2353,7 +2353,7 @@ AVRDA_noloader.menu.54_console_select.03_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA
 AVRDA_noloader.menu.54_console_select.04_UART2_F4_LA7.build.console_select=-DSerial=Serial2B
 AVRDA_noloader.menu.54_console_select.04_UART2_F4_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVRDA_noloader.menu.54_console_select.04_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7 (32/48pin only)
-AVRDA_noloader.menu.54_console_select.10=-
+AVRDA_noloader.menu.54_console_select.10_separator=-
 AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7.build.console_select=-DSerial=Serial1A
 AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7.build.led_pin=-DLED_BUILTIN=PIN_PC6 -DSW_BUILTIN=PIN_PC7
 AVRDA_noloader.menu.54_console_select.11_UART1_C0_LC6_SC7=UART1 TX:PC0 RX:PC1 LED=PC6 SW=PC7 (AVR128DA48 Curiosity Nano)
@@ -2371,7 +2371,7 @@ AVRDA_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BA
 AVRDA_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDA_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDA_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDA_noloader.menu.90_console_baud.20=-
+AVRDA_noloader.menu.90_console_baud.20_separator=-
 AVRDA_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDA_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDA_noloader.menu.95_bootloader.00_woBootloader=without Bootloader
@@ -2429,7 +2429,7 @@ AVRDD_noloader.menu.01_variant.24_AVR16DD32.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDD_noloader.menu.01_variant.24_AVR16DD32.upload.maximum_data_size=2048
 AVRDD_noloader.menu.01_variant.24_AVR16DD32.upload.maximum_size=16384
 AVRDD_noloader.menu.01_variant.24_AVR16DD32=32pin AVR16DD32 (16KiB+2KiB)
-AVRDD_noloader.menu.01_variant.30=-
+AVRDD_noloader.menu.01_variant.30_separator=-
 AVRDD_noloader.menu.01_variant.32_AVR64DD28.build.board=AVR_AVR64DD28
 AVRDD_noloader.menu.01_variant.32_AVR64DD28.build.mcu=avr64dd28
 AVRDD_noloader.menu.01_variant.32_AVR64DD28.build.variant=avr_dd28
@@ -2451,7 +2451,7 @@ AVRDD_noloader.menu.01_variant.34_AVR16DD28.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDD_noloader.menu.01_variant.34_AVR16DD28.upload.maximum_data_size=2048
 AVRDD_noloader.menu.01_variant.34_AVR16DD28.upload.maximum_size=16384
 AVRDD_noloader.menu.01_variant.34_AVR16DD28=28pin AVR16DD28 (16KiB+2KiB)
-AVRDD_noloader.menu.01_variant.40=-
+AVRDD_noloader.menu.01_variant.40_separator=-
 AVRDD_noloader.menu.01_variant.42_AVR64DD20.build.board=AVR_AVR64DD20
 AVRDD_noloader.menu.01_variant.42_AVR64DD20.build.mcu=avr64dd20
 AVRDD_noloader.menu.01_variant.42_AVR64DD20.build.variant=avr_dd20
@@ -2473,7 +2473,7 @@ AVRDD_noloader.menu.01_variant.44_AVR16DD20.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDD_noloader.menu.01_variant.44_AVR16DD20.upload.maximum_data_size=2048
 AVRDD_noloader.menu.01_variant.44_AVR16DD20.upload.maximum_size=16384
 AVRDD_noloader.menu.01_variant.44_AVR16DD20=20pin AVR16DD20 (16KiB+2KiB)
-AVRDD_noloader.menu.01_variant.50=-
+AVRDD_noloader.menu.01_variant.50_separator=-
 AVRDD_noloader.menu.01_variant.52_AVR64DD14.build.board=AVR_AVR64DD14
 AVRDD_noloader.menu.01_variant.52_AVR64DD14.build.mcu=avr64dd14
 AVRDD_noloader.menu.01_variant.52_AVR64DD14.build.variant=avr_dd14
@@ -2507,7 +2507,7 @@ AVRDD_noloader.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDD_noloader.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDD_noloader.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDD_noloader.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDD_noloader.menu.02_clock.10=-
+AVRDD_noloader.menu.02_clock.10_separator=-
 AVRDD_noloader.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDD_noloader.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDD_noloader.menu.02_clock.11_20MHz=Internal 20 MHz
@@ -2517,7 +2517,7 @@ AVRDD_noloader.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDD_noloader.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDD_noloader.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDD_noloader.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDD_noloader.menu.02_clock.20=-
+AVRDD_noloader.menu.02_clock.20_separator=-
 AVRDD_noloader.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDD_noloader.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDD_noloader.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -2533,7 +2533,7 @@ AVRDD_noloader.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDD_noloader.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDD_noloader.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDD_noloader.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDD_noloader.menu.02_clock.30=-
+AVRDD_noloader.menu.02_clock.30_separator=-
 AVRDD_noloader.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDD_noloader.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDD_noloader.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -2546,7 +2546,7 @@ AVRDD_noloader.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDD_noloader.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDD_noloader.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDD_noloader.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDD_noloader.menu.02_clock.40=-
+AVRDD_noloader.menu.02_clock.40_separator=-
 AVRDD_noloader.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDD_noloader.menu.02_clock.41_32768Hz.build.f_cpu=32768
 AVRDD_noloader.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -2609,7 +2609,7 @@ AVRDD_noloader.menu.54_console_select.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA
 AVRDD_noloader.menu.54_console_select.02_UART1_C0_LA7.build.console_select=-DSerial=Serial1A
 AVRDD_noloader.menu.54_console_select.02_UART1_C0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVRDD_noloader.menu.54_console_select.02_UART1_C0_LA7=UART1 TX:PC0 RX:PC1 LED=PA7 (28/32pin)
-AVRDD_noloader.menu.54_console_select.10=-
+AVRDD_noloader.menu.54_console_select.10_separator=-
 AVRDD_noloader.menu.54_console_select.11_UART0_A0_LD7.build.console_select=-DSerial=Serial0A
 AVRDD_noloader.menu.54_console_select.11_UART0_A0_LD7.build.led_pin=-DLED_BUILTIN=PIN_PD7
 AVRDD_noloader.menu.54_console_select.11_UART0_A0_LD7=UART0 TX:PA0 RX:PA1 LED=PD7 (14pin)
@@ -2627,7 +2627,7 @@ AVRDD_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BA
 AVRDD_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDD_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDD_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDD_noloader.menu.90_console_baud.20=-
+AVRDD_noloader.menu.90_console_baud.20_separator=-
 AVRDD_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDD_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDD_noloader.menu.95_bootloader.00_woBootloader=without Bootloader
@@ -2686,7 +2686,7 @@ AVRDU_noloader.menu.01_variant.24_AVR16Du32.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDU_noloader.menu.01_variant.24_AVR16Du32.upload.maximum_data_size=2048
 AVRDU_noloader.menu.01_variant.24_AVR16Du32.upload.maximum_size=16384
 AVRDU_noloader.menu.01_variant.24_AVR16Du32=32pin AVR16DU32 (16KiB+2KiB)
-AVRDU_noloader.menu.01_variant.30=-
+AVRDU_noloader.menu.01_variant.30_separator=-
 AVRDU_noloader.menu.01_variant.32_AVR64DU28.build.board=AVR_AVR64DU28
 AVRDU_noloader.menu.01_variant.32_AVR64DU28.build.mcu=avr64du28
 AVRDU_noloader.menu.01_variant.32_AVR64DU28.build.variant=avr_du28
@@ -2708,7 +2708,7 @@ AVRDU_noloader.menu.01_variant.34_AVR16DU28.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDU_noloader.menu.01_variant.34_AVR16DU28.upload.maximum_data_size=2048
 AVRDU_noloader.menu.01_variant.34_AVR16DU28.upload.maximum_size=16384
 AVRDU_noloader.menu.01_variant.34_AVR16DU28=28pin AVR16DU28 (16KiB+2KiB)
-AVRDU_noloader.menu.01_variant.40=-
+AVRDU_noloader.menu.01_variant.40_separator=-
 AVRDU_noloader.menu.01_variant.43_AVR32DU20.build.board=AVR_AVR32DU20
 AVRDU_noloader.menu.01_variant.43_AVR32DU20.build.mcu=avr32dU20
 AVRDU_noloader.menu.01_variant.43_AVR32DU20.build.variant=avr_dU20
@@ -2723,7 +2723,7 @@ AVRDU_noloader.menu.01_variant.44_AVR16DU20.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVRDU_noloader.menu.01_variant.44_AVR16DU20.upload.maximum_data_size=2048
 AVRDU_noloader.menu.01_variant.44_AVR16DU20.upload.maximum_size=16384
 AVRDU_noloader.menu.01_variant.44_AVR16DU20=20pin AVR16DU20 (16KiB+2KiB)
-AVRDU_noloader.menu.01_variant.50=-
+AVRDU_noloader.menu.01_variant.50_separator=-
 AVRDU_noloader.menu.01_variant.53_AVR32DU14.build.board=AVR_AVR32DU14
 AVRDU_noloader.menu.01_variant.53_AVR32DU14.build.mcu=avr32du14
 AVRDU_noloader.menu.01_variant.53_AVR32DU14.build.variant=avr_du14
@@ -2750,7 +2750,7 @@ AVRDU_noloader.menu.02_clock.03_6MHz=Internal 6 MHz
 AVRDU_noloader.menu.02_clock.04_3MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.04_3MHz.build.f_cpu=3000000L
 AVRDU_noloader.menu.02_clock.04_3MHz=Internal 3 MHz
-AVRDU_noloader.menu.02_clock.10=-
+AVRDU_noloader.menu.02_clock.10_separator=-
 AVRDU_noloader.menu.02_clock.11_20MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.11_20MHz.build.f_cpu=20000000L
 AVRDU_noloader.menu.02_clock.11_20MHz=Internal 20 MHz (recommend)
@@ -2760,7 +2760,7 @@ AVRDU_noloader.menu.02_clock.12_10MHz=Internal 10 MHz
 AVRDU_noloader.menu.02_clock.13_5MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.13_5MHz.build.f_cpu=5000000L
 AVRDU_noloader.menu.02_clock.13_5MHz=Internal 5 MHz
-AVRDU_noloader.menu.02_clock.20=-
+AVRDU_noloader.menu.02_clock.20_separator=-
 AVRDU_noloader.menu.02_clock.21_16MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.21_16MHz.build.f_cpu=16000000L
 AVRDU_noloader.menu.02_clock.21_16MHz=Internal 16 MHz
@@ -2776,7 +2776,7 @@ AVRDU_noloader.menu.02_clock.24_2MHz=Internal 2 MHz
 AVRDU_noloader.menu.02_clock.25_1MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.25_1MHz.build.f_cpu=1000000L
 AVRDU_noloader.menu.02_clock.25_1MHz=Internal 1 MHz
-AVRDU_noloader.menu.02_clock.30=-
+AVRDU_noloader.menu.02_clock.30_separator=-
 AVRDU_noloader.menu.02_clock.31_32MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.31_32MHz.build.f_cpu=32000000L
 AVRDU_noloader.menu.02_clock.31_32MHz=Internal 32 MHz (OVERCLOCK)
@@ -2789,7 +2789,7 @@ AVRDU_noloader.menu.02_clock.33_14MHz=Internal 14 MHz (OVERCLOCK)
 AVRDU_noloader.menu.02_clock.34_7MHz.bootloader.bod_sample=0
 AVRDU_noloader.menu.02_clock.34_7MHz.build.f_cpu=7000000L
 AVRDU_noloader.menu.02_clock.34_7MHz=Internal 7 MHz (OVERCLOCK)
-AVRDU_noloader.menu.02_clock.40=-
+AVRDU_noloader.menu.02_clock.40_separator=-
 AVRDU_noloader.menu.02_clock.41_32768Hz.bootloader.bod_sample=1
 AVRDU_noloader.menu.02_clock.41_32768Hz.build.f_cpu=32256
 AVRDU_noloader.menu.02_clock.41_32768Hz=Internal 32.768 kHz (ULP)
@@ -2884,7 +2884,7 @@ AVRDU_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BA
 AVRDU_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVRDU_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDU_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVRDU_noloader.menu.90_console_baud.20=-
+AVRDU_noloader.menu.90_console_baud.20_separator=-
 AVRDU_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDU_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDU_noloader.menu.95_bootloader.00_woBootloader=without Bootloader
@@ -2941,7 +2941,7 @@ AVREA_noloader.menu.01_variant.14_AVR16EA48.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVREA_noloader.menu.01_variant.14_AVR16EA48.upload.maximum_data_size=2048
 AVREA_noloader.menu.01_variant.14_AVR16EA48.upload.maximum_size=16384
 AVREA_noloader.menu.01_variant.14_AVR16EA48=48pin AVR16EA48 (16KiB+2KiB)
-AVREA_noloader.menu.01_variant.20=-
+AVREA_noloader.menu.01_variant.20_separator=-
 AVREA_noloader.menu.01_variant.22_AVR64EA32.build.board=AVR_AVR64EA32
 AVREA_noloader.menu.01_variant.22_AVR64EA32.build.mcu=avr64ea32
 AVREA_noloader.menu.01_variant.22_AVR64EA32.build.variant=avr_ea32
@@ -2963,7 +2963,7 @@ AVREA_noloader.menu.01_variant.24_AVR16EA32.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVREA_noloader.menu.01_variant.24_AVR16EA32.upload.maximum_data_size=2048
 AVREA_noloader.menu.01_variant.24_AVR16EA32.upload.maximum_size=16384
 AVREA_noloader.menu.01_variant.24_AVR16EA32=32pin AVR16EA32 (16KiB+2KiB)
-AVREA_noloader.menu.01_variant.30=-
+AVREA_noloader.menu.01_variant.30_separator=-
 AVREA_noloader.menu.01_variant.32_AVR64EA28.build.board=AVR_AVR64EA28
 AVREA_noloader.menu.01_variant.32_AVR64EA28.build.mcu=avr64ea28
 AVREA_noloader.menu.01_variant.32_AVR64EA28.build.variant=avr_ea28
@@ -2994,7 +2994,7 @@ AVREA_noloader.menu.03_clock.02_10MHz=Internal 10 MHz
 AVREA_noloader.menu.03_clock.03_5MHz.bootloader.bod_sample=0
 AVREA_noloader.menu.03_clock.03_5MHz.build.f_cpu=5000000L
 AVREA_noloader.menu.03_clock.03_5MHz=Internal 5 MHz
-AVREA_noloader.menu.03_clock.10=-
+AVREA_noloader.menu.03_clock.10_separator=-
 AVREA_noloader.menu.03_clock.11_16MHz.bootloader.OSCCFG=0b00001000
 AVREA_noloader.menu.03_clock.11_16MHz.bootloader.bod_sample=0
 AVREA_noloader.menu.03_clock.11_16MHz.build.f_cpu=16000000L
@@ -3011,7 +3011,7 @@ AVREA_noloader.menu.03_clock.15_1MHz.bootloader.OSCCFG=0b00001000
 AVREA_noloader.menu.03_clock.15_1MHz.bootloader.bod_sample=0
 AVREA_noloader.menu.03_clock.15_1MHz.build.f_cpu=1000000L
 AVREA_noloader.menu.03_clock.15_1MHz=Internal 1 MHz
-AVREA_noloader.menu.03_clock.20=-
+AVREA_noloader.menu.03_clock.20_separator=-
 AVREA_noloader.menu.03_clock.21_2MHz.bootloader.bod_sample=0
 AVREA_noloader.menu.03_clock.21_2MHz.build.f_cpu=2000000L
 AVREA_noloader.menu.03_clock.21_2MHz=Internal 2 MHz
@@ -3076,7 +3076,7 @@ AVREA_noloader.menu.54_console_select.02_UART1_C0_LA7=UART1 TX:PC0 RX:PC1 LED=PA
 AVREA_noloader.menu.54_console_select.03_UART2_F0_LA7.build.console_select=-DSerial=Serial2A
 AVREA_noloader.menu.54_console_select.03_UART2_F0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVREA_noloader.menu.54_console_select.03_UART2_F0_LA7=UART2 TX:PF0 RX:PF1 LED=PA7
-AVREA_noloader.menu.54_console_select.10=-
+AVREA_noloader.menu.54_console_select.10_separator=-
 AVREA_noloader.menu.54_console_select.11_UART0_D4_LA7.build.console_select=-DSerial=Serial0D
 AVREA_noloader.menu.54_console_select.11_UART0_D4_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVREA_noloader.menu.54_console_select.11_UART0_D4_LA7=UART0 TX:PD4 RX:PD5 LED=PA7 (alt)
@@ -3086,7 +3086,7 @@ AVREA_noloader.menu.54_console_select.12_UART1_D6_LA7=UART1 TX:PD6 RX:PD7 LED=PA
 AVREA_noloader.menu.54_console_select.13_UART2_F4_LA7.build.console_select=-DSerial=Serial2B
 AVREA_noloader.menu.54_console_select.13_UART2_F4_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVREA_noloader.menu.54_console_select.13_UART2_F4_LA7=UART2 TX:PF4 RX:PF5 LED=PA7 (alt 32/48pin only)
-AVREA_noloader.menu.54_console_select.20=-
+AVREA_noloader.menu.54_console_select.20_separator=-
 AVREA_noloader.menu.54_console_select.21_UART1_C0_LB3_SC2.build.console_select=-DSerial=Serial1A
 AVREA_noloader.menu.54_console_select.21_UART1_C0_LB3_SC2.build.led_pin=-DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
 AVREA_noloader.menu.54_console_select.21_UART1_C0_LB3_SC2=UART1 TX:PC0 RX:PC1 LED=PB3 SW=PB2 (AVR64EA48 Curiosity Nano)
@@ -3104,7 +3104,7 @@ AVREA_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BA
 AVREA_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREA_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREA_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVREA_noloader.menu.90_console_baud.20=-
+AVREA_noloader.menu.90_console_baud.20_separator=-
 AVREA_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVREA_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVREA_noloader.menu.95_bootloader.00_woBootloader=without Bootloader
@@ -3148,7 +3148,7 @@ AVREB_noloader.menu.01_variant.24_AVR16EB32.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVREB_noloader.menu.01_variant.24_AVR16EB32.upload.maximum_data_size=2048
 AVREB_noloader.menu.01_variant.24_AVR16EB32.upload.maximum_size=16384
 AVREB_noloader.menu.01_variant.24_AVR16EB32=32pin AVR16EB32 (16KiB+2KiB)
-AVREB_noloader.menu.01_variant.30=-
+AVREB_noloader.menu.01_variant.30_separator=-
 AVREB_noloader.menu.01_variant.34_AVR16EB28.build.board=AVR_AVR16EB28
 AVREB_noloader.menu.01_variant.34_AVR16EB28.build.mcu=avr16eb28
 AVREB_noloader.menu.01_variant.34_AVR16EB28.build.variant=avr_eb28
@@ -3156,7 +3156,7 @@ AVREB_noloader.menu.01_variant.34_AVR16EB28.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVREB_noloader.menu.01_variant.34_AVR16EB28.upload.maximum_data_size=2048
 AVREB_noloader.menu.01_variant.34_AVR16EB28.upload.maximum_size=16384
 AVREB_noloader.menu.01_variant.34_AVR16EB28=28pin AVR16EB28 (16KiB+2KiB)
-AVREB_noloader.menu.01_variant.40=-
+AVREB_noloader.menu.01_variant.40_separator=-
 AVREB_noloader.menu.01_variant.44_AVR16EB20.build.board=AVR_AVR16EB20
 AVREB_noloader.menu.01_variant.44_AVR16EB20.build.mcu=avr16eb20
 AVREB_noloader.menu.01_variant.44_AVR16EB20.build.variant=avr_eb20
@@ -3164,7 +3164,7 @@ AVREB_noloader.menu.01_variant.44_AVR16EB20.compiler.c.elf.extra_flags=-Wl,-T{ru
 AVREB_noloader.menu.01_variant.44_AVR16EB20.upload.maximum_data_size=2048
 AVREB_noloader.menu.01_variant.44_AVR16EB20.upload.maximum_size=16384
 AVREB_noloader.menu.01_variant.44_AVR16EB20=20pin AVR16EB20 (16KiB+2KiB)
-AVREB_noloader.menu.01_variant.50=-
+AVREB_noloader.menu.01_variant.50_separator=-
 AVREB_noloader.menu.01_variant.54_AVR16EB14.build.board=AVR_AVR16EB14
 AVREB_noloader.menu.01_variant.54_AVR16EB14.build.mcu=avr16eb14
 AVREB_noloader.menu.01_variant.54_AVR16EB14.build.variant=avr_eb14
@@ -3181,7 +3181,7 @@ AVREB_noloader.menu.03_clock.02_10MHz=Internal 10 MHz
 AVREB_noloader.menu.03_clock.03_5MHz.bootloader.bod_sample=0
 AVREB_noloader.menu.03_clock.03_5MHz.build.f_cpu=5000000L
 AVREB_noloader.menu.03_clock.03_5MHz=Internal 5 MHz
-AVREB_noloader.menu.03_clock.10=-
+AVREB_noloader.menu.03_clock.10_separator=-
 AVREB_noloader.menu.03_clock.11_16MHz.bootloader.OSCCFG=0b00001000
 AVREB_noloader.menu.03_clock.11_16MHz.bootloader.bod_sample=0
 AVREB_noloader.menu.03_clock.11_16MHz.build.f_cpu=16000000L
@@ -3198,7 +3198,7 @@ AVREB_noloader.menu.03_clock.15_1MHz.bootloader.OSCCFG=0b00001000
 AVREB_noloader.menu.03_clock.15_1MHz.bootloader.bod_sample=0
 AVREB_noloader.menu.03_clock.15_1MHz.build.f_cpu=1000000L
 AVREB_noloader.menu.03_clock.15_1MHz=Internal 1 MHz
-AVREB_noloader.menu.03_clock.20=-
+AVREB_noloader.menu.03_clock.20_separator=-
 AVREB_noloader.menu.03_clock.21_2MHz.bootloader.bod_sample=0
 AVREB_noloader.menu.03_clock.21_2MHz.build.f_cpu=2000000L
 AVREB_noloader.menu.03_clock.21_2MHz=Internal 2 MHz
@@ -3263,11 +3263,11 @@ AVREB_noloader.menu.53_printf.02_full=Float Support
 AVREB_noloader.menu.54_console_select.01_UART0_A0_LA7.build.console_select=-DSerial=Serial0A
 AVREB_noloader.menu.54_console_select.01_UART0_A0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVREB_noloader.menu.54_console_select.01_UART0_A0_LA7=UART0 TX:PA0 RX:PA1 LED=PA7
-AVREB_noloader.menu.54_console_select.10=-
+AVREB_noloader.menu.54_console_select.10_separator=-
 AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7.build.console_select=-DSerial=Serial0A
 AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7.build.led_pin=-DLED_BUILTIN=PIN_PD7
 AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7=UART0 TX:PA0 RX:PA1 LED=PD7 (14pin)
-AVREB_noloader.menu.54_console_select.20=-
+AVREB_noloader.menu.54_console_select.20_separator=-
 AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7.build.console_select=-DSerial=Serial1E
 AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7.build.led_pin=-DLED_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PF6
 AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7=UART1 TX:PC1 RX:PC2 LED=PF5 SW=PF6 (AVR16EB32 Curiosity Nano)
@@ -3285,7 +3285,7 @@ AVREB_noloader.menu.90_console_baud.14_500000bps.build.console_baud=-DCONSOLE_BA
 AVREB_noloader.menu.90_console_baud.14_500000bps=CONSOLE_BAUD=500000 bps
 AVREB_noloader.menu.90_console_baud.15_1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVREB_noloader.menu.90_console_baud.15_1000000bps=CONSOLE_BAUD=1000000 bps
-AVREB_noloader.menu.90_console_baud.20=-
+AVREB_noloader.menu.90_console_baud.20_separator=-
 AVREB_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVREB_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVREB_noloader.menu.95_bootloader.00_woBootloader=without Bootloader

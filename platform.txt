@@ -25,16 +25,22 @@ compiler.c.flags=-c -g -Os {compiler.warning_flags} -std=gnu11 -fno-fat-lto-obje
 compiler.cpp.cmd=avr-g++
 compiler.cpp.extra_flags=
 compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -std=gnu++17 -fpermissive -fno-exceptions -fno-threadsafe-statics -Wno-error=narrowing -ffunction-sections -fdata-sections -MMD -flto -mrelax {build.flags}
-compiler.elf2hex.bin.flags=-O binary -R .eeprom
+compiler.elf2hex.bin.flags=-O binary -R .eeprom -R .fuse -R .user_signatures -R .boot_signatures
 compiler.elf2hex.cmd=avr-objcopy
-compiler.elf2hex.extra_flags= -R .nvmem -R .fuse
-compiler.elf2hex.flags=-O ihex -R .eeprom
+compiler.elf2hex.extra_flags= -R .nvmem
+compiler.elf2hex.flags=-O ihex -R .eeprom -R .fuse -R .user_signatures -R .boot_signatures
 compiler.ldflags=
 compiler.objcopy.cmd=avr-objcopy
-compiler.objcopy.eep.extra_flags= -R .nvmem -R .fuse
+compiler.objcopy.eep.extra_flags= -R .nvmem -R .fuse -R .user_signatures -R .boot_signatures
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
+compiler.objcopy.fuse.extra_flags= -R .nvmem -R .eeprom -R .user_signatures -R .boot_signatures
+compiler.objcopy.fuse.flags=-O ihex -j .fuse --set-section-flags=.fuse=alloc,load --no-change-warnings --change-section-lma .fuse=0
+compiler.objcopy.brow.extra_flags= -R .nvmem -R .eeprom -R .fuse -R .user_signatures
+compiler.objcopy.brow.flags=-O ihex -j .boot_signatures --set-section-flags=.boot_signatures=alloc,load --no-change-warnings --change-section-lma .boot_signatures=0
+compiler.objcopy.urow.extra_flags= -R .nvmem -R .eeprom -R .fuse -R .boot_signatures
+compiler.objcopy.urow.flags=-O ihex -j .user_signatures --set-section-flags=.user_signatures=alloc,load --no-change-warnings --change-section-lma .user_signatures=0
 compiler.objdump.cmd=avr-objdump
-compiler.objdump.flags=--disassemble --source --line-numbers --demangle --section=.text --section=.data --section=.eeprom --section=.nvmem
+compiler.objdump.flags=--disassemble --source --line-numbers --demangle --section=.text --section=.data --section=.eeprom --section=.nvmem --section=.fuse --section=.user_signatures --section=.boot_signatures
 compiler.path={runtime.platform.path}/../../../tools/avr-gcc/7.3.0-avr8-gnu-toolchain/bin/
 compiler.size.cmd=avr-size
 compiler.warning_flags.all=-Wall -Wextra
@@ -65,8 +71,23 @@ recipe.hooks.savehex.presavehex.2.pattern.macosx="{runtime.platform.path}/script
 recipe.hooks.savehex.presavehex.2.pattern.windows=cmd /C copy "{build.path}\{build.project_name}.{build.mcu}_{build.f_cpu}.lst" "{sketch_path}"
 recipe.hooks.savehex.presavehex.3.pattern.linux=cp "{build.path}/{build.project_name}.{build.mcu}_{build.f_cpu}.lst" "{sketch_path}"
 recipe.hooks.savehex.presavehex.3.pattern.macosx=cp "{build.path}/{build.project_name}.{build.mcu}_{build.f_cpu}.lst" "{sketch_path}"
+recipe.hooks.savehex.presavehex.3.pattern.windows=cmd /C copy "{build.path}\{build.project_name}.eep" "{sketch_path}"
+recipe.hooks.savehex.presavehex.4.pattern.linux=cp "{build.path}/{build.project_name}.eep" "{sketch_path}"
+recipe.hooks.savehex.presavehex.4.pattern.macosx=cp "{build.path}/{build.project_name}.eep" "{sketch_path}"
+recipe.hooks.savehex.presavehex.4.pattern.windows=cmd /C copy "{build.path}\{build.project_name}.fuse" "{sketch_path}"
+recipe.hooks.savehex.presavehex.5.pattern.linux=cp "{build.path}/{build.project_name}.fuse" "{sketch_path}"
+recipe.hooks.savehex.presavehex.5.pattern.macosx=cp "{build.path}/{build.project_name}.fuse" "{sketch_path}"
+recipe.hooks.savehex.presavehex.5.pattern.windows=cmd /C copy "{build.path}\{build.project_name}.urow" "{sketch_path}"
+recipe.hooks.savehex.presavehex.6.pattern.linux=cp "{build.path}/{build.project_name}.urow" "{sketch_path}"
+recipe.hooks.savehex.presavehex.6.pattern.macosx=cp "{build.path}/{build.project_name}.urow" "{sketch_path}"
+recipe.hooks.savehex.presavehex.6.pattern.windows=cmd /C copy "{build.path}\{build.project_name}.brow" "{sketch_path}"
+recipe.hooks.savehex.presavehex.7.pattern.linux=cp "{build.path}/{build.project_name}.brow" "{sketch_path}"
+recipe.hooks.savehex.presavehex.7.pattern.macosx=cp "{build.path}/{build.project_name}.brow" "{sketch_path}"
 recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
 recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+recipe.objcopy.fuse.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.fuse.flags} {compiler.objcopy.fuse.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.fuse"
+recipe.objcopy.brow.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.brow.flags} {compiler.objcopy.brow.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.brow"
+recipe.objcopy.urow.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.urow.flags} {compiler.objcopy.urow.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.urow"
 recipe.output.save_file={build.project_name}.{build.mcu}_{build.f_cpu}.hex
 recipe.output.tmp_file={build.project_name}.hex
 recipe.preproc.includes="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {preproc.includes.flags} -mmcu={build.mcu} {compiler.cpp.extra_flags} {includes} "{source_file}"
@@ -78,6 +99,9 @@ recipe.size.regex=^(?:\.text|\.data|\.rodata|\.bootloader)\s+([0-9]+).*
 
 
 tools.avrdude.bootloader.eeprom=-U "eeprom:w:{build.path}/{build.project_name}.eep:i"
+tools.avrdude.bootloader.bootrow=-U "bootrow:w:{build.path}/{build.project_name}.brow:i"
+tools.avrdude.bootloader.userrow=-U "userrow:w:{build.path}/{build.project_name}.urow:i"
+tools.avrdude.bootloader.fuses=-U "fuses:w:{build.path}/{build.project_name}.fuse:i"
 tools.avrdude.bootloader.fuse0=-U fuse0:w:{bootloader.WDTCFG}:m
 tools.avrdude.bootloader.fuse1=-U fuse1:w:{bootloader.BODCFG}:m
 tools.avrdude.bootloader.fuse2=-U fuse2:w:{bootloader.OSCCFG}:m
@@ -99,11 +123,11 @@ tools.avrdude.path={runtime.platform.path}/../../../tools/avrdude/7.2-arduino.1
 tools.avrdude.program.params.noverify=-V
 tools.avrdude.program.params.quiet=-q -q
 tools.avrdude.program.params.verbose=-v
-tools.avrdude.program.pattern="{cmd.path}" {program.verbose} {program.verify} -p {build.mcu} -c {protocol} {program.extra_params} {bootloader.fuse0} {bootloader.fuse1} {bootloader.fuse2} {bootloader.fuse5} {bootloader.fuse6} {bootloader.fuse7} {bootloader.fuse8} {bootloader.eepupload} -e -U "flash:w:{build.path}/{build.project_name}{bootloader.programed_type}.hex:i"
+tools.avrdude.program.pattern="{cmd.path}" {program.verbose} {program.verify} -p {build.mcu} -c {protocol} {program.extra_params} {bootloader.fuse0} {bootloader.fuse1} {bootloader.fuse2} {bootloader.fuse5} {bootloader.fuse6} {bootloader.fuse7} {bootloader.fuse8} {bootloader.eepupload} {bootloader.browupload} {bootloader.urowupload} -e -U "flash:w:{build.path}/{build.project_name}{bootloader.programed_type}.hex:i"
 tools.avrdude.program.verify=
 tools.avrdude.upload.params.noverify=-V
 tools.avrdude.upload.params.quiet=-q -q
 tools.avrdude.upload.params.verbose=-v
-tools.avrdude.upload.pattern="{cmd.path}" {upload.verbose} {upload.verify} -C "{config.path}" -p {build.mcu} -c {upload.protocol} -P {serial.port} {bootloader.eepupload} -D -U "flash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.upload.pattern="{cmd.path}" {upload.verbose} {upload.verify} -C "{config.path}" -p {build.mcu} -c {upload.protocol} -P {serial.port} {bootloader.eepupload} {bootloader.browupload} {bootloader.urowupload} -D -U "flash:w:{build.path}/{build.project_name}.hex:i"
 tools.avrdude.upload.verify=
 tools.avrdude_remote.upload.pattern=/usr/bin/run-avrdude /tmp/sketch.hex {upload.verbose} -p{build.mcu}

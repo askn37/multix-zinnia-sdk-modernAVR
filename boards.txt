@@ -5,10 +5,10 @@ menu.11_BODMODE=BOD Mode
 menu.12_BODLVL=BOD Level
 menu.21_resetpin=FUSE PF6
 menu.22_updipin=FUSE UPDI
-menu.23_eeprom=FUSE EEPROM
-menu.24_mvsyscfg=FUSE MVIO
-menu.25_bootrow=FUSE BOOTROW
-menu.26_usbsinkcfg=FUSE USBSINK
+menu.23_mvsyscfg=FUSE MVIO
+menu.24_eeprom=EEPROM
+menu.25_bootrow=BOOTROW
+menu.26_userrow=USERROW
 menu.51_buildopt=Build Option
 menu.52_macroapi=Build API
 menu.53_printf=Build "printf"
@@ -80,6 +80,8 @@ AVRDB.bootloader.bod_mode=00
 AVRDB.bootloader.bod_sample=0
 AVRDB.bootloader.tool=avrdude
 AVRDB.bootloader.eepupload=
+AVRDB.bootloader.browupload=
+AVRDB.bootloader.urowupload=
 AVRDB.bootloader.eesave_bit=1
 AVRDB.bootloader.mvsys_bit=01
 AVRDB.bootloader.reset_bit=10
@@ -251,17 +253,20 @@ AVRDB.menu.21_resetpin.01_reset.bootloader.reset_bit=10
 AVRDB.menu.21_resetpin.01_reset=PF6 pin=Reset
 AVRDB.menu.21_resetpin.02_gpio.bootloader.reset_bit=00
 AVRDB.menu.21_resetpin.02_gpio=PF6 pin=GPIO (input only)
-AVRDB.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDB.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDB.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDB.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDB.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDB.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDB.menu.23_eeprom.03_replace="Erase" and "Replace"
-AVRDB.menu.24_mvsyscfg.01_dual.bootloader.mvsys_bit=01
-AVRDB.menu.24_mvsyscfg.01_dual=MVIO "Dual" (default)
-AVRDB.menu.24_mvsyscfg.02_single.bootloader.mvsys_bit=10
-AVRDB.menu.24_mvsyscfg.02_single=MVIO "Single"
+AVRDB.menu.23_mvsyscfg.01_dual.bootloader.mvsys_bit=01
+AVRDB.menu.23_mvsyscfg.01_dual=MVIO "Dual" (default)
+AVRDB.menu.23_mvsyscfg.02_single.bootloader.mvsys_bit=10
+AVRDB.menu.23_mvsyscfg.02_single=MVIO "Single"
+AVRDB.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDB.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDB.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDB.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDB.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDB.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDB.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVRDB.menu.26_userrow.02_keep="Retained"
+AVRDB.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDB.menu.26_userrow.03_replace="Replace"
 AVRDB.menu.51_buildopt.01_Release=Build Release (default)
 AVRDB.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDB.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -318,6 +323,8 @@ AVRDA.bootloader.bod_mode=00
 AVRDA.bootloader.bod_sample=0
 AVRDA.bootloader.tool=avrdude
 AVRDA.bootloader.eepupload=
+AVRDA.bootloader.browupload=
+AVRDA.bootloader.urowupload=
 AVRDA.bootloader.eesave_bit=1
 AVRDA.bootloader.mvsys_bit=01
 AVRDA.bootloader.reset_bit=10
@@ -489,13 +496,16 @@ AVRDA.menu.21_resetpin.01_reset.bootloader.reset_bit=10
 AVRDA.menu.21_resetpin.01_reset=PF6 pin=Reset
 AVRDA.menu.21_resetpin.02_gpio.bootloader.reset_bit=00
 AVRDA.menu.21_resetpin.02_gpio=PF6 pin=GPIO (input only)
-AVRDA.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDA.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDA.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDA.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDA.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDA.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDA.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVRDA.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDA.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDA.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDA.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDA.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDA.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDA.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVRDA.menu.26_userrow.02_keep="Retained"
+AVRDA.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDA.menu.26_userrow.03_replace="Replace"
 AVRDA.menu.51_buildopt.01_Release=Build Release (default)
 AVRDA.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDA.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -552,6 +562,8 @@ AVRDD.bootloader.bod_mode=00
 AVRDD.bootloader.bod_sample=0
 AVRDD.bootloader.tool=avrdude
 AVRDD.bootloader.eepupload=
+AVRDD.bootloader.browupload=
+AVRDD.bootloader.urowupload=
 AVRDD.bootloader.eesave_bit=1
 AVRDD.bootloader.mvsys_bit=01
 AVRDD.bootloader.reset_bit=10
@@ -712,17 +724,20 @@ AVRDD.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVRDD.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVRDD.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVRDD.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVRDD.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDD.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDD.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDD.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDD.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDD.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDD.menu.23_eeprom.03_replace="Erase" and "Replace"
-AVRDD.menu.24_mvsyscfg.01_dual.bootloader.mvsys_bit=01
-AVRDD.menu.24_mvsyscfg.01_dual=MVIO "Dual" (default)
-AVRDD.menu.24_mvsyscfg.02_single.bootloader.mvsys_bit=10
-AVRDD.menu.24_mvsyscfg.02_single=MVIO "Single"
+AVRDD.menu.23_mvsyscfg.01_dual.bootloader.mvsys_bit=01
+AVRDD.menu.23_mvsyscfg.01_dual=MVIO "Dual" (default)
+AVRDD.menu.23_mvsyscfg.02_single.bootloader.mvsys_bit=10
+AVRDD.menu.23_mvsyscfg.02_single=MVIO "Single"
+AVRDD.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDD.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDD.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDD.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDD.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDD.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDD.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVRDD.menu.26_userrow.02_keep="Retained"
+AVRDD.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDD.menu.26_userrow.03_replace="Replace"
 AVRDD.menu.51_buildopt.01_Release=Build Release (default)
 AVRDD.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDD.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -772,6 +787,8 @@ AVRDD14.bootloader.bod_mode=00
 AVRDD14.bootloader.bod_sample=0
 AVRDD14.bootloader.tool=avrdude
 AVRDD14.bootloader.eepupload=
+AVRDD14.bootloader.browupload=
+AVRDD14.bootloader.urowupload=
 AVRDD14.bootloader.eesave_bit=1
 AVRDD14.bootloader.mvsys_bit=01
 AVRDD14.bootloader.reset_bit=10
@@ -888,17 +905,20 @@ AVRDD14.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVRDD14.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVRDD14.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVRDD14.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVRDD14.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDD14.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDD14.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDD14.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDD14.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDD14.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDD14.menu.23_eeprom.03_replace="Erase" and "Replace"
-AVRDD14.menu.24_mvsyscfg.01_dual.bootloader.mvsys_bit=01
-AVRDD14.menu.24_mvsyscfg.01_dual=MVIO "Dual" (default)
-AVRDD14.menu.24_mvsyscfg.02_single.bootloader.mvsys_bit=10
-AVRDD14.menu.24_mvsyscfg.02_single=MVIO "Single"
+AVRDD14.menu.23_mvsyscfg.01_dual.bootloader.mvsys_bit=01
+AVRDD14.menu.23_mvsyscfg.01_dual=MVIO "Dual" (default)
+AVRDD14.menu.23_mvsyscfg.02_single.bootloader.mvsys_bit=10
+AVRDD14.menu.23_mvsyscfg.02_single=MVIO "Single"
+AVRDD14.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDD14.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDD14.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDD14.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDD14.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDD14.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDD14.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVRDD14.menu.26_userrow.02_keep="Retained"
+AVRDD14.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDD14.menu.26_userrow.03_replace="Replace"
 AVRDD14.menu.51_buildopt.01_Release=Build Release (default)
 AVRDD14.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDD14.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -948,6 +968,8 @@ AVRDU.bootloader.bod_mode=00
 AVRDU.bootloader.bod_sample=0
 AVRDU.bootloader.tool=avrdude
 AVRDU.bootloader.eepupload=
+AVRDU.bootloader.browupload=
+AVRDU.bootloader.urowupload=
 AVRDU.bootloader.eesave_bit=1
 AVRDU.bootloader.browsave_bit=0
 AVRDU.bootloader.usbsink_bit=01
@@ -1102,21 +1124,22 @@ AVRDU.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVRDU.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVRDU.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVRDU.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVRDU.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDU.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDU.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDU.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDU.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDU.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDU.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVRDU.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDU.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDU.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDU.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDU.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDU.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDU.menu.24_eeprom.03_replace="Erase" and "Replace"
 AVRDU.menu.25_bootrow.01_erase.bootloader.browsave_bit=0
 AVRDU.menu.25_bootrow.01_erase=Save guard "Erase"
 AVRDU.menu.25_bootrow.02_keep.bootloader.browsave_bit=1
 AVRDU.menu.25_bootrow.02_keep=Save guard "Retained"
-AVRDU.menu.26_usbsinkcfg.01_enable.bootloader.usbsink_bit=01
-AVRDU.menu.26_usbsinkcfg.01_enable=USBSINK "Enable" (default)
-AVRDU.menu.26_usbsinkcfg.02_disable.bootloader.usbsink_bit=00
-AVRDU.menu.26_usbsinkcfg.02_disable=USBSINK "Disable"
+AVRDU.menu.25_bootrow.03_replace.bootloader.browupload={bootloader.bootrow}
+AVRDU.menu.25_bootrow.03_replace="Erase" and "Replace"
+AVRDU.menu.26_userrow.02_keep="Retained"
+AVRDU.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDU.menu.26_userrow.03_replace="Replace"
 AVRDU.menu.51_buildopt.01_Release=Build Release (default)
 AVRDU.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDU.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -1173,6 +1196,8 @@ AVRDU14.bootloader.bod_mode=00
 AVRDU14.bootloader.bod_sample=0
 AVRDU14.bootloader.tool=avrdude
 AVRDU14.bootloader.eepupload=
+AVRDU14.bootloader.browupload=
+AVRDU14.bootloader.urowupload=
 AVRDU14.bootloader.eesave_bit=1
 AVRDU14.bootloader.browsave_bit=0
 AVRDU14.bootloader.usbsink_bit=01
@@ -1283,21 +1308,22 @@ AVRDU14.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVRDU14.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVRDU14.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVRDU14.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVRDU14.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDU14.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDU14.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDU14.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDU14.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDU14.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDU14.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVRDU14.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDU14.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDU14.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDU14.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDU14.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDU14.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDU14.menu.24_eeprom.03_replace="Erase" and "Replace"
 AVRDU14.menu.25_bootrow.01_erase.bootloader.browsave_bit=0
 AVRDU14.menu.25_bootrow.01_erase=Save guard "Erase"
 AVRDU14.menu.25_bootrow.02_keep.bootloader.browsave_bit=1
 AVRDU14.menu.25_bootrow.02_keep=Save guard "Retained"
-AVRDU14.menu.26_usbsinkcfg.01_enable.bootloader.usbsink_bit=01
-AVRDU14.menu.26_usbsinkcfg.01_enable=USBSINK "Enable" (default)
-AVRDU14.menu.26_usbsinkcfg.02_disable.bootloader.usbsink_bit=00
-AVRDU14.menu.26_usbsinkcfg.02_disable=USBSINK "Disable"
+AVRDU14.menu.25_bootrow.03_replace.bootloader.browupload={bootloader.bootrow}
+AVRDU14.menu.25_bootrow.03_replace="Erase" and "Replace"
+AVRDU14.menu.26_userrow.02_keep="Retained"
+AVRDU14.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDU14.menu.26_userrow.03_replace="Replace"
 AVRDU14.menu.51_buildopt.01_Release=Build Release (default)
 AVRDU14.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDU14.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -1350,6 +1376,8 @@ AVREA.bootloader.bod_mode=00
 AVREA.bootloader.bod_sample=0
 AVREA.bootloader.tool=avrdude
 AVREA.bootloader.eepupload=
+AVREA.bootloader.browupload=
+AVREA.bootloader.urowupload=
 AVREA.bootloader.eesave_bit=1
 AVREA.bootloader.reset_bit=10
 AVREA.bootloader.updi_bit=1
@@ -1487,13 +1515,16 @@ AVREA.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVREA.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVREA.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVREA.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVREA.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVREA.menu.23_eeprom.01_keep=Save guard "Retained"
-AVREA.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVREA.menu.23_eeprom.02_erase=Save guard "Erase"
-AVREA.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVREA.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVREA.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVREA.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVREA.menu.24_eeprom.01_keep=Save guard "Retained"
+AVREA.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVREA.menu.24_eeprom.02_erase=Save guard "Erase"
+AVREA.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVREA.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVREA.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVREA.menu.26_userrow.02_keep="Retained"
+AVREA.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVREA.menu.26_userrow.03_replace="Replace"
 AVREA.menu.51_buildopt.01_Release=Build Release (default)
 AVREA.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVREA.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -1550,6 +1581,8 @@ AVREB.bootloader.bod_mode=00
 AVREB.bootloader.bod_sample=0
 AVREB.bootloader.tool=avrdude
 AVREB.bootloader.eepupload=
+AVREB.bootloader.browupload=
+AVREB.bootloader.urowupload=
 AVREB.bootloader.eesave_bit=1
 AVREB.bootloader.browsave_bit=0
 AVREB.bootloader.reset_bit=10
@@ -1646,17 +1679,22 @@ AVREB.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVREB.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVREB.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVREB.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVREB.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVREB.menu.23_eeprom.01_keep=Save guard "Retained"
-AVREB.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVREB.menu.23_eeprom.02_erase=Save guard "Erase"
-AVREB.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVREB.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVREB.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVREB.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVREB.menu.24_eeprom.01_keep=Save guard "Retained"
+AVREB.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVREB.menu.24_eeprom.02_erase=Save guard "Erase"
+AVREB.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVREB.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVREB.menu.24_eeprom.03_replace="Erase" and "Replace"
 AVREB.menu.25_bootrow.01_erase.bootloader.browsave_bit=0
 AVREB.menu.25_bootrow.01_erase=Save guard "Erase"
 AVREB.menu.25_bootrow.02_keep.bootloader.browsave_bit=1
 AVREB.menu.25_bootrow.02_keep=Save guard "Retained"
+AVREB.menu.25_bootrow.03_replace.bootloader.browupload={bootloader.bootrow}
+AVREB.menu.25_bootrow.03_replace="Erase" and "Replace"
+AVREB.menu.26_userrow.02_keep="Retained"
+AVREB.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVREB.menu.26_userrow.03_replace="Replace"
 AVREB.menu.51_buildopt.01_Release=Build Release (default)
 AVREB.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVREB.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -1706,6 +1744,8 @@ AVREB14.bootloader.bod_mode=00
 AVREB14.bootloader.bod_sample=0
 AVREB14.bootloader.tool=avrdude
 AVREB14.bootloader.eepupload=
+AVREB14.bootloader.browupload=
+AVREB14.bootloader.urowupload=
 AVREB14.bootloader.eesave_bit=1
 AVREB14.bootloader.browsave_bit=0
 AVREB14.bootloader.reset_bit=10
@@ -1786,17 +1826,22 @@ AVREB14.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVREB14.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVREB14.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVREB14.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVREB14.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVREB14.menu.23_eeprom.01_keep=Save guard "Retained"
-AVREB14.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVREB14.menu.23_eeprom.02_erase=Save guard "Erase"
-AVREB14.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVREB14.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVREB14.menu.23_eeprom.03_replace="Erase" and "Replace"
-AVREB14.menu.25_bootrow.01_keep.bootloader.browsave_bit=1
-AVREB14.menu.25_bootrow.01_keep=Save guard "Retained"
-AVREB14.menu.25_bootrow.02_erase.bootloader.browsave_bit=0
-AVREB14.menu.25_bootrow.02_erase=Save guard "Erase"
+AVREB14.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVREB14.menu.24_eeprom.01_keep=Save guard "Retained"
+AVREB14.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVREB14.menu.24_eeprom.02_erase=Save guard "Erase"
+AVREB14.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVREB14.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVREB14.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVREB14.menu.25_bootrow.01_erase.bootloader.browsave_bit=0
+AVREB14.menu.25_bootrow.01_erase=Save guard "Erase"
+AVREB14.menu.25_bootrow.02_keep.bootloader.browsave_bit=1
+AVREB14.menu.25_bootrow.02_keep=Save guard "Retained"
+AVREB14.menu.25_bootrow.03_replace.bootloader.browupload={bootloader.bootrow}
+AVREB14.menu.25_bootrow.03_replace="Erase" and "Replace"
+AVREB14.menu.26_userrow.02_keep="Retained"
+AVREB14.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVREB14.menu.26_userrow.03_replace="Replace"
 AVREB14.menu.51_buildopt.01_Release=Build Release (default)
 AVREB14.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVREB14.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -1845,6 +1890,8 @@ AVRDB_noloader.bootloader.bod_lvl=000
 AVRDB_noloader.bootloader.bod_mode=00
 AVRDB_noloader.bootloader.bod_sample=0
 AVRDB_noloader.bootloader.eepupload=
+AVRDB_noloader.bootloader.browupload=
+AVRDB_noloader.bootloader.urowupload=
 AVRDB_noloader.bootloader.eesave_bit=1
 AVRDB_noloader.bootloader.mvsys_bit=01
 AVRDB_noloader.bootloader.reset_bit=10
@@ -2018,17 +2065,20 @@ AVRDB_noloader.menu.21_resetpin.01_reset.bootloader.reset_bit=10
 AVRDB_noloader.menu.21_resetpin.01_reset=PF6 pin=Reset
 AVRDB_noloader.menu.21_resetpin.02_gpio.bootloader.reset_bit=00
 AVRDB_noloader.menu.21_resetpin.02_gpio=PF6 pin=GPIO (input only)
-AVRDB_noloader.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDB_noloader.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDB_noloader.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDB_noloader.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDB_noloader.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDB_noloader.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDB_noloader.menu.23_eeprom.03_replace="Erase" and "Replace"
-AVRDB_noloader.menu.24_mvsyscfg.01_dual.bootloader.mvsys_bit=01
-AVRDB_noloader.menu.24_mvsyscfg.01_dual=MVIO "Dual" (default)
-AVRDB_noloader.menu.24_mvsyscfg.02_single.bootloader.mvsys_bit=10
-AVRDB_noloader.menu.24_mvsyscfg.02_single=MVIO "Single"
+AVRDB_noloader.menu.23_mvsyscfg.01_dual.bootloader.mvsys_bit=01
+AVRDB_noloader.menu.23_mvsyscfg.01_dual=MVIO "Dual" (default)
+AVRDB_noloader.menu.23_mvsyscfg.02_single.bootloader.mvsys_bit=10
+AVRDB_noloader.menu.23_mvsyscfg.02_single=MVIO "Single"
+AVRDB_noloader.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDB_noloader.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDB_noloader.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDB_noloader.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDB_noloader.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDB_noloader.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDB_noloader.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVRDB_noloader.menu.26_userrow.02_keep="Retained"
+AVRDB_noloader.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDB_noloader.menu.26_userrow.03_replace="Replace"
 AVRDB_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRDB_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDB_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -2091,6 +2141,8 @@ AVRDA_noloader.bootloader.bod_lvl=000
 AVRDA_noloader.bootloader.bod_mode=00
 AVRDA_noloader.bootloader.bod_sample=0
 AVRDA_noloader.bootloader.eepupload=
+AVRDA_noloader.bootloader.browupload=
+AVRDA_noloader.bootloader.urowupload=
 AVRDA_noloader.bootloader.eesave_bit=1
 AVRDA_noloader.bootloader.mvsys_bit=01
 AVRDA_noloader.bootloader.reset_bit=10
@@ -2264,13 +2316,16 @@ AVRDA_noloader.menu.21_resetpin.01_reset.bootloader.reset_bit=10
 AVRDA_noloader.menu.21_resetpin.01_reset=PF6 pin=Reset
 AVRDA_noloader.menu.21_resetpin.02_gpio.bootloader.reset_bit=00
 AVRDA_noloader.menu.21_resetpin.02_gpio=PF6 pin=GPIO (input only)
-AVRDA_noloader.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDA_noloader.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDA_noloader.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDA_noloader.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDA_noloader.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDA_noloader.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDA_noloader.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVRDA_noloader.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDA_noloader.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDA_noloader.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDA_noloader.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDA_noloader.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDA_noloader.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDA_noloader.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVRDA_noloader.menu.26_userrow.02_keep="Retained"
+AVRDA_noloader.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDA_noloader.menu.26_userrow.03_replace="Replace"
 AVRDA_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRDA_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDA_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -2333,6 +2388,8 @@ AVRDD_noloader.bootloader.bod_lvl=000
 AVRDD_noloader.bootloader.bod_mode=00
 AVRDD_noloader.bootloader.bod_sample=0
 AVRDD_noloader.bootloader.eepupload=
+AVRDD_noloader.bootloader.browupload=
+AVRDD_noloader.bootloader.urowupload=
 AVRDD_noloader.bootloader.eesave_bit=1
 AVRDD_noloader.bootloader.mvsys_bit=01
 AVRDD_noloader.bootloader.reset_bit=10
@@ -2517,17 +2574,20 @@ AVRDD_noloader.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVRDD_noloader.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVRDD_noloader.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVRDD_noloader.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVRDD_noloader.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDD_noloader.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDD_noloader.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDD_noloader.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDD_noloader.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDD_noloader.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDD_noloader.menu.23_eeprom.03_replace="Erase" and "Replace"
-AVRDD_noloader.menu.24_mvsyscfg.01_dual.bootloader.mvsys_bit=01
-AVRDD_noloader.menu.24_mvsyscfg.01_dual=MVIO "Dual" (default)
-AVRDD_noloader.menu.24_mvsyscfg.02_single.bootloader.mvsys_bit=10
-AVRDD_noloader.menu.24_mvsyscfg.02_single=MVIO "Single"
+AVRDD_noloader.menu.23_mvsyscfg.01_dual.bootloader.mvsys_bit=01
+AVRDD_noloader.menu.23_mvsyscfg.01_dual=MVIO "Dual" (default)
+AVRDD_noloader.menu.23_mvsyscfg.02_single.bootloader.mvsys_bit=10
+AVRDD_noloader.menu.23_mvsyscfg.02_single=MVIO "Single"
+AVRDD_noloader.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDD_noloader.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDD_noloader.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDD_noloader.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDD_noloader.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDD_noloader.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDD_noloader.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVRDD_noloader.menu.26_userrow.02_keep="Retained"
+AVRDD_noloader.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDD_noloader.menu.26_userrow.03_replace="Replace"
 AVRDD_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRDD_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDD_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -2584,6 +2644,8 @@ AVRDU_noloader.bootloader.bod_lvl=000
 AVRDU_noloader.bootloader.bod_mode=00
 AVRDU_noloader.bootloader.bod_sample=0
 AVRDU_noloader.bootloader.eepupload=
+AVRDU_noloader.bootloader.browupload=
+AVRDU_noloader.bootloader.urowupload=
 AVRDU_noloader.bootloader.eesave_bit=1
 AVRDU_noloader.bootloader.browsave_bit=0
 AVRDU_noloader.bootloader.usbsink_bit=01
@@ -2755,21 +2817,22 @@ AVRDU_noloader.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVRDU_noloader.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVRDU_noloader.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVRDU_noloader.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVRDU_noloader.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVRDU_noloader.menu.23_eeprom.01_keep=Save guard "Retained"
-AVRDU_noloader.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVRDU_noloader.menu.23_eeprom.02_erase=Save guard "Erase"
-AVRDU_noloader.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVRDU_noloader.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVRDU_noloader.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVRDU_noloader.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVRDU_noloader.menu.24_eeprom.01_keep=Save guard "Retained"
+AVRDU_noloader.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVRDU_noloader.menu.24_eeprom.02_erase=Save guard "Erase"
+AVRDU_noloader.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVRDU_noloader.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVRDU_noloader.menu.24_eeprom.03_replace="Erase" and "Replace"
 AVRDU_noloader.menu.25_bootrow.01_erase.bootloader.browsave_bit=0
 AVRDU_noloader.menu.25_bootrow.01_erase=Save guard "Erase"
 AVRDU_noloader.menu.25_bootrow.02_keep.bootloader.browsave_bit=1
 AVRDU_noloader.menu.25_bootrow.02_keep=Save guard "Retained"
-AVRDU_noloader.menu.26_usbsinkcfg.01_enable.bootloader.usbsink_bit=01
-AVRDU_noloader.menu.26_usbsinkcfg.01_enable=USBSINK "Enable" (default)
-AVRDU_noloader.menu.26_usbsinkcfg.02_disable.bootloader.usbsink_bit=00
-AVRDU_noloader.menu.26_usbsinkcfg.02_disable=USBSINK "Disable"
+AVRDU_noloader.menu.25_bootrow.03_replace.bootloader.browupload={bootloader.bootrow}
+AVRDU_noloader.menu.25_bootrow.03_replace="Erase" and "Replace"
+AVRDU_noloader.menu.26_userrow.02_keep="Retained"
+AVRDU_noloader.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVRDU_noloader.menu.26_userrow.03_replace="Replace"
 AVRDU_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRDU_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDU_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -2838,6 +2901,8 @@ AVREA_noloader.bootloader.bod_lvl=000
 AVREA_noloader.bootloader.bod_mode=00
 AVREA_noloader.bootloader.bod_sample=0
 AVREA_noloader.bootloader.eepupload=
+AVREA_noloader.bootloader.browupload=
+AVREA_noloader.bootloader.urowupload=
 AVREA_noloader.bootloader.eesave_bit=1
 AVREA_noloader.bootloader.reset_bit=10
 AVREA_noloader.bootloader.tool=avrdude
@@ -2977,13 +3042,16 @@ AVREA_noloader.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVREA_noloader.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVREA_noloader.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVREA_noloader.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVREA_noloader.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVREA_noloader.menu.23_eeprom.01_keep=Save guard "Retained"
-AVREA_noloader.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVREA_noloader.menu.23_eeprom.02_erase=Save guard "Erase"
-AVREA_noloader.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVREA_noloader.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVREA_noloader.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVREA_noloader.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVREA_noloader.menu.24_eeprom.01_keep=Save guard "Retained"
+AVREA_noloader.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVREA_noloader.menu.24_eeprom.02_erase=Save guard "Erase"
+AVREA_noloader.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVREA_noloader.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVREA_noloader.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVREA_noloader.menu.26_userrow.02_keep="Retained"
+AVREA_noloader.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVREA_noloader.menu.26_userrow.03_replace="Replace"
 AVREA_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVREA_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVREA_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -3053,6 +3121,8 @@ AVREB_noloader.bootloader.bod_lvl=000
 AVREB_noloader.bootloader.bod_mode=00
 AVREB_noloader.bootloader.bod_sample=0
 AVREB_noloader.bootloader.eepupload=
+AVREB_noloader.bootloader.browupload=
+AVREB_noloader.bootloader.urowupload=
 AVREB_noloader.bootloader.eesave_bit=1
 AVREB_noloader.bootloader.browsave_bit=1
 AVREB_noloader.bootloader.reset_bit=10
@@ -3159,17 +3229,22 @@ AVREB_noloader.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVREB_noloader.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
 AVREB_noloader.menu.22_updipin.02_gpio.bootloader.updi_bit=0
 AVREB_noloader.menu.22_updipin.02_gpio=PF7 pin=GPIO (DANGER:NOT RECOMMENDED)
-AVREB_noloader.menu.23_eeprom.01_keep.bootloader.eesave_bit=1
-AVREB_noloader.menu.23_eeprom.01_keep=Save guard "Retained"
-AVREB_noloader.menu.23_eeprom.02_erase.bootloader.eesave_bit=0
-AVREB_noloader.menu.23_eeprom.02_erase=Save guard "Erase"
-AVREB_noloader.menu.23_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
-AVREB_noloader.menu.23_eeprom.03_replace.bootloader.eesave_bit=1
-AVREB_noloader.menu.23_eeprom.03_replace="Erase" and "Replace"
+AVREB_noloader.menu.24_eeprom.01_keep.bootloader.eesave_bit=1
+AVREB_noloader.menu.24_eeprom.01_keep=Save guard "Retained"
+AVREB_noloader.menu.24_eeprom.02_erase.bootloader.eesave_bit=0
+AVREB_noloader.menu.24_eeprom.02_erase=Save guard "Erase"
+AVREB_noloader.menu.24_eeprom.03_replace.bootloader.eepupload={bootloader.eeprom}
+AVREB_noloader.menu.24_eeprom.03_replace.bootloader.eesave_bit=1
+AVREB_noloader.menu.24_eeprom.03_replace="Erase" and "Replace"
+AVREB_noloader.menu.26_userrow.02_keep="Retained"
+AVREB_noloader.menu.26_userrow.03_replace.bootloader.urowupload={bootloader.userrow}
+AVREB_noloader.menu.26_userrow.03_replace="Replace"
 AVREB_noloader.menu.25_bootrow.01_erase.bootloader.browsave_bit=0
 AVREB_noloader.menu.25_bootrow.01_erase=Save guard "Erase"
 AVREB_noloader.menu.25_bootrow.02_keep.bootloader.browsave_bit=1
 AVREB_noloader.menu.25_bootrow.02_keep=Save guard "Retained"
+AVREB_noloader.menu.25_bootrow.03_replace.bootloader.browupload={bootloader.bootrow}
+AVREB_noloader.menu.25_bootrow.03_replace="Erase" and "Replace"
 AVREB_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVREB_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVREB_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1

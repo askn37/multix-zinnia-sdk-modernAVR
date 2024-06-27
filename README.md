@@ -55,19 +55,19 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16DD28 AVR32DD28 AVR64DD28
     - AVR16DD32 AVR32DD32 AVR64DD32
   - AVR DU 系統
-    - *AVR16DD14* *AVR32DD14*
-    - *AVR16DD20* *AVR32DD20*
-    - *AVR16DD28* *AVR32DD28* AVR64DD28
-    - *AVR16DD32* *AVR32DD32* AVR64DD32
+    - AVR16DD14 AVR32DD14
+    - AVR16DD20 AVR32DD20
+    - AVR16DD28 AVR32DD28 AVR64DD28
+    - AVR16DD32 AVR32DD32 AVR64DD32
   - AVR EA 系統
     - AVR16EA28 AVR32EA28 AVR64EA28
     - AVR16EA32 AVR32EA32 AVR64EA32
     - AVR16EA48 AVR32EA48 AVR64EA48
   - AVR EB 系統
-    - AVR16EB14 *AVR32EB14*
-    - AVR16EB20 *AVR32EB20*
-    - AVR16EB28 *AVR32EB28*
-    - AVR16EB32 *AVR32EB32*
+    - AVR16EB14 AVR32EB14
+    - AVR16EB20 AVR32EB20
+    - AVR16EB28 AVR32EB28
+    - AVR16EB32 AVR32EB32
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
@@ -177,21 +177,20 @@ Arduino IDE でこのSDKを選択すると、
 - __FUSE UPDI__ -- AVR_DD/DU/EA/EBの UPDIピン用途変更（FUSE設定）
   - __原則、既定値からの変更禁止（復元にはHV対応書換器が必須）__
   - 各個別データシート参照のこと
-- __FUSE EEPROM__ -- EEPROM保護フラグ（FUSE設定）
+- __EEPROM__ -- EEPROM保護フラグ（FUSE設定）
   - Save guard "Retained" -- チップ消去時保護
   - Save guard "Erase" -- チップ消去時一括初期化
-  - "Erase" and "Replace" -- ブートローダー/書込器でのEEPROM書換有効
-- __FUSE BOOTROW__ -- AVR_DU/EB の BOOTROW保護フラグ（FUSE設定）
-  - Save guard "Erase" -- チップ消去時一括初期化
-  - Save guard "Retained" -- チップ消去時保護
-- __FUSE MVIO__ -- AVR_DB/DD の復電圧機能種別（FUSE設定）
-  - MVIO "Dual" -- 有効（VDD2端子へ要外部電圧供給）
-  - MVIO "Single" -- 無効（VDD2端子へ内部固定電圧供給）
-  - 各個別データシート参照のこと
-- __FUSE USBSINK__ -- AVR_DU の USB周辺機能制御（FUSE設定）
-  - USBSINK "Enable" -- 有効
-  - USBSINK "Disable" -- 無効
-  - 各個別データシート参照のこと
+  - Upload ".eep" file -- ブートローダー/書込器でのEEPROMファイル書換有効
+- __BOOTROW__ -- BOOTROWの扱い：DU/EBシリーズのみ
+  - Save guard "Erase" -- チップ消去時一括初期化（既定値）
+  - Save guard "Retained" -- 何もしない
+  - Upload ".brow" file -- ブートローダー/書込器でのBOOTROWファイル書換有効
+- __USERROW__ -- USERROWの扱い
+  - Save guard "Retained" -- 何もしない
+  - Upload ".urow" file -- ブートローダー/書込器でのUSEROWファイル書換有効
+- __FUSE define__ -- FUSE全体の扱い：書込器モードのみ
+  - Specify in the MENU -- メニュー設定に従う
+  - Upload ".fuse" file (DANGER) -- FUSEファイルでの書換有効：危険な操作
 - __Build Option__ -- DEBUGマクロ有無（任意選択）
   - Build Release -- 既定値（NDEBUG設定）
   - Build DEBUG=1
@@ -240,7 +239,7 @@ Arduino IDE でこのSDKを選択すると、
 
 ボードメニューでブートローダー有を選んだ場合はこのモードが標準。
 書込器は不要。MCUの UART経由でスケッチを書き込む。
-FUSEを書き換えることは出来ない。
+__FUSEを書き換えることは出来ない。__
 Arduino IDE のシリアルコンソールを閉じる必要はない。
 
 以下のサブメニュー設定は必須；
@@ -250,7 +249,9 @@ Arduino IDE のシリアルコンソールを閉じる必要はない。
 
 EEPROM対応ブートローダーを使用しているならば以下の選択も可能。
 
-- FUSE EEPROM -> "Erase" and "Replace"
+- EEPROM -> Upload ".eep" file
+- BOOTROW -> Upload ".brow" file（DU/EBシリーズのみ）
+- USERROW -> Upload ".urow" file
 
 tinyAVR/megaAVR系統では Clock 選択と現在の真のFUSE設定が一致していないと
 UARTが正しく動作しない。
@@ -261,6 +262,7 @@ FUSE現在値が不明な場合は __2MHz__ を選択するとよい。
 ボードメニューでブートローダー有を選んでおり、かつ書込器も併用している場合に有効。
 FUSEも同時に更新される。
 Arduino IDE のシリアルコンソールを閉じる必要はない。
+スケッチとブートローダー導入を一括で行える。
 
 以下のサブメニュー設定が必須；
 
@@ -271,7 +273,9 @@ Arduino IDE のシリアルコンソールを閉じる必要はない。
 
 EEPROM対応書込器を使用しているなら以下も選択可能。
 
-- FUSE EEPROM -> "Erase" and "Replace"
+- EEPROM -> Upload ".eep" file
+- BOOTROW -> Upload ".brow" file（DU/EBシリーズのみ）
+- USERROW -> Upload ".urow" file
 
 tinyAVR/megaAVR系統では任意の Clock 選択が有効となる。
 
@@ -284,12 +288,15 @@ Arduino IDE のシリアルコンソールを閉じる必要はない。
 以下のサブメニュー設定が必須；
 
 - シリアルポート選択（over UART 書込器の場合）
-- 書込装置選択選択
+- 書込装置選択
 - すべてのFUSE関連
 
 EEPROM対応書込器を使用しているなら以下も選択可能。
 
-- FUSE EEPROM -> "Erase" and "Replace"
+- EEPROM -> Upload ".eep" file
+- BOOTROW -> Upload ".brow" file（DU/EBシリーズのみ）
+- USERROW -> Upload ".urow" file
+- FUSE define -> Upload ".fuse" file (DANGER)
 
 tinyAVR/megaAVR系統では任意の Clock 選択が有効となる。
 
@@ -318,7 +325,10 @@ FUSE変更以後は 20MHz / 16MHz 各系統内の選択のみが FUSE変更な�
 スケッチがビルドされた HEX ファイル、
 ブートローダーも一体に結合された HEX ファイル、
 逆アセンブルコードリスト、
-（IDE2.0では）EEPROM 初期化用 HEX ファイル
+EEPROM 初期化用 HEX ファイル
+BOOTROW 初期化用 HEX ファイル
+USERROW 初期化用 HEX ファイル
+FUSE 初期化用 HEX ファイル（スケッチ内で設定内容を記述した場合）
 が出力される。
 
 > スケッチがビルドエラーになる場合は何も出力されない。\
@@ -386,12 +396,13 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 ## 更新履歴
 
-- 0.2.14 (24/06/20)
+- 0.2.14 (24/06/27)
   - 各ファイルの MITライセンスリンク対応
   - libraries から、TPI4AVR, UPDI4AVR submodule を除去（非標準化）
   - __AVR-DU系列専用__ USB周辺機能に暫定対応
     - `<SerialUSB.h>` 基本的な USB-SERIAL通信クラス
     - `<USB/USB_CDC.h>` 上記の下位実装（USB-CDC）
+  - EEPROM(.eep)、BOOTROW(.brow)、USERROW(.urow)、FUSE(.fuse) ファイルメニューを追加
 
 - 0.2.13 (24/05/12)
   - `7.3.0-avr8-gnu-toolchain-240510`に更新。

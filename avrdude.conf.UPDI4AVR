@@ -96,6 +96,21 @@ programmer # updi4avr
 ;
 
 #------------------------------------------------------------
+# pickit4_updi
+#------------------------------------------------------------
+
+programmer
+    id                     = "pickit4_updi";
+    desc                   = "MPLAB(R) PICkit 4 in UPDI mode";
+    type                   = "jtagice3_updi";
+    prog_modes             = PM_UPDI;
+    extra_features         = HAS_VTARG_READ;
+    connection_type        = usb;
+    usbpid                 = 0x2177, 0x2178, 0x2179;
+    hvupdi_support         = 0, 1, 2;
+;
+
+#------------------------------------------------------------
 # pkobn_updi
 #------------------------------------------------------------
 

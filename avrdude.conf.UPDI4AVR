@@ -3043,13 +3043,8 @@ part
         alias "fusea";
     ;
 
-    # *** CAUTION ***
-    # The 'fuses' of the AVR_EB series is originally 11 bytes, 
-    # but is limited to 9 bytes here to avoid irrecoverable failures. 
-    # To overwrite the last two bytes added, 
-    # explicitly specify 'fusea' or 'pdicfg'.
     memory "fuses"
-        size               = 9;
+        size               = 12;
         page_size          = 16;
         offset             = 0x1050;
         readsize           = 16;
@@ -3332,13 +3327,8 @@ part
         alias "fusea";
     ;
 
-    # *** CAUTION ***
-    # The 'fuses' of the AVR_EB series is originally 11 bytes, 
-    # but is limited to 9 bytes here to avoid irrecoverable failures. 
-    # To overwrite the last two bytes added, 
-    # explicitly specify 'fusea' or 'pdicfg'.
     memory "fuses"
-        size               = 9;
+        size               = 12;
         page_size          = 16;
         offset             = 0x1050;
         readsize           = 16;

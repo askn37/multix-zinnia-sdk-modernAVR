@@ -88,54 +88,54 @@
 
 /* Timer Waveout signal*/
 
-#define PIN_WO0       PIN_PA0
-#define PIN_WO1       PIN_PA1
-#define PIN_WO2       PIN_PA2
-#define PIN_WO3       PIN_PA3
-#define PIN_WO4       PIN_PA4
-#define PIN_WO5       PIN_PA5
-#define PIN_WO0_ALT_2 PIN_PC0
-#define PIN_WO1_ALT_2 PIN_PC1
-#define PIN_WO2_ALT_2 PIN_PC2
-#define PIN_WO3_ALT_2 PIN_PC3
-/* #define PIN_WO0_ALT_3 PIN_PD0 */
-#define PIN_WO1_ALT_3 PIN_PD1
-#define PIN_WO2_ALT_3 PIN_PD2
-#define PIN_WO3_ALT_3 PIN_PD3
-#define PIN_WO4_ALT_3 PIN_PD4
-#define PIN_WO5_ALT_3 PIN_PD5
-#define PIN_WO0_ALT_5 PIN_PF0
-#define PIN_WO1_ALT_5 PIN_PF1
-// #define PIN_WO2_ALT_5 PIN_PF2
-// #define PIN_WO3_ALT_5 PIN_PF3
-// #define PIN_WO4_ALT_5 PIN_PF4
-// #define PIN_WO5_ALT_5 PIN_PF5
+#define PIN_WO0      PIN_PA0
+#define PIN_WO1      PIN_PA1
+#define PIN_WO2      PIN_PA2
+#define PIN_WO3      PIN_PA3
+#define PIN_WO4      PIN_PA4
+#define PIN_WO5      PIN_PA5
+#define PIN_WO0_ALT2 PIN_PC0
+#define PIN_WO1_ALT2 PIN_PC1
+#define PIN_WO2_ALT2 PIN_PC2
+#define PIN_WO3_ALT2 PIN_PC3
+/* #define PIN_WO0_ALT3 PIN_PD0 */
+#define PIN_WO1_ALT3 PIN_PD1
+#define PIN_WO2_ALT3 PIN_PD2
+#define PIN_WO3_ALT3 PIN_PD3
+#define PIN_WO4_ALT3 PIN_PD4
+#define PIN_WO5_ALT3 PIN_PD5
+#define PIN_WO0_ALT5 PIN_PF0
+#define PIN_WO1_ALT5 PIN_PF1
+// #define PIN_WO2_ALT5 PIN_PF2
+// #define PIN_WO3_ALT5 PIN_PF3
+// #define PIN_WO4_ALT5 PIN_PF4
+// #define PIN_WO5_ALT5 PIN_PF5
 #define PIN_TCA0_WO0       PIN_PA0
 #define PIN_TCA0_WO1       PIN_PA1
 #define PIN_TCA0_WO2       PIN_PA2
 #define PIN_TCA0_WO3       PIN_PA3
 #define PIN_TCA0_WO4       PIN_PA4
 #define PIN_TCA0_WO5       PIN_PA5
-#define PIN_TCA0_WO0_ALT_2 PIN_PC0
-#define PIN_TCA0_WO1_ALT_2 PIN_PC1
-#define PIN_TCA0_WO2_ALT_2 PIN_PC2
-#define PIN_TCA0_WO3_ALT_2 PIN_PC3
-/* #define PIN_TCA0_WO0_ALT_3 PIN_PD0 */
-#define PIN_TCA0_WO1_ALT_3 PIN_PD1
-#define PIN_TCA0_WO2_ALT_3 PIN_PD2
-#define PIN_TCA0_WO3_ALT_3 PIN_PD3
-#define PIN_TCA0_WO4_ALT_3 PIN_PD4
-#define PIN_TCA0_WO5_ALT_3 PIN_PD5
-#define PIN_TCA0_WO0_ALT_5 PIN_PF0
-#define PIN_TCA0_WO1_ALT_5 PIN_PF1
-// #define PIN_TCA0_WO2_ALT_5 PIN_PF2
-// #define PIN_TCA0_WO3_ALT_5 PIN_PF3
-// #define PIN_TCA0_WO4_ALT_5 PIN_PF4
-// #define PIN_TCA0_WO5_ALT_5 PIN_PF5
+#define PIN_TCA0_WO0_ALT2  PIN_PC0
+#define PIN_TCA0_WO1_ALT2  PIN_PC1
+#define PIN_TCA0_WO2_ALT2  PIN_PC2
+#define PIN_TCA0_WO3_ALT2  PIN_PC3
+/* #define PIN_TCA0_WO0_ALT3  PIN_PD0 */
+#define PIN_TCA0_WO1_ALT3  PIN_PD1
+#define PIN_TCA0_WO2_ALT3  PIN_PD2
+#define PIN_TCA0_WO3_ALT3  PIN_PD3
+#define PIN_TCA0_WO4_ALT3  PIN_PD4
+#define PIN_TCA0_WO5_ALT3  PIN_PD5
+#define PIN_TCA0_WO0_ALT5  PIN_PF0
+#define PIN_TCA0_WO1_ALT5  PIN_PF1
+// #define PIN_TCA0_WO2_ALT5  PIN_PF2
+// #define PIN_TCA0_WO3_ALT5  PIN_PF3
+// #define PIN_TCA0_WO4_ALT5  PIN_PF4
+// #define PIN_TCA0_WO5_ALT5  PIN_PF5
 #define PIN_TCB0_WO       PIN_PA2
 #define PIN_TCB1_WO       PIN_PA3
-// #define PIN_TCB0_WO_ALT_1 PIN_PF4
-// #define PIN_TCB1_WO_ALT_1 PIN_PF5
+// #define PIN_TCB0_WO_ALT1 PIN_PF4
+// #define PIN_TCB1_WO_ALT1 PIN_PF5
 #define PIN_TCD0_WOA      PIN_PA4
 #define PIN_TCD0_WOB      PIN_PA5
 #define PIN_TCD0_WOC      PIN_PA6
@@ -149,9 +149,9 @@
 #define PIN_TCD0_WOC_ALT4 PIN_PD4
 #define PIN_TCD0_WOD_ALT4 PIN_PD5
 #define PIN_EVOUTA        PIN_PA2
-#define PIN_EVOUTA_ALT_1  PIN_PA7
+#define PIN_EVOUTA_ALT1   PIN_PA7
 #define PIN_EVOUTD        PIN_PD2
-#define PIN_EVOUTD_ALT_1  PIN_PD7
+#define PIN_EVOUTD_ALT1   PIN_PD7
 // #define PIN_EVOUTF        PIN_PF2
 #define PIN_EVOUTF_ALT_1  PIN_PF7
 

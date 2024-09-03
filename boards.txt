@@ -3252,9 +3252,9 @@ AVREB_noloader.menu.12_BODLVL.BODLEVEL2.bootloader.bod_lvl=010
 AVREB_noloader.menu.12_BODLVL.BODLEVEL2=Level 2.60V
 AVREB_noloader.menu.12_BODLVL.BODLEVEL3.bootloader.bod_lvl=011
 AVREB_noloader.menu.12_BODLVL.BODLEVEL3=Level 4.30V
-AVREB_noloader.menu.21_resetpin.01_reset.bootloader.reset_bit=11
+AVREB_noloader.menu.21_resetpin.01_reset.bootloader.reset_bit=10
 AVREB_noloader.menu.21_resetpin.01_reset=PF6 pin=Reset
-AVREB_noloader.menu.21_resetpin.02_gpio.bootloader.reset_bit=01
+AVREB_noloader.menu.21_resetpin.02_gpio.bootloader.reset_bit=00
 AVREB_noloader.menu.21_resetpin.02_gpio=PF6 pin=GPIO (input only)
 AVREB_noloader.menu.22_updipin.01_updi.bootloader.updi_bit=1
 AVREB_noloader.menu.22_updipin.01_updi=PF7 pin=UPDI (default)
@@ -3302,9 +3302,9 @@ AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7.build.console_select=-DSer
 AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7.build.led_pin=-DLED_BUILTIN=PIN_PD7
 AVREB_noloader.menu.54_console_select.11_UART0_A0_LD7=UART0 TX:PA0 RX:PA1 LED=PD7 (14pin)
 AVREB_noloader.menu.54_console_select.20_separator=-
-AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7.build.console_select=-DSerial=Serial1E
-AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7.build.led_pin=-DLED_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PF6
-AVREB_noloader.menu.54_console_select.21_UART1_C1_LF6_SF7=UART1 TX:PC1 RX:PC2 LED=PF5 SW=PF6 (AVR16EB32 Curiosity Nano)
+AVREB_noloader.menu.54_console_select.21_UART0_C1_LF5_SF6.build.console_select=-DSerial=Serial0E
+AVREB_noloader.menu.54_console_select.21_UART0_C1_LF5_SF6.build.led_pin=-DLED_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PF6
+AVREB_noloader.menu.54_console_select.21_UART0_C1_LF5_SF6=UART0 TX:PC1 RX:PC2 LED=PF5 SW=PF6 (AVR16EB32 Curiosity Nano)
 AVREB_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVREB_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVREB_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400

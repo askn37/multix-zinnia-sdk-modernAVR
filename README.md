@@ -396,6 +396,10 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 ## 更新履歴
 
+- 0.3.0 (24/11/06)
+  - AVRDUDEを`8.0-arduino.1`に更新。
+  - toolchainを`7.3.0-avr8-gnu-toolchain-241029`に更新。
+
 - 0.2.14 (24/06/27)
   - 各ファイルの MITライセンスリンク対応
   - libraries から、TPI4AVR, UPDI4AVR submodule を除去（非標準化）

@@ -1,5 +1,5 @@
 name=MultiX Zinnia Product SDK [modernAVR]
-version=0.2.14
+version=0.3.0
 
 archive_file_path={build.path}/{archive_file}
 bootloader.tool=avrdude
@@ -116,11 +116,11 @@ tools.avrdude.bootloader.params.verbose=-v
 tools.avrdude.bootloader.pattern="{cmd.path}" {bootloader.verbose} {bootloader.verify} -p {build.mcu} -c {protocol} {program.extra_params} {bootloader.fuses} -e -U "flash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i"
 tools.avrdude.bootloader.verify=
 tools.avrdude.cmd.path={path}/bin/avrdude
-tools.avrdude.config.path={runtime.platform.path}/avrdude.conf.UPDI4AVR
+tools.avrdude.config.path=
 tools.avrdude.erase.params.quiet=-q -q
 tools.avrdude.erase.params.verbose=-v
 tools.avrdude.erase.pattern=
-tools.avrdude.path={runtime.platform.path}/../../../tools/avrdude/7.2-arduino.1
+tools.avrdude.path={runtime.platform.path}/../../../tools/avrdude/8.0-arduino.1
 tools.avrdude.program.params.noverify=-V
 tools.avrdude.program.params.quiet=-q -q
 tools.avrdude.program.params.verbose=-v
@@ -129,6 +129,15 @@ tools.avrdude.program.verify=
 tools.avrdude.upload.params.noverify=-V
 tools.avrdude.upload.params.quiet=-q -q
 tools.avrdude.upload.params.verbose=-v
-tools.avrdude.upload.pattern="{cmd.path}" {upload.verbose} {upload.verify} -C "{config.path}" -p {build.mcu} -c {upload.protocol} -P {serial.port} {bootloader.eepupload} {bootloader.browupload} {bootloader.urowupload} -D -U "flash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.upload.pattern="{cmd.path}" {upload.verbose} {upload.verify} -p {build.mcu} -c {upload.protocol} -P {serial.port} {bootloader.eepupload} {bootloader.browupload} {bootloader.urowupload} -D -U "flash:w:{build.path}/{build.project_name}.hex:i"
 tools.avrdude.upload.verify=
 tools.avrdude_remote.upload.pattern=/usr/bin/run-avrdude /tmp/sketch.hex {upload.verbose} -p{build.mcu}
+
+tools.avrdude_usb.cmd.path={path}/bin/avrdude
+tools.avrdude_usb.config.path=
+tools.avrdude_usb.path={runtime.platform.path}/../../../tools/avrdude/8.0-arduino.1
+tools.avrdude_usb.upload.params.noverify=-V
+tools.avrdude_usb.upload.params.quiet=-q -q
+tools.avrdude_usb.upload.params.verbose=-v
+tools.avrdude_usb.upload.pattern="{cmd.path}" {upload.verbose} {upload.verify} -p {build.mcu} -c {upload.protocol} {bootloader.eepupload} {bootloader.browupload} {bootloader.urowupload} -D -U "flash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude_usb.upload.verify=

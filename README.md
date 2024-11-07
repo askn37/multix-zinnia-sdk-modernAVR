@@ -13,6 +13,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
   - 原則として割込や計数器/計時器周辺機能を専有せず、利用者が自由に使える。
     - __協調的マルチタスク__ 支援ライブラリは RTC周辺機能を必要とする。\
       （任意選択：明示的インクルードで有効化）
+- AVRDUDE 8.0 同梱。（0.3.0以降）
 - 超低消費電力超低速駆動対応。
   - 32768Hzの超低消費電力動作を支援。
 - 安価なプログラムライタ（書込器）の利用を想定。
@@ -40,10 +41,10 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 - __MultiX Zinnia Product SDK [modernAVR]__ <--
   - （Microchipブランド世代）
   - AVR DA 系統
-    - AVR32DA28 AVR64DA28 AVR128DA28
-    - AVR32DA32 AVR64DA32 AVR128DA32
-    - AVR32DA48 AVR64DA48 AVR128DA48
-    - AVR32DA64 AVR64DA64 AVR128DA64
+    - AVR32DA28 AVR64DA28 AVR128DA28 AVR128DA28S
+    - AVR32DA32 AVR64DA32 AVR128DA32 AVR128DA32S
+    - AVR32DA48 AVR64DA48 AVR128DA48 AVR128DA48S
+    - AVR32DA64 AVR64DA64 AVR128DA64 AVR128DA64S
   - AVR DB 系統
     - AVR32DB28 AVR64DB28 AVR128DB28
     - AVR32DB32 AVR64DB32 AVR128DB32
@@ -72,7 +73,8 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
 > この分割は NVM書換プロトコルおよび/すなわちブートローダーの相互共有性による。\
-> 共通基盤の AVR-GCC/AVR-LIBC toolchain は既知の AVR 8bit 系全種に対応している。
+> 共通基盤の AVR-GCC/AVR-LIBC toolchain は既知の AVR 8bit 系全種に対応している。\
+> AVR32EBxx は、AVRDUDE 8.0時点では書込不可。
 
 ## 対応するホストOS
 
@@ -84,13 +86,17 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 
 完成品として販売されている製品以外の、工場出荷状態ではブートローダーが書き込まれていないため何らかの書込器準備は必要。
 
-- [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) -- このSDKでもメンテナンスされている。JTAG2UPDI上位互換。
+- [__UPDI4AVR-USB__](https://askn37.github.io/product/UPDI4AVR-USB/) -- このSDKでもメンテナンスされている。PICKit4互換相当。
+  - 廉価な "AVR64DU32 CURIOSITY NANO" を UPDI/TPI/PDI 対応書込器に仕立てるソフトウェア。
+  - CMSIS-DAP/EDBGプロトコルによる、JTAG3UPDI/TPI/PDI 対応。
+  - 高速CDC/VCPシリアル通信機能付。
+  - UPDI/TPI の __HV書込__ 対応可。（要外部回路）
+- [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) -- このSDKでもメンテナンスされている。USBシリアル接続。JTAG2UPDI上位互換。
   - __HV書込__ とUSB-USARTパススルーに対応可。（要外部回路）
   - ゼロからこれを自作する場合は __卵と鶏__ の関係になるため注意。
 - [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) -- 一般のUSB-UARTと簡易な回路による高速書込環境。
   - 準備にはいくらかの部品と配線準備が必要だが難易度は低い。HV書込は望めない。
   - 対象MCUの UART通信とは回路が排他で外部切替が必要。（自動切替は要外付制御回路）
-  - *avrdude 7.2* では AVR_DU/EA/EB には非対応。（AVR_EA/EB は 7.3以降、AVR_DU は 7.4以降で対応予定）
 - PICkit4 -- 公式のプログラム書込装置兼 __デバッグトレース__ 装置。
   - 使用開始前に MPLAB X によるFWアップデートが要求される。購入状態での対応範囲不明。
   - フルスペックの公式開発環境が別途必須なのでエンドユーザーのPC環境によっては難がある。\
@@ -127,9 +133,8 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DU with Bootloader
   - AVR EA with Bootloader
   - AVR EB with Bootloader
-  - *(separator) 以上28ピン以上製品専用、以下14ピン製品専用*
-  - AVR DD 14pin with Bootloader
-  - AVR EB 14pin with Bootloader
+  - *(separator)*
+  - AVR DU with USB Bootloader
   - *(separator) 以下ブートローダーなし*
   - AVR DB w/o Bootloader
   - AVR DA w/o Bootloader
@@ -148,6 +153,7 @@ Arduino IDE でこのSDKを選択すると、
 
 - __Variant__ -- 具体的な製品型番を選択。（必須）
   - 外囲器ピン数＋型番＋フラッシュメモリ量＋SRAM量別になっている。
+  - 14pin品種選択時は、__Bootloader__ および __Console and LED__ 選択肢に制限があることに注意。
 - __Clock(Dx)__ -- AVR_DA/DB/DD/DU用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __FUSE無関係に常時どれでも変更可能__
@@ -197,6 +203,7 @@ Arduino IDE でこのSDKを選択すると、
   - Build DEBUG=2
 - __Build API__ -- API拡張（任意選択）
   - Macro API Enable -- 既定値
+  - Macro API Enable without startup -- 割込テーブルとLIBC初期設定スタートアップ無効
   - Macro API Disable -- 無効
     - Arduino互換APIの導入は要外部支援（本SDKサポート外）
   - Standard Library All Disable
@@ -221,12 +228,11 @@ Arduino IDE でこのSDKを選択すると、
 - __シリアルポート選択__
   - 環境依存
 - __書込装置選択__
-  - [UPDI4AVR over UART](https://askn37.github.io/product/UPDI4AVR/) (Standard)
-  - [UPDI4AVR over UART](https://askn37.github.io/product/UPDI4AVR/) (HV Enable) -- __HV書込対応__
-  - SerialUPDI over UART -- *avrdude 7.2* では AVR_DU/EA/DB は対応不可
+  - [UPDI4AVR-USB](https://github.com/askn37/UPDI4AVR-USB)
+  - SerialUPDI over UART
   - PICkit4 over USB (UPDI) -- ファームウェア更新が必要
   - Curiosity Nano (nEDBG: ATSAMD21E18)
-  - [JTAG2UPDI over UART (NVMCTRL v2 Remodeling)](https://github.com/askn37/jtag2updi) -- リンク先の "Clone" バリアントは AVR_DD/DU/EA/EB も対応
+  - [JTAG2UPDI over UART (NVM Enhanced)](https://github.com/askn37/jtag2updi) -- リンク先の "Clone" バリアントは AVR_DD/DU/EA/EB も対応
   - dryrun (Emulates programming without a programmer) -- 実際には何もしないダミーの書込器で、各種設定の論理的妥当性を検証するのに使用する
 
 > FUSE UPDI -> UPDI (default) 選択以外に書換えた場合の復元は __HV対応書込器が必須。__\
@@ -342,16 +348,13 @@ STK500 version 1 プロトコルに基づく Arduino互換ブートローダー�
 > ブートローダーバイナリのリビルドは、makeコマンド（OS依存）が別途用意できれば本 SDKのみで行える。\
 > 0.2.9から独自のファームウェアコードに変更された。
 
-> __AVR_DU__ 系統用に 24/01現在用意されているブートローダーは、シリアルポート接続用（実験的実装）である。
-USB-CDC接続用ブートローダーはまだ準備されていない。
-DFU（FLIP接続）仕様のファームウェアは Microchip社から提供される *はず* である。
+__AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU series]](https://github.com/askn37/euboot) が用意されている。
+これは USB-HID/CMSIS-DAP/EDBG プロトコルを介して AVRDUDE 8.0 からは `jtag3updi` として認識される。
+詳細はリンク先を参照のこと。
 
 ### その他注意事項
 
-以下に上げる完成販売品は本来、それぞれ既定の開発環境があり
-この SDK が本来対応すべき範疇のものではないが、
-搭載された MCU は対応範囲内なので
-以下のようにすれば使用可能である。
+以下に上げる完成販売品は本来、それぞれ既定の開発環境がありこの SDK が本来対応すべき範疇のものではないが、搭載された MCU は対応範囲内なので以下のようにすれば使用可能である。
 
 ### Microchip Curiosity Nano AVR128DB48
 
@@ -364,19 +367,6 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 その他の同種製品も同様に、適切なオプションの手動選択が必要。
 
-## AVR_DU/EA/EB 系統への対応
-
-標準インストールの `AVRDUDE` は、以下のリリースから `https://downloads.arduino.cc/tools/` を通じて組み込まれている。現行最新リリースは`7.2`である。
-
-- [https://github.com/arduino/avrdude-packing/releases](https://github.com/arduino/avrdude-packing/releases)
-
-- __AVR_EA/EB__ 系統の正式サポートには *avrdude 7.3* 以降のリリースが必要
-  - ただし __AVR_EB__ の BOOTROW 書き込みには書込器側ファームウェア対応の制約がある。
-- __AVR_DU__ 系統の正式サポートには *avrdude 7.4* 以降のリリースが必要（計画）
-
-23/12現在、*avrdude 7.2* 内蔵の [__SerialUPDI__](https://avrdudes.github.io/avrdude/7.2/avrdude_19.html#index-SerialUPDI/) は、AVR_DU/EA/EB 系統を正しく操作することができない。暫定的に AVR_DU/EB/EA 系統の不揮発メモリを読み書きできるプログラムライターは、[__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/)、[__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi)、__Curiosity Nano 製品__ と __PICkit4/5__ （要 Firmware アップグレード）だけである。
-本SDKに付属の *avrdude.conf.UPDI4AVR* は [__UPDI4AVR__](https://askn37.github.io/product/UPDI4AVR/) および [__JTAG2UPDI(Clone)__](https://github.com/askn37/jtag2updi) でのみ正しく動作する記述であることに注意されたい。
-
 ### AVR_EA 系統の制約
 
 - FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 値以外に変更してはならない。初期ロット(B1)は回路の不具合により正常な動作をしない。この不具合は二次生産ロット(B2)以降で解消されている。
@@ -385,14 +375,11 @@ DFU（FLIP接続）仕様のファームウェアは Microchip社から提供さ
 
 - 初期ロット(A0)は、LOCK.KEY または FUSE.PDICFG を既定値以外に変更すると、以後の UPDI NVMPROG 制御再獲得が（HV制御と無関係に）全面的に困難または不可能となる。これは公開データシートの記述と異なる挙動である。
 - FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 以外に変更してはならない。初期ロット(A0)は回路の不具合により正常な動作をしない。
-- HV制御の推奨投入電圧が 7.5V に変更（低下）した。RESET/PF6 パッドの絶対定格は 8.5V なので、AVR_DD 用に設計された HV制御回路では電圧が高すぎる恐れがある。
+- AVRDUDE 8.0 の時点では、AVR32EBxx への書き込みはサポートされていない。（avrdude.conf を修正すれば可能）
 
 ### AVR_DU 系統の制約
 
-- 24/04時点では、14/20ピンおよび 32MiB以下のバリアントは発売予告段階である。AVR-LIBCも対応していない。
-- 24/04時点では DFUブートローダーが公開されておらず、プリインストールもされていない。専用の VID:PID割り付けも実施されていない。
 - __AVR64DU28/32__ の 初期ロット(A3)は、CPU主クロックを 20MHz以下にしないと動作が保証されないエラッタがある。
-- 0.2.14から発売予告済全種と、USB周辺機能の基本的対応が追加された。
 
 ## 更新履歴
 

@@ -4,8 +4,8 @@ version=0.3.0
 archive_file_path={build.path}/{archive_file}
 bootloader.tool=avrdude
 bootloader.LOCKKEY=0x5C,0xC5,0xC5,0x5C
-build.extra_flags={build.buildopt} {build.console_baud} {build.console_select} {build.led_pin} {build.macroapi} {build.printf} -DUPLD_MAX_SIZE={upload.maximum_size} '-DSKETCH_PATH={build.source.path}'
-build.flags=-DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {build.extra_flags}
+build.extra_flags=
+build.flags=-DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {build.buildopt} {build.console_baud} {build.console_select} {build.led_pin} {build.macroapi} {build.printf} -DUPLD_MAX_SIZE={upload.maximum_size} '-DSKETCH_PATH={build.source.path}' {build.extra_flags}
 build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
 build.usb_manufacturer="Unknown"
 build.core=modernAVR

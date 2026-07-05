@@ -1,5 +1,5 @@
 name=MultiX Zinnia Product SDK [modernAVR]
-version=0.3.0
+version=0.4.0
 
 archive_file_path={build.path}/{archive_file}
 bootloader.tool=avrdude
@@ -11,20 +11,22 @@ build.usb_manufacturer="Unknown"
 build.core=modernAVR
 upload.speed=
 
+compiler.path={runtime.tools.avr8-gcc.path}/bin/
+compiler.custom.extra_flags=-B{runtime.tools.atpack.path}/gcc/dev/{build.mcu} -I{runtime.tools.atpack.path}/include
 compiler.S.extra_flags=
-compiler.S.flags=-c -g -x assembler-with-cpp -MMD -flto {build.flags}
+compiler.S.flags=-c -g -x assembler-with-cpp -MMD -flto {compiler.custom.extra_flags} {build.flags}
 compiler.ar.cmd=avr-gcc-ar
 compiler.ar.extra_flags=
 compiler.ar.flags=rcs
 compiler.c.cmd=avr-gcc
 compiler.c.elf.cmd=avr-gcc
 compiler.c.elf.extra_flags=
-compiler.c.elf.flags=-g -Os {compiler.warning_flags} -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start={build.text_section_start} -flto -mrelax -lm
+compiler.c.elf.flags=-g -Os {compiler.warning_flags} {compiler.custom.extra_flags} -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start={build.text_section_start} -flto -mrelax -lm
 compiler.c.extra_flags=
-compiler.c.flags=-c -g -Os {compiler.warning_flags} -std=gnu11 -fno-fat-lto-objects -save-temps=obj -ffunction-sections -fdata-sections -MMD -flto -mrelax {build.flags}
+compiler.c.flags=-c -g -Os {compiler.warning_flags} -std=gnu11 -fno-fat-lto-objects -save-temps=obj -ffunction-sections -fdata-sections -MMD -flto -mrelax {compiler.custom.extra_flags} {build.flags}
 compiler.cpp.cmd=avr-g++
 compiler.cpp.extra_flags=
-compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -std=gnu++17 -fpermissive -fno-exceptions -fno-threadsafe-statics -Wno-error=narrowing -ffunction-sections -fdata-sections -MMD -flto -mrelax {build.flags}
+compiler.cpp.flags=-c -g -Os {compiler.warning_flags} -std=gnu++17 -fpermissive -fno-exceptions -fno-threadsafe-statics -Wno-error=narrowing -ffunction-sections -fdata-sections -MMD -flto -mrelax {compiler.custom.extra_flags} {build.flags}
 compiler.elf2hex.bin.flags=-O binary -R .eeprom -R .fuse -R .user_signatures -R .boot_signatures
 compiler.elf2hex.cmd=avr-objcopy
 compiler.elf2hex.extra_flags= -R .nvmem
@@ -41,7 +43,6 @@ compiler.objcopy.urow.extra_flags= -R .nvmem -R .eeprom -R .fuse -R .boot_signat
 compiler.objcopy.urow.flags=-O ihex -j .user_signatures --set-section-flags=.user_signatures=alloc,load --no-change-warnings --change-section-lma .user_signatures=0
 compiler.objdump.cmd=avr-objdump
 compiler.objdump.flags=--disassemble --source --line-numbers --demangle --section=.text --section=.data --section=.eeprom --section=.nvmem --section=.fuse --section=.user_signatures --section=.boot_signatures
-compiler.path={runtime.platform.path}/../../../tools/avr-gcc/7.3.0-avr8-gnu-toolchain/bin/
 compiler.size.cmd=avr-size
 compiler.warning_flags.all=-Wall -Wextra
 compiler.warning_flags.default=
@@ -120,7 +121,8 @@ tools.avrdude.config.path=
 tools.avrdude.erase.params.quiet=-q -q
 tools.avrdude.erase.params.verbose=-v
 tools.avrdude.erase.pattern=
-tools.avrdude.path={runtime.platform.path}/../../../tools/avrdude/8.0-arduino.1
+#tools.avrdude.path={runtime.platform.path}/../../../tools/avrdude/8.0-arduino.1
+tools.avrdude.path={runtime.tools.avrdude.path}
 tools.avrdude.program.params.noverify=-V
 tools.avrdude.program.params.quiet=-q -q
 tools.avrdude.program.params.verbose=-v

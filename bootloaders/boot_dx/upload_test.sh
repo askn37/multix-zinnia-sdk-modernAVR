@@ -1,6 +1,6 @@
 #!/bin/sh
-AVRDUDEROOT=../../../../../tools/avrdude/7.2-arduino.1/bin
-# AVRDUDEROOT=~/Library/Arduino15/packages/MultiX-Zinnia/tools/avrdude/7.2-arduino.1/bin
+AVRDUDEROOT=../../../../../tools/avrdude/8.1-avrdude/bin/avrdude
+# AVRDUDEROOT=~/Library/Arduino15/packages/MultiX-Zinnia/tools/avrdude/8.1-avrdude/bin
 PORT=/dev/cu.usbserial-230
 PGM=jtag2updi
 PART=avr128db32

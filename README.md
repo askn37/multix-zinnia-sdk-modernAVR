@@ -383,9 +383,19 @@ __AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU
 
 ## 更新履歴
 
+- 0.4.0 (26/07/05)
+  - toolchainを`avr8-gcc/7.3.0-avr8-gnu-toolchain`に変更
+    - [Microchip社の公開版](https://www.microchip.com/en-us/tools-resources/develop/microchip-studio/gcc-compilers)(atpackを含まない)を直接利用する
+  - atpack を `tools` アーカイブに分離変更
+  - AVRDUDEを`8.1-avrdude`に変更
+    - [avrdudesの公開版](https://github.com/avrdudes/avrdude/releases)を直接利用する
+  - リンカスクリプトを gcc15 準拠に更新
+  - bootloadersの修正と `hex`ファイルの増備、`bin`ファイル配布廃止
+    - 計6種類の *Curiocity Nano* に対応する
+
 - 0.3.0 (24/11/06)
-  - AVRDUDEを`8.0-arduino.1`に更新。
-  - toolchainを`7.3.0-avr8-gnu-toolchain-241029`に更新。
+  - AVRDUDEを`8.0-arduino.1`に更新
+  - toolchainを`7.3.0-avr8-gnu-toolchain-241029`に更新
 
 - 0.2.14 (24/06/27)
   - 各ファイルの MITライセンスリンク対応
@@ -398,6 +408,8 @@ __AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU
 - 0.2.13 (24/05/12)
   - `7.3.0-avr8-gnu-toolchain-240510`に更新。
     - __AVR16DU14/20/28/32__、__AVR32DU14/20/28/32__ 対応を追加。
+
+  *これ以下は公開終了*
 
 - 0.2.12 (24/04/29)
   - 動作確認済に __AVR64DU28__ を追加。

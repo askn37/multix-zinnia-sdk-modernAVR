@@ -137,7 +137,8 @@ tools.avrdude_remote.upload.pattern=/usr/bin/run-avrdude /tmp/sketch.hex {upload
 
 tools.avrdude_usb.cmd.path={path}/bin/avrdude
 tools.avrdude_usb.config.path=
-tools.avrdude_usb.path={runtime.platform.path}/../../../tools/avrdude/8.0-arduino.1
+#tools.avrdude.path={runtime.platform.path}/../../../tools/avrdude/8.0-arduino.1
+tools.avrdude_usb.path={runtime.tools.avrdude.path}
 tools.avrdude_usb.upload.params.noverify=-V
 tools.avrdude_usb.upload.params.quiet=-q -q
 tools.avrdude_usb.upload.params.verbose=-v

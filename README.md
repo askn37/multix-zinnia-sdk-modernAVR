@@ -41,10 +41,15 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 - __MultiX Zinnia Product SDK [modernAVR]__ <--
   - （Microchipブランド世代）
   - AVR DA 系統
-    - AVR32DA28 AVR64DA28 AVR128DA28 AVR128DA28S
-    - AVR32DA32 AVR64DA32 AVR128DA32 AVR128DA32S
-    - AVR32DA48 AVR64DA48 AVR128DA48 AVR128DA48S
-    - AVR32DA64 AVR64DA64 AVR128DA64 AVR128DA64S
+    - AVR32DA28 AVR64DA28 AVR128DA28
+    - AVR32DA32 AVR64DA32 AVR128DA32
+    - AVR32DA48 AVR64DA48 AVR128DA48
+    - AVR64DA64 AVR128DA64
+  - AVR DA-S 系統
+    - AVR32DA28S AVR64DA28S AVR128DA28S
+    - AVR32DA32S AVR64DA32S AVR128DA32S
+    - AVR32DA48S AVR64DA48S AVR128DA48S
+    - AVR64DA64S AVR128DA64S
   - AVR DB 系統
     - AVR32DB28 AVR64DB28 AVR128DB28
     - AVR32DB32 AVR64DB32 AVR128DB32
@@ -79,7 +84,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
 ## 対応するホストOS
 
 - Windows (32bit/64bit)
-- macOS (64bit)
+- macOS (64bit) *2026年現在 Apple silicon 機種では Rosseta 2 が必要*
 - Linux (主にintel系64bit)
 
 ## 対応する主なプログラムライタ
@@ -391,7 +396,7 @@ __AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU
     - [avrdudesの公開版](https://github.com/avrdudes/avrdude/releases)を直接利用する
   - リンカスクリプトを gcc15 準拠に更新
   - bootloadersの修正と `hex`ファイルの増備、`bin`ファイル配布廃止
-    - 計6種類の *Curiocity Nano* に対応する
+    - 計6種類の *Curiocity Nano* にも対応する
 
 - 0.3.0 (24/11/06)
   - AVRDUDEを`8.0-arduino.1`に更新

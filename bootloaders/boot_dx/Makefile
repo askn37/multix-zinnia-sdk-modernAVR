@@ -50,9 +50,8 @@ F_CPU_Scale = 1
 MF := $(MAKEFILE_LIST)
 LDSECTIONS = -Wl,-section-start=.text=0 -Wl,--section-start=.appcode=0x200
 
-### basedir: ~/Library/Arduino15/packages
-# AVRGCCROOT = ../../../../../tools/avr8-gcc/15.1.0-avr8-gnu-toolchain/bin
-AVRGCCROOT = ../../../../../../arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin
+### basedir: ~/Library/Arduino15/packages/MultiX-Zinnia
+AVRGCCROOT = ../../../../../tools/avr8-gcc/7.3.0-avr8-gnu-toolchain/bin
 
 ### basedir: ~/Library/Arduino15/packages/MultiX-Zinnia
 ATPACKSPEC = ../../../../../tools/atpack/20260521/gcc/dev/$*
@@ -141,7 +140,7 @@ endif
 
 boot_%.elf:	$(SOURCE) FORCE
 	@echo "******************************"
-	@echo "*** Options:" $(MCU_TARGET) \
+	@echo "*** Options:" $* \
 		BOOTNAME=$(PROGRAM) UART=$(UART) LED=$(LED) \
 		BAUD_RATE=$(BAUD_RATE) TIMEOUT=$(TIMEOUT)
 	$(CC) $(CFLAGS) $(OPTIONS) $(LDFLAGS) -o $@ $<

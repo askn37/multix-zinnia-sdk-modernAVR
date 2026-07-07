@@ -141,7 +141,7 @@ endif
 
 boot_%.elf:	$(SOURCE) FORCE
 	@echo "******************************"
-	@echo "*** Options:" $(MCU_TARGET) \
+	@echo "*** Options:" $* \
 		BOOTNAME=$(PROGRAM) UART=$(UART) LED=$(LED) \
 		BAUD_RATE=$(BAUD_RATE) TIMEOUT=$(TIMEOUT)
 	$(CC) $(CFLAGS) $(OPTIONS) $(LDFLAGS) -o $@ $<

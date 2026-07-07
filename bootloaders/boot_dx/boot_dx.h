@@ -241,6 +241,11 @@ typedef union {
   defined(__AVR_AVR128DA48__) || defined(__AVR_AVR64DA48__) || defined(__AVR_AVR32DA48__) || \
   defined(__AVR_AVR128DA32__) || defined(__AVR_AVR64DA32__) || defined(__AVR_AVR32DA32__) || \
   defined(__AVR_AVR128DA28__) || defined(__AVR_AVR64DA28__) || defined(__AVR_AVR32DA28__) || \
+  defined(__AVR_AVR32DA28S__) || defined(__AVR_AVR32DA32S__) || defined(__AVR_AVR32DA48S__) || \
+  defined(__AVR_AVR64DA28S__) || defined(__AVR_AVR64DA32S__) || \
+  defined(__AVR_AVR64DA48S__) || defined(__AVR_AVR64DA64S__) || \
+  defined(__AVR_AVR128DA28S__) || defined(__AVR_AVR128DA32S__) || \
+  defined(__AVR_AVR128DA48S__) || defined(__AVR_AVR128DA64S__) || \
   defined(__AVR_AVR128DB64__) || defined(__AVR_AVR64DB64__) || \
   defined(__AVR_AVR128DB48__) || defined(__AVR_AVR64DB48__) || defined(__AVR_AVR32DB48__) || \
   defined(__AVR_AVR128DB32__) || defined(__AVR_AVR64DB32__) || defined(__AVR_AVR32DB32__) || \

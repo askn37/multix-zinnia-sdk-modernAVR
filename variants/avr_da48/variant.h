@@ -318,6 +318,7 @@
 #define PIN_LUT1_IN1      PIN_PC1
 #define PIN_LUT1_IN2      PIN_PC2
 #define PIN_LUT1_OUT      PIN_PC3
+#define PIN_LUT1_OUT_ALT1 PIN_PC6
 #define PIN_LUT2_IN0      PIN_PD0
 #define PIN_LUT2_IN1      PIN_PD1
 #define PIN_LUT2_IN2      PIN_PD2

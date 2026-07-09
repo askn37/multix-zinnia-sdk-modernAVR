@@ -13,7 +13,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
   - 原則として割込や計数器/計時器周辺機能を専有せず、利用者が自由に使える。
     - __協調的マルチタスク__ 支援ライブラリは RTC周辺機能を必要とする。\
       （任意選択：明示的インクルードで有効化）
-- AVRDUDE 8.0 同梱。（0.3.0以降）
+- AVRDUDE 8.1 同梱。（0.4.0以降）
 - 超低消費電力超低速駆動対応。
   - 32768Hzの超低消費電力動作を支援。
 - 安価なプログラムライタ（書込器）の利用を想定。
@@ -139,7 +139,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR EA with Bootloader
   - AVR EB with Bootloader
   - *(separator)*
-  - AVR DU with USB Bootloader
+  - AVR DU with USB Bootloader *-- AVR_DU専用で euboot を使用*
   - *(separator) 以下ブートローダーなし*
   - AVR DB w/o Bootloader
   - AVR DA w/o Bootloader
@@ -163,7 +163,7 @@ Arduino IDE でこのSDKを選択すると、
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __FUSE無関係に常時どれでも変更可能__
   - 高周波内蔵発振器による 24MHz〜1MHz
-  - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（AVR_DA/DB/DDでは定格外、AVR_DUでは定格内）
+  - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（実験的：定格外）
   - 超低消費電力発振器による 32.768kHz (OSC-ULP)
 - __Clock(Ex)__ -- AVR_Ex専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
@@ -388,12 +388,20 @@ __AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU
 
 ## 更新履歴
 
+- 0.4.1 (26/07/09)
+  - `euboot@3.72.49`アップデート
+  - *AVR DU with USB Bootloader* で実験的な自動リセット付きスケッチアップロードに対応（Arduino Leonard/Pro Micro/Every Nano と同様の挙動）
+
 - 0.4.0 (26/07/05)
   - toolchainを`avr8-gcc/7.3.0-avr8-gnu-toolchain`に変更
     - [Microchip社の公開版](https://www.microchip.com/en-us/tools-resources/develop/microchip-studio/gcc-compilers)(atpackを含まない)を直接利用する
+    - ただしWindows版のZipファイルには不具合（Javaで展開できない等）があったため、[https://askn37.github.io/](https://askn37.github.io/)から正常修正版を取得する。
   - atpack を `tools` アーカイブに分離変更
+    - Microchip社の公開版はそのままでは Arduino IDEで扱えないため、[https://askn37.github.io/](https://askn37.github.io/)から修正版を取得する
+    - 現時点では AVR_Lx/Sx ファミリには対応していない。特に AVR_Sx用の gcc/dev パッケージは準備されていない。（XC8が必要）
   - AVRDUDEを`8.1-avrdude`に変更
     - [avrdudesの公開版](https://github.com/avrdudes/avrdude/releases)を直接利用する
+    - Apple社のライセンス制限に基づき、Apple Silicon 用 amr64-darwin 版は存在せず、Rosetta 2 トランスレータを使用する。必要なら MacPorts や Homebrew から入手した実行ファイルと手動で置換する必要がある。
   - リンカスクリプトを gcc15 準拠に更新
   - bootloadersの修正と `hex`ファイルの増備、`bin`ファイル配布廃止
     - 計6種類の *Curiocity Nano* にも対応する

@@ -1,14 +1,15 @@
 name=MultiX Zinnia Product SDK [modernAVR]
-version=0.4.0
+version=0.4.1
 
 archive_file_path={build.path}/{archive_file}
 bootloader.tool=avrdude
 bootloader.LOCKKEY=0x5C,0xC5,0xC5,0x5C
 build.extra_flags=
-build.flags=-DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {build.buildopt} {build.console_baud} {build.console_select} {build.led_pin} {build.macroapi} {build.printf} -DUPLD_MAX_SIZE={upload.maximum_size} '-DSKETCH_PATH={build.source.path}' {build.extra_flags}
+build.flags=-DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {build.buildopt} {build.console_baud} {build.console_select} {build.led_pin} {build.macroapi} {build.enableusb} {build.printf} -DUPLD_MAX_SIZE={upload.maximum_size} '-DSKETCH_PATH={build.source.path}' {build.extra_flags}
 build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
 build.usb_manufacturer="Unknown"
 build.core=modernAVR
+build.enableusb=
 upload.speed=
 
 compiler.path={runtime.tools.avr8-gcc.path}/bin/
@@ -121,7 +122,6 @@ tools.avrdude.config.path=
 tools.avrdude.erase.params.quiet=-q -q
 tools.avrdude.erase.params.verbose=-v
 tools.avrdude.erase.pattern=
-#tools.avrdude.path={runtime.platform.path}/../../../tools/avrdude/8.0-arduino.1
 tools.avrdude.path={runtime.tools.avrdude.path}
 tools.avrdude.program.params.noverify=-V
 tools.avrdude.program.params.quiet=-q -q
@@ -137,7 +137,6 @@ tools.avrdude_remote.upload.pattern=/usr/bin/run-avrdude /tmp/sketch.hex {upload
 
 tools.avrdude_usb.cmd.path={path}/bin/avrdude
 tools.avrdude_usb.config.path=
-#tools.avrdude.path={runtime.platform.path}/../../../tools/avrdude/8.0-arduino.1
 tools.avrdude_usb.path={runtime.tools.avrdude.path}
 tools.avrdude_usb.upload.params.noverify=-V
 tools.avrdude_usb.upload.params.quiet=-q -q

@@ -1126,9 +1126,11 @@ AVRDU_usbloader.build.console_baud=-DCONSOLE_BAUD=9600
 AVRDU_usbloader.build.console_select=-DSerial=SerialUSB
 AVRDU_usbloader.build.led_pin=-DLED_BUILTIN=PIN_PA7
 AVRDU_usbloader.build.macroapi=-DENABLE_MACRO_API
+AVRDU_usbloader.build.enableusb=-DENABLE_USBLOADER
 AVRDU_usbloader.build.printf=
 AVRDU_usbloader.build.printflt=
 AVRDU_usbloader.upload.protocol=jtag3updi -Pusb:04D8:0B12
+AVRDU_usbloader.upload.use_1200bps_touch=true
 AVRDU_usbloader.upload.tool=avrdude_usb
 AVRDU_usbloader.menu.01_variant.22_AVR64DU32.build.board=AVR_AVR64DU32
 AVRDU_usbloader.menu.01_variant.22_AVR64DU32.build.mcu=avr64du32
@@ -1333,14 +1335,17 @@ AVRDU_usbloader.menu.90_console_baud.20_separator=-
 AVRDU_usbloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRDU_usbloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 AVRDU_usbloader.menu.96_usbbootloader.11_eboot_LA7_SF6.bootloader.file=hex/euboot_LC3_SF6.hex
+AVRDU_usbloader.menu.96_usbbootloader.11_eboot_LA7_SF6.build.console_select=-DSerial=SerialUSB -DSerialDBG=Serial0A
 AVRDU_usbloader.menu.96_usbbootloader.11_eboot_LA7_SF6.build.led_pin=-DLED_BUILTIN=PIN_PA7 -DSW_BUILTIN=PIN_PF6
-AVRDU_usbloader.menu.96_usbbootloader.11_eboot_LA7_SF6=euboot LED=PA7 SW=PF6
+AVRDU_usbloader.menu.96_usbbootloader.11_eboot_LA7_SF6=USB0 (UART0) LED=PA7 SW=PF6
 AVRDU_usbloader.menu.96_usbbootloader.13_eboot_LC3_SF6.bootloader.file=hex/euboot_LC3_SF6.hex
+AVRDU_usbloader.menu.96_usbbootloader.13_eboot_LC3_SF6.build.console_select=-DSerial=SerialUSB -DSerialDBG=Serial1C
 AVRDU_usbloader.menu.96_usbbootloader.13_eboot_LC3_SF6.build.led_pin=-DLED_BUILTIN=PIN_PC3 -DSW_BUILTIN=PIN_PF6
-AVRDU_usbloader.menu.96_usbbootloader.13_eboot_LC3_SF6=euboot LED=PC3 SW=PF6
+AVRDU_usbloader.menu.96_usbbootloader.13_eboot_LC3_SF6=USB0 (UART1) LED=PC3 SW=PF6
 AVRDU_usbloader.menu.96_usbbootloader.14_eboot_LF2_SF6.bootloader.file=hex/euboot_LF2_SF6.hex
+AVRDU_usbloader.menu.96_usbbootloader.14_eboot_LF2_SF6.build.console_select=-DSerial=SerialUSB -DSerialDBG=Serial1C
 AVRDU_usbloader.menu.96_usbbootloader.14_eboot_LF2_SF6.build.led_pin=-DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
-AVRDU_usbloader.menu.96_usbbootloader.14_eboot_LF2_SF6=euboot LED=PF2 SW=PF6
+AVRDU_usbloader.menu.96_usbbootloader.14_eboot_LF2_SF6=USB0 (UART1) LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
 
 
 AVREA.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
@@ -2802,15 +2807,15 @@ AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6_Curiosity.build.consol
 AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6_Curiosity.build.led_pin=-DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
 AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6_Curiosity=UART1 TX:PD6 RX:PD7 LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
 AVRDU_noloader.menu.54_console_select.10_separator=-
-AVRDU_noloader.menu.54_console_select.11_USB0_LA7.build.console_select=-DSerial=SerialUSB
+AVRDU_noloader.menu.54_console_select.11_USB0_LA7.build.console_select=-DSerial=Serial0A
 AVRDU_noloader.menu.54_console_select.11_USB0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
-AVRDU_noloader.menu.54_console_select.11_USB0_LA7=USB0 LED=PA7
-AVRDU_noloader.menu.54_console_select.13_USB0_LC3.build.console_select=-DSerial=SerialUSB
+AVRDU_noloader.menu.54_console_select.11_USB0_LA7=USB0 (UART0) LED=PA7
+AVRDU_noloader.menu.54_console_select.13_USB0_LC3.build.console_select=-DSerial=Serial1C
 AVRDU_noloader.menu.54_console_select.13_USB0_LC3.build.led_pin=-DLED_BUILTIN=PIN_PC3
-AVRDU_noloader.menu.54_console_select.13_USB0_LC3=USB0 LED=PC3
-AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6_Curiosity.build.console_select=-DSerial=SerialUSB
+AVRDU_noloader.menu.54_console_select.13_USB0_LC3=USB0 (UART1) LED=PC3
+AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6_Curiosity.build.console_select=-DSerial=Serial1C
 AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6_Curiosity.build.led_pin=-DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
-AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6_Curiosity=USB0 LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
+AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6_Curiosity=USB0 (UART1) LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
 AVRDU_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVRDU_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVRDU_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400

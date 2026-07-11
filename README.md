@@ -6,6 +6,8 @@
 AVR-GCC/AVR-LIBC を用いて書かれた C/C++/アセンブラ プログラムを
 avrdude を用いて対象MCUにアップロードするまでの作業フローを提供する。
 
+- より多くの情報は [[MultiX Zinnia Product : WiKi]](https://github.com/askn37/askn37.github.io/wiki)
+
 ## 概要
 
 - Arduino互換APIは提供されない。
@@ -110,7 +112,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
   - __Arduino UNO__ やその派生バリアント製品を無改造で UPDI対応プログラムライターに転換するファームウェア。
   - リンク先の "Clone" バリアントは、AVR_DA/DB/DDと、AVR_DU/EA/EB に暫定対応する。（__UPDI4AVR__ からのバックポート）
 - プログラムライタ内蔵完成市販品 -- これらはブートローダー書込不要。（あるいは対応不可）
-  - __Microchip Curiosity Nano Series__ の一部 -- AVR DA/DB + nEDBG
+  - __Microchip Curiosity Nano Series__ の一部 -- AVR Dx + nEDBG
 
 ## 導入方法
 
@@ -386,7 +388,35 @@ __AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU
 
 - __AVR64DU28/32__ の 初期ロット(A3)は、CPU主クロックを 20MHz以下にしないと動作が保証されないエラッタがある。
 
+### AVR DU with USB Bootloader 選択時の挙動
+
+このモードでは実験的な自動リセット付きスケッチアップロードが実装されている。（Arduino Leonard/Pro Micro/Every Nano と同様の挙動）\
+これが `Ctrl+U` または `⌘+U` で機能するには次の条件を満たしていなければならない。
+
+- `euboot@3.72.49+`がアップロードされている。（`Ctrl+Shift+U` または `⌘+Shift+U` で更新）
+- シリアルポートメニュー設定で`SeriaUSB`を示すデバイスポートを指定している。
+- スケッチで `<SerialUSB.h>` が正常に通信状態であり、暴走も切断もされていない。
+  - つまりそれを使用していない `Blink` のようなスケッチに対しては、*自動リセットは機能しない。*
+
+また以下のマクロや内部状態が、他と異なる設定になる。
+
+- `Serial` -> `SerialUSB` -- 通常は`Serial0A`等
+- `SerialUSB` -> `SerialUSB0` -- 通常は未定義
+- `ENABLE_USBLOADER` -> 定義済 -- 通常は未定義
+- (`DEBUG`が定義済の場合)`SerialDBG` -> `Serial1C`等 -- 通常は未定義
+- (`ENABLE_MACRO_API`が定義済の場合)`<SerialUSB.h>`がインクルードされる。-- 通常は読み込まれない
+
+原則として、スケッチ中の規定の`Serial`が、UARTクラスインスタンスではなく`SerialUSB`クラスインスタンスを指すようになる。
+
+__Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`==`Serial1C`（UART）で、`Console`メニューで示した`CONSOLE_BAUD`で初期化される。ターゲットボード側は`Serial`==`SerialUSB0`となり、シリアルコンソール下部のドロップダウンメニューで選んだボーレートが直ちに反映される。
+
+> [!TIP]
+> 1200bpsは除く。これを指定すると MPUリセットが発生し、`euboot`が起動してスケッチアップロード待機状態になる。
+
 ## 更新履歴
+
+- 0.4.2 (26/07/11)
+  - Update bugfix and document
 
 - 0.4.1 (26/07/09)
   - `euboot@3.72.49`アップデート

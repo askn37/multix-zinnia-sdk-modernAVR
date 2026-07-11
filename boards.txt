@@ -2806,16 +2806,6 @@ AVRDU_noloader.menu.54_console_select.03_UART1_D6_LC3=UART1 TX:PD6 RX:PD7 LED=PC
 AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6_Curiosity.build.console_select=-DSerial=Serial1C
 AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6_Curiosity.build.led_pin=-DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
 AVRDU_noloader.menu.54_console_select.04_UART1_D6_LF2_SF6_Curiosity=UART1 TX:PD6 RX:PD7 LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
-AVRDU_noloader.menu.54_console_select.10_separator=-
-AVRDU_noloader.menu.54_console_select.11_USB0_LA7.build.console_select=-DSerial=Serial0A
-AVRDU_noloader.menu.54_console_select.11_USB0_LA7.build.led_pin=-DLED_BUILTIN=PIN_PA7
-AVRDU_noloader.menu.54_console_select.11_USB0_LA7=USB0 (UART0) LED=PA7
-AVRDU_noloader.menu.54_console_select.13_USB0_LC3.build.console_select=-DSerial=Serial1C
-AVRDU_noloader.menu.54_console_select.13_USB0_LC3.build.led_pin=-DLED_BUILTIN=PIN_PC3
-AVRDU_noloader.menu.54_console_select.13_USB0_LC3=USB0 (UART1) LED=PC3
-AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6_Curiosity.build.console_select=-DSerial=Serial1C
-AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6_Curiosity.build.led_pin=-DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
-AVRDU_noloader.menu.54_console_select.14_USB0_LF2_SF6_Curiosity=USB0 (UART1) LED=PF2 SW=PF6 (AVR64DU32 Curiosity Nano)
 AVRDU_noloader.menu.90_console_baud.01_9600bps.build.console_baud=-DCONSOLE_BAUD=9600
 AVRDU_noloader.menu.90_console_baud.01_9600bps=CONSOLE_BAUD=9600 bps (default)
 AVRDU_noloader.menu.90_console_baud.03_38400bps.build.console_baud=-DCONSOLE_BAUD=38400

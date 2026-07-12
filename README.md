@@ -415,8 +415,8 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 
 ## 更新履歴
 
-- 0.4.2 (26/07/11)
-  - Update bugfix and document
+- 0.4.2 (26/07/12)
+  - `MacroMicroAPI_core` と `MacroMicroAPI_lib` の更新に追従
 
 - 0.4.1 (26/07/09)
   - `euboot@3.72.49`アップデート

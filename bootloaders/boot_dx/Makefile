@@ -50,8 +50,10 @@ F_CPU_Scale = 1
 MF := $(MAKEFILE_LIST)
 LDSECTIONS = -Wl,-section-start=.text=0 -Wl,--section-start=.appcode=0x200
 
-### basedir: ~/Library/Arduino15/packages/MultiX-Zinnia
+### basedir: ~/Library/Arduino15/packages
+# AVRGCCROOT = ../../../../../../arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin
 AVRGCCROOT = ../../../../../tools/avr8-gcc/7.3.0-avr8-gnu-toolchain/bin
+# AVRGCCROOT = ../../../../../tools/avr8-gcc15/15.1.0-avr8-gnu-toolchain/bin
 
 ### basedir: ~/Library/Arduino15/packages/MultiX-Zinnia
 ATPACKSPEC = ../../../../../tools/atpack/20260521/gcc/dev/$*
@@ -63,7 +65,7 @@ CC = $(AVRGCCROOT)/avr-gcc
 OPTIMIZE = -std=gnu11 -Os -fno-split-wide-types -mrelax -B $(ATPACKSPEC) -I $(ATPACKROOT)
 JOINING  = -j .text -j .data -j --set-section-flags
 CFLAGS   = -g -Wall $(OPTIMIZE) -save-temps=obj
-LDFLAGS  = $(LDSECTIONS) -Wl,--relax -nostartfiles -nostdlib
+LDFLAGS  = $(LDSECTIONS) -Wl,--relax -Wl,--gc-sections -nostartfiles -nostdlib
 
 OBJCOPY = $(AVRGCCROOT)/avr-objcopy
 OBJDUMP = $(AVRGCCROOT)/avr-objdump
@@ -165,7 +167,7 @@ clean:
 	@echo "*** Cleanup:"
 	@touch __temp_.o __temp_.map __temp_.i __temp_.s __temp_.sym __temp_.lss __temp_.srec
 	@touch __temp_.bin __temp_.hex __temp_.lst __temp_.eep __temp_.elf __temp_.tmp.sh __temp_.tmp
-	rm -rf *.o *.elf *.lst *.map *.i *.s *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh *.tmp
+	rm -rf *.o *.elf *.lst *.map *.i *.s *.sym *.lss *.eep *.srec *.bin *.hex *.tmp.sh *.tmp *.res *.elf.*
 
 %.lst: %.elf FORCE
 	$(OBJDUMP) -h -S $< > $@

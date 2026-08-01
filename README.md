@@ -15,7 +15,7 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
   - 原則として割込や計数器/計時器周辺機能を専有せず、利用者が自由に使える。
     - __協調的マルチタスク__ 支援ライブラリは RTC周辺機能を必要とする。\
       （任意選択：明示的インクルードで有効化）
-- AVRDUDE 8.1 同梱。（0.4.0以降）
+- AVRDUDE 8.2 同梱。（0.4.3以降）
 - 超低消費電力超低速駆動対応。
   - 32768Hzの超低消費電力動作を支援。
 - 安価なプログラムライタ（書込器）の利用を想定。
@@ -76,6 +76,11 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR16EB20 AVR32EB20
     - AVR16EB28 AVR32EB28
     - AVR16EB32 AVR32EB32
+  - AVR LA 系統
+    - AVR32LA14
+    - AVR32LA20
+    - AVR32LA28
+    - AVR32LA32
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
@@ -149,6 +154,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DU w/o Bootloader
   - AVR EA w/o Bootloader
   - AVR EB w/o Bootloader
+  - AVR LA w/o Bootloader
 - __MultiX Zinnia Product SDK [reduceAVR]__
 
 ## ボード選択サブメニュー
@@ -167,13 +173,17 @@ Arduino IDE でこのSDKを選択すると、
   - 高周波内蔵発振器による 24MHz〜1MHz
   - 高周波内蔵発振器のオーバークロック 32MHz、28MHz（実験的：定格外）
   - 超低消費電力発振器による 32.768kHz (OSC-ULP)
-- __Clock(Ex)__ -- AVR_Ex専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
+- __Clock(Ex/Lx)__ -- AVR_Ex/Lx専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __20MHz系列と16Mhz系列は FUSE書込依存で排他選択__
   - 高周波内蔵発振器による 20MHz/10MHz/5MHz -- 20MHz系列用
   - 高周波内蔵発振器による 16MHz/8MHz/4MHz/1MHz -- 16MHz系列用
   - 高周波内蔵発振器による 2MHz -- FUSE設定非依存
   - 超低消費電力発振器による 32.768kHz (OSC-ULP) -- FUSE設定非依存
+- __Clock(Sx)__ -- AVR_Sx専用の主装置動作基準周波数選択（F_CPUマクロ初期値） -- 既定値は定格内最高速度
+  - F_CPUマクロを参照しないプログラムでは効果なし
+  - __FUSE無関係に常時どれでも変更可能__
+  - 高周波内蔵発振器による 20MHz/10MHz/5MHz/2MHz -- 20MHz系列用
 - __BOD Mode__ -- Brown Out Detect（FUSE設定）
   - BOD Disabled -- 無効 -- 既定値
   - BOD Enabled -- 有効
@@ -184,7 +194,7 @@ Arduino IDE でこのSDKを選択すると、
   - 2.45V or 1.90V
   - 2.70V or 2.60V
   - 2.85V or 4.30V
-- __FUSE PF6__ -- AVR_DA/DB/DD/DU/EA/EB のリセット端子用途変更（FUSE設定）
+- __FUSE PF6__ -- リセット端子用途変更（FUSE設定）
   - PF6 pin=Reset -- 既定値
   - PF6 pin=GPIO -- 各個別データシート参照のこと
 - __FUSE UPDI__ -- AVR_DD/DU/EA/EBの UPDIピン用途変更（FUSE設定）
@@ -194,14 +204,14 @@ Arduino IDE でこのSDKを選択すると、
   - Save guard "Retained" -- チップ消去時保護
   - Save guard "Erase" -- チップ消去時一括初期化
   - Upload ".eep" file -- ブートローダー/書込器でのEEPROMファイル書換有効
-- __BOOTROW__ -- BOOTROWの扱い：DU/EBシリーズのみ
-  - Save guard "Erase" -- チップ消去時一括初期化（既定値）
-  - Save guard "Retained" -- 何もしない
+- __BOOTROW__ -- BOOTROWの扱い：DU/EB/LAシリーズのみ
+  - Save guard "Retained" -- 何もしない（既定値）
+  - Save guard "Erase" -- チップ消去時一括初期化
   - Upload ".brow" file -- ブートローダー/書込器でのBOOTROWファイル書換有効
 - __USERROW__ -- USERROWの扱い
   - Save guard "Retained" -- 何もしない
   - Upload ".urow" file -- ブートローダー/書込器でのUSEROWファイル書換有効
-- __FUSE define__ -- FUSE全体の扱い：書込器モードのみ
+- __FUSE define__ -- FUSE全体の扱い：w/o bootloader のみ
   - Specify in the MENU -- メニュー設定に従う
   - Upload ".fuse" file (DANGER) -- FUSEファイルでの書換有効：危険な操作
 - __Build Option__ -- DEBUGマクロ有無（任意選択）
@@ -382,7 +392,6 @@ __AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU
 
 - 初期ロット(A0)は、LOCK.KEY または FUSE.PDICFG を既定値以外に変更すると、以後の UPDI NVMPROG 制御再獲得が（HV制御と無関係に）全面的に困難または不可能となる。これは公開データシートの記述と異なる挙動である。
 - FUSE_SYSCFG0.CRCSRC を既定値の NOCRC 以外に変更してはならない。初期ロット(A0)は回路の不具合により正常な動作をしない。
-- AVRDUDE 8.0 の時点では、AVR32EBxx への書き込みはサポートされていない。（avrdude.conf を修正すれば可能）
 
 ### AVR_DU 系統の制約
 
@@ -414,6 +423,12 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 > 1200bpsは除く。これを指定すると MPUリセットが発生し、`euboot`が起動してスケッチアップロード待機状態になる。
 
 ## 更新履歴
+
+- 0.4.3 (26/07/30)
+  - __AVR32LA14/20/28/32__ に対応
+  - AVRDUDEを`8.2-avrdude`に更新
+  - メニューからBODとUPDI関係を非表示に変更（`.fuse`ファイルでの設定を推奨）
+  - カスタムリンカスクリプトを`variants`へ移動
 
 - 0.4.2 (26/07/12)
   - `MacroMicroAPI_core` と `MacroMicroAPI_lib` の更新に追従
@@ -453,77 +468,6 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
     - __AVR16DU14/20/28/32__、__AVR32DU14/20/28/32__ 対応を追加。
 
   *これ以下は公開終了*
-
-- 0.2.12 (24/04/29)
-  - 動作確認済に __AVR64DU28__ を追加。
-  - `boot_dx/ex`を 3.72 に更新。
-
-- 0.2.11 (24/04/13)
-  - `platform.txt` のタイプミス修正。
-
-- 0.2.10 (24/01/11)
-  - `7.3.0-avr8-gnu-toolchain-231214`に更新。
-    - __AVR64DU28/32__ に暫定対応。
-    - 動作確認済に __AVR64EA32__、 __AVR64EA48__、 __AVR16EB32__ を追加。
-  - __Core Modules__ の `<api/UarfUART.h>`を微修正。`AVR_EVSYS=201`修正。
-  - __Core Libraries__ の修正／追加と応用記述の追加。
-    - `<ReadUART.h>`
-    - `<UrowNVM.h>`
-    - `<FlashNVM.h>`（BOOTROW 対応を追加）
-  - Bootloader を FWV=3.71 に更新。
-
-- 0.2.9 (23/12/11)
-  - megaVAR/modernAVRについて、同梱ブートローダー全体を独自のArduino上位互換動作コードに変更。（`Optiboot`由来ソースコードを除去）
-  - 同、CRCSCAN機能用CRC16/32検査値付与。
-  - `<api/btools.h>`に`crc16_ccitt_false`関数を追加。
-
-- 0.2.8 (23/11/24)
-  - `7.3.0-avr8-gnu-toolchain-231113`に更新。
-
-- 0.2.7 (23/10/18)
-  - __AVR16EBxx__ に実験的対応
-    - bootloader の正常動作は未確認
-  - `dryrun`を書込器選択に追加。
-  - `avrdude.conf`参照ルールの変更。
-    - `arduino`/`UPDI4VAR`/`TPI4AVR`/`dryrun`を書込器に指定した場合のみ、ローカルの特別な設定ファイルを参照する。それ以外は規定の（tools/avrdude/etc内の）`avrdude.conf`を参照する。
-    - この変更により、AVR_EA系統のようにまだ他の書込器で未対応／未検証のパーツ設定が分離された。
-
-- 0.2.6 (23/10/16)
-  - `7.2-arduino.1`に更新。
-    - この版でも`serialupdi`は現状、AVR_EAを正しく操作できない。
-  - `7.3.0-avr8-gnu-toolchain-231004`に更新。
-    - `Atmel.ATautomotive_DFP.2.0.214.atpack (2022-03-03)`追加。`ATtiny416auto`対応。
-    - `Atmel.AVR-Ex_DFP.2.7.184 (2023-10-02)`対応。
-
-- 0.2.5 (23/10/09)
-  - *avrdude.conf.updi* 記述を avrdude 7.1 準拠に改正
-
-- 0.2.4 (23/09/09)
-  - `7.3.0-avr8-gnu-toolchain-230831`に更新。
-  - `programmers.txt`を改正。
-    - `SerialUPDI`の`-xrtsdtr=High`オプションを有効化。
-
-- 0.2.3 (23/07/09)
-  - `7.3.0-avr8-gnu-toolchain-230628`に更新。
-    - `<avr/eeprom.h>`が`AVR_EA`でも正常動作するよう改善。
-
-- 0.2.2 (23/05/23)
-  - `7.1-arduino.1`に更新。
-
-- 0.2.1 (23/05/08)
-  - `7.3.0-avr8-gnu-toolchain-230418`に更新。
-    - __注意__ : この版では未だ`<avr/eeprom.h>`が`AVR_EA`では正常動作しない。
-  - __AVR16EAxx__、__AVR32EAxx__ をバリアント選択に追加。
-  - 添付 *avrdude.conf* での`UPDI4AVR`規定速度を`460800`に制限。
-    - 古いCH3xx用ドライバにて速度上限があるため。（現行最新では改善されている）
-
-- 0.2.0 (23/04/08)
-  - `modernAVR`で`AVR_EA`対応。
-    - 現時点の`AVR-LIBC`でビルド可能な __AVR64EA28/32/48__ をバリアント選択に追加。
-    - __AVR64EA32__ を動作検証済表に追加。
-    - 専用ブートローダー`optiboot_ex1`を追加。
-    - `<api/FlashNVM.h>`に`AVR_EA`対応を追加。
-    - __注意__ : 現時点の`AVR-LIBC`では`<avr/eeprom.h>`が`AVR_EA`で正常動作しない。
 
 ## 許諾
 

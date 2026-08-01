@@ -1,12 +1,10 @@
 /**
  * @file boot_ex.h
  * @author askn (K.Sato) multix.jp
- * @brief
- * @version 3.7
- * @date 2023-11-30
- *
- * @copyright Copyright (c) 2024 askn37 at github.com
- *
+ * @brief Arduino-compatible serial bootloader for AVR_Ex/Lx
+ * @version 3.73
+ * @date 2026-08-01
+ * @copyright Copyright (c) 2026 askn37 at github.com
  */
 // MIT License : https://askn37.github.io/LICENSE.html
 
@@ -14,9 +12,9 @@
 
 /*** Default vaules ***/
 
-// #define BOOT_HW_VER '3' /* This is defined later */
+// #define BOOT_HW_VER '3'or '5' /* This is defined later */
 #define BOOT_MAJVER 3   /* To save space, this value is not returned */
-#define BOOT_MINVER 72
+#define BOOT_MINVER 73
 
 #ifndef UART
 #define UART A0
@@ -364,7 +362,11 @@ typedef union {
   defined(__AVR_AVR32EB32__) || defined(__AVR_AVR16EB32__) || defined(__AVR_AVR8EB32__) || \
   defined(__AVR_AVR32EB28__) || defined(__AVR_AVR16EB28__) || defined(__AVR_AVR8EB28__) || \
   defined(__AVR_AVR32EB20__) || defined(__AVR_AVR16EB20__) || defined(__AVR_AVR8EB20__) || \
-  defined(__AVR_AVR32EB14__) || defined(__AVR_AVR16EB14__) || defined(__AVR_AVR8EB14__)
+  defined(__AVR_AVR32EB14__) || defined(__AVR_AVR16EB14__) || defined(__AVR_AVR8EB14__) || \
+  defined(__AVR_AVR32LA14__) || defined(__AVR_AVR16LA14__) || \
+  defined(__AVR_AVR32LA20__) || defined(__AVR_AVR16LA20__) || \
+  defined(__AVR_AVR32LA28__) || defined(__AVR_AVR16LA28__) || \
+  defined(__AVR_AVR32LA32__) || defined(__AVR_AVR16LA32__)
   #define BOOT_HW_VER '5' /* Make sure to match the NVMCTRL version. */
   #if (UART == A0) && defined(USART0)
     #define UART_BASE     USART0

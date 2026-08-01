@@ -2,17 +2,19 @@
 
 - *boot_ax -- ブートローダーソース群（tinyAVR-0/1/2、megaAVR-0用）*
 - boot_dx -- ブートローダーソース群（AVR_DA/DB/DD/DU用）
-- boot_ex -- ブートローダーソース群（AVR_EA/EB用）
+- boot_ex -- ブートローダーソース群（AVR_EA/EB/LA用）
+- *euboot -- AVR_DU用USBブートローダー*
 - empty -- 空のダミーHEXだけがある
-- bin -- ビルド済のブートローダーBINファイル群
 - hex -- ビルド済のブートローダーHEXファイル群
 （Arduino IDE サブメニューから選択される）
 
 > [megaAVR / tinyAVR系統用ブートローダー]（boot_ax）は[こちら](https://github.com/askn37/multix-zinnia-sdk-megaAVR/tree/main/bootloaders)
 
+> [AVR_DU用USBブートローダー]（euboot）は[こちら](https://github.com/askn37/euboot)
+
 ## 概要
 
-この moderAVR 用ブートストラップローダー・ファームウェアは ATMEL STK500 version 1 プロトコルに基づいており、Arduino ブートローダーと完全な互換性がある。
+この moderAVR 用ブートストラップローダー・ファームウェアは ATMEL STK500 version 1 プロトコルに基づいており、Arduino ブートローダー（シリアル通信方式）と完全な互換性がある。
 
 ファームウェアが起動すると、RESET情報フラグが点検され、WDT またはソフトウェアリセットの場合、アプリケーションコード (0x200 から始まる) がすぐに実行を開始する。それ以外ではタイムアウト期間内に有効な STK500 version 1 コマンドが受信されたならば、UART を開いて NVM 操作を開始する。
 
@@ -21,6 +23,9 @@
 過去のソースコードは`Optiboot`のクローンであったが、現在はそうではない。彼らの支援対象は原則としてより古い世代のデバイスだけである。そうした理由により、ここで公開されているソースコードは改めて書き起こされた。
 
 使用許諾と再配布には MIT ライセンスが適用される。
+
+> [!WARNING]
+> AVR-GCC のバージョン選択は重要で v7.x 系の使用が前提である。おそらく v10 以降では大部分をアセンブラで書き直さなければ所定のバイナリサイズに納まらない。
 
 ### boot_ax.c
 
@@ -46,12 +51,16 @@ FLASH は最大容量 128 KiB、ワード粒度で、リード 512 byte、ライ
 
 ### boot_ex.c
 
-これは __AVR_EA__ 系統用の NVMCTRL version 3 仕様と、__AVR_EB__ 系統用の NVMCTRL version 5 仕様に適合するブートローダーだ。両者の差は僅かなので、同一のソースコードからそれぞれのバイナリを作り分ける。
-生成されるバイナリは __AVR_EA/EB__ 各系統別に共通してインストール可能であり、バリエーションは UARTや LEDの選択違いだけである。
+これは __AVR_EA__ 系統用の NVMCTRL version 3 仕様と、__AVR_EB/LA__ 系統用の NVMCTRL version 5 仕様に適合するブートローダーだ。両者の差は僅かなので、同一のソースコードからそれぞれのバイナリを作り分ける。
+生成されるバイナリは __AVR_EA/EB__ 各系統別に共通してインストール可能であり、バリエーションは UARTや LEDの選択違いだけである。__AVR_LA__ は USART周辺機能に互換性がないため異なるバイナリとなる。
 EEPROM は バイト粒度で、リード 256 byte、ライト 8 byte に対応する。
 FLASH は最大容量 64 KiB、ワード粒度で、リード 256 byte、ライト 64 byte または 128 byte に対応する。
 
 > この系統は BOOTCODE 粒度が 256 byte なので、FUSE_BOOTSIZE（fuse8）には `2` を指定する。
+
+### euboot
+
+__AVR_DU__ 系統専用の USBブートローダー。これは UARTシリアル通信ではなく、USB-HID/CMSIS-DAP/EDBG プロトコルを使用する。`PICKit4` や `CURIOSITY NANO` と互換性がある。
 
 ## 特徴
 
@@ -67,7 +76,7 @@ FLASH は最大容量 64 KiB、ワード粒度で、リード 256 byte、ライ�
 
 HEXフォルダとBINフォルダには主だったUART/LED違いのバリエーションが置かれている。既定ビルドは、20pin以上の品種用は `TX:PA0`、`RX:PA1`、`LED:PA7` で統一されている。
 
-> AVR_DD/EBの 14pin 品種には PA7 がないため PD7 あるいは PC3 が代わりに使用される。
+> 14pin 品種には PA7 がないため PD7 あるいは PC3 が代わりに使用される。
 
 ## Arduino IDE での EEPROM リード/ライト
 
@@ -84,7 +93,6 @@ char estring[] EEMEM = "0123456789ABCDEF";  // <-- HERE
 
 > EEPROM領域量は MCU品種によって異なる。その大きさはマクロ`EEPROM_SIZE`で知ることが出来る。
 
-- この機能は`MCUdude`版ブートローダーと運用互換性がある。
 - この機能は`DxCore`版ブートローダーには実装されていない。
 
 ### USERROW リード
@@ -92,7 +100,18 @@ char estring[] EEMEM = "0123456789ABCDEF";  // <-- HERE
 ATMEL STK500 version 1 プロトコルの制約により、ブートローダーでの対応 NVM 種別は FLASH と EEPROM に限られる。ただし UPDI 世代デバイスの特性により EEPROM 種別選択を流用すると全 64KiB のデータ空間を読むことが可能だ。書き込みはできないが EEPROM 設定を USERROW のそれに（ユーザー構成ファイルを使って）置き換えると、USERROW 空間へもアクセスできる。これは施錠されたデバイスの USERROW をブートローダーを使って読むことが可能になるため、知っておくと便利だ。
 
 > [!NOTE]
-> v3.71 以降では USERROW領域 / BOOTROW領域 の読み書き、および全 64KiB データ空間の読み出しが可能。ただし現行の `AVRDUDE` はこれに対応していない。
+> v3.71 以降では USERROW領域 / BOOTROW領域 の読み書き、および全 64KiB データ空間の読み出しが可能。`AVRDUDE@7.1+` が必要。
+
+### CURIOSITY / Xplained 等での注意点
+
+これらのオンボードデバッガー付属機種では、シリアル通信ブートローダーの運用は非実用的なので使用は推奨されない。
+しかしながら *ブートローダーそのもの* の開発検証を行うことは有り得るので、その場合は以下のように対処する。
+
+- オンボード UART-CDC に接続されていないピンを使用できる UARTモジュールを選択し、外部に検証用シリアルコンバーターを別途接続する。 __これが最も現実的である。__
+  - UPDI4AVR-USBの場合、RSTも接続するとIDEの自動リセット制御に対応する。
+- オンボード UART-CDC 経由でスケッチアップロードを行おうとすると、以下の問題が生じる。ボードリセット後のデバッガの UART-CDC 初期化完了より早く MPU が起動してしまうので、ホストから送られる最初のパケットを取りこぼす。しかもリトライ毎に規定で Arduino IDE（AVRDUDE）はボードリセットを行うので永久に問題が改善しない。
+- どうにか対処するには`AVRDUDE@8.0+`の場合`-x noautoreset`オプションをコマンド行に追加する。さらにボードの`RESET`端子（MPUの`PF6`）にリセットボタンを追加する。これを押しながら`AVRDUDE`起動を待ち、タイミングよくボタンを離すとスケッチアップロードが始まる。
+  - IDEの場合`platform.txt`の`tools.avrdude.upload.pattern`が該当するコマンド行。
 
 ## バージョン表記
 
@@ -103,7 +122,7 @@ Programming modes     : UPDI, SPM
 Programmer Type       : Arduino
 Description           : Arduino for bootloader using STK500 v1 protocol
 HW Version            : 53
-FW Version            : 53.72
+FW Version            : 53.73
 ```
 
 `FW Version`(FWV)は一般原則に従う、ブートローダーファームウェアの版番号だ。
@@ -115,7 +134,8 @@ FW Version            : 53.72
 |50|'2'|AVR_DA/DB/DD
 |51|'3'|AVR_EA
 |52|'4'|AVR_DU
-|53|'5'|AVR_EB
+|53|'5'|AVR_EB/LA
+|54|'6'|AVR_SD
 
 - `3.72`以降はもはや`FW`メジャー番号を返さず、`HW Version`と一致するように変更された。従ってマイナー番号にのみ意味がある。
 
@@ -123,12 +143,12 @@ FW Version            : 53.72
 
 ## SPMスニペット
 
-以下の PROGMEMアドレスに、以下の固定値が書かれている。（=v3.71）
+以下の PROGMEMアドレスに、以下の固定値が書かれている。（`@3.71+`）
 
 |Series|Address|マジックナンバー : uint32_t (LE)|
 |-|-|-|
 |megaAVR-0 tinyAVR-0/1/2|MAPPED_PROGMEM_START + 2 Byte|0x95089361|
-|AVR_DA/DB/DD/DU/EA/EB|PROGMEM_START + 2 Byte|0x95089361|
+|AVR Dx/Ex/Lx|PROGMEM_START + 2 Byte|0x95089361|
 
 > `MAPPED_PROGMEM_START`は通常のデータ空間、`PROGMEM_START`は PROGMEM 空間にある。
 
@@ -154,7 +174,7 @@ FW Version            : 53.72
 ## リビルド
 
 詳細は`make_all.sh`や `Makefile`を参照のこと。それぞれのカレントディレクトリで 次のようにすれば`hex`フォルダが更新される。
-使用する avr-gccツールチェインには、AVR_Dx/Exサポートパックがマージされていなければならない。
+使用する avr-gccツールチェインには、AVR_Dx/Exサポートパックがマージ（あるいはGCCの`-B`パス指定）されていなければならない。
 
 avr-gcc-7.x を使用すること。__それ以降の avr-gcc は推奨されない。__
 
@@ -173,18 +193,18 @@ boot_ex> sh make_all.sh
 リビルド環境で`Perl`コマンドにパスが通っている場合、`FUSE_SYSCFG0`中の`CRCSRC`ビット（`BOOTCODE`領域が対象）に対応した CRC16/32検査値を hex/bin 出力ファイルに付与する。この検査値は FLASH上に書き込まれた状態でのみ検証可能になるため、通常の`chksum/crc32`コマンドで妥当性を検証することはできない。
 
 - CRC16/32検査値は hex/bin 出力ファイルの末尾から次の 512byte境界までが全て`0xff`で埋められていると仮定して計算されている。
-- `FUSE_SYSCFG0`の最上位2bitは、CRC検査無効なら一般に`11`、CRC検査有効なら`01`を設定する。詳細はデータシートを確認されたい。
+- `FUSE_SYSCFG0`の最上位2bitは、CRC検査無効なら一般に`11`、CRC検査有効なら`01`を設定する。詳細はデータシートを確認されたい。（__AVR_Lx__ 以外の場合）
 - megaAVR、tinyAVR 系統用は CRC16 検査値が埋め込まれている。`FUSE_SYSCFG0`に`CRCSEL`ビットはない。
-- AVR_Dx系統用は CRC32 検査値が埋め込まれている。`FUSE_SYSCFG0`の`CRCSEL`ビットは`FUSE_CRCSEL_bp`をセットする。
+- AVR_Dx/Ex/Lx系統には CRC32 検査値が埋め込まれる。`FUSE_SYSCFG0`の`CRCSEL`ビットは`FUSE_CRCSEL_bp`をセットする。
 
-> AVR_Ex系統用は CRC32 検査値が埋め込まれているが、最初期のシリコンでは Eratta により事実上使用できない。
+> AVR_Ex系統は、最初期のシリコンでは Eratta によりブート領域のみの CRC検査は事実上使用できない。
 
 ### ビルドオプション
 
 以下のビルドオプションは make コマンドラインオプションに指定できる。
 
 > [!NOTE]
-> __AVR128Dx__ を指定してのビルド時は空き領域が非常に少ないため、すべての追加機能を同時に有効化することができない。実行バイナリ量が 512byte に収まらない場合は、`LED_BLINK=0`あるいは`LED=0`を試すと軽減される。
+> __AVR_Dx__ を指定してのビルド時は空き領域が非常に少ないため、すべての追加機能を同時に有効化することができない。実行バイナリ量が 512byte に収まらない場合は、`LED_BLINK=0`あるいは`LED=0`を試すと軽減される。
 
 #### ビルドターゲット
 
@@ -193,6 +213,10 @@ boot_ex> sh make_all.sh
 - AVR_DAとAVR_DBの同格品種では、同一のバイナリとなる。`hex`中のファイルでは *avrdx* ラベルで示される。
 - 128KiB 品種は 17bit アドレス幅対応のためバイナリサイズが増加する。
 - ピン数の少ない下位品種ほど選択可能な UART と、LED の選択肢が減少する。
+
+```sh
+make avr16eb32 BOOTNAME=boot_avreb UART=A0 LED=A7 PULLUP_RX=1
+```
 
 ### UART=A0
 
@@ -204,14 +228,14 @@ LED インジケーターに使用するピンをシンボルで指定する。�
 
 #### LED_BLINK=6
 
-LED インジケーターの点滅反転回数を指定する。偶数か奇数で点滅後の ON/OFF が反転する。既定値は`6`。`0`を指定すると TIMEOUT 周期の交互ブリンクになる。
+LED インジケーターの点滅反転回数を指定する。偶数か奇数で点滅後の ON/OFF が反転する。既定値は`6`。`1`を指定すると TIMEOUT 周期の交互ブリンクになる。
 
 #### TIMEOUT=1
 
 ホストからの通信開始を待機する秒数を指定する。`0`、`1`、`2`、`4`、`8`が指定可能。既定値は`1`。`0`指定は 0.5秒待機となる。
 応用コードがソフトウェアリセット、BOD、WDTのいずれかで再起動した場合は、待機時間はない。
 
-> 4と 8は、PORでしかブートローダーを起動できない（UPDIピンをRESET機能に変更していない）tinyAVR のために用意されている。UPDI外部リセット機能を備えた支援アダプターと併用する場合は変更の必要はない。
+> 4と 8は、PORでしかブートローダーを起動できない（UPDIピンをRESET機能に変更していない）tinyAVR のために用意されている。UPDI外部リセット機能を備えた支援アダプター（例えば UPDI4AVR-USB）と併用する場合は変更の必要はない。
 
 #### BAUD_RATE=115200
 
@@ -260,6 +284,10 @@ RS485モード有効時に、RxD入力ピンを無効にした単線半二重通
 RS485モード有効時の XDIR出力ピンを負論理に反転する。6byteを追加消費する。
 
 ## 更新履歴
+
+- v3.73 (26/08/01)
+  - __AVR-LA__ 系統対応（`AVRDUDE@8.2+` が必要）
+  - RS485対応等のコードフィックス
 
 - v3.72 (24/4/28)
   - __AVR-DU__ 系統対応と実機確認

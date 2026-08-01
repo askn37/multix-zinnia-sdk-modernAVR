@@ -1,11 +1,10 @@
 name=MultiX Zinnia Product SDK [modernAVR]
-version=0.4.2
+version=0.4.3
 
 archive_file_path={build.path}/{archive_file}
 bootloader.tool=avrdude
-bootloader.LOCKKEY=0x5C,0xC5,0xC5,0x5C
 build.extra_flags=
-build.flags=-DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {build.buildopt} {build.console_baud} {build.console_select} {build.led_pin} {build.macroapi} {build.enableusb} {build.printf} -DUPLD_MAX_SIZE={upload.maximum_size} '-DSKETCH_PATH={build.source.path}' {build.extra_flags}
+build.flags=-DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {build.buildopt} {build.console_baud} {build.console_select} {build.macroapi} {build.enableusb} {build.printf} -DUPLD_MAX_SIZE={upload.maximum_size} '-DSKETCH_PATH={build.source.path}' {build.extra_flags}
 build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
 build.usb_manufacturer="Unknown"
 build.core=modernAVR
@@ -100,29 +99,41 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 recipe.size.regex=^(?:\.text|\.data|\.rodata|\.bootloader)\s+([0-9]+).*
 
 
+tools.avrdude.path={runtime.tools.avrdude.path}
+tools.avrdude.cmd.path={path}/bin/avrdude
+tools.avrdude.config.path=
 tools.avrdude.bootloader.eeprom=-U "eeprom:w:{build.path}/{build.project_name}.eep:i"
 tools.avrdude.bootloader.bootrow=-U "bootrow:w:{build.path}/{build.project_name}.brow:i"
 tools.avrdude.bootloader.userrow=-U "userrow:w:{build.path}/{build.project_name}.urow:i"
 tools.avrdude.bootloader.fusefile=-U "fuses:w:{build.path}/{build.project_name}.fuse:i"
+tools.avrdude.bootloader.WDTCFG=0b00000000
+# tools.avrdude.bootloader.BODCFG=0b00000000
+# tools.avrdude.bootloader.OSCCFG=0b00000000
+# tools.avrdude.bootloader.PINCFG=0b00000011
+tools.avrdude.bootloader.HWMONCFG=0b00000000
+# tools.avrdude.bootloader.SYSCFG0=0b11111011
+# tools.avrdude.bootloader.SYSCFG1=0b00001111
+tools.avrdude.bootloader.CODESIZE=0x00
+# tools.avrdude.bootloader.BOOTSIZE=0x00
+tools.avrdude.bootloader.LOCKKEY=0x5C,0xC5,0xC5,0x5C
 tools.avrdude.bootloader.fuse0=-U fuse0:w:{bootloader.WDTCFG}:m
 tools.avrdude.bootloader.fuse1=-U fuse1:w:{bootloader.BODCFG}:m
 tools.avrdude.bootloader.fuse2=-U fuse2:w:{bootloader.OSCCFG}:m
+tools.avrdude.bootloader.fuse3=-U fuse3:w:{bootloader.PINCFG}:m
+tools.avrdude.bootloader.fuse4=-U fuse4:w:{bootloader.HWMONCFG}:m
 tools.avrdude.bootloader.fuse5=-U fuse5:w:{bootloader.SYSCFG0}:m
 tools.avrdude.bootloader.fuse6=-U fuse6:w:{bootloader.SYSCFG1}:m
 tools.avrdude.bootloader.fuse7=-U fuse7:w:{bootloader.CODESIZE}:m
 tools.avrdude.bootloader.fuse8=-U fuse8:w:{bootloader.BOOTSIZE}:m
 tools.avrdude.bootloader.locks=-U lock:w:{bootloader.LOCKKEY}:m
-tools.avrdude.bootloader.fuses={bootloader.fuse0} {bootloader.fuse1} {bootloader.fuse2} {bootloader.fuse5} {bootloader.fuse6} {bootloader.fuse7} {bootloader.fuse8}
+tools.avrdude.bootloader.fuses={bootloader.fuse0} {bootloader.fuse1} {bootloader.fuse2} {bootloader.fuse3} {bootloader.fuse5} {bootloader.fuse6} {bootloader.fuse7} {bootloader.fuse8}
 tools.avrdude.bootloader.params.quiet=-q -q
 tools.avrdude.bootloader.params.verbose=-v
 tools.avrdude.bootloader.pattern="{cmd.path}" {bootloader.verbose} {bootloader.verify} -p {build.mcu} -c {protocol} {program.extra_params} {bootloader.fuses} -e -U "flash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i"
 tools.avrdude.bootloader.verify=
-tools.avrdude.cmd.path={path}/bin/avrdude
-tools.avrdude.config.path=
 tools.avrdude.erase.params.quiet=-q -q
 tools.avrdude.erase.params.verbose=-v
 tools.avrdude.erase.pattern=
-tools.avrdude.path={runtime.tools.avrdude.path}
 tools.avrdude.program.params.noverify=-V
 tools.avrdude.program.params.quiet=-q -q
 tools.avrdude.program.params.verbose=-v

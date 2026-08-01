@@ -1,12 +1,10 @@
 /**
  * @file boot_dx.h
  * @author askn (K.Sato) multix.jp
- * @brief
- * @version 3.7
- * @date 2023-11-30
- *
- * @copyright Copyright (c) 2024 askn37 at github.com
- *
+ * @brief Arduino-compatible serial bootloader for AVR_Ex/Lx
+ * @version 3.73
+ * @date 2026-08-01
+ * @copyright Copyright (c) 2026 askn37 at github.com
  */
 // MIT License : https://askn37.github.io/LICENSE.html
 

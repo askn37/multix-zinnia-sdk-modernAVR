@@ -1,12 +1,10 @@
 /**
  * @file boot_ex.c
  * @author askn (K.Sato) multix.jp
- * @brief
- * @version 3.7
- * @date 2023-11-30
- *
- * @copyright Copyright (c) 2024 askn37 at github.com
- *
+ * @brief Arduino-compatible serial bootloader for AVR_Ex/Lx
+ * @version 3.73
+ * @date 2026-08-01
+ * @copyright Copyright (c) 2026 askn37 at github.com
  */
 // MIT License : https://askn37.github.io/LICENSE.html
 
@@ -78,20 +76,21 @@ Licensing and redistribution are subject to the MIT License.
   $0200 : appcode
 ***/
 
+__attribute__((used))
 __attribute__((naked))
-__attribute__((noreturn))
-__attribute__((section (".init0")))
+__attribute__((noinline))
+__attribute__((section (".vectors")))
 void vector_table (void) {
   __asm__ __volatile__ (
   R"#ASM#(
-    RJMP  main      ; $0000
+    RJMP  bootload  ; $0000
     ST    Z+, R22   ; $0002 nvm_stz
     RET
     LD    R24, Z+   ; $0006 nvm_ldz
     RET
     SPM   Z+        ; $000A nvm_spm
     RET
-  )#ASM#"
+  )#ASM#" ::: "r22"
   );
   /* next is nvm_cmd */
 }
@@ -102,29 +101,21 @@ void vector_table (void) {
 
 __attribute__((used))
 __attribute__((noinline))
-__attribute__((section (".init1")))
+__attribute__((section (".init0")))
 void nvm_cmd (uint8_t _nvm_cmd) {
   /* This function occupies 18 bytes of space. */
-  // _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
-  // while (NVMCTRL_STATUS & 3);
-  __asm__ __volatile__ (
-    R"#ASM#(
-          LDI   R25, 0x9D 
-          OUT   0x34, R25
-          STS   %1, R24
-      1:  LDS   R25, %0
-          ANDI  R25, 3
-          BRNE  1b
-    )#ASM#"
-    :: "p" (_SFR_MEM_ADDR(NVMCTRL_STATUS))
-     , "p" (_SFR_MEM_ADDR(NVMCTRL_CTRLA))
-  );
+  _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
+  while (NVMCTRL_STATUS & 3);
 }
 
 __attribute__((noinline))
 void putch (uint8_t ch) {
   /* Put-Character will not send the character unless the buffer is empty. */
+  #if defined(USART_DREIF_bp)
   loop_until_bit_is_set(UART_BASE.STATUS, USART_DREIF_bp);
+  #else
+  loop_until_bit_is_set(UART_BASE.INTFLAGS, USART_DRE_bp);
+  #endif
   UART_BASE.TXDATAL = ch;
   #ifdef RS485_SINGLE
   /* drop loopback */
@@ -137,7 +128,11 @@ uint8_t pullch (void) {
   /* Pull-Character blocks if buffer is empty.
      If nothing is received, WDT will eventually work. */
   uint8_t ch, er;
+  #if defined(USART_RXCIF_bp)
   loop_until_bit_is_set(UART_BASE.STATUS, USART_RXCIF_bp);
+  #else
+  loop_until_bit_is_set(UART_BASE.INTFLAGS, USART_RXC_bp);
+  #endif
   er = UART_BASE.RXDATAH;
   ch = UART_BASE.RXDATAL;
   /* If there are no frame errors, pet the dog. */
@@ -157,12 +152,22 @@ void end_of_packet (void) {
   putch(STK_INSYNC);
 }
 
+__attribute__((naked))
 __attribute__((noinline))
 void drop_packet (uint8_t count) {
   /* Closes the received packet by discarding
      the indicated number of characters. */
-  do pullch(); while (--count);
-  end_of_packet();
+  // do pullch(); while (--count);
+  // end_of_packet();
+  __asm__ __volatile__ (
+  R"#ASM#(
+      MOV   R22, R24
+  1:  RCALL pullch
+      SUBI  R22, 1
+      BRNE  1b
+      RJMP  end_of_packet
+  )#ASM#"
+  );
 }
 
 #if defined(LED_BLINK) && defined(LED_PORT) && (LED_BLINK >= 2)
@@ -176,20 +181,28 @@ void blink (void) {
     /* delay assuming 3Mhz */
     uint16_t delay = 3000000U / 150;
     do {
+  #if defined(USART_RXCIF_bp)
       if (bit_is_set(UART_BASE.STATUS, USART_RXCIF_bp)) return;
+  #else
+      if (bit_is_set(UART_BASE.INTFLAGS, USART_RXC_bp)) return;
+  #endif
     } while (--delay);
   }
   while (--count);
 }
 #endif
 
-/* main program starts here */
-__attribute__((OS_main))
-int main (void) {
+// MARK: bootload (main) function
+
+__attribute__((used))
+__attribute__((naked))
+__attribute__((noinline))
+__attribute__((noreturn))
+void bootload (void) {
   /* It is preferable that these variables be allocated directly to registers. */
-  register addr16_t address;
-  register addr16_t length;
-  register uint8_t ch;
+  addr16_t address;
+  addr16_t length;
+  uint8_t ch;
 
   /* This is the first code that is executed.
      According to modernAVR specifications,
@@ -233,55 +246,58 @@ int main (void) {
   UART_PMUX_REG = UART_PMUX_VAL;
 #endif
 
-#ifndef USART
-/*** For an asynchronous UART, perform the following settings. ***/
+#if defined(PULLUP_RX) && !defined(RS485_SINGLE) && !defined(USART)
+  /* RX pin pullup (RX is TX next GPIO).
+     Normally, the TxD side is push-pull, so it is not required. */
+  UART_RXCFG = PORT_PULLUPEN_bm;
+#endif
 
-/* Different settings are required depending on FUSE */
-/* BAUDH is zero, so if you don't need it, just write BAUDL */
-if (bit_is_set(FUSE_OSCCFG, FUSE_OSCHFFRQ_bp)) {
-  #if (BAUD_SETTING_16 < 256)
-    UART_BASE.BAUDL = BAUD_SETTING_16;
-  #else
-    UART_BASE.BAUD = BAUD_SETTING_16;
-  #endif
-}
-else {
-  #if (BAUD_SETTING_20 < 256)
-    UART_BASE.BAUDL = BAUD_SETTING_20;
-  #else
-    UART_BASE.BAUD = BAUD_SETTING_20;
-  #endif
-}
+/* Communication Mode Setup */
+#if defined(RS485) || defined(RS485_SINGLE)
+  /*** For RS485 client mode ***/
+  /* This is intended solely for synchronous.
+     It can also be configured for open-drain single-wire driving. */
 
-#endif /* not USART */
-
-#ifdef RS485
-  /*** For RS485 mode ***/
-  /* RS485 mode allows any combination of open-drain
-     single-wire communication and XCK reception.
-     Additionally, enable USART to allow XCK reception. */
   #if defined(UART_XDIRPIN)
     #if defined(RS485_INVERT)
   UART_XDIRCFG = PORT_INVEN_bm;
     #endif
   UART_TXPORT.DIR |= UART_XDIRPIN;
   #endif
-  #ifdef RS485_SINGLE
-  UART_BASE.CTRLA = USART_RS485_ENABLE_gc|_BV(1)|USART_LBME_bm;
+
+  #if defined(USART_RXCIF_bp)
+  /* AVR_Ex */
+
+  UART_BASE.CTRLC = USART_CHSIZE_8BIT_gc | USART_CMODE_SYNCHRONOUS_gc;
+
+    #if defined(RS485_SINGLE)
   UART_TXCFG = PORT_PULLUPEN_bm;
+  UART_BASE.CTRLA = USART_RS485_ENABLE_gc | _BV(1) | USART_LBME_bm;
+  UART_BASE.CTRLB = USART_RXEN_bm | USART_TXEN_bm | USART_ODME_bm;
+    #else
+  UART_BASE.CTRLA = USART_RS485_ENABLE_gc | _BV(1);
+  UART_BASE.CTRLB = USART_RXEN_bm | USART_TXEN_bm;
+    #endif
+
   #else
-  UART_BASE.CTRLA = USART_RS485_ENABLE_gc|_BV(1);
+  /* AVR_Lx */
+
+    #if defined(RS485_SINGLE)
+  UART_TXCFG = PORT_PULLUPEN_bm;
+  UART_BASE.CTRLE = USART_ODME_bm | USART_LBME_bm;
+    #endif
+
+  /* This is the same as the default value for CTRLD, so it can be omitted. */
+  // UART_BASE.CTRLD = USART_CHSIZE_8BIT_gc;
+  UART_BASE.CTRLB = USART_RXEN_bm | USART_TXEN_bm;
+  UART_BASE.CTRLA = USART_CSIG_RS485_gc
+                  + USART_CMODE_SYNCCLIENT_gc
+                  + USART_ENABLE_bm;
+
   #endif
-#endif
 
-#if defined(PULLUP_RX) && !defined(RS485_SINGLE)
-  /* RX pin pullup (RX is TX next GPIO).
-     Normally, the TxD side is push-pull, so it is not required. */
-  UART_RXCFG = PORT_PULLUPEN_bm;
-#endif
-
-#ifdef USART
-  /*** For synchronous USART ***/
+#elif defined(USART)
+  /*** For synchronous client USART ***/
   #ifdef UART_XCKCFG
     #ifdef USART_INVERT
   UART_XCKCFG = PORT_INVEN_bm;
@@ -290,22 +306,65 @@ else {
     #error USART XCK pin not USART exists
     #include "BUILD_STOP"
   #endif
-  /* For synchronous USART */
-  UART_BASE.CTRLC = USART_CHSIZE_8BIT_gc|USART_CMODE_SYNCHRONOUS_gc;
-#else
-  /* For asynchronous UART */
-  UART_BASE.CTRLC = USART_CHSIZE_8BIT_gc;
-#endif
 
-  /* not interrupt, polling read-write UART started */
-#if defined(RS485) && defined(RS485_SINGLE)
-  UART_BASE.CTRLB = USART_RXEN_bm|USART_TXEN_bm|USART_ODME_bm;
-#else
-  UART_BASE.CTRLB = USART_RXEN_bm|USART_TXEN_bm;
-#endif
+  #if defined(USART_RXCIF_bp)
+  /* AVR_Ex */
 
-  /* At this stage, the UART only acts as a receiver.
-     TxD pin is not configured as an output yet and remains Hi-Z */
+  UART_BASE.CTRLC = USART_CHSIZE_8BIT_gc | USART_CMODE_SYNCHRONOUS_gc;
+  UART_BASE.CTRLB = USART_RXEN_bm | USART_TXEN_bm;
+
+  #else
+  /* AVR_Lx */
+
+  /* This is the same as the default value for CTRLD, so it can be omitted. */
+  // UART_BASE.CTRLD = USART_CHSIZE_8BIT_gc;
+  UART_BASE.CTRLB = USART_RXEN_bm | USART_TXEN_bm;
+  UART_BASE.CTRLA = USART_CMODE_SYNCCLIENT_gc
+                  + USART_ENABLE_bm;
+
+  #endif
+
+#else /* UART */
+  /* For standard asynchronous UART */
+
+  /* Different settings are required depending on FUSE */
+  /* BAUDH is zero, so if you don't need it, just write BAUDL */
+  if (bit_is_set(FUSE_OSCCFG, FUSE_OSCHFFRQ_bp)) {
+    #if (BAUD_SETTING_16 < 256)
+      UART_BASE.BAUDL = BAUD_SETTING_16;
+    #else
+      UART_BASE.BAUD = BAUD_SETTING_16;
+    #endif
+  }
+  else {
+    #if (BAUD_SETTING_20 < 256)
+      UART_BASE.BAUDL = BAUD_SETTING_20;
+    #else
+      UART_BASE.BAUD = BAUD_SETTING_20;
+    #endif
+  }
+
+  #if defined(USART_RXCIF_bp)
+  /* AVR_Ex */
+
+  /* This is the same as the default value for CTRLD, so it can be omitted. */
+  // UART_BASE.CTRLC = USART_CHSIZE_8BIT_gc;
+  UART_BASE.CTRLB = USART_RXEN_bm | USART_TXEN_bm;
+
+  #else
+  /* AVR_Lx */
+
+  /* This is the same as the default value for CTRLD, so it can be omitted. */
+  // UART_BASE.CTRLD = USART_CHSIZE_8BIT_gc;
+  UART_BASE.CTRLB = USART_RXEN_bm | USART_TXEN_bm;
+  UART_BASE.CTRLA = USART_ENABLE_bm;
+
+  #endif
+
+#endif  /* Communication Mode Setup */
+
+/* At this stage, the UART only acts as a receiver. */
+/* TxD pin is not configured as an output yet and remains Hi-Z. */
 
 #if defined(LED_BLINK) && defined(LED_PORT) && (LED_BLINK >= 2)
   /* LED flashing time is not included in WDT limit. */

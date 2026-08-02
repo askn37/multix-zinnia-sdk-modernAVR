@@ -46,12 +46,12 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR32DA28 AVR64DA28 AVR128DA28
     - AVR32DA32 AVR64DA32 AVR128DA32
     - AVR32DA48 AVR64DA48 AVR128DA48
-    - AVR64DA64 AVR128DA64
+    -           AVR64DA64 AVR128DA64
   - AVR DA-S 系統
     - AVR32DA28S AVR64DA28S AVR128DA28S
     - AVR32DA32S AVR64DA32S AVR128DA32S
     - AVR32DA48S AVR64DA48S AVR128DA48S
-    - AVR64DA64S AVR128DA64S
+    -            AVR64DA64S AVR128DA64S
   - AVR DB 系統
     - AVR32DB28 AVR64DB28 AVR128DB28
     - AVR32DB32 AVR64DB32 AVR128DB32
@@ -145,6 +145,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR DU with Bootloader
   - AVR EA with Bootloader
   - AVR EB with Bootloader
+  - AVR LA with Bootloader
   - *(separator)*
   - AVR DU with USB Bootloader *-- AVR_DU専用で euboot を使用*
   - *(separator) 以下ブートローダーなし*
@@ -184,12 +185,12 @@ Arduino IDE でこのSDKを選択すると、
   - F_CPUマクロを参照しないプログラムでは効果なし
   - __FUSE無関係に常時どれでも変更可能__
   - 高周波内蔵発振器による 20MHz/10MHz/5MHz/2MHz -- 20MHz系列用
-- __BOD Mode__ -- Brown Out Detect（FUSE設定）
+- __BOD Mode__ -- Brown Out Detect（FUSE設定）*非表示*
   - BOD Disabled -- 無効 -- 既定値
   - BOD Enabled -- 有効
   - BOD Sampled -- 各個別データシート参照のこと
   - BOD Enabled hold wakeup -- 各個別データシート参照のこと
-- __BOD Level__ -- BOD監視電圧レベル（FUSE設定）
+- __BOD Level__ -- BOD監視電圧レベル（FUSE設定））*非表示*
   - 1.90V or 1.75V -- 既定値
   - 2.45V or 1.90V
   - 2.70V or 2.60V
@@ -197,7 +198,7 @@ Arduino IDE でこのSDKを選択すると、
 - __FUSE PF6__ -- リセット端子用途変更（FUSE設定）
   - PF6 pin=Reset -- 既定値
   - PF6 pin=GPIO -- 各個別データシート参照のこと
-- __FUSE UPDI__ -- AVR_DD/DU/EA/EBの UPDIピン用途変更（FUSE設定）
+- __FUSE UPDI__ -- AVR_DD/DU/EA/EBの UPDIピン用途変更（FUSE設定））*非表示*
   - __原則、既定値からの変更禁止（復元にはHV対応書換器が必須）__
   - 各個別データシート参照のこと
 - __EEPROM__ -- EEPROM保護フラグ（FUSE設定）
@@ -211,7 +212,7 @@ Arduino IDE でこのSDKを選択すると、
 - __USERROW__ -- USERROWの扱い
   - Save guard "Retained" -- 何もしない
   - Upload ".urow" file -- ブートローダー/書込器でのUSEROWファイル書換有効
-- __FUSE define__ -- FUSE全体の扱い：w/o bootloader のみ
+- __FUSE define__ -- FUSE全体の扱い *w/o bootloader のみ*
   - Specify in the MENU -- メニュー設定に従う
   - Upload ".fuse" file (DANGER) -- FUSEファイルでの書換有効：危険な操作
 - __Build Option__ -- DEBUGマクロ有無（任意選択）
@@ -241,7 +242,7 @@ Arduino IDE でこのSDKを選択すると、
   - 2400 bps -- OSC-LUP対応
 - __Bootloader__ -- ブートローダー選択
   - 選択肢は系統選択に依存
-  - w/o Bootloader 選択時は変更不可
+  - w/o Bootloader 選択時は変更不可 ）*非表示*
 - __シリアルポート選択__
   - 環境依存
 - __書込装置選択__

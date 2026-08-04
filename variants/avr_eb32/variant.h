@@ -70,8 +70,8 @@
 #define PIN_PF3 179
 #define PIN_PF4 180
 #define PIN_PF5 181
-#define PIN_PF6 182 /* HV-programming pad */
-#define PIN_PF7 183 /* Default UPDI */
+#define PIN_PF6 182
+#define PIN_PF7 183
 
 /* PORTG not implemented */
 

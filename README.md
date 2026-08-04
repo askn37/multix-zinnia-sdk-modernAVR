@@ -425,6 +425,11 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 
 ## 更新履歴
 
+- 0.4.4 (26/08/05)
+  - __AVR32SD14/20/28/32__ に対応
+  - __AVR-DU/SD__ の選択可能`F_CPU`を一部制限
+  - Microchip.AVR8-atpack を`20260522` に更新
+
 - 0.4.3 (26/07/30)
   - __AVR32LA14/20/28/32__ に対応
   - AVRDUDEを`8.2-avrdude`に更新

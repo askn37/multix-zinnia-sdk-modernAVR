@@ -53,7 +53,7 @@
 /*      PIN_PC6 not implemented */
 /*      PIN_PC7 not implemented */
 
-#define PIN_PD0 112 /* used MVIOVDD2 */
+/*      PIN_PD0 not implemented */
 #define PIN_PD1 113
 #define PIN_PD2 114
 #define PIN_PD3 115
@@ -76,10 +76,10 @@
 /* PORTG not implemented */
 
 #define NOT_A_PIN    255
-#define PIN_MVIOVDD2 PIN_PD0
+#define PIN_MVIOVDD2 112
 #define PIN_VREFA    PIN_PD7
-#define PIN_RESET    PIN_PF6
-#define PIN_UPDI     PIN_PF7
+#define PIN_RESET    182
+#define PIN_UPDI     183
 
 #ifndef LED_BUILTIN
 #define LED_BUILTIN  PIN_PA7

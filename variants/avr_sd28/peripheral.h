@@ -3,9 +3,9 @@
  * @author askn (K.Sato) multix.jp
  * @brief
  * @version 0.1
- * @date 2022-12-12
+ * @date 2026-08-05
  *
- * @copyright Copyright (c) 2024 askn37 at github.com
+ * @copyright Copyright (c) 2026 askn37 at github.com
  *
  */
 // MIT License : https://askn37.github.io/LICENSE.html
@@ -27,10 +27,14 @@ extern HarfUART_Class Serial0C;   /* upload.port=UART0_A2 */
 extern HarfUART_Class Serial0D;   /* upload.port=UART0_D4 */
 extern HarfUART_Class Serial0E;   /* upload.port=UART0_C1 */
 
-#define Serial1 Serial1C
-extern HarfUART_Class Serial1A;   /* upload.port=UART1_C0 */ /* TX:PIN_PC0 not implemented */
-/* Serial1B not implemented DD28 */
+#define Serial1 Serial1A
+extern HarfUART_Class Serial1A;   /* upload.port=UART1_C0 */
+/* Serial1B not implemented */
 extern HarfUART_Class Serial1C;   /* upload.port=UART1_D6 */
+
+#define Serial2 Serial2A
+extern HarfUART_Class Serial2A;   /* upload.port=UART2_F0 */
+/* Serial2B not implemented */
 
 /* struct UART_portmux_t in Portmux.h */
 #define _PORTMUX_USART0A {&PORTMUX_USARTROUTEA, PORTMUX_USART0_gm, PORTMUX_USART0_DEFAULT_gc, &PORTA, PIN0_bm, PIN1_bm, &PORTA_PIN1CTRL}
@@ -40,6 +44,8 @@ extern HarfUART_Class Serial1C;   /* upload.port=UART1_D6 */
 #define _PORTMUX_USART0E {&PORTMUX_USARTROUTEA, PORTMUX_USART0_gm, PORTMUX_USART0_ALT4_gc   , &PORTC, PIN1_bm, PIN2_bm, &PORTC_PIN2CTRL}
 #define _PORTMUX_USART1A {&PORTMUX_USARTROUTEA, PORTMUX_USART1_gm, PORTMUX_USART1_DEFAULT_gc, &PORTC, PIN0_bm, PIN1_bm, &PORTC_PIN1CTRL}
 #define _PORTMUX_USART1C {&PORTMUX_USARTROUTEA, PORTMUX_USART1_gm, PORTMUX_USART1_ALT2_gc   , &PORTD, PIN6_bm, PIN7_bm, &PORTD_PIN7CTRL}
+#define _PORTMUX_USART2A {&PORTMUX_USARTROUTEB, PORTMUX_USART2_gm, PORTMUX_USART2_DEFAULT_gc, &PORTF, PIN0_bm, PIN1_bm, &PORTF_PIN1CTRL}
+/* #define _PORTMUX_USART2B {&PORTMUX_USARTROUTEB, PORTMUX_USART2_gm, PORTMUX_USART2_ALT1_gc   , &PORTF, PIN4_bm, PIN5_bm, &PORTF_PIN1CTRL} */
 
 /* TWIn in TWIM.h */
 #define Wire0 Wire0A

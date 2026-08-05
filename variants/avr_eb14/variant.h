@@ -77,11 +77,11 @@
 
 #define NOT_A_PIN    255
 #define PIN_VREFA    PIN_PD7
-#define PIN_RESET    PIN_PF6
-#define PIN_UPDI     PIN_PF7
+#define PIN_RESET    182
+#define PIN_UPDI     183
 
 #ifndef LED_BUILTIN
-#define LED_BUILTIN  PIN_PD7
+#define LED_BUILTIN  PIN_PC3
 #endif
 #define LED_BUILTIN_INVERT  /* implementation dependent */
 

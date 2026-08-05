@@ -53,7 +53,7 @@
 /*      PIN_PC6 not implemented */
 /*      PIN_PC7 not implemented */
 
-#define PIN_PD0 112 /* used MVIOVDD2 */
+/*      PIN_PD0 not implemented */
 #define PIN_PD1 113
 #define PIN_PD2 114
 #define PIN_PD3 115
@@ -70,16 +70,17 @@
 /*      PIN_PF3 not implemented */
 /*      PIN_PF4 not implemented */
 /*      PIN_PF5 not implemented */
-#define PIN_PF6 182
-#define PIN_PF7 183
+/*      PIN_PF6 not implemented */
+/*      PIN_PF7 not implemented */
 
 /* PORTG not implemented */
 
 #define NOT_A_PIN    255
-#define PIN_MVIOVDD2 PIN_PD0
+#define PIN_MVIOVDD2 112
 #define PIN_VREFA    PIN_PD7
-#define PIN_RESET    PIN_PF6
-#define PIN_UPDI     PIN_PF7
+#define PIN_VREFB    PIN_PD4
+#define PIN_RESET    182
+#define PIN_UPDI     183
 
 #ifndef LED_BUILTIN
 #define LED_BUILTIN  PIN_PA7
@@ -306,6 +307,17 @@
 #define PIN_SPI0_MISO_ALT6   PIN_PC2
 #define PIN_SPI0_SCK_ALT6    PIN_PC3
 #define PIN_SPI0_SS_ALT6     PIN_PF7
+
+#define PIN_SPI1_MOSI        PIN_PC0
+#define PIN_SPI1_MISO        PIN_PC1
+#define PIN_SPI1_SCK         PIN_PC2
+#define PIN_SPI1_SS          PIN_PC3
+/* #define PIN_SPI1_MOSI_ALT1   PIN_PC4 */
+/* #define PIN_SPI1_MISO_ALT1   PIN_PC5 */
+/* #define PIN_SPI1_SCK_ALT2    PIN_PC6 */
+/* #define PIN_SPI1_SS_ALT2     PIN_PC7 */
+/* #define PIN_SPI1_MOSI_ALT2   PIN_PB4 */ /* This alternate features only a MOSI output */
+
 #define PIN_TWI0_SCL         PIN_PA2
 #define PIN_TWI0_SDA         PIN_PA3
 #define PIN_TWI0_SCL_ALT1    PIN_PA2
@@ -373,6 +385,7 @@
 #define HAVE_RTC           RTC_CNT_vect_num
 #define HAVE_SLPCTRL   SLPCTRL_INT_vect_num
 #define HAVE_SPI0         SPI0_INT_vect_num
+#define HAVE_SPI1         SPI1_INT_vect_num
 #define HAVE_SWDT         SWDT_INT_vect_num
 #define HAVE_TCA0         TCA0_OVF_vect_num
 #define HAVE_TCB0         TCB0_INT_vect_num

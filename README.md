@@ -81,6 +81,10 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR32LA20
     - AVR32LA28
     - AVR32LA32
+  - AVR SD 系統
+    - AVR32SD20
+    - AVR32SD28
+    - AVR32SD32
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
@@ -156,6 +160,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR EA w/o Bootloader
   - AVR EB w/o Bootloader
   - AVR LA w/o Bootloader
+  - AVR SD w/o Bootloader
 - __MultiX Zinnia Product SDK [reduceAVR]__
 
 ## ボード選択サブメニュー

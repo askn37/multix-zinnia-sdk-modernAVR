@@ -1,5 +1,5 @@
 /**
- * @file boot_ex.h
+ * @file boot_dx.h
  * @author askn (K.Sato) multix.jp
  * @brief Arduino-compatible serial bootloader for AVR_Ex/Lx
  * @version 3.73
@@ -12,7 +12,7 @@
 
 /*** Default vaules ***/
 
-// #define BOOT_HW_VER '3'or '5' /* This is defined later */
+// #define BOOT_HW_VER '6' /* This is defined later */
 #define BOOT_MAJVER 3   /* To save space, this value is not returned */
 #define BOOT_MINVER 73
 
@@ -116,21 +116,27 @@
 #define G6 214
 #define G7 215
 
-/* The default main clock divider ratio is 6. */
+/* If you build at a speed other than the default 4MHz. */
 #ifndef F_CPU_Scale
   #define F_CPU_Scale 1
 #endif
 #if F_CPU_Scale == 1
-  #define FDIV 6          /* CLKCTRL_PDIV_DIV6_gc */
+  #define F_CPU 4000000L  /* CLKCTRL_FREQSEL_4M_gc */
 #elif F_CPU_Scale == 2
-  #define FDIV 4
-  #define FREQSEL 3       /* CLKCTRL_PDIV_DIV4_gc */
+  #define F_CPU 8000000L
+  #define FREQSEL 0x14    /* CLKCTRL_FREQSEL_8M_gc */
 #elif F_CPU_Scale == 3
-  #define FDIV 2
-  #define FREQSEL 1       /* CLKCTRL_PDIV_DIV2_gc */
+  #define F_CPU 12000000L
+  #define FREQSEL 0x18    /* CLKCTRL_FREQSEL_12M_gc */
 #elif F_CPU_Scale == 4
-  #define FDIV 1
-  #define FREQSEL 0       /* Full Clock */
+  #define F_CPU 16000000L
+  #define FREQSEL 0x1c    /* CLKCTRL_FREQSEL_16M_gc */
+#elif F_CPU_Scale == 5
+  #define F_CPU 20000000L
+  #define FREQSEL 0x20    /* CLKCTRL_FREQSEL_20M_gc */
+#elif F_CPU_Scale == 6
+  #define F_CPU 24000000L
+  #define FREQSEL 0x24    /* CLKCTRL_FREQSEL_24M_gc */
 #else
   #error This F_CPU value cannot be specified
   #include "BUILD_STOP"
@@ -152,15 +158,15 @@ typedef union {
 #endif
 #ifdef TIMEOUTSEC
   #if (TIMEOUTSEC == 1)
-    #define WDTPERIOD WDT_PERIOD_1KCLK_gc
+    #define WDTPERIOD (F_CPU / 1000000 * 1024 * 1)
   #elif (TIMEOUTSEC == 2)
-    #define WDTPERIOD WDT_PERIOD_2KCLK_gc
+    #define WDTPERIOD (F_CPU / 1000000 * 1024 * 2)
   #elif (TIMEOUTSEC == 4)
-    #define WDTPERIOD WDT_PERIOD_4KCLK_gc
+    #define WDTPERIOD (F_CPU / 1000000 * 1024 * 4)
   #elif (TIMEOUTSEC == 8)
-    #define WDTPERIOD WDT_PERIOD_8KCLK_gc
+    #define WDTPERIOD (F_CPU / 1000000 * 1024 * 8)
   #else
-    #define WDTPERIOD WDT_PERIOD_512CLK_gc
+    #define WDTPERIOD (F_CPU / 1000000 * 1024 / 2)
   #endif
 #endif
 
@@ -224,18 +230,16 @@ typedef union {
 
 /*** Detailed settings for each part ***/
 
-/*** AVR_EA Series ***/
-/* The PORTMUX layout of this series is special. */
-/* For LEDs, we recommend using PA7, which is present in all chips. */
+/*** AVR_SD Series ***/
 
 #if \
-  defined(__AVR_AVR64EA48__) || defined(__AVR_AVR32EA48__) || defined(__AVR_AVR16EA48__) || \
-  defined(__AVR_AVR64EA32__) || defined(__AVR_AVR32EA32__) || defined(__AVR_AVR16EA32__) || \
-  defined(__AVR_AVR64EA28__) || defined(__AVR_AVR32EA28__) || defined(__AVR_AVR16EA28__)
-  #define BOOT_HW_VER '3' /* Make sure to match the NVMCTRL version. */
+  defined(__AVR_AVR64SD48__) || defined(__AVR_AVR32SD32__) || \
+  defined(__AVR_AVR64SD32__) || defined(__AVR_AVR32SD28__) || \
+  defined(__AVR_AVR64SD28__) || defined(__AVR_AVR32SD20__)
+  #define BOOT_HW_VER '6' /* Make sure to match the NVMCTRL version. */
   #if (UART == A0) && defined(USART0)
-    #define UART_BASE     USART0
     #define UART_PORTREG  PORTA
+    #define UART_BASE     USART0
     #define UART_TXPORT   VPORTA
     #define UART_TXPIN    PIN0_bm
     #define UART_TXCFG    PORTA_PIN0CTRL
@@ -246,142 +250,7 @@ typedef union {
     #define UART_XCKCFG   PORTA_PIN2CTRL
     #define UART_XDIRPIN  PIN3_bm
     #define UART_XDIRCFG  PORTA_PIN3CTRL
-  #elif (UART == A4) && defined(USART0)
-    #define UART_BASE     USART0
-    #define UART_PORTREG  PORTA
-    #define UART_TXPORT   VPORTA
-    #define UART_TXPIN    PIN4_bm
-    #define UART_TXCFG    PORTA_PIN4CTRL
-    #define UART_RXCFG    PORTA_PIN5CTRL
-    #define UART_PMUX_VAL PORTMUX_USART0_ALT1_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
-    #define UART_XCKPIN   PIN6_bm
-    #define UART_XCKCFG   PORTA_PIN6CTRL
-    #define UART_XDIRPIN  PIN7_bm
-    #define UART_XDIRCFG  PORTA_PIN7CTRL
-  #elif (UART == A2) && defined(USART0)
-    #define UART_BASE     USART0
-    #define UART_PORTREG  PORTA
-    #define UART_TXPORT   VPORTA
-    #define UART_TXPIN    PIN4_bm
-    #define UART_TXCFG    PORTA_PIN2CTRL
-    #define UART_RXCFG    PORTA_PIN3CTRL
-    #define UART_PMUX_VAL PORTMUX_USART0_ALT2_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
-  #elif (UART == D4) && defined(USART0)
-    #define UART_BASE     USART0
-    #define UART_PORTREG  PORTD
-    #define UART_TXPORT   VPORTD
-    #define UART_TXPIN    PIN4_bm
-    #define UART_TXCFG    PORTD_PIN4CTRL
-    #define UART_RXCFG    PORTD_PIN5CTRL
-    #define UART_PMUX_VAL PORTMUX_USART0_ALT3_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
-    #define UART_XCKPIN   PIN6_bm
-    #define UART_XCKCFG   PORTD_PIN6CTRL
-    #define UART_XDIRPIN  PIN7_bm
-    #define UART_XDIRCFG  PORTD_PIN7CTRL
-  #elif (UART == C1) && defined(USART0)
-    #define UART_BASE     USART0
-    #define UART_PORTREG  PORTD
-    #define UART_TXPORT   VPORTD
-    #define UART_TXPIN    PIN4_bm
-    #define UART_TXCFG    PORTD_PIN1CTRL
-    #define UART_RXCFG    PORTD_PIN2CTRL
-    #define UART_PMUX_VAL PORTMUX_USART0_ALT4_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
-    #define UART_XCKPIN   PIN6_bm
-    #define UART_XCKCFG   PORTD_PIN3CTRL
-  #elif (UART == C0) && defined(USART1)
-    #define UART_BASE     USART1
-    #define UART_PORTREG  PORTC
-    #define UART_TXPORT   VPORTC
-    #define UART_TXPIN    PIN0_bm
-    #define UART_TXCFG    PORTC_PIN0CTRL
-    #define UART_RXCFG    PORTC_PIN1CTRL
-    // #define UART_PMUX_VAL PORTMUX_USART1_DEFAULT_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
-    #define UART_XCKPIN   PIN2_bm
-    #define UART_XCKCFG   PORTC_PIN2CTRL
-    #define UART_XDIRPIN  PIN3_bm
-    #define UART_XDIRCFG  PORTC_PIN3CTRL
-  #elif (UART == C4) && defined(USART1) && defined(PORTC_PIN4CTRL)
-    #define UART_BASE     USART1
-    #define UART_PORTREG  PORTC
-    #define UART_TXPORT   VPORTC
-    #define UART_TXPIN    PIN4_bm
-    #define UART_TXCFG    PORTC_PIN4CTRL
-    #define UART_RXCFG    PORTC_PIN5CTRL
-    #define UART_PMUX_VAL PORTMUX_USART1_ALT1_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
-    #define UART_XCKPIN   PIN6_bm
-    #define UART_XCKCFG   PORTC_PIN6CTRL
-    #define UART_XDIRPIN  PIN7_bm
-    #define UART_XDIRCFG  PORTC_PIN7CTRL
-  #elif (UART == D6) && defined(USART1)
-    #define UART_BASE     USART1
-    #define UART_PORTREG  PORTD
-    #define UART_TXPORT   VPORTD
-    #define UART_TXPIN    PIN4_bm
-    #define UART_TXCFG    PORTD_PIN6CTRL
-    #define UART_RXCFG    PORTD_PIN7CTRL
-    #define UART_PMUX_VAL PORTMUX_USART1_ALT2_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
-  #elif (UART == F0) && defined(USART2)
-    #define UART_PORTREG  PORTF
-    #define UART_BASE     USART2
-    #define UART_TXPORT   VPORTF
-    #define UART_TXPIN    PIN0_bm
-    #define UART_TXCFG    PORTF_PIN0CTRL
-    #define UART_RXCFG    PORTF_PIN1CTRL
-    // #define UART_PMUX_VAL PORTMUX_USART2_DEFAULT_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEB
-    #ifdef PORTF_PIN2CTRL
-    #define UART_XCKPIN   PIN2_bm
-    #define UART_XCKCFG   PORTF_PIN2CTRL
-    #define UART_XDIRPIN  PIN3_bm
-    #define UART_XDIRCFG  PORTF_PIN3CTRL
-    #endif
-  #elif (UART == F4) && defined(USART2) && defined(PORTF_PIN4CTRL)
-    #define UART_BASE     USART2
-    #define UART_PORTREG  PORTF
-    #define UART_TXPORT   VPORTF
-    #define UART_TXPIN    PIN4_bm
-    #define UART_TXCFG    PORTF_PIN4CTRL
-    #define UART_RXCFG    PORTF_PIN5CTRL
-    #define UART_PMUX_VAL PORTMUX_USART2_ALT1_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEB
-  #endif
-#endif
-
-/*** AVR_EB Series ***/
-/* The PORTMUX layout of this series is special. */
-/* For LEDs, we recommend using PA7, which is present in all chips. */
-
-#if \
-  defined(__AVR_AVR32EB32__) || defined(__AVR_AVR16EB32__) || defined(__AVR_AVR8EB32__) || \
-  defined(__AVR_AVR32EB28__) || defined(__AVR_AVR16EB28__) || defined(__AVR_AVR8EB28__) || \
-  defined(__AVR_AVR32EB20__) || defined(__AVR_AVR16EB20__) || defined(__AVR_AVR8EB20__) || \
-  defined(__AVR_AVR32EB14__) || defined(__AVR_AVR16EB14__) || defined(__AVR_AVR8EB14__) || \
-  defined(__AVR_AVR32LA14__) || defined(__AVR_AVR16LA14__) || \
-  defined(__AVR_AVR32LA20__) || defined(__AVR_AVR16LA20__) || \
-  defined(__AVR_AVR32LA28__) || defined(__AVR_AVR16LA28__) || \
-  defined(__AVR_AVR32LA32__) || defined(__AVR_AVR16LA32__)
-  #define BOOT_HW_VER '5' /* Make sure to match the NVMCTRL version. */
-  #if (UART == A0) && defined(USART0)
-    #define UART_BASE     USART0
-    #define UART_PORTREG  PORTA
-    #define UART_TXPORT   VPORTA
-    #define UART_TXPIN    PIN0_bm
-    #define UART_TXCFG    PORTA_PIN0CTRL
-    #define UART_RXCFG    PORTA_PIN1CTRL
-    // #define UART_PMUX_VAL PORTMUX_USART0_DEFAULT_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
-    #define UART_XCKPIN   PIN2_bm
-    #define UART_XCKCFG   PORTA_PIN2CTRL
-    #define UART_XDIRPIN  PIN3_bm
-    #define UART_XDIRCFG  PORTA_PIN3CTRL
-  #elif (UART == A4) && defined(USART0)
+  #elif (UART == A4) && defined(USART0) && defined(PORTA_PIN4CTRL)
     #define UART_BASE     USART0
     #define UART_PORTREG  PORTA
     #define UART_TXPORT   VPORTA
@@ -412,10 +281,10 @@ typedef union {
     #define UART_RXCFG    PORTD_PIN5CTRL
     #define UART_PMUX_VAL PORTMUX_USART0_ALT3_gc
     #define UART_PMUX_REG PORTMUX_USARTROUTEA
-    #define UART_XDIRPIN  PIN7_bm
-    #define UART_XDIRCFG  PORTD_PIN7CTRL
     #define UART_XCKPIN   PIN6_bm
     #define UART_XCKCFG   PORTD_PIN6CTRL
+    #define UART_XDIRPIN  PIN7_bm
+    #define UART_XDIRCFG  PORTD_PIN7CTRL
   #elif (UART == C1) && defined(USART0)
     #define UART_BASE     USART0
     #define UART_PORTREG  PORTC
@@ -427,15 +296,48 @@ typedef union {
     #define UART_PMUX_REG PORTMUX_USARTROUTEA
     #define UART_XCKPIN   PIN3_bm
     #define UART_XCKCFG   PORTC_PIN3CTRL
-  #elif (UART == F7) && defined(USART0)
-    #define UART_BASE     USART0
+  #elif (UART == C0) && defined(USART1) && defined(PORTC_PIN0CTRL)
+    #define UART_BASE     USART1
+    #define UART_PORTREG  PORTC
+    #define UART_TXPORT   VPORTC
+    #define UART_TXPIN    PIN0_bm
+    #define UART_TXCFG    PORTD_PIN0CTRL
+    #define UART_RXCFG    PORTD_PIN1CTRL
+    // #define UART_PMUX_VAL PORTMUX_USART1_DEFAULT_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEA
+  #elif (UART == D6) && defined(USART1)
+    #define UART_BASE     USART1
+    #define UART_PORTREG  PORTD
+    #define UART_TXPORT   VPORTD
+    #define UART_TXPIN    PIN6_bm
+    #define UART_TXCFG    PORTD_PIN6CTRL
+    #define UART_RXCFG    PORTD_PIN7CTRL
+    #define UART_PMUX_VAL PORTMUX_USART1_ALT2_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEA
+  #elif (UART == F0) && defined(USART2) && defined(PORTF_PIN0CTRL)
+    #define UART_BASE     USART2
     #define UART_PORTREG  PORTF
     #define UART_TXPORT   VPORTF
-    #define UART_TXPIN    PIN7_bm
-    #define UART_TXCFG    PORTF_PIN7CTRL
-    #define UART_RXCFG    PORTF_PIN6CTRL
-    #define UART_PMUX_VAL PORTMUX_USART0_ALT6_gc
-    #define UART_PMUX_REG PORTMUX_USARTROUTEA
+    #define UART_TXPIN    PIN0_bm
+    #define UART_TXCFG    PORTF_PIN0CTRL
+    #define UART_RXCFG    PORTF_PIN1CTRL
+    // #define UART_PMUX_VAL PORTMUX_USART2_DEFAULT_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEB
+    #ifdef PORTF_PIN2CTRL
+    #define UART_XCKPIN   PIN2_bm
+    #define UART_XCKCFG   PORTF_PIN2CTRL
+    #define UART_XDIRPIN  PIN3_bm
+    #define UART_XDIRCFG  PORTF_PIN3CTRL
+    #endif
+  #elif (UART == F4) && defined(USART2) && defined(PORTF_PIN4CTRL)
+    #define UART_BASE     USART2
+    #define UART_PORTREG  PORTF
+    #define UART_TXPORT   VPORTF
+    #define UART_TXPIN    PIN4_bm
+    #define UART_TXCFG    PORTF_PIN4CTRL
+    #define UART_RXCFG    PORTF_PIN5CTRL
+    #define UART_PMUX_VAL PORTMUX_USART2_ALT1_gc
+    #define UART_PMUX_REG PORTMUX_USARTROUTEB
   #endif
 #endif
 

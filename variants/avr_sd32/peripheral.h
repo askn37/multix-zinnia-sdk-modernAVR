@@ -32,7 +32,7 @@ extern HarfUART_Class Serial1A;   /* upload.port=UART1_C0 */
 /* Serial1B not implemented */
 extern HarfUART_Class Serial1C;   /* upload.port=UART1_D6 */
 
-#define Serial1 Serial2A
+#define Serial2 Serial2A
 extern HarfUART_Class Serial2A;   /* upload.port=UART2_F0 */
 extern HarfUART_Class Serial2B;   /* upload.port=UART2_F4 */
 

@@ -1,15 +1,15 @@
 # @file Makefile - for boot_dx.c
 # @author askn (K.Sato) multix.jp
 # @brief
-# @version 3.7
-# @date 2023-11-30
+# @version 3.73
+# @date 2026-08-05
 #
-# @copyright Copyright (c) 2023 askn37 at github.com
+# @copyright Copyright (c) 2026 askn37 at github.com
 
 ### Default values
-MCU_TARGET = avr128db64
-PROGRAM = boot_avrdx_UART0
-SOURCE = boot_dx.c
+MCU_TARGET = avr32sd32
+PROGRAM = boot_avrsd_UART0
+SOURCE = boot_sx.c
 
 ### LED PortPin
 LED = A7
@@ -48,7 +48,7 @@ F_CPU_Scale = 1
 
 ### Global settings
 MF := $(MAKEFILE_LIST)
-LDSECTIONS = -Wl,-section-start=.text=0 -Wl,--section-start=.appcode=0x200
+LDSECTIONS = -Wl,-section-start=.text=0 -Wl,--section-start=.appcode=0x400
 
 ### basedir: ~/Library/Arduino15/packages
 # AVRGCCROOT = ../../../../../../arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/bin

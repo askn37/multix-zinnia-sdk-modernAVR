@@ -432,7 +432,10 @@ inline void initVariant (void) {
     _SFR_MEM8(_reg) = ERRCTRL_ERRLVL_NOTIFICATION_gc;
     _reg++;
   } while (_reg <= (uint16_t)&ERRCTRL_ESCEVSYS1);
-  _PROTECTED_WRITE(ERRCTRL.CTRLA, ERRCTRL_STATE_NORMAL_gc);
+  _PROTECTED_WRITE(ERRCTRL_CTRLA, ERRCTRL_STATE_NORMAL_gc);
+
+  /* Relaxation of ECC checks for uninitialized flash regions */
+  _PROTECTED_WRITE(NVMCTRL_CTRLC, NVMCTRL_ECCALL1_DISALL_gc);
 
   _CLKCTRL_SETUP();
   PORTA.PINCONFIG = PORT_ISC_INPUT_DISABLE_gc;

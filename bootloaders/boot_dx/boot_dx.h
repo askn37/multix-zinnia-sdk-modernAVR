@@ -151,7 +151,7 @@ typedef union {
 
 #define wdt_reset() __builtin_avr_wdr()
 
-/* Convert watchdog TIMEOUTSEC specified in seconds to configuration value. */
+/* Convert watchdog timeout specified in seconds to configuration value. */
 
 #ifndef TIMEOUTSEC
   #define TIMEOUTSEC 0

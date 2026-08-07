@@ -70,18 +70,18 @@
 /*      PIN_PF3 not implemented */
 /*      PIN_PF4 not implemented */
 /*      PIN_PF5 not implemented */
-#define PIN_PF6 182 /* HV-programming pad */
-#define PIN_PF7 183 /* Default UPDI */
+#define PIN_PF6 182
+#define PIN_PF7 183
 
 /* PORTG not implemented */
 
 #define NOT_A_PIN    255
 #define PIN_VREFA    PIN_PD7
-#define PIN_RESET    PIN_PF6
-#define PIN_UPDI     PIN_PF7
+#define PIN_RESET    182
+#define PIN_UPDI     183
 
 #ifndef LED_BUILTIN
-#define LED_BUILTIN  PIN_PD7
+#define LED_BUILTIN  PIN_PC3
 #endif
 #define LED_BUILTIN_INVERT  /* implementation dependent */
 

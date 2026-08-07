@@ -81,6 +81,10 @@ avrdude を用いて対象MCUにアップロードするまでの作業フロー
     - AVR32LA20
     - AVR32LA28
     - AVR32LA32
+  - AVR SD 系統
+    - AVR32SD20
+    - AVR32SD28
+    - AVR32SD32
 - __MultiX Zinnia Product SDK [reduceAVR]__
   - 旧世代AVRのうち TPI方式に対応した系統。（Atmelブランド世代）
 
@@ -156,6 +160,7 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR EA w/o Bootloader
   - AVR EB w/o Bootloader
   - AVR LA w/o Bootloader
+  - AVR SD w/o Bootloader
 - __MultiX Zinnia Product SDK [reduceAVR]__
 
 ## ボード選択サブメニュー
@@ -424,6 +429,11 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 > 1200bpsは除く。これを指定すると MPUリセットが発生し、`euboot`が起動してスケッチアップロード待機状態になる。
 
 ## 更新履歴
+
+- 0.4.4 (26/08/05)
+  - __AVR32SD14/20/28/32__ に対応
+  - __AVR-DU/SD__ の選択可能`F_CPU`を一部制限
+  - Microchip.AVR8-atpack を`20260522` に更新
 
 - 0.4.3 (26/07/30)
   - __AVR32LA14/20/28/32__ に対応

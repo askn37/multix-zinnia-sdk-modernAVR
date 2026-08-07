@@ -41,7 +41,7 @@ UART = A0
 BAUD_RATE = 115200
 
 ### WDT Limit 1,2,4,8 second. 0 is 0.5 second.
-TIMEOUT = 1
+TIMEOUTSEC = 1
 
 ### Selectable values for F_CPU_Scale: 1,2,3,4,5,6
 F_CPU_Scale = 1
@@ -56,8 +56,8 @@ AVRGCCROOT = ../../../../../tools/avr8-gcc/7.3.0-avr8-gnu-toolchain/bin
 # AVRGCCROOT = ../../../../../tools/avr8-gcc15/15.1.0-avr8-gnu-toolchain/bin
 
 ### basedir: ~/Library/Arduino15/packages/MultiX-Zinnia
-ATPACKSPEC = ../../../../../tools/atpack/20260521/gcc/dev/$*
-ATPACKROOT = ../../../../../tools/atpack/20260521/include
+ATPACKSPEC = ../../../../../tools/atpack/20260522/gcc/dev/$*
+ATPACKROOT = ../../../../../tools/atpack/20260522/include
 
 GCC_EXEC_PREFIX=$(ATPACKSPEC)
 
@@ -123,8 +123,8 @@ ifdef BAUD_RATE
 OPTIONS += -DBAUD_RATE=$(BAUD_RATE)
 endif
 
-ifdef TIMEOUT
-OPTIONS += -DTIMEOUT=$(TIMEOUT)
+ifdef TIMEOUTSEC
+OPTIONS += -DTIMEOUTSEC=$(TIMEOUTSEC)
 endif
 
 ### make section
@@ -144,7 +144,7 @@ boot_%.elf:	$(SOURCE) FORCE
 	@echo "******************************"
 	@echo "*** Options:" $* \
 		BOOTNAME=$(PROGRAM) UART=$(UART) LED=$(LED) \
-		BAUD_RATE=$(BAUD_RATE) TIMEOUT=$(TIMEOUT)
+		BAUD_RATE=$(BAUD_RATE) TIMEOUTSEC=$(TIMEOUTSEC)
 	$(CC) $(CFLAGS) $(OPTIONS) $(LDFLAGS) -o $@ $<
 	$(LISTING) $@ > boot_$*.lst
 

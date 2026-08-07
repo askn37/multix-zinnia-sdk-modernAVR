@@ -147,17 +147,17 @@ typedef union {
 
 /* Convert watchdog timeout specified in seconds to configuration value. */
 
-#ifndef TIMEOUT
-  #define TIMEOUT 0
+#ifndef TIMEOUTSEC
+  #define TIMEOUTSEC 0
 #endif
-#ifdef TIMEOUT
-  #if (TIMEOUT == 1)
+#ifdef TIMEOUTSEC
+  #if (TIMEOUTSEC == 1)
     #define WDTPERIOD WDT_PERIOD_1KCLK_gc
-  #elif (TIMEOUT == 2)
+  #elif (TIMEOUTSEC == 2)
     #define WDTPERIOD WDT_PERIOD_2KCLK_gc
-  #elif (TIMEOUT == 4)
+  #elif (TIMEOUTSEC == 4)
     #define WDTPERIOD WDT_PERIOD_4KCLK_gc
-  #elif (TIMEOUT == 8)
+  #elif (TIMEOUTSEC == 8)
     #define WDTPERIOD WDT_PERIOD_8KCLK_gc
   #else
     #define WDTPERIOD WDT_PERIOD_512CLK_gc

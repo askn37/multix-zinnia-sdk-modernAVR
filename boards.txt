@@ -76,6 +76,25 @@ AVRSD_noloader.build.board=AVR32SD32
 AVRSD_noloader.build.core=modernAVR
 
 
+AVRDB.programmer.default=21_pickit4_updi
+AVRDA.programmer.default=21_pickit4_updi
+AVRDD.programmer.default=21_pickit4_updi
+AVRDU.programmer.default=21_pickit4_updi
+AVREA.programmer.default=21_pickit4_updi
+AVREB.programmer.default=21_pickit4_updi
+AVRLA.programmer.default=21_pickit4_updi
+AVRSD.programmer.default=21_pickit4_updi
+AVRDU_usbloader.programmer.default=21_pickit4_updi
+AVRDB_noloader.programmer.default=23_pkobn_updi
+AVRDA_noloader.programmer.default=23_pkobn_updi
+AVRDD_noloader.programmer.default=23_pkobn_updi
+AVRDU_noloader.programmer.default=23_pkobn_updi
+AVREA_noloader.programmer.default=23_pkobn_updi
+AVREB_noloader.programmer.default=23_pkobn_updi
+AVRLA_noloader.programmer.default=23_pkobn_updi
+AVRSD_noloader.programmer.default=23_pkobn_updi
+
+
 AVRDB.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDB.bootloader.OSCCFG=0x00
 AVRDB.bootloader.PINCFG=0x00
@@ -1932,7 +1951,7 @@ AVRLA.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userrow}
 AVRLA.menu.26_userrow.03_upload=Upload ".urow" file
 AVRLA.menu.27_fusefile.01_menu=Specify in the MENU
 AVRLA.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVRLA.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVRLA.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVRLA.menu.51_buildopt.01_Release=Build Release (default)
 AVRLA.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRLA.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -2366,7 +2385,7 @@ AVRDB_noloader.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userr
 AVRDB_noloader.menu.26_userrow.03_upload=Upload ".urow" file
 AVRDB_noloader.menu.27_fusefile.01_menu=Specify in the MENU
 AVRDB_noloader.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVRDB_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVRDB_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVRDB_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRDB_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDB_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -2643,7 +2662,7 @@ AVRDA_noloader.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userr
 AVRDA_noloader.menu.26_userrow.03_upload=Upload ".urow" file
 AVRDA_noloader.menu.27_fusefile.01_menu=Specify in the MENU
 AVRDA_noloader.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVRDA_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVRDA_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVRDA_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRDA_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDA_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -2907,7 +2926,7 @@ AVRDD_noloader.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userr
 AVRDD_noloader.menu.26_userrow.03_upload=Upload ".urow" file
 AVRDD_noloader.menu.27_fusefile.01_menu=Specify in the MENU
 AVRDD_noloader.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVRDD_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVRDD_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVRDD_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRDD_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDD_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -3160,7 +3179,7 @@ AVRDU_noloader.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userr
 AVRDU_noloader.menu.26_userrow.03_upload=Upload ".urow" file
 AVRDU_noloader.menu.27_fusefile.01_menu=Specify in the MENU
 AVRDU_noloader.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVRDU_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVRDU_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVRDU_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRDU_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRDU_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -3375,7 +3394,7 @@ AVREA_noloader.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userr
 AVREA_noloader.menu.26_userrow.03_upload=Upload ".urow" file
 AVREA_noloader.menu.27_fusefile.01_menu=Specify in the MENU
 AVREA_noloader.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVREA_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVREA_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVREA_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVREA_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVREA_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -3591,7 +3610,7 @@ AVREB_noloader.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userr
 AVREB_noloader.menu.26_userrow.03_upload=Upload ".urow" file
 AVREB_noloader.menu.27_fusefile.01_menu=Specify in the MENU
 AVREB_noloader.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVREB_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVREB_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVREB_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVREB_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVREB_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -3777,7 +3796,7 @@ AVRLA_noloader.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userr
 AVRLA_noloader.menu.26_userrow.03_upload=Upload ".urow" file
 AVRLA_noloader.menu.27_fusefile.01_menu=Specify in the MENU
 AVRLA_noloader.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVRLA_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVRLA_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVRLA_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRLA_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRLA_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1
@@ -3960,7 +3979,7 @@ AVRSD_noloader.menu.26_userrow.03_upload.bootloader.urowupload={bootloader.userr
 AVRSD_noloader.menu.26_userrow.03_upload=Upload ".urow" file
 AVRSD_noloader.menu.27_fusefile.01_menu=Specify in the MENU
 AVRSD_noloader.menu.27_fusefile.03_upload.bootloader.fuseupload={bootloader.fusefile}
-AVRSD_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (DANGER)
+AVRSD_noloader.menu.27_fusefile.03_upload=Upload ".fuse" file (Use with caution)
 AVRSD_noloader.menu.51_buildopt.01_Release=Build Release (default)
 AVRSD_noloader.menu.51_buildopt.02_Debug1.build.buildopt=-DDEBUG=1
 AVRSD_noloader.menu.51_buildopt.02_Debug1=Build DEBUG=1

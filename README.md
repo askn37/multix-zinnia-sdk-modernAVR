@@ -430,6 +430,11 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 
 ## 更新履歴
 
+- 0.4.7 (26/08/20)
+  - `euboot`を 3.72.50 に更新
+  - `boards.txt` の若干の修正
+  - (lib) 新規サンプルスケッチの追加
+
 - 0.4.6 (26/08/20)
   - `AVRXX_noloader...upload.maximum_size`のミスを修正
   - (MicroAPI) `pinBitmask` マクロを追加

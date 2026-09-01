@@ -1,6 +1,6 @@
 menu.01_variant=Variant
 menu.02_clock=Clock(Dx)
-menu.03_clock=Clock(Ex)
+menu.03_clock=Clock(Ex/Lx)
 menu.11_BODMODE=BOD Mode
 menu.12_BODLVL=BOD Level
 menu.21_resetpin=FUSE PF6
@@ -74,6 +74,11 @@ AVRLA_noloader.build.core=modernAVR
 AVRSD_noloader.name=AVR SD w/o Bootloader
 AVRSD_noloader.build.board=AVR32SD32
 AVRSD_noloader.build.core=modernAVR
+separator3.name=-
+separator3.build.board=-
+CNANO.name=Curiosity Nano evaluation kit for AVR
+CNANO.build.board=AVR128DA48
+CNANO.build.core=modernAVR
 
 
 AVRDB.programmer.default=21_pickit4_updi
@@ -93,6 +98,7 @@ AVREA_noloader.programmer.default=23_pkobn_updi
 AVREB_noloader.programmer.default=23_pkobn_updi
 AVRLA_noloader.programmer.default=23_pkobn_updi
 AVRSD_noloader.programmer.default=23_pkobn_updi
+CNANO.programmer.default=23_pkobn_updi
 
 
 AVRDB.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
@@ -3694,7 +3700,7 @@ AVRLA_noloader.menu.01_variant.23_AVR32LA32.build.board=AVR_AVR32LA32
 AVRLA_noloader.menu.01_variant.23_AVR32LA32.build.mcu=avr32la32
 AVRLA_noloader.menu.01_variant.23_AVR32LA32.build.variant=avr_la32
 AVRLA_noloader.menu.01_variant.23_AVR32LA32.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega3_p64.x
-AVRLA_noloader.menu.01_variant.23_AVR32LA32.upload.maximum_data_size=3072
+AVRLA_noloader.menu.01_variant.23_AVR32LA32.upload.maximum_data_size=2048
 AVRLA_noloader.menu.01_variant.23_AVR32LA32.upload.maximum_size=32768
 AVRLA_noloader.menu.01_variant.23_AVR32LA32=32pin AVR32LA32 (32KiB+3KiB)
 AVRLA_noloader.menu.01_variant.30_separator=-
@@ -3702,7 +3708,7 @@ AVRLA_noloader.menu.01_variant.33_AVR32LA28.build.board=AVR_AVR32LA28
 AVRLA_noloader.menu.01_variant.33_AVR32LA28.build.mcu=avr32la28
 AVRLA_noloader.menu.01_variant.33_AVR32LA28.build.variant=avr_la28
 AVRLA_noloader.menu.01_variant.33_AVR32LA28.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega3_p64.x
-AVRLA_noloader.menu.01_variant.33_AVR32LA28.upload.maximum_data_size=3072
+AVRLA_noloader.menu.01_variant.33_AVR32LA28.upload.maximum_data_size=2048
 AVRLA_noloader.menu.01_variant.33_AVR32LA28.upload.maximum_size=32768
 AVRLA_noloader.menu.01_variant.33_AVR32LA28=28pin AVR32LA28 (32KiB+3KiB)
 AVRLA_noloader.menu.01_variant.40_separator=-
@@ -3710,7 +3716,7 @@ AVRLA_noloader.menu.01_variant.43_AVR32LA20.build.board=AVR_AVR32LA20
 AVRLA_noloader.menu.01_variant.43_AVR32LA20.build.mcu=avr32la20
 AVRLA_noloader.menu.01_variant.43_AVR32LA20.build.variant=avr_la20
 AVRLA_noloader.menu.01_variant.43_AVR32LA20.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega3_p64.x
-AVRLA_noloader.menu.01_variant.43_AVR32LA20.upload.maximum_data_size=3072
+AVRLA_noloader.menu.01_variant.43_AVR32LA20.upload.maximum_data_size=2048
 AVRLA_noloader.menu.01_variant.43_AVR32LA20.upload.maximum_size=32768
 AVRLA_noloader.menu.01_variant.43_AVR32LA20=20pin AVR32LA20 (32KiB+3KiB)
 AVRLA_noloader.menu.01_variant.50_separator=-
@@ -3718,7 +3724,7 @@ AVRLA_noloader.menu.01_variant.53_AVR32LA14.build.board=AVR_AVR32LA14
 AVRLA_noloader.menu.01_variant.53_AVR32LA14.build.mcu=avr32la14
 AVRLA_noloader.menu.01_variant.53_AVR32LA14.build.variant=avr_la14
 AVRLA_noloader.menu.01_variant.53_AVR32LA14.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega3_p64.x
-AVRLA_noloader.menu.01_variant.53_AVR32LA14.upload.maximum_data_size=3072
+AVRLA_noloader.menu.01_variant.53_AVR32LA14.upload.maximum_data_size=2048
 AVRLA_noloader.menu.01_variant.53_AVR32LA14.upload.maximum_size=32768
 AVRLA_noloader.menu.01_variant.53_AVR32LA14=14pin AVR32LA14 (32KiB+3KiB)
 AVRLA_noloader.menu.03_clock.01_20MHz.bootloader.bod_sample=0
@@ -4023,3 +4029,194 @@ AVRSD_noloader.menu.90_console_baud.20_separator=-
 AVRSD_noloader.menu.90_console_baud.21_2400bps.build.console_baud=-DCONSOLE_BAUD=2400
 AVRSD_noloader.menu.90_console_baud.21_2400bps=CONSOLE_BAUD=2400 bps (for ULP)
 # AVRSD_noloader.menu.95_bootloader.00_woBootloader=without Bootloader
+
+
+CNANO.bootloader.WDTCFG=0x00
+CNANO.bootloader.BODCFG=0x00
+CNANO.bootloader.OSCCFG=0x00
+CNANO.bootloader.SYSCFG0=0b11001000
+CNANO.bootloader.SYSCFG1=0b00000111
+CNANO.bootloader.PINCFG=0b00000000
+CNANO.bootloader.CODESIZE=0x00
+CNANO.bootloader.BOOTSIZE=0x00
+CNANO.bootloader.eepupload=
+CNANO.bootloader.browupload=
+CNANO.bootloader.urowupload=
+CNANO.bootloader.fuseupload={bootloader.fuses}
+CNANO.bootloader.eesave_bit=1
+CNANO.bootloader.tool=avrdude
+CNANO.bootloader.file=empty/empty.hex
+CNANO.bootloader.programed_type=
+CNANO.build.console_select=
+CNANO.build.export_merged_output=false
+CNANO.build.text_section_start=.text=0x0
+CNANO.build.buildopt=-DNDEBUG
+CNANO.build.console_baud=-DCONSOLE_BAUD=115200
+CNANO.build.macroapi=-DENABLE_MACRO_API
+CNANO.build.printf=
+CNANO.build.printflt=
+CNANO.build.f_cpu=24000000L
+CNANO.compiler.ldflags=
+CNANO.compiler.c.elf.extra_flags=
+CNANO.upload.speed=115200
+CNANO.upload.tool=
+
+menu.variant=Variant
+menu.eeprom=EEPROM
+menu.bootrow=BOOTROW
+menu.userrow=USERROW
+menu.fusefile=FUSE define
+menu.buildopt=Build Option
+menu.macroapi=Build API
+menu.printf=Build "printf"
+menu.console_baud=Console
+
+CNANO.menu.variant.AVR128DA48=DM164151 AVR128DA48 24MHz UART1 TX:PC0 RX:PC1 LED=PC6 SW=PC7
+CNANO.menu.variant.AVR128DA48.build.board=AVR_AVR128DA48
+CNANO.menu.variant.AVR128DA48.build.mcu=avr128da48
+CNANO.menu.variant.AVR128DA48.build.variant=avr_da48
+CNANO.menu.variant.AVR128DA48.build.f_cpu=24000000L
+CNANO.menu.variant.AVR128DA48.build.console_select=-DSerial=Serial1A -DLED_BUILTIN=PIN_PC6 -DSW_BUILTIN=PIN_PC7
+CNANO.menu.variant.AVR128DA48.bootloader.SYSCFG0=0b11001001
+CNANO.menu.variant.AVR128DA48.bootloader.SYSCFG0=0b00000111
+CNANO.menu.variant.AVR128DA48.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega4_p512.x
+CNANO.menu.variant.AVR128DA48.upload.maximum_data_size=16384
+CNANO.menu.variant.AVR128DA48.upload.maximum_size=131072
+
+CNANO.menu.variant.AVR128DB48=EV35L43A AVR128DB48 24MHz UART3 TX:PB0 RX:PB1 LED=PB3 SW=PB2
+CNANO.menu.variant.AVR128DB48.build.board=AVR_AVR128DB48
+CNANO.menu.variant.AVR128DB48.build.mcu=avr128db48
+CNANO.menu.variant.AVR128DB48.build.variant=avr_db48
+CNANO.menu.variant.AVR128DB48.build.f_cpu=24000000L
+CNANO.menu.variant.AVR128DB48.build.console_select=-DSerial=Serial3A -DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
+CNANO.menu.variant.AVR128DB48.bootloader.SYSCFG0=0b11001001
+CNANO.menu.variant.AVR128DB48.bootloader.SYSCFG1=0b00001111
+CNANO.menu.variant.AVR128DB48.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega4_p512.x
+CNANO.menu.variant.AVR128DB48.upload.maximum_data_size=16384
+CNANO.menu.variant.AVR128DB48.upload.maximum_size=131072
+
+CNANO.menu.variant.AVR64DD32=EV72Y42A AVR64DD32 24MHz UART0 TX:PD4 RX:PD5 LED=PF5 SW=PF6
+CNANO.menu.variant.AVR64DD32.build.board=AVR_AVR64DD32
+CNANO.menu.variant.AVR64DD32.build.mcu=avr64dd32
+CNANO.menu.variant.AVR64DD32.build.variant=avr_dd32
+CNANO.menu.variant.AVR64DD32.build.f_cpu=24000000L
+CNANO.menu.variant.AVR64DD32.build.console_select=-DSerial=Serial0D -DLED_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PF6
+CNANO.menu.variant.AVR64DD32.bootloader.SYSCFG0=0b11011001
+CNANO.menu.variant.AVR64DD32.bootloader.SYSCFG1=0b00001111
+CNANO.menu.variant.AVR64DD32.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega2_p512.x
+CNANO.menu.variant.AVR64DD32.upload.maximum_data_size=8192
+CNANO.menu.variant.AVR64DD32.upload.maximum_size=65536
+
+CNANO.menu.variant.AVR64DU32=EV59F82A AVR64DU32 20MHz UART1 TX:PD6 RX:PD7 LED=PF2 SW=PF6
+CNANO.menu.variant.AVR64DU32.build.board=AVR_AVR64DU32
+CNANO.menu.variant.AVR64DU32.build.mcu=avr64du32
+CNANO.menu.variant.AVR64DU32.build.variant=avr_du32
+CNANO.menu.variant.AVR64DU32.build.f_cpu=20000000L
+CNANO.menu.variant.AVR64DU32.build.console_select=-DSerial=Serial1C -DLED_BUILTIN=PIN_PF2 -DSW_BUILTIN=PIN_PF6
+CNANO.menu.variant.AVR64DU32.bootloader.SYSCFG0=0b11010011
+CNANO.menu.variant.AVR64DU32.bootloader.SYSCFG1=0b00001111
+CNANO.menu.variant.AVR64DU32.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega2_p512.x
+CNANO.menu.variant.AVR64DU32.upload.maximum_data_size=8192
+CNANO.menu.variant.AVR64DU32.upload.maximum_size=65536
+
+CNANO.menu.variant.AVR64EA48=EV66E56A AVR64EA48 20MHz UART1 TX:PC0 RX:PC1 LED=PB3 SW=PB2
+CNANO.menu.variant.AVR64EA48.build.board=AVR_AVR64EA48
+CNANO.menu.variant.AVR64EA48.build.mcu=avr64ea48
+CNANO.menu.variant.AVR64EA48.build.variant=avr_ea48
+CNANO.menu.variant.AVR64EA48.build.f_cpu=20000000L
+CNANO.menu.variant.AVR64EA48.build.console_select=-DSerial=Serial1A -DLED_BUILTIN=PIN_PB3 -DSW_BUILTIN=PIN_PB2
+CNANO.menu.variant.AVR64EA48.bootloader.SYSCFG0=0b11011011
+CNANO.menu.variant.AVR64EA48.bootloader.SYSCFG1=0b00000111
+CNANO.menu.variant.AVR64EA48.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega2_p128.x
+CNANO.menu.variant.AVR64EA48.upload.maximum_data_size=8192
+CNANO.menu.variant.AVR64EA48.upload.maximum_size=65536
+
+CNANO.menu.variant.AVR16EB32=EV73J36A AVR16EB32 20MHz UART0 TX:PC1 RX:PC2 LED=PF5 SW=PF6
+CNANO.menu.variant.AVR16EB32.build.board=AVR_AVR16EB32
+CNANO.menu.variant.AVR16EB32.build.mcu=avr16eb32
+CNANO.menu.variant.AVR16EB32.build.variant=avr_eb32
+CNANO.menu.variant.AVR16EB32.build.f_cpu=20000000L
+CNANO.menu.variant.AVR16EB32.build.console_select=-DSerial=Serial0E -DLED_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PF6
+CNANO.menu.variant.AVR16EB32.bootloader.SYSCFG0=0b11010001
+CNANO.menu.variant.AVR16EB32.bootloader.SYSCFG1=0b00000111
+CNANO.menu.variant.AVR16EB32.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega3_p64.x
+CNANO.menu.variant.AVR16EB32.upload.maximum_data_size=2048
+CNANO.menu.variant.AVR16EB32.upload.maximum_size=16384
+
+CNANO.menu.variant.AVR32LA32=EV24D63A AVR32LA32 20MHz UART0 TX:PC1 RX:PC2 LED=PF5 SW=PC0
+CNANO.menu.variant.AVR32LA32.build.board=AVR_AVR32LA32
+CNANO.menu.variant.AVR32LA32.build.mcu=avr32la32
+CNANO.menu.variant.AVR32LA32.build.variant=avr_la32
+CNANO.menu.variant.AVR32LA32.build.f_cpu=20000000L
+CNANO.menu.variant.AVR32LA32.build.console_select=-DSerial=Serial0E -DLED_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PC0
+CNANO.menu.variant.AVR32LA32.bootloader.SYSCFG0=0b00000011
+CNANO.menu.variant.AVR32LA32.bootloader.SYSCFG1=0b00000111
+CNANO.menu.variant.AVR32LA32.bootloader.PINCFG=0b00000011
+CNANO.menu.variant.AVR32LA32.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega3_p64.x
+CNANO.menu.variant.AVR32LA32.upload.maximum_data_size=2048
+CNANO.menu.variant.AVR32LA32.upload.maximum_size=32768
+
+CNANO.menu.variant.AVR32SD32=EV75S16A AVR32SD32 20MHz UART0 TX:PD4 RX:PD5 LED0=PD2 LED1=PF5 SW=PF2
+CNANO.menu.variant.AVR32SD32.build.board=AVR_AVR32SD32
+CNANO.menu.variant.AVR32SD32.build.mcu=avr32sd32
+CNANO.menu.variant.AVR32SD32.build.variant=avr_sd32
+CNANO.menu.variant.AVR32SD32.build.f_cpu=20000000L
+CNANO.menu.variant.AVR32SD32.build.console_select=-DSerial=Serial0D -DLED_BUILTIN=PIN_PD2 -DLED1_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PF2
+CNANO.menu.variant.AVR32SD32.bootloader.SYSCFG0=0b00000011
+CNANO.menu.variant.AVR32SD32.bootloader.SYSCFG1=0b00000111
+CNANO.menu.variant.AVR32SD32.compiler.c.elf.extra_flags=-Wl,-T{runtime.platform.path}/variants//avrxmega3_p512.x
+CNANO.menu.variant.AVR32SD32.upload.maximum_data_size=4098
+CNANO.menu.variant.AVR32SD32.upload.maximum_size=32768
+
+CNANO.menu.eeprom.keep=Save guard "Retained"
+CNANO.menu.eeprom.upload=Upload ".eep" file
+CNANO.menu.eeprom.upload.bootloader.eepupload={bootloader.eeprom}
+
+CNANO.menu.bootrow.keep=Save guard "Retained"
+CNANO.menu.bootrow.upload=Upload ".brow" file (for DU/EB/LA/SD)
+CNANO.menu.bootrow.upload.bootloader.browupload={bootloader.bootrow}
+
+CNANO.menu.userrow.keep=Save guard "Retained"
+CNANO.menu.userrow.upload=Upload ".urow" file
+CNANO.menu.userrow.upload.bootloader.urowupload={bootloader.userrow}
+
+CNANO.menu.fusefile.menu=Specify in the MENU
+CNANO.menu.fusefile.upload=Upload ".fuse" file (Use with caution)
+CNANO.menu.fusefile.upload.bootloader.fuseupload={bootloader.fusefile}
+
+CNANO.menu.buildopt.Release=Build Release (default)
+CNANO.menu.buildopt.Debug1=Build DEBUG=1
+CNANO.menu.buildopt.Debug1.build.buildopt=-DDEBUG=1
+CNANO.menu.buildopt.Debug2=Build DEBUG=2
+CNANO.menu.buildopt.Debug2.build.buildopt=-DDEBUG=2
+
+CNANO.menu.macroapi.Enable=Macro API Enable (default)
+CNANO.menu.macroapi.Withoutboot=Macro API Enable without startup
+CNANO.menu.macroapi.Withoutboot.compiler.ldflags=-nostartfiles -DWOSFILES=1
+CNANO.menu.macroapi.Disable=Macro API Disable
+CNANO.menu.macroapi.Disable.build.macroapi=
+CNANO.menu.macroapi.AllDisable=Standard Library All Disable
+CNANO.menu.macroapi.AllDisable.build.macroapi=
+CNANO.menu.macroapi.AllDisable.compiler.ldflags=-nostartfiles -nostdlib -DWOSFILES=1 -DWOSTDLIB=1
+
+CNANO.menu.printf.default=default
+CNANO.menu.printf.full.build.printf=-DUSE_PRINTF_FLT
+CNANO.menu.printf.full.build.printflt=-Wl,-u,vfprintf -lprintf_flt
+CNANO.menu.printf.full=Float Support
+
+CNANO.menu.console_baud.115200bps.build.console_baud=-DCONSOLE_BAUD=115200
+CNANO.menu.console_baud.115200bps=CONSOLE_BAUD=115200 bps (default)
+CNANO.menu.console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
+CNANO.menu.console_baud.230400bps=CONSOLE_BAUD=230400 bps
+CNANO.menu.console_baud.460800bps.build.console_baud=-DCONSOLE_BAUD=460800
+CNANO.menu.console_baud.460800bps=CONSOLE_BAUD=460800 bps
+CNANO.menu.console_baud.9600bps.build.console_baud=-DCONSOLE_BAUD=9600
+CNANO.menu.console_baud.9600bps=CONSOLE_BAUD=9600 bps
+CNANO.menu.console_baud.38400bps.build.console_baud=-DCONSOLE_BAUD=38400
+CNANO.menu.console_baud.38400bps=CONSOLE_BAUD=38400 bps
+CNANO.menu.console_baud.57600bps.build.console_baud=-DCONSOLE_BAUD=57600
+CNANO.menu.console_baud.57600bps=CONSOLE_BAUD=57600 bps
+CNANO.menu.console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+CNANO.menu.console_baud.500000bps=CONSOLE_BAUD=500000 bps
+CNANO.menu.console_baud.1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
+CNANO.menu.console_baud.1000000bps=CONSOLE_BAUD=1000000 bps

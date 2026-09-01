@@ -161,6 +161,8 @@ SDK種別と対象ブートローダー使用の有無をここで選ぶ。
   - AVR EB w/o Bootloader
   - AVR LA w/o Bootloader
   - AVR SD w/o Bootloader
+  - *(separator)*
+  - Curiosity Nano evaluation kit for AVR
 - __MultiX Zinnia Product SDK [reduceAVR]__
 
 ## ボード選択サブメニュー
@@ -219,7 +221,7 @@ Arduino IDE でこのSDKを選択すると、
   - Upload ".urow" file -- ブートローダー/書込器でのUSEROWファイル書換有効
 - __FUSE define__ -- FUSE全体の扱い *w/o bootloader のみ*
   - Specify in the MENU -- メニュー設定に従う
-  - Upload ".fuse" file (DANGER) -- FUSEファイルでの書換有効：危険な操作
+  - Upload ".fuse" file (Use with caution) -- FUSEファイルでの書換有効：危険な操作
 - __Build Option__ -- DEBUGマクロ有無（任意選択）
   - Build Release -- 既定値（NDEBUG設定）
   - Build DEBUG=1
@@ -262,6 +264,22 @@ Arduino IDE でこのSDKを選択すると、
 > FUSE EEPROM -> "Erase" and "Replace" 選択は、対応するブートローダーか書込器使用時のみ可。\
 > Build API -> Standard Library All Disable 選択は、一切の既定コンパイル前提を除去する。
 
+### Curiosity Nano evaluation kit for AVR
+
+**0.4.8**以降、"Curiosity Nano evaluation kit"シリーズ用のプリセットカテゴリが用意された。Variantメニューで各製品用のプリセットを選択することができる。現時点では 8製品が登録済。関連する FUSEは固定値となる。
+
+- すべて `w/o bootloader`相当である。
+- システムクロック`F_CPU`には、内蔵高速発振器用 24MHz または 20Mhz が設定される。
+  - AVR128DA48、AVR128DB48、AVR64EA48 に搭載の外部高速発振器（24/20/16Mhz）を使用するには、応用アプリケーションで有効化する必要がある。
+  - AVR64DU32は、初期出荷製品の Eratta 制限により 20MHz が設定される。
+- AVR64DD32、AVR64DU32、AVR16EB32 の PF6 は、基板上の SW0の任意選択を許すため、GPIOに設定される。その他は RESETに設定される。
+- WDTCFG、BODCFG、OSCCFG の各FUSEは既定値。SYSCFG1の SUT（PoR 起動遅延時間）は、64ms に設定される。
+
+いずれの場合も FUSE設定は、応用アプリケーションで任意に`FUSE`構造体を作成／定義し、`FUSE define`メニューで `Upload ".fuse" file`を選択すれば、任意に設定変更ができる。
+
+> [!CAUTION]
+> 各製品で既定の LED0は、負論理接続（OUTPUT==LOW）で点灯する。そして幾つかの製品では EVSYSや LUT_OUTに接続されていないため、サンプルスケッチによっては正しく扱われない場合がある。
+
 ## プログラム書込
 
 ### ブートローダーでのスケッチ書込 `Ctrl+U` `⌘+U`
@@ -303,7 +321,7 @@ Arduino IDE のシリアルコンソールを閉じる必要はない。
 EEPROM対応書込器を使用しているなら以下も選択可能。
 
 - EEPROM -> Upload ".eep" file
-- BOOTROW -> Upload ".brow" file（DU/EBシリーズのみ）
+- BOOTROW -> Upload ".brow" file（DU/EB/LA/SDシリーズのみ）
 - USERROW -> Upload ".urow" file
 
 tinyAVR/megaAVR系統では任意の Clock 選択が有効となる。
@@ -323,9 +341,9 @@ Arduino IDE のシリアルコンソールを閉じる必要はない。
 EEPROM対応書込器を使用しているなら以下も選択可能。
 
 - EEPROM -> Upload ".eep" file
-- BOOTROW -> Upload ".brow" file（DU/EBシリーズのみ）
+- BOOTROW -> Upload ".brow" file（DU/EB/LA/SDシリーズのみ）
 - USERROW -> Upload ".urow" file
-- FUSE define -> Upload ".fuse" file (DANGER)
+- FUSE define -> Upload ".fuse" file (Use with caution)
 
 tinyAVR/megaAVR系統では任意の Clock 選択が有効となる。
 
@@ -372,7 +390,7 @@ STK500 version 1 プロトコルに基づく Arduino互換ブートローダー�
 > 0.2.9から独自のファームウェアコードに変更された。
 
 __AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU series]](https://github.com/askn37/euboot) が用意されている。
-これは USB-HID/CMSIS-DAP/EDBG プロトコルを介して AVRDUDE 8.0 からは `jtag3updi` として認識される。
+これは USB-HID/CMSIS-DAP/EDBG プロトコルを介して AVRDUDE 8.0 からは `jtag3updi`（あるいは`pkobn`、`pickit4_updi`、`xplainedmini`）として認識される。
 詳細はリンク先を参照のこと。
 
 ### その他注意事項
@@ -389,6 +407,9 @@ __AVR_DU__ 系統用にはさらに、[[euboot (EDBG USB bootloaders) for AVR-DU
 - 書込装置選択 -> __Curiosity Nano (nEDBG: ATSAMD21E18)__ 必須
 
 その他の同種製品も同様に、適切なオプションの手動選択が必要。
+
+> [!TIP]
+> 0.4.8以降、Curiosity Nanoシリーズ用プリセット済カテゴリが用意されたので、そちらを選ぶ方が容易。
 
 ### AVR_EA 系統の制約
 
@@ -429,6 +450,11 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 > 1200bpsは除く。これを指定すると MPUリセットが発生し、`euboot`が起動してスケッチアップロード待機状態になる。
 
 ## 更新履歴
+
+- 0.4.8 (26/09/01)
+  - `boards.txt`に`Curiosity Nano`プリセットカテゴリを新設
+  - Microchip.AVR8-atpack を`20260817` に更新
+  - (lib) サンプルスケッチ修正
 
 - 0.4.7 (26/08/20)
   - `euboot`を 3.72.50 に更新

@@ -221,7 +221,7 @@ Arduino IDE でこのSDKを選択すると、
   - Upload ".urow" file -- ブートローダー/書込器でのUSEROWファイル書換有効
 - __FUSE define__ -- FUSE全体の扱い *w/o bootloader のみ*
   - Specify in the MENU -- メニュー設定に従う
-  - Upload ".fuse" file (DANGER) -- FUSEファイルでの書換有効：危険な操作
+  - Upload ".fuse" file (Use with caution) -- FUSEファイルでの書換有効：危険な操作
 - __Build Option__ -- DEBUGマクロ有無（任意選択）
   - Build Release -- 既定値（NDEBUG設定）
   - Build DEBUG=1
@@ -343,7 +343,7 @@ EEPROM対応書込器を使用しているなら以下も選択可能。
 - EEPROM -> Upload ".eep" file
 - BOOTROW -> Upload ".brow" file（DU/EB/LA/SDシリーズのみ）
 - USERROW -> Upload ".urow" file
-- FUSE define -> Upload ".fuse" file (DANGER)
+- FUSE define -> Upload ".fuse" file (Use with caution)
 
 tinyAVR/megaAVR系統では任意の Clock 選択が有効となる。
 

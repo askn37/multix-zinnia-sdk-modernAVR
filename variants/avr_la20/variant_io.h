@@ -43,4 +43,13 @@ typedef enum CLKCTRL_PDIV_ALT_enum
 
 #endif
 
+#ifndef FUSE_BROWSAVE
+/* Alias ​​for compatibility. */
+
+#define FUSE_BROWSAVE     FUSE_BOOTROWSAVE      /* Boot Row Saved */
+#define FUSE_BROWSAVE_bm  FUSE_BOOTROWSAVE_bm   /* Boot Row Saved bit mask. */
+#define FUSE_BROWSAVE_bp  FUSE_BOOTROWSAVE_bp   /* Boot Row Saved bit position. */
+
+#endif
+
 // end of code

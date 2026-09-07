@@ -272,7 +272,7 @@ Arduino IDE でこのSDKを選択すると、
 - システムクロック`F_CPU`には、内蔵高速発振器用 24MHz または 20Mhz が設定される。
   - AVR128DA48、AVR128DB48、AVR64EA48 に搭載の外部高速発振器（24/20/16Mhz）を使用するには、応用アプリケーションで有効化する必要がある。
   - AVR64DU32は、初期出荷製品の Eratta 制限により 20MHz が設定される。
-- AVR64DD32、AVR64DU32、AVR16EB32 の PF6 は、基板上の SW0の任意選択を許すため、GPIOに設定される。その他は RESETに設定される。
+- `FUSE PF6`メニューは、AVR-SDでは機能しない（RESET固定）。
 - WDTCFG、BODCFG、OSCCFG の各FUSEは既定値。SYSCFG1の SUT（PoR 起動遅延時間）は、64ms に設定される。
 
 いずれの場合も FUSE設定は、応用アプリケーションで任意に`FUSE`構造体を作成／定義し、`FUSE define`メニューで `Upload ".fuse" file`を選択すれば、任意に設定変更ができる。
@@ -366,7 +366,7 @@ Arduino IDE のシリアルコンソールは __閉じていなければなら�
 tinyAVR / megaAVR系統では任意の Clock 選択が有効となる。
 FUSE変更以後は 20MHz / 16MHz 各系統内の選択のみが FUSE変更なしで可能となる。
 
-### ビルド出力確認 `Ctrl+Alt+S` `⌘+Alt+S`
+### ビルド出力確認 `Ctrl+Alt+S` `⌘+⌥+S`
 
 （書込み可能な場合の）スケッチフォルダに、
 スケッチがビルドされた HEX ファイル、
@@ -450,6 +450,9 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 > 1200bpsは除く。これを指定すると MPUリセットが発生し、`euboot`が起動してスケッチアップロード待機状態になる。
 
 ## 更新履歴
+
+- 0.4.9 (26/09/07)
+  - `boards.txt`と`platform.txt`の改修（FUSE周り）
 
 - 0.4.8 (26/09/01)
   - `boards.txt`に`Curiosity Nano`プリセットカテゴリを新設

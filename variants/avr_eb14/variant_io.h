@@ -133,4 +133,13 @@ typedef enum CLKCTRL_PDIV_ALT_enum
 #endif
 #endif
 
+#ifndef FUSE_BROWSAVE
+/* Declaration missing as of 2026.08 */
+
+#define FUSE_BROWSAVE     (unsigned char)_BV(1)   /* Boot Row Saved */
+#define FUSE_BROWSAVE_bm  0x02          /* Boot Row Saved bit mask. */
+#define FUSE_BROWSAVE_bp  1             /* Boot Row Saved bit position. */
+
+#endif
+
 // end of code

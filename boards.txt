@@ -303,7 +303,7 @@ AVRDB.menu.02_clock.7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDB.menu.02_clock.separator4=-
 
 AVRDB.menu.02_clock.32768Hz.bootloader.bod_sample=1
-AVRDB.menu.02_clock.32768Hz.build.f_cpu=32768
+AVRDB.menu.02_clock.32768Hz.build.f_cpu=32768L
 AVRDB.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDB.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -697,7 +697,7 @@ AVRDA.menu.02_clock.7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDA.menu.02_clock.separator4=-
 
 AVRDA.menu.02_clock.32768Hz.bootloader.bod_sample=1
-AVRDA.menu.02_clock.32768Hz.build.f_cpu=32768
+AVRDA.menu.02_clock.32768Hz.build.f_cpu=32768L
 AVRDA.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDA.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -1022,7 +1022,7 @@ AVRDD.menu.02_clock.7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDD.menu.02_clock.separator4=-
 
 AVRDD.menu.02_clock.32768Hz.bootloader.bod_sample=1
-AVRDD.menu.02_clock.32768Hz.build.f_cpu=32256
+AVRDD.menu.02_clock.32768Hz.build.f_cpu=32768L
 AVRDD.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDD.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -1344,7 +1344,7 @@ AVRDU.menu.02_clock.1MHz=Internal 1 MHz
 AVRDU.menu.02_clock.separator4=-
 
 AVRDU.menu.02_clock.32768Hz.bootloader.bod_sample=1
-AVRDU.menu.02_clock.32768Hz.build.f_cpu=32256
+AVRDU.menu.02_clock.32768Hz.build.f_cpu=32768L
 AVRDU.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDU.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -1628,7 +1628,7 @@ AVREA.menu.03_clock.2MHz.build.f_cpu=2000000L
 AVREA.menu.03_clock.2MHz=Internal 2 MHz
 
 AVREA.menu.03_clock.32768Hz.bootloader.bod_sample=1
-AVREA.menu.03_clock.32768Hz.build.f_cpu=32768
+AVREA.menu.03_clock.32768Hz.build.f_cpu=32768L
 AVREA.menu.03_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVREA.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -1889,8 +1889,9 @@ AVREB.menu.03_clock.separator2=-
 AVREB.menu.03_clock.2MHz.bootloader.bod_sample=0
 AVREB.menu.03_clock.2MHz.build.f_cpu=2000000L
 AVREB.menu.03_clock.2MHz=Internal 2 MHz
+
 AVREB.menu.03_clock.32768Hz.bootloader.bod_sample=1
-AVREB.menu.03_clock.32768Hz.build.f_cpu=32768
+AVREB.menu.03_clock.32768Hz.build.f_cpu=32768L
 AVREB.menu.03_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVREB.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -2130,7 +2131,7 @@ AVRLA.menu.03_clock.2MHz.build.f_cpu=2000000L
 AVRLA.menu.03_clock.2MHz=Internal 2 MHz
 
 AVRLA.menu.03_clock.32768Hz.bootloader.bod_sample=1
-AVRLA.menu.03_clock.32768Hz.build.f_cpu=32768
+AVRLA.menu.03_clock.32768Hz.build.f_cpu=32768L
 AVRLA.menu.03_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRLA.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -2688,7 +2689,7 @@ AVRDU_usbloader.menu.02_clock.12MHz=Internal 12 MHz (The lowest limit for using 
 # AVRDU_usbloader.menu.02_clock.separator4=-
 # 
 # AVRDU_usbloader.menu.02_clock.32768Hz.bootloader.bod_sample=1
-# AVRDU_usbloader.menu.02_clock.32768Hz.build.f_cpu=32256
+# AVRDU_usbloader.menu.02_clock.32768Hz.build.f_cpu=32768L
 # AVRDU_usbloader.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDU_usbloader.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -3017,7 +3018,7 @@ AVRDB_noloader.menu.02_clock.7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDB_noloader.menu.02_clock.separator4=-
 
 AVRDB_noloader.menu.02_clock.32768Hz.bootloader.bod_sample=1
-AVRDB_noloader.menu.02_clock.32768Hz.build.f_cpu=32768
+AVRDB_noloader.menu.02_clock.32768Hz.build.f_cpu=32768L
 AVRDB_noloader.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDB_noloader.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -3422,7 +3423,7 @@ AVRDA_noloader.menu.02_clock.7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDA_noloader.menu.02_clock.separator4=-
 
 AVRDA_noloader.menu.02_clock.32768Hz.bootloader.bod_sample=1
-AVRDA_noloader.menu.02_clock.32768Hz.build.f_cpu=32768
+AVRDA_noloader.menu.02_clock.32768Hz.build.f_cpu=32768L
 AVRDA_noloader.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDA_noloader.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -3749,7 +3750,7 @@ AVRDD_noloader.menu.02_clock.7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDD_noloader.menu.02_clock.separator4=-
 
 AVRDD_noloader.menu.02_clock.32768Hz.bootloader.bod_sample=1
-AVRDD_noloader.menu.02_clock.32768Hz.build.f_cpu=32768
+AVRDD_noloader.menu.02_clock.32768Hz.build.f_cpu=32768L
 AVRDD_noloader.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDD_noloader.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -4073,7 +4074,7 @@ AVRDU_noloader.menu.02_clock.7MHz=Internal 7 MHz (OVERCLOCK)
 AVRDU_noloader.menu.02_clock.separator4=-
 
 AVRDU_noloader.menu.02_clock.32768Hz.bootloader.bod_sample=1
-AVRDU_noloader.menu.02_clock.32768Hz.build.f_cpu=32256
+AVRDU_noloader.menu.02_clock.32768Hz.build.f_cpu=32768L
 AVRDU_noloader.menu.02_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRDU_noloader.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -4358,7 +4359,7 @@ AVREA_noloader.menu.03_clock.2MHz.build.f_cpu=2000000L
 AVREA_noloader.menu.03_clock.2MHz=Internal 2 MHz
 
 AVREA_noloader.menu.03_clock.32768Hz.bootloader.bod_sample=1
-AVREA_noloader.menu.03_clock.32768Hz.build.f_cpu=32768
+AVREA_noloader.menu.03_clock.32768Hz.build.f_cpu=32768L
 AVREA_noloader.menu.03_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVREA_noloader.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -4627,7 +4628,7 @@ AVREB_noloader.menu.03_clock.2MHz.build.f_cpu=2000000L
 AVREB_noloader.menu.03_clock.2MHz=Internal 2 MHz
 
 AVREB_noloader.menu.03_clock.32768Hz.bootloader.bod_sample=1
-AVREB_noloader.menu.03_clock.32768Hz.build.f_cpu=32768
+AVREB_noloader.menu.03_clock.32768Hz.build.f_cpu=32768L
 AVREB_noloader.menu.03_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVREB_noloader.menu.11_BODMODE.Disabled.bootloader.bod_mode=00
@@ -4870,7 +4871,7 @@ AVRLA_noloader.menu.03_clock.2MHz.build.f_cpu=2000000L
 AVRLA_noloader.menu.03_clock.2MHz=Internal 2 MHz
 
 AVRLA_noloader.menu.03_clock.32768Hz.bootloader.bod_sample=1
-AVRLA_noloader.menu.03_clock.32768Hz.build.f_cpu=32768
+AVRLA_noloader.menu.03_clock.32768Hz.build.f_cpu=32768L
 AVRLA_noloader.menu.03_clock.32768Hz=Internal 32.768 kHz (ULP)
 
 # AVRLA_noloader.menu.11_BODMODE.Disabled.bootloader.bod_mode=00

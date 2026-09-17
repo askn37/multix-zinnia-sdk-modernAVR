@@ -1,49 +1,28 @@
 /**
  * @file variant_io.h
  * @author askn (K.Sato) multix.jp
- * @brief
- * @version 0.1
- * @date 2023-12-22
- *
- * @copyright Copyright (c) 2024 askn37 at github.com
- *
+ * @brief Macro/Micro API variant io header
+ * @version 0.2
+ * @date 2026-09-16
+ * @copyright Copyright (c) 2026 askn37 at github.com
+ * @link Product Potal : https://askn37.github.io/
+ *         MIT License : https://askn37.github.io/LICENSE.html
  */
-// MIT License : https://askn37.github.io/LICENSE.html
 
+#pragma once
+#if defined(ENABLE_MACRO_API) && !defined(DISABLE_MACRO_API) && (__AVR_ARCH__ >= 102)
 #include <avr/io.h>
 #define AVR_MEGAAVR_LIKE_MODERNAVR
 
-#define SLEEP_MODE_ADC      SLEEP_MODE_STANDBY
-
-/* RS485 Mode internal transmitter select */
-#define USART_RS485_EXT_gc  (0x01<<0)
-#define USART_RS485_INT_gc  (0x02<<0)
-
-#define USART_RS485_0_bm    (1<<0)  /* RS485 Mode internal transmitter bit 0 mask. */
-#define USART_RS485_0_bp    0       /* RS485 Mode internal transmitter bit 0 position. */
-#define USART_RS485_1_bm    (1<<1)  /* RS485 Mode internal transmitter bit 1 mask. */
-#define USART_RS485_1_bp    1       /* RS485 Mode internal transmitter bit 1 position. */
+#define __MSS_USART_RS485_INT__
+#define __MSS_CLKCTRL_CLKSEL_OSCN__
+#define __MSS_CLKCTRL_PDIV_NX__
+#define __MSS_EVSYS_CH__
 
 /* C Language Only */
 #if !defined (__ASSEMBLER__)
 
-/* Prescaler division select */
-typedef enum CLKCTRL_PDIV_ALT_enum
-{
-    CLKCTRL_PDIV_2X_gc  = (0x00<<1),  /* 2X */
-    CLKCTRL_PDIV_4X_gc  = (0x01<<1),  /* 4X */
-    CLKCTRL_PDIV_8X_gc  = (0x02<<1),  /* 8X */
-    CLKCTRL_PDIV_16X_gc = (0x03<<1),  /* 16X */
-    CLKCTRL_PDIV_32X_gc = (0x04<<1),  /* 32X */
-    CLKCTRL_PDIV_64X_gc = (0x05<<1),  /* 64X */
-    CLKCTRL_PDIV_6X_gc  = (0x08<<1),  /* 6X */
-    CLKCTRL_PDIV_10X_gc = (0x09<<1),  /* 10X */
-    CLKCTRL_PDIV_12X_gc = (0x0A<<1),  /* 12X */
-    CLKCTRL_PDIV_24X_gc = (0x0B<<1),  /* 24X */
-    CLKCTRL_PDIV_48X_gc = (0x0C<<1)   /* 48X */
-} CLKCTRL_PDIV_ALT_t;
-
-#ifdef ENABLE_RBC
+#ifdef __MSS_ENABLE_RBC__
 /* Backward compatibility not recommended */
 
 /* Channel generator select */
@@ -103,6 +82,9 @@ typedef enum CLKCTRL_PDIV_ALT_enum
 #define EVSYS_CHANNEL5_ADC0_WCMP_gc EVSYS_CHANNEL_ADC0_WCMP_gc
 
 #endif
+#endif
+
+#include <api/macro_sugar.h>
 #endif
 
 // end of code

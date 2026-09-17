@@ -1,55 +1,41 @@
 /**
  * @file variant_io.h
  * @author askn (K.Sato) multix.jp
- * @brief
- * @version 0.1
- * @date 2026-07-30
- *
+ * @brief Macro/Micro API variant io header
+ * @version 0.2
+ * @date 2026-09-16
  * @copyright Copyright (c) 2026 askn37 at github.com
- *
+ * @link Product Potal : https://askn37.github.io/
+ *         MIT License : https://askn37.github.io/LICENSE.html
  */
-// MIT License : https://askn37.github.io/LICENSE.html
 
+#pragma once
+#if defined(ENABLE_MACRO_API) && !defined(DISABLE_MACRO_API) && (__AVR_ARCH__ >= 102)
 #include <avr/io.h>
 #define AVR_MEGAAVR_LIKE_MODERNAVR
 
-#define SLEEP_MODE_ADC      SLEEP_MODE_STANDBY
+#define __MSS_CLKCTRL_CLKSEL_OSCN__
+#define __MSS_CLKCTRL_PDIV_NX__
+#define __MSS_EVSYS_SWEVENTN__
 
 /* C Language Only */
 #if !defined (__ASSEMBLER__)
 
-/* Clock select */
-typedef enum CLKCTRL_CLKSEL_ALT_enum
-{
-    CLKCTRL_CLKSEL_OSC20M_gc = (0x00<<0),     /* 20MHz oscillator */
-    CLKCTRL_CLKSEL_OSCULP32K_gc = (0x01<<0),  /* 32KHz oscillator */
-} CLKCTRL_CLKSEL_ALT_t;
+/* Dialects specific to AVR_EA/EB/LA */
+#define EVSYS_CHANNEL_ADC0_RESRDY_gc    EVSYS_CHANNEL_ADC0_RES_gc
 
-/* Prescaler division select */
-typedef enum CLKCTRL_PDIV_ALT_enum
-{
-    CLKCTRL_PDIV_2X_gc  = (0x00<<1),  /* 2X */
-    CLKCTRL_PDIV_4X_gc  = (0x01<<1),  /* 4X */
-    CLKCTRL_PDIV_8X_gc  = (0x02<<1),  /* 8X */
-    CLKCTRL_PDIV_16X_gc = (0x03<<1),  /* 16X */
-    CLKCTRL_PDIV_32X_gc = (0x04<<1),  /* 32X */
-    CLKCTRL_PDIV_64X_gc = (0x05<<1),  /* 64X */
-    CLKCTRL_PDIV_6X_gc  = (0x08<<1),  /* 6X */
-    CLKCTRL_PDIV_10X_gc = (0x09<<1),  /* 10X */
-    CLKCTRL_PDIV_12X_gc = (0x0A<<1),  /* 12X */
-    CLKCTRL_PDIV_24X_gc = (0x0B<<1),  /* 24X */
-    CLKCTRL_PDIV_48X_gc = (0x0C<<1)   /* 48X */
-} CLKCTRL_PDIV_ALT_t;
-
-#endif
+#endif  /* C Language Only */
 
 #ifndef FUSE_BROWSAVE
-/* Alias ​​for compatibility. */
+/* Alias FUSE_BOOTROWSAVE ​​for compatibility. */
 
 #define FUSE_BROWSAVE     FUSE_BOOTROWSAVE      /* Boot Row Saved */
 #define FUSE_BROWSAVE_bm  FUSE_BOOTROWSAVE_bm   /* Boot Row Saved bit mask. */
 #define FUSE_BROWSAVE_bp  FUSE_BOOTROWSAVE_bp   /* Boot Row Saved bit position. */
 
+#endif
+
+#include <api/macro_sugar.h>
 #endif
 
 // end of code

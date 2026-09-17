@@ -1,40 +1,26 @@
 /**
  * @file variant_io.h
  * @author askn (K.Sato) multix.jp
- * @brief
- * @version 0.1
- * @date 2022-12-12
- *
- * @copyright Copyright (c) 2024 askn37 at github.com
- *
+ * @brief Macro/Micro API variant io header
+ * @version 0.2
+ * @date 2026-09-16
+ * @copyright Copyright (c) 2026 askn37 at github.com
+ * @link Product Potal : https://askn37.github.io/
+ *         MIT License : https://askn37.github.io/LICENSE.html
  */
-// MIT License : https://askn37.github.io/LICENSE.html
 
+#pragma once
+#if defined(ENABLE_MACRO_API) && !defined(DISABLE_MACRO_API) && (__AVR_ARCH__ >= 102)
 #include <avr/io.h>
 #define AVR_MEGAAVR_LIKE_MODERNAVR
 
-#define SLEEP_MODE_ADC      SLEEP_MODE_STANDBY
+#define __MSS_USART_RS485_INT__
+#define __MSS_CLKCTRL_CLKSEL_OSCN__
+#define __MSS_CLKCTRL_PDIV_DIVN__
+#define __MSS_EVSYS_CH__
 
-/* RS485 Mode internal transmitter select */
-#define USART_RS485_EXT_gc  (0x01<<0)
-#define USART_RS485_INT_gc  (0x02<<0)
-
-#define USART_RS485_0_bm    (1<<0)  /* RS485 Mode internal transmitter bit 0 mask. */
-#define USART_RS485_0_bp    0       /* RS485 Mode internal transmitter bit 0 position. */
-#define USART_RS485_1_bm    (1<<1)  /* RS485 Mode internal transmitter bit 1 mask. */
-#define USART_RS485_1_bp    1       /* RS485 Mode internal transmitter bit 1 position. */
-
-#define CLKCTRL_PDIV_DIV2_gc    CLKCTRL_PDIV_2X_gc
-#define CLKCTRL_PDIV_DIV4_gc    CLKCTRL_PDIV_4X_gc
-#define CLKCTRL_PDIV_DIV8_gc    CLKCTRL_PDIV_8X_gc
-#define CLKCTRL_PDIV_DIV16_gc   CLKCTRL_PDIV_16X_gc
-#define CLKCTRL_PDIV_DIV32_gc   CLKCTRL_PDIV_32X_gc
-#define CLKCTRL_PDIV_DIV64_gc   CLKCTRL_PDIV_64X_gc
-#define CLKCTRL_PDIV_DIV6_gc    CLKCTRL_PDIV_6X_gc
-#define CLKCTRL_PDIV_DIV10_gc   CLKCTRL_PDIV_10X_gc
-#define CLKCTRL_PDIV_DIV12_gc   CLKCTRL_PDIV_12X_gc
-#define CLKCTRL_PDIV_DIV24_gc   CLKCTRL_PDIV_24X_gc
-#define CLKCTRL_PDIV_DIV48_gc   CLKCTRL_PDIV_48X_gc
+/* C Language Only */
+#if !defined (__ASSEMBLER__)
 
 #define EVSYS_CHANNEL_OFF_gc              EVSYS_CHANNEL0_OFF_gc
 #define EVSYS_CHANNEL_UPDI_SYNCH_gc       EVSYS_CHANNEL0_UPDI_SYNCH_gc
@@ -89,5 +75,10 @@
 #define EVSYS_CHANNEL_TCD0_CMPASET_gc     EVSYS_CHANNEL0_TCD0_CMPASET_gc
 #define EVSYS_CHANNEL_TCD0_CMPBSET_gc     EVSYS_CHANNEL0_TCD0_CMPBSET_gc
 #define EVSYS_CHANNEL_TCD0_PROGEV_gc      EVSYS_CHANNEL0_TCD0_PROGEV_gc
+
+#endif
+
+#include <api/macro_sugar.h>
+#endif
 
 // end of code

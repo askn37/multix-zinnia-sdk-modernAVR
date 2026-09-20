@@ -105,8 +105,9 @@ CNANO.programmer.default=pkobn_updi
 AVRDB.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDB.bootloader.OSCCFG=0x00
 AVRDB.bootloader.PINCFG=0x00
+AVRDB.bootloader.HWMONCFG=0x00
 AVRDB.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}00{bootloader.eesave_bit}
-AVRDB.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}000
+AVRDB.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}111
 AVRDB.bootloader.CODESIZE=0x00
 AVRDB.bootloader.BOOTSIZE=0x01
 AVRDB.bootloader.bod_lvl=000
@@ -386,6 +387,9 @@ AVRDB.menu.90_console_baud.115200bps=115200 bps
 AVRDB.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDB.menu.90_console_baud.230400bps=230400 bps
 
+AVRDB.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDB.menu.90_console_baud.250000bps=250000 bps
+
 AVRDB.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDB.menu.90_console_baud.500000bps=500000 bps
 
@@ -421,8 +425,9 @@ AVRDB.menu.95_bootloader.UART3_B0_LB3_SB2_Curiosity.build.console_select=-DSeria
 AVRDA.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDA.bootloader.OSCCFG=0x00
 AVRDA.bootloader.PINCFG=0x00
+AVRDA.bootloader.HWMONCFG=0x00
 AVRDA.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}00{bootloader.eesave_bit}
-AVRDA.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}000
+AVRDA.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}111
 AVRDA.bootloader.CODESIZE=0x00
 AVRDA.bootloader.BOOTSIZE=0x01
 AVRDA.bootloader.bod_lvl=000
@@ -782,6 +787,9 @@ AVRDA.menu.90_console_baud.115200bps=115200 bps
 AVRDA.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDA.menu.90_console_baud.230400bps=230400 bps
 
+AVRDA.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDA.menu.90_console_baud.250000bps=250000 bps
+
 AVRDA.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDA.menu.90_console_baud.500000bps=500000 bps
 
@@ -817,8 +825,9 @@ AVRDA.menu.95_bootloader.UART1_C0_LC6_SC7_Curiosity.build.console_select=-DSeria
 AVRDD.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDD.bootloader.OSCCFG=0x00
 AVRDD.bootloader.PINCFG=0x00
+AVRDD.bootloader.HWMONCFG=0x00
 AVRDD.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}00{bootloader.eesave_bit}
-AVRDD.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}000
+AVRDD.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}111
 AVRDD.bootloader.CODESIZE=0x00
 AVRDD.bootloader.BOOTSIZE=0x01
 AVRDD.bootloader.bod_lvl=000
@@ -1118,6 +1127,9 @@ AVRDD.menu.90_console_baud.115200bps=115200 bps
 AVRDD.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDD.menu.90_console_baud.230400bps=230400 bps
 
+AVRDD.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDD.menu.90_console_baud.250000bps=250000 bps
+
 AVRDD.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDD.menu.90_console_baud.500000bps=500000 bps
 
@@ -1153,8 +1165,9 @@ AVRDD.menu.95_bootloader.UART0_D4_LF5_SF6_Curiosity.build.console_select=-DSeria
 AVRDU.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDU.bootloader.OSCCFG=0x00
 AVRDU.bootloader.PINCFG=0x00
+AVRDU.bootloader.HWMONCFG=0x00
 AVRDU.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}0{bootloader.browsave_bit}{bootloader.eesave_bit}
-AVRDU.bootloader.SYSCFG1=0b000{bootloader.usbsink_bit}000
+AVRDU.bootloader.SYSCFG1=0b000{bootloader.usbsink_bit}111
 AVRDU.bootloader.CODESIZE=0x00
 AVRDU.bootloader.BOOTSIZE=0x01
 AVRDU.bootloader.bod_lvl=000
@@ -1446,6 +1459,9 @@ AVRDU.menu.90_console_baud.115200bps=115200 bps
 AVRDU.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDU.menu.90_console_baud.230400bps=230400 bps
 
+AVRDU.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDU.menu.90_console_baud.250000bps=250000 bps
+
 AVRDU.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDU.menu.90_console_baud.500000bps=500000 bps
 
@@ -1481,6 +1497,7 @@ AVRDU.menu.95_bootloader.UART1_D6_LF2_SF6_Curiosity.build.console_select=-DSeria
 AVREA.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVREA.bootloader.OSCCFG=0x00
 AVREA.bootloader.PINCFG=0x00
+AVREA.bootloader.HWMONCFG=0x00
 AVREA.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}00{bootloader.eesave_bit}
 AVREA.bootloader.SYSCFG1=0x07
 AVREA.bootloader.CODESIZE=0x00
@@ -1718,6 +1735,9 @@ AVREA.menu.90_console_baud.115200bps=115200 bps
 AVREA.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREA.menu.90_console_baud.230400bps=230400 bps
 
+AVREA.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVREA.menu.90_console_baud.250000bps=250000 bps
+
 AVREA.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVREA.menu.90_console_baud.500000bps=500000 bps
 
@@ -1748,7 +1768,8 @@ AVREA.menu.95_bootloader.UART1_C0_LB3_SC2_Curiosity.build.console_select=-DSeria
 
 AVREB.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVREB.bootloader.OSCCFG=0x00
-AVREB.bootloader.PINCFG=0x00
+AVREB.bootloader.PINCFG=0xFF
+AVREB.bootloader.HWMONCFG=0xFF
 AVREB.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}0{bootloader.browsave_bit}{bootloader.eesave_bit}
 AVREB.bootloader.SYSCFG1=0x07
 AVREB.bootloader.CODESIZE=0x00
@@ -1990,6 +2011,9 @@ AVREB.menu.90_console_baud.115200bps=115200 bps
 AVREB.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREB.menu.90_console_baud.230400bps=230400 bps
 
+AVREB.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVREB.menu.90_console_baud.250000bps=250000 bps
+
 AVREB.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVREB.menu.90_console_baud.500000bps=500000 bps
 
@@ -2020,6 +2044,7 @@ AVREB.menu.95_bootloader.UART0_C1_LF5_SF6_Curiosity.build.console_select=-DSeria
 
 AVRLA.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRLA.bootloader.OSCCFG=0x00
+AVRLA.bootloader.HWMONCFG=0x00
 AVRLA.bootloader.PINCFG=0b000000{bootloader.updi_bit}{bootloader.reset_bit}
 AVRLA.bootloader.SYSCFG0=0b000000{bootloader.browsave_bit}{bootloader.eesave_bit}
 AVRLA.bootloader.SYSCFG1=0x07
@@ -2238,6 +2263,9 @@ AVRLA.menu.90_console_baud.115200bps=115200 bps
 AVRLA.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRLA.menu.90_console_baud.230400bps=230400 bps
 
+AVRLA.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRLA.menu.90_console_baud.250000bps=250000 bps
+
 AVRLA.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRLA.menu.90_console_baud.500000bps=500000 bps
 
@@ -2269,8 +2297,9 @@ AVRLA.menu.95_bootloader.UART0_C1_LF5_SC0_Curiosity.build.console_select=-DSeria
 AVRSD.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRSD.bootloader.OSCCFG=0x00
 AVRSD.bootloader.PINCFG=0x00
+AVRSD.bootloader.HWMONCFG=0x00
 AVRSD.bootloader.SYSCFG0=0b000000{bootloader.browsave_bit}{bootloader.eesave_bit}
-AVRSD.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}000
+AVRSD.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}111
 AVRSD.bootloader.CODESIZE=0x00
 AVRSD.bootloader.BOOTSIZE=0x02
 AVRSD.bootloader.bod_lvl=000
@@ -2465,6 +2494,9 @@ AVRSD.menu.90_console_baud.115200bps=115200 bps
 AVRSD.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRSD.menu.90_console_baud.230400bps=230400 bps
 
+AVRSD.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRSD.menu.90_console_baud.250000bps=250000 bps
+
 AVRSD.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRSD.menu.90_console_baud.500000bps=500000 bps
 
@@ -2496,8 +2528,9 @@ AVRSD.menu.95_bootloader.UART0_D4_LD2_SF2_Curiosity.build.console_select=-DSeria
 AVRDU_usbloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDU_usbloader.bootloader.OSCCFG=0x00
 AVRDU_usbloader.bootloader.PINCFG=0x00
+AVRDU_usbloader.bootloader.HWMONCFG=0x00
 AVRDU_usbloader.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}0{bootloader.browsave_bit}{bootloader.eesave_bit}
-AVRDU_usbloader.bootloader.SYSCFG1=0b000{bootloader.usbsink_bit}000
+AVRDU_usbloader.bootloader.SYSCFG1=0b000{bootloader.usbsink_bit}111
 AVRDU_usbloader.bootloader.CODESIZE=0x00
 AVRDU_usbloader.bootloader.BOOTSIZE=0x05
 AVRDU_usbloader.bootloader.bod_lvl=000
@@ -3304,6 +3337,9 @@ AVRDU_usbloader.menu.90_console_baud.115200bps=115200 bps
 AVRDU_usbloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDU_usbloader.menu.90_console_baud.230400bps=230400 bps
 
+AVRDU_usbloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDU_usbloader.menu.90_console_baud.250000bps=250000 bps
+
 AVRDU_usbloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDU_usbloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -3335,8 +3371,9 @@ AVRDU_usbloader.menu.96_usbbootloader.euboot_LF2_SF6_Curiosity.build.console_sel
 AVRDB_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDB_noloader.bootloader.OSCCFG=0x00
 AVRDB_noloader.bootloader.PINCFG=0x00
+AVRDB_noloader.bootloader.HWMONCFG=0x00
 AVRDB_noloader.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}00{bootloader.eesave_bit}
-AVRDB_noloader.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}000
+AVRDB_noloader.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}111
 AVRDB_noloader.bootloader.CODESIZE=0x00
 AVRDB_noloader.bootloader.BOOTSIZE=0x00
 AVRDB_noloader.bootloader.bod_lvl=000
@@ -3645,6 +3682,9 @@ AVRDB_noloader.menu.90_console_baud.115200bps=115200 bps
 AVRDB_noloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDB_noloader.menu.90_console_baud.230400bps=230400 bps
 
+AVRDB_noloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDB_noloader.menu.90_console_baud.250000bps=250000 bps
+
 AVRDB_noloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDB_noloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -3660,8 +3700,9 @@ AVRDB_noloader.menu.90_console_baud.2400bps=2400 bps (for ULP)
 AVRDA_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDA_noloader.bootloader.OSCCFG=0x00
 AVRDA_noloader.bootloader.PINCFG=0x00
+AVRDA_noloader.bootloader.HWMONCFG=0x00
 AVRDA_noloader.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}00{bootloader.eesave_bit}
-AVRDA_noloader.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}000
+AVRDA_noloader.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}111
 AVRDA_noloader.bootloader.CODESIZE=0x00
 AVRDA_noloader.bootloader.BOOTSIZE=0x00
 AVRDA_noloader.bootloader.bod_lvl=000
@@ -4044,6 +4085,9 @@ AVRDA_noloader.menu.90_console_baud.115200bps=115200 bps
 AVRDA_noloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDA_noloader.menu.90_console_baud.230400bps=230400 bps
 
+AVRDA_noloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDA_noloader.menu.90_console_baud.250000bps=250000 bps
+
 AVRDA_noloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDA_noloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -4059,8 +4103,9 @@ AVRDA_noloader.menu.90_console_baud.2400bps=2400 bps (for ULP)
 AVRDD_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDD_noloader.bootloader.OSCCFG=0x00
 AVRDD_noloader.bootloader.PINCFG=0x00
+AVRDD_noloader.bootloader.HWMONCFG=0x00
 AVRDD_noloader.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}00{bootloader.eesave_bit}
-AVRDD_noloader.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}000
+AVRDD_noloader.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}111
 AVRDD_noloader.bootloader.CODESIZE=0x00
 AVRDD_noloader.bootloader.BOOTSIZE=0x00
 AVRDD_noloader.bootloader.bod_lvl=000
@@ -4383,6 +4428,9 @@ AVRDD_noloader.menu.90_console_baud.115200bps=115200 bps
 AVRDD_noloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDD_noloader.menu.90_console_baud.230400bps=230400 bps
 
+AVRDD_noloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDD_noloader.menu.90_console_baud.250000bps=250000 bps
+
 AVRDD_noloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDD_noloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -4398,8 +4446,9 @@ AVRDD_noloader.menu.90_console_baud.2400bps=2400 bps (for ULP)
 AVRDU_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRDU_noloader.bootloader.OSCCFG=0x00
 AVRDU_noloader.bootloader.PINCFG=0x00
+AVRDU_noloader.bootloader.HWMONCFG=0x00
 AVRDU_noloader.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}0{bootloader.browsave_bit}{bootloader.eesave_bit}
-AVRDU_noloader.bootloader.SYSCFG1=0b000{bootloader.usbsink_bit}000
+AVRDU_noloader.bootloader.SYSCFG1=0b000{bootloader.usbsink_bit}111
 AVRDU_noloader.bootloader.CODESIZE=0x00
 AVRDU_noloader.bootloader.BOOTSIZE=0x00
 AVRDU_noloader.bootloader.bod_lvl=000
@@ -4710,6 +4759,9 @@ AVRDU_noloader.menu.90_console_baud.115200bps=115200 bps
 AVRDU_noloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDU_noloader.menu.90_console_baud.230400bps=230400 bps
 
+AVRDU_noloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDU_noloader.menu.90_console_baud.250000bps=250000 bps
+
 AVRDU_noloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDU_noloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -4725,6 +4777,7 @@ AVRDU_noloader.menu.90_console_baud.2400bps=2400 bps (for ULP)
 AVREA_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVREA_noloader.bootloader.OSCCFG=0x00
 AVREA_noloader.bootloader.PINCFG=0x00
+AVREA_noloader.bootloader.HWMONCFG=0x00
 AVREA_noloader.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}01{bootloader.eesave_bit}
 AVREA_noloader.bootloader.SYSCFG1=0x07
 AVREA_noloader.bootloader.CODESIZE=0x00
@@ -4986,6 +5039,9 @@ AVREA_noloader.menu.90_console_baud.115200bps=115200 bps
 AVREA_noloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREA_noloader.menu.90_console_baud.230400bps=230400 bps
 
+AVREA_noloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVREA_noloader.menu.90_console_baud.250000bps=250000 bps
+
 AVREA_noloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVREA_noloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -5000,7 +5056,8 @@ AVREA_noloader.menu.90_console_baud.2400bps=2400 bps (for ULP)
 
 AVREB_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVREB_noloader.bootloader.OSCCFG=0x00
-AVREB_noloader.bootloader.PINCFG=0x00
+AVREB_noloader.bootloader.PINCFG=0xFF
+AVREB_noloader.bootloader.HWMONCFG=0xFF
 AVREB_noloader.bootloader.SYSCFG0=0b111{bootloader.updi_bit}{bootloader.reset_bit}0{bootloader.browsave_bit}{bootloader.eesave_bit}
 AVREB_noloader.bootloader.SYSCFG1=0x07
 AVREB_noloader.bootloader.CODESIZE=0x00
@@ -5261,6 +5318,9 @@ AVREB_noloader.menu.90_console_baud.115200bps=115200 bps
 AVREB_noloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVREB_noloader.menu.90_console_baud.230400bps=230400 bps
 
+AVREB_noloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVREB_noloader.menu.90_console_baud.250000bps=250000 bps
+
 AVREB_noloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVREB_noloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -5276,6 +5336,7 @@ AVREB_noloader.menu.90_console_baud.2400bps=2400 bps (for ULP)
 AVRLA_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRLA_noloader.bootloader.OSCCFG=0x00
 AVRLA_noloader.bootloader.PINCFG=0b000000{bootloader.updi_bit}{bootloader.reset_bit}
+AVRLA_noloader.bootloader.HWMONCFG=0x00
 AVRLA_noloader.bootloader.SYSCFG0=0b000000{bootloader.browsave_bit}{bootloader.eesave_bit}
 AVRLA_noloader.bootloader.SYSCFG1=0x07
 AVRLA_noloader.bootloader.CODESIZE=0x00
@@ -5504,6 +5565,9 @@ AVRLA_noloader.menu.90_console_baud.115200bps=115200 bps
 AVRLA_noloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRLA_noloader.menu.90_console_baud.230400bps=230400 bps
 
+AVRLA_noloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRLA_noloader.menu.90_console_baud.250000bps=250000 bps
+
 AVRLA_noloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRLA_noloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -5519,8 +5583,9 @@ AVRLA_noloader.menu.90_console_baud.2400bps=2400 bps (for ULP)
 AVRSD_noloader.bootloader.BODCFG=0b{bootloader.bod_lvl}{bootloader.bod_sample}{bootloader.bod_mode}00
 AVRSD_noloader.bootloader.OSCCFG=0x00
 AVRSD_noloader.bootloader.PINCFG=0x00
+AVRSD_noloader.bootloader.HWMONCFG=0x00
 AVRSD_noloader.bootloader.SYSCFG0=0b000000{bootloader.browsave_bit}{bootloader.eesave_bit}
-AVRSD_noloader.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}000
+AVRSD_noloader.bootloader.SYSCFG1=0b000{bootloader.mvsys_bit}111
 AVRSD_noloader.bootloader.CODESIZE=0x00
 AVRSD_noloader.bootloader.BOOTSIZE=0x00
 AVRSD_noloader.bootloader.bod_lvl=000
@@ -5734,6 +5799,9 @@ AVRSD_noloader.menu.90_console_baud.115200bps=115200 bps
 AVRSD_noloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRSD_noloader.menu.90_console_baud.230400bps=230400 bps
 
+AVRSD_noloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRSD_noloader.menu.90_console_baud.250000bps=250000 bps
+
 AVRSD_noloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRSD_noloader.menu.90_console_baud.500000bps=500000 bps
 
@@ -5749,9 +5817,10 @@ AVRSD_noloader.menu.90_console_baud.2400bps=2400 bps (for ULP)
 CNANO.bootloader.WDTCFG=0x00
 CNANO.bootloader.BODCFG=0x00
 CNANO.bootloader.OSCCFG=0x00
+CNANO.bootloader.PINCFG=0x00
+CNANO.bootloader.HWMONCFG=0x00
 CNANO.bootloader.SYSCFG0=0b11011011
 CNANO.bootloader.SYSCFG1=0x07
-CNANO.bootloader.PINCFG=0x00
 CNANO.bootloader.CODESIZE=0x00
 CNANO.bootloader.BOOTSIZE=0x00
 CNANO.bootloader.eepupload=
@@ -5854,6 +5923,9 @@ CNANO.menu.01_variant.AVR16EB32.build.f_cpu=20000000L
 CNANO.menu.01_variant.AVR16EB32.build.console_select=-DSerial=Serial0E -DLED_BUILTIN=PIN_PF5 -DSW_BUILTIN=PIN_PF6
 CNANO.menu.01_variant.AVR16EB32.build.SYSCFG0_R=0b11011011
 CNANO.menu.01_variant.AVR16EB32.build.SYSCFG0_G=0b11010011
+CNANO.menu.01_variant.AVR16EB32.build.PINCFG_R=0xFF
+CNANO.menu.01_variant.AVR16EB32.build.PINCFG_G=0xFF
+CNANO.menu.01_variant.AVR16EB32.bootloader.HWMONCFG=0xFF
 CNANO.menu.01_variant.AVR64EB32.bootloader.reset_bit=0
 CNANO.menu.01_variant.AVR16EB32.build.linker_script=avrxmega3_p64.x
 CNANO.menu.01_variant.AVR16EB32.upload.maximum_data_size=2048
@@ -5959,6 +6031,9 @@ CNANO.menu.90_console_baud.38400bps=38400 bps
 
 CNANO.menu.90_console_baud.57600bps.build.console_baud=-DCONSOLE_BAUD=57600
 CNANO.menu.90_console_baud.57600bps=57600 bps
+
+CNANO.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+CNANO.menu.90_console_baud.250000bps=250000 bps
 
 CNANO.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 CNANO.menu.90_console_baud.500000bps=500000 bps

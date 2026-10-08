@@ -465,14 +465,6 @@ AVRDA.menu.01_variant.AVR128DA64.upload.maximum_data_size=16384
 AVRDA.menu.01_variant.AVR128DA64.upload.maximum_size=130560
 AVRDA.menu.01_variant.AVR128DA64=64pin AVR128DA64 (128KiB+16KiB)
 
-AVRDA.menu.01_variant.AVR128DA64S.build.board=AVR_AVR128DA64S
-AVRDA.menu.01_variant.AVR128DA64S.build.mcu=avr128da64s
-AVRDA.menu.01_variant.AVR128DA64S.build.variant=avr_da64
-AVRDA.menu.01_variant.AVR128DA64S.build.linker_script=avrxmega4_p512.x
-AVRDA.menu.01_variant.AVR128DA64S.upload.maximum_data_size=16384
-AVRDA.menu.01_variant.AVR128DA64S.upload.maximum_size=130560
-AVRDA.menu.01_variant.AVR128DA64S=64pin AVR128DA64S (128KiB+16KiB)
-
 AVRDA.menu.01_variant.AVR64DA64.build.board=AVR_AVR64DA64
 AVRDA.menu.01_variant.AVR64DA64.build.mcu=avr64da64
 AVRDA.menu.01_variant.AVR64DA64.build.variant=avr_da64
@@ -481,15 +473,7 @@ AVRDA.menu.01_variant.AVR64DA64.upload.maximum_data_size=8192
 AVRDA.menu.01_variant.AVR64DA64.upload.maximum_size=65024
 AVRDA.menu.01_variant.AVR64DA64=64pin AVR64DA64 (64KiB+8KiB)
 
-AVRDA.menu.01_variant.AVR64DA64S.build.board=AVR_AVR64DA64S
-AVRDA.menu.01_variant.AVR64DA64S.build.mcu=avr64da64s
-AVRDA.menu.01_variant.AVR64DA64S.build.variant=avr_da64
-AVRDA.menu.01_variant.AVR64DA64S.build.linker_script=avrxmega2_p512.x
-AVRDA.menu.01_variant.AVR64DA64S.upload.maximum_data_size=8192
-AVRDA.menu.01_variant.AVR64DA64S.upload.maximum_size=65024
-AVRDA.menu.01_variant.AVR64DA64S=64pin AVR64DA64S (64KiB+8KiB)
-
-AVRDA.menu.01_variant.separator=-
+AVRDA.menu.01_variant.separator1=-
 
 AVRDA.menu.01_variant.AVR128DA48.build.board=AVR_AVR128DA48
 AVRDA.menu.01_variant.AVR128DA48.build.mcu=avr128da48
@@ -498,14 +482,6 @@ AVRDA.menu.01_variant.AVR128DA48.build.linker_script=avrxmega4_p512.x
 AVRDA.menu.01_variant.AVR128DA48.upload.maximum_data_size=16384
 AVRDA.menu.01_variant.AVR128DA48.upload.maximum_size=130560
 AVRDA.menu.01_variant.AVR128DA48=48pin AVR128DA48 (128KiB+16KiB)
-
-AVRDA.menu.01_variant.AVR128DA48S.build.board=AVR_AVR128DA48S
-AVRDA.menu.01_variant.AVR128DA48S.build.mcu=avr128da48s
-AVRDA.menu.01_variant.AVR128DA48S.build.variant=avr_da48
-AVRDA.menu.01_variant.AVR128DA48S.build.linker_script=avrxmega4_p512.x
-AVRDA.menu.01_variant.AVR128DA48S.upload.maximum_data_size=16384
-AVRDA.menu.01_variant.AVR128DA48S.upload.maximum_size=130560
-AVRDA.menu.01_variant.AVR128DA48S=48pin AVR128DA48S (128KiB+16KiB)
 
 AVRDA.menu.01_variant.AVR64DA48.build.board=AVR_AVR64DA48
 AVRDA.menu.01_variant.AVR64DA48.build.mcu=avr64da48
@@ -523,15 +499,7 @@ AVRDA.menu.01_variant.AVR32DA48.upload.maximum_data_size=4096
 AVRDA.menu.01_variant.AVR32DA48.upload.maximum_size=32256
 AVRDA.menu.01_variant.AVR32DA48=48pin AVR32DA48S (32KiB+4KiB)
 
-AVRDA.menu.01_variant.AVR32DA48S.build.board=AVR_AVR32DA48S
-AVRDA.menu.01_variant.AVR32DA48S.build.mcu=avr32da48s
-AVRDA.menu.01_variant.AVR32DA48S.build.variant=avr_da48
-AVRDA.menu.01_variant.AVR32DA48S.build.linker_script=avrxmega3_p512.x
-AVRDA.menu.01_variant.AVR32DA48S.upload.maximum_data_size=4096
-AVRDA.menu.01_variant.AVR32DA48S.upload.maximum_size=32256
-AVRDA.menu.01_variant.AVR32DA48S=48pin AVR32DA48 (32KiB+4KiB)
-
-AVRDA.menu.01_variant.separator1=-
+AVRDA.menu.01_variant.separator2=-
 
 AVRDA.menu.01_variant.AVR128DA32.build.board=AVR_AVR128DA32
 AVRDA.menu.01_variant.AVR128DA32.build.mcu=avr128da32
@@ -541,14 +509,6 @@ AVRDA.menu.01_variant.AVR128DA32.upload.maximum_data_size=16384
 AVRDA.menu.01_variant.AVR128DA32.upload.maximum_size=130560
 AVRDA.menu.01_variant.AVR128DA32=32pin AVR128DA32 (128KiB+16KiB)
 
-AVRDA.menu.01_variant.AVR128DA32S.build.board=AVR_AVR128DA32S
-AVRDA.menu.01_variant.AVR128DA32S.build.mcu=avr128da32s
-AVRDA.menu.01_variant.AVR128DA32S.build.variant=avr_da32
-AVRDA.menu.01_variant.AVR128DA32S.build.linker_script=avrxmega4_p512.x
-AVRDA.menu.01_variant.AVR128DA32S.upload.maximum_data_size=16384
-AVRDA.menu.01_variant.AVR128DA32S.upload.maximum_size=130560
-AVRDA.menu.01_variant.AVR128DA32S=32pin AVR128DA32S (128KiB+16KiB)
-
 AVRDA.menu.01_variant.AVR64DA32.build.board=AVR_AVR64DA32
 AVRDA.menu.01_variant.AVR64DA32.build.mcu=avr64da32
 AVRDA.menu.01_variant.AVR64DA32.build.variant=avr_da32
@@ -556,14 +516,6 @@ AVRDA.menu.01_variant.AVR64DA32.build.linker_script=avrxmega2_p512.x
 AVRDA.menu.01_variant.AVR64DA32.upload.maximum_data_size=8192
 AVRDA.menu.01_variant.AVR64DA32.upload.maximum_size=65024
 AVRDA.menu.01_variant.AVR64DA32=32pin AVR64DA32 (64KiB+8KiB)
-
-AVRDA.menu.01_variant.AVR64DA32S.build.board=AVR_AVR64DA32S
-AVRDA.menu.01_variant.AVR64DA32S.build.mcu=avr64da32s
-AVRDA.menu.01_variant.AVR64DA32S.build.variant=avr_da32
-AVRDA.menu.01_variant.AVR64DA32S.build.linker_script=avrxmega2_p512.x
-AVRDA.menu.01_variant.AVR64DA32S.upload.maximum_data_size=8192
-AVRDA.menu.01_variant.AVR64DA32S.upload.maximum_size=65024
-AVRDA.menu.01_variant.AVR64DA32S=32pin AVR64DA32S (64KiB+8KiB)
 
 AVRDA.menu.01_variant.AVR32DA32.build.board=AVR_AVR32DA32
 AVRDA.menu.01_variant.AVR32DA32.build.mcu=avr32da32
@@ -573,15 +525,7 @@ AVRDA.menu.01_variant.AVR32DA32.upload.maximum_data_size=4096
 AVRDA.menu.01_variant.AVR32DA32.upload.maximum_size=32256
 AVRDA.menu.01_variant.AVR32DA32=32pin AVR32DA32 (32KiB+4KiB)
 
-AVRDA.menu.01_variant.AVR32DA32S.build.board=AVR_AVR32DA32S
-AVRDA.menu.01_variant.AVR32DA32S.build.mcu=avr32da32s
-AVRDA.menu.01_variant.AVR32DA32S.build.variant=avr_da32
-AVRDA.menu.01_variant.AVR32DA32S.build.linker_script=avrxmega3_p512.x
-AVRDA.menu.01_variant.AVR32DA32S.upload.maximum_data_size=4096
-AVRDA.menu.01_variant.AVR32DA32S.upload.maximum_size=32256
-AVRDA.menu.01_variant.AVR32DA32S=32pin AVR32DA32S (32KiB+4KiB)
-
-AVRDA.menu.01_variant.separator2=-
+AVRDA.menu.01_variant.separator3=-
 
 AVRDA.menu.01_variant.AVR128DA28.build.board=AVR_AVR128DA28
 AVRDA.menu.01_variant.AVR128DA28.build.mcu=avr128da28
@@ -591,14 +535,6 @@ AVRDA.menu.01_variant.AVR128DA28.upload.maximum_data_size=16384
 AVRDA.menu.01_variant.AVR128DA28.upload.maximum_size=130560
 AVRDA.menu.01_variant.AVR128DA28=28pin AVR128DA28 (128KiB+16KiB)
 
-AVRDA.menu.01_variant.AVR128DA28S.build.board=AVR_AVR128DA28S
-AVRDA.menu.01_variant.AVR128DA28S.build.mcu=avr128da28s
-AVRDA.menu.01_variant.AVR128DA28S.build.variant=avr_da28
-AVRDA.menu.01_variant.AVR128DA28S.build.linker_script=avrxmega4_p512.x
-AVRDA.menu.01_variant.AVR128DA28S.upload.maximum_data_size=16384
-AVRDA.menu.01_variant.AVR128DA28S.upload.maximum_size=130560
-AVRDA.menu.01_variant.AVR128DA28S=28pin AVR128DA28S (128KiB+16KiB)
-
 AVRDA.menu.01_variant.AVR64DA28.build.board=AVR_AVR64DA28
 AVRDA.menu.01_variant.AVR64DA28.build.mcu=avr64da28
 AVRDA.menu.01_variant.AVR64DA28.build.variant=avr_da28
@@ -607,14 +543,6 @@ AVRDA.menu.01_variant.AVR64DA28.upload.maximum_data_size=8192
 AVRDA.menu.01_variant.AVR64DA28.upload.maximum_size=65024
 AVRDA.menu.01_variant.AVR64DA28=28pin AVR64DA28 (64KiB+8KiB)
 
-AVRDA.menu.01_variant.AVR64DA28S.build.board=AVR_AVR64DA28S
-AVRDA.menu.01_variant.AVR64DA28S.build.mcu=avr64da28s
-AVRDA.menu.01_variant.AVR64DA28S.build.variant=avr_da28
-AVRDA.menu.01_variant.AVR64DA28S.build.linker_script=avrxmega2_p512.x
-AVRDA.menu.01_variant.AVR64DA28S.upload.maximum_data_size=8192
-AVRDA.menu.01_variant.AVR64DA28S.upload.maximum_size=65024
-AVRDA.menu.01_variant.AVR64DA28S=28pin AVR64DA28S (64KiB+8KiB)
-
 AVRDA.menu.01_variant.AVR32DA28.build.board=AVR_AVR32DA28
 AVRDA.menu.01_variant.AVR32DA28.build.mcu=avr32da28
 AVRDA.menu.01_variant.AVR32DA28.build.variant=avr_da28
@@ -622,6 +550,94 @@ AVRDA.menu.01_variant.AVR32DA28.build.linker_script=avrxmega3_p512.x
 AVRDA.menu.01_variant.AVR32DA28.upload.maximum_data_size=4096
 AVRDA.menu.01_variant.AVR32DA28.upload.maximum_size=32256
 AVRDA.menu.01_variant.AVR32DA28=28pin AVR32DA28 (32KiB+4KiB)
+
+AVRDA.menu.01_variant.separator4=-
+
+AVRDA.menu.01_variant.AVR128DA64S.build.board=AVR_AVR128DA64S
+AVRDA.menu.01_variant.AVR128DA64S.build.mcu=avr128da64s
+AVRDA.menu.01_variant.AVR128DA64S.build.variant=avr_da64
+AVRDA.menu.01_variant.AVR128DA64S.build.linker_script=avrxmega4_p512.x
+AVRDA.menu.01_variant.AVR128DA64S.upload.maximum_data_size=16384
+AVRDA.menu.01_variant.AVR128DA64S.upload.maximum_size=130560
+AVRDA.menu.01_variant.AVR128DA64S=64pin AVR128DA64S (128KiB+16KiB)
+
+AVRDA.menu.01_variant.AVR64DA64S.build.board=AVR_AVR64DA64S
+AVRDA.menu.01_variant.AVR64DA64S.build.mcu=avr64da64s
+AVRDA.menu.01_variant.AVR64DA64S.build.variant=avr_da64
+AVRDA.menu.01_variant.AVR64DA64S.build.linker_script=avrxmega2_p512.x
+AVRDA.menu.01_variant.AVR64DA64S.upload.maximum_data_size=8192
+AVRDA.menu.01_variant.AVR64DA64S.upload.maximum_size=65024
+AVRDA.menu.01_variant.AVR64DA64S=64pin AVR64DA64S (64KiB+8KiB)
+
+AVRDA.menu.01_variant.separator5=-
+
+AVRDA.menu.01_variant.AVR128DA48S.build.board=AVR_AVR128DA48S
+AVRDA.menu.01_variant.AVR128DA48S.build.mcu=avr128da48s
+AVRDA.menu.01_variant.AVR128DA48S.build.variant=avr_da48
+AVRDA.menu.01_variant.AVR128DA48S.build.linker_script=avrxmega4_p512.x
+AVRDA.menu.01_variant.AVR128DA48S.upload.maximum_data_size=16384
+AVRDA.menu.01_variant.AVR128DA48S.upload.maximum_size=130560
+AVRDA.menu.01_variant.AVR128DA48S=48pin AVR128DA48S (128KiB+16KiB)
+
+AVRDA.menu.01_variant.AVR64DA48S.build.board=AVR_AVR64DA48S
+AVRDA.menu.01_variant.AVR64DA48S.build.mcu=avr64da48s
+AVRDA.menu.01_variant.AVR64DA48S.build.variant=avr_da48
+AVRDA.menu.01_variant.AVR64DA48S.build.linker_script=avrxmega2_p512.x
+AVRDA.menu.01_variant.AVR64DA48S.upload.maximum_data_size=8192
+AVRDA.menu.01_variant.AVR64DA48S.upload.maximum_size=65024
+AVRDA.menu.01_variant.AVR64DA48S=48pin AVR64DA48S (64KiB+8KiB)
+
+AVRDA.menu.01_variant.AVR32DA48S.build.board=AVR_AVR32DA48S
+AVRDA.menu.01_variant.AVR32DA48S.build.mcu=avr32da48s
+AVRDA.menu.01_variant.AVR32DA48S.build.variant=avr_da48
+AVRDA.menu.01_variant.AVR32DA48S.build.linker_script=avrxmega3_p512.x
+AVRDA.menu.01_variant.AVR32DA48S.upload.maximum_data_size=4096
+AVRDA.menu.01_variant.AVR32DA48S.upload.maximum_size=32256
+AVRDA.menu.01_variant.AVR32DA48S=48pin AVR32DA48 (32KiB+4KiB)
+
+AVRDA.menu.01_variant.separator6=-
+
+AVRDA.menu.01_variant.AVR128DA32S.build.board=AVR_AVR128DA32S
+AVRDA.menu.01_variant.AVR128DA32S.build.mcu=avr128da32s
+AVRDA.menu.01_variant.AVR128DA32S.build.variant=avr_da32
+AVRDA.menu.01_variant.AVR128DA32S.build.linker_script=avrxmega4_p512.x
+AVRDA.menu.01_variant.AVR128DA32S.upload.maximum_data_size=16384
+AVRDA.menu.01_variant.AVR128DA32S.upload.maximum_size=130560
+AVRDA.menu.01_variant.AVR128DA32S=32pin AVR128DA32S (128KiB+16KiB)
+
+AVRDA.menu.01_variant.AVR64DA32S.build.board=AVR_AVR64DA32S
+AVRDA.menu.01_variant.AVR64DA32S.build.mcu=avr64da32s
+AVRDA.menu.01_variant.AVR64DA32S.build.variant=avr_da32
+AVRDA.menu.01_variant.AVR64DA32S.build.linker_script=avrxmega2_p512.x
+AVRDA.menu.01_variant.AVR64DA32S.upload.maximum_data_size=8192
+AVRDA.menu.01_variant.AVR64DA32S.upload.maximum_size=65024
+AVRDA.menu.01_variant.AVR64DA32S=32pin AVR64DA32S (64KiB+8KiB)
+
+AVRDA.menu.01_variant.AVR32DA32S.build.board=AVR_AVR32DA32S
+AVRDA.menu.01_variant.AVR32DA32S.build.mcu=avr32da32s
+AVRDA.menu.01_variant.AVR32DA32S.build.variant=avr_da32
+AVRDA.menu.01_variant.AVR32DA32S.build.linker_script=avrxmega3_p512.x
+AVRDA.menu.01_variant.AVR32DA32S.upload.maximum_data_size=4096
+AVRDA.menu.01_variant.AVR32DA32S.upload.maximum_size=32256
+AVRDA.menu.01_variant.AVR32DA32S=32pin AVR32DA32S (32KiB+4KiB)
+
+AVRDA.menu.01_variant.separator7=-
+
+AVRDA.menu.01_variant.AVR128DA28S.build.board=AVR_AVR128DA28S
+AVRDA.menu.01_variant.AVR128DA28S.build.mcu=avr128da28s
+AVRDA.menu.01_variant.AVR128DA28S.build.variant=avr_da28
+AVRDA.menu.01_variant.AVR128DA28S.build.linker_script=avrxmega4_p512.x
+AVRDA.menu.01_variant.AVR128DA28S.upload.maximum_data_size=16384
+AVRDA.menu.01_variant.AVR128DA28S.upload.maximum_size=130560
+AVRDA.menu.01_variant.AVR128DA28S=28pin AVR128DA28S (128KiB+16KiB)
+
+AVRDA.menu.01_variant.AVR64DA28S.build.board=AVR_AVR64DA28S
+AVRDA.menu.01_variant.AVR64DA28S.build.mcu=avr64da28s
+AVRDA.menu.01_variant.AVR64DA28S.build.variant=avr_da28
+AVRDA.menu.01_variant.AVR64DA28S.build.linker_script=avrxmega2_p512.x
+AVRDA.menu.01_variant.AVR64DA28S.upload.maximum_data_size=8192
+AVRDA.menu.01_variant.AVR64DA28S.upload.maximum_size=65024
+AVRDA.menu.01_variant.AVR64DA28S=28pin AVR64DA28S (64KiB+8KiB)
 
 AVRDA.menu.01_variant.AVR32DA28S.build.board=AVR_AVR32DA28S
 AVRDA.menu.01_variant.AVR32DA28S.build.mcu=avr32da28s
@@ -3741,14 +3757,6 @@ AVRDA_noloader.menu.01_variant.AVR128DA64.upload.maximum_data_size=16384
 AVRDA_noloader.menu.01_variant.AVR128DA64.upload.maximum_size=131072
 AVRDA_noloader.menu.01_variant.AVR128DA64=64pin AVR128DA64 (128KiB+16KiB)
 
-AVRDA_noloader.menu.01_variant.AVR128DA64S.build.board=AVR_AVR128DA64S
-AVRDA_noloader.menu.01_variant.AVR128DA64S.build.mcu=avr128da64s
-AVRDA_noloader.menu.01_variant.AVR128DA64S.build.variant=avr_da64
-AVRDA_noloader.menu.01_variant.AVR128DA64S.build.linker_script=avrxmega4_p512.x
-AVRDA_noloader.menu.01_variant.AVR128DA64S.upload.maximum_data_size=16384
-AVRDA_noloader.menu.01_variant.AVR128DA64S.upload.maximum_size=131072
-AVRDA_noloader.menu.01_variant.AVR128DA64S=64pin AVR128DA64S (128KiB+16KiB)
-
 AVRDA_noloader.menu.01_variant.AVR64DA64.build.board=AVR_AVR64DA64
 AVRDA_noloader.menu.01_variant.AVR64DA64.build.mcu=avr64da64
 AVRDA_noloader.menu.01_variant.AVR64DA64.build.variant=avr_da64
@@ -3767,14 +3775,6 @@ AVRDA_noloader.menu.01_variant.AVR128DA48.upload.maximum_data_size=16384
 AVRDA_noloader.menu.01_variant.AVR128DA48.upload.maximum_size=131072
 AVRDA_noloader.menu.01_variant.AVR128DA48=48pin AVR128DA48 (128KiB+16KiB)
 
-AVRDA_noloader.menu.01_variant.AVR128DA48S.build.board=AVR_AVR128DA48S
-AVRDA_noloader.menu.01_variant.AVR128DA48S.build.mcu=avr128da48s
-AVRDA_noloader.menu.01_variant.AVR128DA48S.build.variant=avr_da48
-AVRDA_noloader.menu.01_variant.AVR128DA48S.build.linker_script=avrxmega4_p512.x
-AVRDA_noloader.menu.01_variant.AVR128DA48S.upload.maximum_data_size=16384
-AVRDA_noloader.menu.01_variant.AVR128DA48S.upload.maximum_size=131072
-AVRDA_noloader.menu.01_variant.AVR128DA48S=48pin AVR128DA48S (128KiB+16KiB)
-
 AVRDA_noloader.menu.01_variant.AVR64DA48.build.board=AVR_AVR64DA48
 AVRDA_noloader.menu.01_variant.AVR64DA48.build.mcu=avr64da48
 AVRDA_noloader.menu.01_variant.AVR64DA48.build.variant=avr_da48
@@ -3782,14 +3782,6 @@ AVRDA_noloader.menu.01_variant.AVR64DA48.build.linker_script=avrxmega2_p512.x
 AVRDA_noloader.menu.01_variant.AVR64DA48.upload.maximum_data_size=8192
 AVRDA_noloader.menu.01_variant.AVR64DA48.upload.maximum_size=65536
 AVRDA_noloader.menu.01_variant.AVR64DA48=48pin AVR64DA48 (64KiB+8KiB)
-
-AVRDA_noloader.menu.01_variant.AVR64DA48S.build.board=AVR_AVR64DA48S
-AVRDA_noloader.menu.01_variant.AVR64DA48S.build.mcu=avr64da48s
-AVRDA_noloader.menu.01_variant.AVR64DA48S.build.variant=avr_da48
-AVRDA_noloader.menu.01_variant.AVR64DA48S.build.linker_script=avrxmega2_p512.x
-AVRDA_noloader.menu.01_variant.AVR64DA48S.upload.maximum_data_size=8192
-AVRDA_noloader.menu.01_variant.AVR64DA48S.upload.maximum_size=65536
-AVRDA_noloader.menu.01_variant.AVR64DA48S=48pin AVR64DA48S (64KiB+8KiB)
 
 AVRDA_noloader.menu.01_variant.AVR32DA48.build.board=AVR_AVR32DA48
 AVRDA_noloader.menu.01_variant.AVR32DA48.build.mcu=avr32da48
@@ -3799,15 +3791,7 @@ AVRDA_noloader.menu.01_variant.AVR32DA48.upload.maximum_data_size=4096
 AVRDA_noloader.menu.01_variant.AVR32DA48.upload.maximum_size=32768
 AVRDA_noloader.menu.01_variant.AVR32DA48=48pin AVR32DA48 (32KiB+4KiB)
 
-AVRDA_noloader.menu.01_variant.AVR32DA48S.build.board=AVR_AVR32DA48S
-AVRDA_noloader.menu.01_variant.AVR32DA48S.build.mcu=avr32da48s
-AVRDA_noloader.menu.01_variant.AVR32DA48S.build.variant=avr_da48
-AVRDA_noloader.menu.01_variant.AVR32DA48S.build.linker_script=avrxmega3_p512.x
-AVRDA_noloader.menu.01_variant.AVR32DA48S.upload.maximum_data_size=4096
-AVRDA_noloader.menu.01_variant.AVR32DA48S.upload.maximum_size=32768
-AVRDA_noloader.menu.01_variant.AVR32DA48S=48pin AVR32DA48S (32KiB+4KiB)
-
-AVRDA_noloader.menu.01_variant.separator1=-
+AVRDA_noloader.menu.01_variant.separator2=-
 
 AVRDA_noloader.menu.01_variant.AVR128DA32.build.board=AVR_AVR128DA32
 AVRDA_noloader.menu.01_variant.AVR128DA32.build.mcu=avr128da32
@@ -3817,14 +3801,6 @@ AVRDA_noloader.menu.01_variant.AVR128DA32.upload.maximum_data_size=16384
 AVRDA_noloader.menu.01_variant.AVR128DA32.upload.maximum_size=131072
 AVRDA_noloader.menu.01_variant.AVR128DA32=32pin AVR128DA32 (128KiB+16KiB)
 
-AVRDA_noloader.menu.01_variant.AVR128DA32S.build.board=AVR_AVR128DA32S
-AVRDA_noloader.menu.01_variant.AVR128DA32S.build.mcu=avr128da32s
-AVRDA_noloader.menu.01_variant.AVR128DA32S.build.variant=avr_da32
-AVRDA_noloader.menu.01_variant.AVR128DA32S.build.linker_script=avrxmega4_p512.x
-AVRDA_noloader.menu.01_variant.AVR128DA32S.upload.maximum_data_size=16384
-AVRDA_noloader.menu.01_variant.AVR128DA32S.upload.maximum_size=131072
-AVRDA_noloader.menu.01_variant.AVR128DA32S=32pin AVR128DA32S (128KiB+16KiB)
-
 AVRDA_noloader.menu.01_variant.AVR64DA32.build.board=AVR_AVR64DA32
 AVRDA_noloader.menu.01_variant.AVR64DA32.build.mcu=avr64da32
 AVRDA_noloader.menu.01_variant.AVR64DA32.build.variant=avr_da32
@@ -3832,14 +3808,6 @@ AVRDA_noloader.menu.01_variant.AVR64DA32.build.linker_script=avrxmega2_p512.x
 AVRDA_noloader.menu.01_variant.AVR64DA32.upload.maximum_data_size=8192
 AVRDA_noloader.menu.01_variant.AVR64DA32.upload.maximum_size=65536
 AVRDA_noloader.menu.01_variant.AVR64DA32=32pin AVR64DA32 (64KiB+8KiB)
-
-AVRDA_noloader.menu.01_variant.AVR64DA32S.build.board=AVR_AVR64DA32S
-AVRDA_noloader.menu.01_variant.AVR64DA32S.build.mcu=avr64da32s
-AVRDA_noloader.menu.01_variant.AVR64DA32S.build.variant=avr_da32
-AVRDA_noloader.menu.01_variant.AVR64DA32S.build.linker_script=avrxmega2_p512.x
-AVRDA_noloader.menu.01_variant.AVR64DA32S.upload.maximum_data_size=8192
-AVRDA_noloader.menu.01_variant.AVR64DA32S.upload.maximum_size=65536
-AVRDA_noloader.menu.01_variant.AVR64DA32S=32pin AVR64DA32S (64KiB+8KiB)
 
 AVRDA_noloader.menu.01_variant.AVR32DA32.build.board=AVR_AVR32DA32
 AVRDA_noloader.menu.01_variant.AVR32DA32.build.mcu=avr32da32
@@ -3849,15 +3817,7 @@ AVRDA_noloader.menu.01_variant.AVR32DA32.upload.maximum_data_size=4096
 AVRDA_noloader.menu.01_variant.AVR32DA32.upload.maximum_size=32768
 AVRDA_noloader.menu.01_variant.AVR32DA32=32pin AVR32DA32 (32KiB+4KiB)
 
-AVRDA_noloader.menu.01_variant.AVR32DA32S.build.board=AVR_AVR32DA32S
-AVRDA_noloader.menu.01_variant.AVR32DA32S.build.mcu=avr32da32s
-AVRDA_noloader.menu.01_variant.AVR32DA32S.build.variant=avr_da32
-AVRDA_noloader.menu.01_variant.AVR32DA32S.build.linker_script=avrxmega3_p512.x
-AVRDA_noloader.menu.01_variant.AVR32DA32S.upload.maximum_data_size=4096
-AVRDA_noloader.menu.01_variant.AVR32DA32S.upload.maximum_size=32768
-AVRDA_noloader.menu.01_variant.AVR32DA32S=32pin AVR32DA32S (32KiB+4KiB)
-
-AVRDA_noloader.menu.01_variant.separator2=-
+AVRDA_noloader.menu.01_variant.separator3=-
 
 AVRDA_noloader.menu.01_variant.AVR128DA28.build.board=AVR_AVR128DA28
 AVRDA_noloader.menu.01_variant.AVR128DA28.build.mcu=avr128da28
@@ -3867,14 +3827,6 @@ AVRDA_noloader.menu.01_variant.AVR128DA28.upload.maximum_data_size=16384
 AVRDA_noloader.menu.01_variant.AVR128DA28.upload.maximum_size=131072
 AVRDA_noloader.menu.01_variant.AVR128DA28=28pin AVR128DA28 (128KiB+16KiB)
 
-AVRDA_noloader.menu.01_variant.AVR128DA28S.build.board=AVR_AVR128DA28S
-AVRDA_noloader.menu.01_variant.AVR128DA28S.build.mcu=avr128da28s
-AVRDA_noloader.menu.01_variant.AVR128DA28S.build.variant=avr_da28
-AVRDA_noloader.menu.01_variant.AVR128DA28S.build.linker_script=avrxmega4_p512.x
-AVRDA_noloader.menu.01_variant.AVR128DA28S.upload.maximum_data_size=16384
-AVRDA_noloader.menu.01_variant.AVR128DA28S.upload.maximum_size=131072
-AVRDA_noloader.menu.01_variant.AVR128DA28S=28pin AVR128DA28S (128KiB+16KiB)
-
 AVRDA_noloader.menu.01_variant.AVR64DA28.build.board=AVR_AVR64DA28
 AVRDA_noloader.menu.01_variant.AVR64DA28.build.mcu=avr64da28
 AVRDA_noloader.menu.01_variant.AVR64DA28.build.variant=avr_da28
@@ -3883,14 +3835,6 @@ AVRDA_noloader.menu.01_variant.AVR64DA28.upload.maximum_data_size=8192
 AVRDA_noloader.menu.01_variant.AVR64DA28.upload.maximum_size=65536
 AVRDA_noloader.menu.01_variant.AVR64DA28=28pin AVR64DA28 (64KiB+8KiB)
 
-AVRDA_noloader.menu.01_variant.AVR64DA28S.build.board=AVR_AVR64DA28S
-AVRDA_noloader.menu.01_variant.AVR64DA28S.build.mcu=avr64da28s
-AVRDA_noloader.menu.01_variant.AVR64DA28S.build.variant=avr_da28
-AVRDA_noloader.menu.01_variant.AVR64DA28S.build.linker_script=avrxmega2_p512.x
-AVRDA_noloader.menu.01_variant.AVR64DA28S.upload.maximum_data_size=8192
-AVRDA_noloader.menu.01_variant.AVR64DA28S.upload.maximum_size=65536
-AVRDA_noloader.menu.01_variant.AVR64DA28S=28pin AVR64DA28S (64KiB+8KiB)
-
 AVRDA_noloader.menu.01_variant.AVR32DA28.build.board=AVR_AVR32DA28
 AVRDA_noloader.menu.01_variant.AVR32DA28.build.mcu=avr32da28
 AVRDA_noloader.menu.01_variant.AVR32DA28.build.variant=avr_da28
@@ -3898,6 +3842,94 @@ AVRDA_noloader.menu.01_variant.AVR32DA28.build.linker_script=avrxmega3_p512.x
 AVRDA_noloader.menu.01_variant.AVR32DA28.upload.maximum_data_size=4096
 AVRDA_noloader.menu.01_variant.AVR32DA28.upload.maximum_size=32768
 AVRDA_noloader.menu.01_variant.AVR32DA28=28pin AVR32DA28 (32KiB+4KiB)
+
+AVRDA_noloader.menu.01_variant.separator4=-
+
+AVRDA_noloader.menu.01_variant.AVR128DA64S.build.board=AVR_AVR128DA64S
+AVRDA_noloader.menu.01_variant.AVR128DA64S.build.mcu=avr128da64s
+AVRDA_noloader.menu.01_variant.AVR128DA64S.build.variant=avr_da64
+AVRDA_noloader.menu.01_variant.AVR128DA64S.build.linker_script=avrxmega4_p512.x
+AVRDA_noloader.menu.01_variant.AVR128DA64S.upload.maximum_data_size=16384
+AVRDA_noloader.menu.01_variant.AVR128DA64S.upload.maximum_size=131072
+AVRDA_noloader.menu.01_variant.AVR128DA64S=64pin AVR128DA64S (128KiB+16KiB)
+
+AVRDA_noloader.menu.01_variant.AVR64DA64S.build.board=AVR_AVR64DA64S
+AVRDA_noloader.menu.01_variant.AVR64DA64S.build.mcu=avr64da64s
+AVRDA_noloader.menu.01_variant.AVR64DA64S.build.variant=avr_da64
+AVRDA_noloader.menu.01_variant.AVR64DA64S.build.linker_script=avrxmega2_p512.x
+AVRDA_noloader.menu.01_variant.AVR64DA64S.upload.maximum_data_size=8192
+AVRDA_noloader.menu.01_variant.AVR64DA64S.upload.maximum_size=65536
+AVRDA_noloader.menu.01_variant.AVR64DA64S=64pin AVR64DA64S (64KiB+8KiB)
+
+AVRDA_noloader.menu.01_variant.separator5=-
+
+AVRDA_noloader.menu.01_variant.AVR128DA48S.build.board=AVR_AVR128DA48S
+AVRDA_noloader.menu.01_variant.AVR128DA48S.build.mcu=avr128da48s
+AVRDA_noloader.menu.01_variant.AVR128DA48S.build.variant=avr_da48
+AVRDA_noloader.menu.01_variant.AVR128DA48S.build.linker_script=avrxmega4_p512.x
+AVRDA_noloader.menu.01_variant.AVR128DA48S.upload.maximum_data_size=16384
+AVRDA_noloader.menu.01_variant.AVR128DA48S.upload.maximum_size=131072
+AVRDA_noloader.menu.01_variant.AVR128DA48S=48pin AVR128DA48S (128KiB+16KiB)
+
+AVRDA_noloader.menu.01_variant.AVR64DA48S.build.board=AVR_AVR64DA48S
+AVRDA_noloader.menu.01_variant.AVR64DA48S.build.mcu=avr64da48s
+AVRDA_noloader.menu.01_variant.AVR64DA48S.build.variant=avr_da48
+AVRDA_noloader.menu.01_variant.AVR64DA48S.build.linker_script=avrxmega2_p512.x
+AVRDA_noloader.menu.01_variant.AVR64DA48S.upload.maximum_data_size=8192
+AVRDA_noloader.menu.01_variant.AVR64DA48S.upload.maximum_size=65536
+AVRDA_noloader.menu.01_variant.AVR64DA48S=48pin AVR64DA48S (64KiB+8KiB)
+
+AVRDA_noloader.menu.01_variant.AVR32DA48S.build.board=AVR_AVR32DA48S
+AVRDA_noloader.menu.01_variant.AVR32DA48S.build.mcu=avr32da48s
+AVRDA_noloader.menu.01_variant.AVR32DA48S.build.variant=avr_da48
+AVRDA_noloader.menu.01_variant.AVR32DA48S.build.linker_script=avrxmega3_p512.x
+AVRDA_noloader.menu.01_variant.AVR32DA48S.upload.maximum_data_size=4096
+AVRDA_noloader.menu.01_variant.AVR32DA48S.upload.maximum_size=32768
+AVRDA_noloader.menu.01_variant.AVR32DA48S=48pin AVR32DA48S (32KiB+4KiB)
+
+AVRDA_noloader.menu.01_variant.separator6=-
+
+AVRDA_noloader.menu.01_variant.AVR128DA32S.build.board=AVR_AVR128DA32S
+AVRDA_noloader.menu.01_variant.AVR128DA32S.build.mcu=avr128da32s
+AVRDA_noloader.menu.01_variant.AVR128DA32S.build.variant=avr_da32
+AVRDA_noloader.menu.01_variant.AVR128DA32S.build.linker_script=avrxmega4_p512.x
+AVRDA_noloader.menu.01_variant.AVR128DA32S.upload.maximum_data_size=16384
+AVRDA_noloader.menu.01_variant.AVR128DA32S.upload.maximum_size=131072
+AVRDA_noloader.menu.01_variant.AVR128DA32S=32pin AVR128DA32S (128KiB+16KiB)
+
+AVRDA_noloader.menu.01_variant.AVR64DA32S.build.board=AVR_AVR64DA32S
+AVRDA_noloader.menu.01_variant.AVR64DA32S.build.mcu=avr64da32s
+AVRDA_noloader.menu.01_variant.AVR64DA32S.build.variant=avr_da32
+AVRDA_noloader.menu.01_variant.AVR64DA32S.build.linker_script=avrxmega2_p512.x
+AVRDA_noloader.menu.01_variant.AVR64DA32S.upload.maximum_data_size=8192
+AVRDA_noloader.menu.01_variant.AVR64DA32S.upload.maximum_size=65536
+AVRDA_noloader.menu.01_variant.AVR64DA32S=32pin AVR64DA32S (64KiB+8KiB)
+
+AVRDA_noloader.menu.01_variant.AVR32DA32S.build.board=AVR_AVR32DA32S
+AVRDA_noloader.menu.01_variant.AVR32DA32S.build.mcu=avr32da32s
+AVRDA_noloader.menu.01_variant.AVR32DA32S.build.variant=avr_da32
+AVRDA_noloader.menu.01_variant.AVR32DA32S.build.linker_script=avrxmega3_p512.x
+AVRDA_noloader.menu.01_variant.AVR32DA32S.upload.maximum_data_size=4096
+AVRDA_noloader.menu.01_variant.AVR32DA32S.upload.maximum_size=32768
+AVRDA_noloader.menu.01_variant.AVR32DA32S=32pin AVR32DA32S (32KiB+4KiB)
+
+AVRDA_noloader.menu.01_variant.separator7=-
+
+AVRDA_noloader.menu.01_variant.AVR128DA28S.build.board=AVR_AVR128DA28S
+AVRDA_noloader.menu.01_variant.AVR128DA28S.build.mcu=avr128da28s
+AVRDA_noloader.menu.01_variant.AVR128DA28S.build.variant=avr_da28
+AVRDA_noloader.menu.01_variant.AVR128DA28S.build.linker_script=avrxmega4_p512.x
+AVRDA_noloader.menu.01_variant.AVR128DA28S.upload.maximum_data_size=16384
+AVRDA_noloader.menu.01_variant.AVR128DA28S.upload.maximum_size=131072
+AVRDA_noloader.menu.01_variant.AVR128DA28S=28pin AVR128DA28S (128KiB+16KiB)
+
+AVRDA_noloader.menu.01_variant.AVR64DA28S.build.board=AVR_AVR64DA28S
+AVRDA_noloader.menu.01_variant.AVR64DA28S.build.mcu=avr64da28s
+AVRDA_noloader.menu.01_variant.AVR64DA28S.build.variant=avr_da28
+AVRDA_noloader.menu.01_variant.AVR64DA28S.build.linker_script=avrxmega2_p512.x
+AVRDA_noloader.menu.01_variant.AVR64DA28S.upload.maximum_data_size=8192
+AVRDA_noloader.menu.01_variant.AVR64DA28S.upload.maximum_size=65536
+AVRDA_noloader.menu.01_variant.AVR64DA28S=28pin AVR64DA28S (64KiB+8KiB)
 
 AVRDA_noloader.menu.01_variant.AVR32DA28S.build.board=AVR_AVR32DA28S
 AVRDA_noloader.menu.01_variant.AVR32DA28S.build.mcu=avr32da28s

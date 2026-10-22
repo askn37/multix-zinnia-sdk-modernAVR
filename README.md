@@ -451,6 +451,10 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 
 ## 更新履歴
 
+- 0.4.11 (26/10/22)
+  - (board) 構成不良を修正
+  - (lib) USB/CDC修正
+
 - 0.4.10 (26/09/17)
   - (core) 機能追加: `api/CVT.h`
   - (board) IDE2.x 修正

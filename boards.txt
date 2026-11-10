@@ -2837,6 +2837,9 @@ AVRDU_usbloader.menu.90_console_baud.115200bps=115200 bps
 AVRDU_usbloader.menu.90_console_baud.230400bps.build.console_baud=-DCONSOLE_BAUD=230400
 AVRDU_usbloader.menu.90_console_baud.230400bps=230400 bps
 
+AVRDU_usbloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
+AVRDU_usbloader.menu.90_console_baud.250000bps=250000 bps
+
 AVRDU_usbloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
 AVRDU_usbloader.menu.90_console_baud.500000bps=500000 bps
 

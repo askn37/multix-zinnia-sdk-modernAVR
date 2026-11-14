@@ -56,8 +56,8 @@ AVRGCCROOT = ../../../../../tools/avr8-gcc/7.3.0-avr8-gnu-toolchain/bin
 # AVRGCCROOT = ../../../../../tools/avr8-gcc15/15.1.0-avr8-gnu-toolchain/bin
 
 ### basedir: ~/Library/Arduino15/packages/MultiX-Zinnia
-ATPACKSPEC = ../../../../../tools/atpack/20260522/gcc/dev/$*
-ATPACKROOT = ../../../../../tools/atpack/20260522/include
+ATPACKSPEC = ../../../../../tools/atpack/20260817/gcc/dev/$*
+ATPACKROOT = ../../../../../tools/atpack/20260817/include
 
 GCC_EXEC_PREFIX=$(ATPACKSPEC)
 

@@ -451,12 +451,13 @@ __Curiosity Nano AVR64DU32__ の場合、デバッグポート側が `SerialDBG`
 
 ## 更新履歴
 
-- 0.4.12 (26/11/10)
+- 0.4.12 (26/11/14)
   - (board) 構成不良を修正
   - (lib) 一部関数の属性変更
   - (lib) USB/Utils 追加
   - (lib) USB/CDC 修正
   - (bootloader) v3.74 に改訂
+  - (euboot) v3.72.51 に改訂
 
 - 0.4.11 (26/10/22)
   - (board) 構成不良を修正

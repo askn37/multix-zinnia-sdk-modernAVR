@@ -2822,8 +2822,11 @@ AVRDU_usbloader.menu.53_printf.Full.build.printf=-DUSE_PRINTF_FLT
 AVRDU_usbloader.menu.53_printf.Full.build.printflt=-Wl,-u,vfprintf -lprintf_flt
 AVRDU_usbloader.menu.53_printf.Full=Float Support
 
+AVRDU_usbloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
+AVRDU_usbloader.menu.90_console_baud.500000bps=500000 bps
+
 AVRDU_usbloader.menu.90_console_baud.9600bps.build.console_baud=-DCONSOLE_BAUD=9600
-AVRDU_usbloader.menu.90_console_baud.9600bps=9600 bps (default)
+AVRDU_usbloader.menu.90_console_baud.9600bps=9600 bps
 
 AVRDU_usbloader.menu.90_console_baud.38400bps.build.console_baud=-DCONSOLE_BAUD=38400
 AVRDU_usbloader.menu.90_console_baud.38400bps=38400 bps
@@ -2839,9 +2842,6 @@ AVRDU_usbloader.menu.90_console_baud.230400bps=230400 bps
 
 AVRDU_usbloader.menu.90_console_baud.250000bps.build.console_baud=-DCONSOLE_BAUD=250000
 AVRDU_usbloader.menu.90_console_baud.250000bps=250000 bps
-
-AVRDU_usbloader.menu.90_console_baud.500000bps.build.console_baud=-DCONSOLE_BAUD=500000
-AVRDU_usbloader.menu.90_console_baud.500000bps=500000 bps
 
 AVRDU_usbloader.menu.90_console_baud.1000000bps.build.console_baud=-DCONSOLE_BAUD=1000000
 AVRDU_usbloader.menu.90_console_baud.1000000bps=1000000 bps

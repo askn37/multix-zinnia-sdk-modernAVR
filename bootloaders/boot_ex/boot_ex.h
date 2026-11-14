@@ -14,7 +14,7 @@
 
 // #define BOOT_HW_VER '3'or '5' /* This is defined later */
 #define BOOT_MAJVER 3   /* To save space, this value is not returned */
-#define BOOT_MINVER 73
+#define BOOT_MINVER 74
 
 #ifndef UART
 #define UART A0

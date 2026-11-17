@@ -103,9 +103,22 @@ __attribute__((used))
 __attribute__((noinline))
 __attribute__((section (".init0")))
 void nvm_cmd (uint8_t _nvm_cmd) {
-  /* This function occupies 18 bytes of space. */
-  _PROTECTED_WRITE_SPM(NVMCTRL_CTRLA, _nvm_cmd);
-  while (NVMCTRL_STATUS & 3);
+  /* R24 <- _nvm_cmd */
+  __asm__ __volatile__ (
+    R"#ASM#(
+      1:  LDS   R25, %0
+          ANDI  R25, 3
+          BRNE  1b
+          LDI   R25, 0x9D
+          OUT   0x34, R25
+          STS   %1, __zero_reg__
+          OUT   0x34, R25
+          STS   %1, R24
+    )#ASM#"
+    :: "p" (_SFR_MEM_ADDR(NVMCTRL_STATUS))
+    ,  "p" (_SFR_MEM_ADDR(NVMCTRL_CTRLA))
+    : "r25"
+  );
 }
 
 __attribute__((noinline))
